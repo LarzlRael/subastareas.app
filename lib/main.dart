@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/initialPresentation/SlideShow.dart';
 import 'package:subastareaspp/initialPresentation/slideshow_page.dart';
+import 'package:subastareaspp/routes/routes.dart';
+import 'package:subastareaspp/utils/shared_preferences.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  final prefs = UserPreferences();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SlideshowPage(),
+      /* home: SlideshowPage(), */
+      routes: appRoutes,
+      initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'loading',
     );
   }
 }

@@ -28,6 +28,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   flutter_svg: ^1.0.3
+  flutter_secure_storage: ^5.0.2
+  shared_preferences: ^2.0.13
+  http: ^0.13.4
   flutter:
     sdk: flutter
 

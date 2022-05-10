@@ -6,10 +6,14 @@ class Slideshow extends StatelessWidget {
   final bool indicatorTopPosition;
   final Color primaryColor;
   final Color secondaryColor;
+  final double primaryBullet;
+  final double secondaryBullet;
   const Slideshow({
     Key? key,
     required this.slides,
     this.indicatorTopPosition = false,
+    this.primaryBullet = 12.0,
+    this.secondaryBullet = 12.0,
     required this.primaryColor,
     required this.secondaryColor,
   }) : super(key: key);
@@ -22,9 +26,14 @@ class Slideshow extends StatelessWidget {
         child: Center(
           child: Builder(
             builder: (context) {
-              Provider.of<_SlideShowModel>(context).primaryColor = primaryColor;
-              Provider.of<_SlideShowModel>(context).secondaryColor =
+              Provider.of<_SlideShowModel>(context).primaryColorValue =
+                  primaryColor;
+              Provider.of<_SlideShowModel>(context).secondaryColorValue =
                   secondaryColor;
+              Provider.of<_SlideShowModel>(context).primaryBulletValue =
+                  primaryBullet;
+              Provider.of<_SlideShowModel>(context).secondaryBulletValue =
+                  secondaryBullet;
               return _CreateSlideShow(
                   indicatorTopPosition: indicatorTopPosition,
                   slides: slides,
@@ -97,8 +106,8 @@ class _Dots extends StatelessWidget {
             totalSlides,
             (index) => _Dot(
                 index: index,
-                primaryColor: this.primaryColor,
-                secondaryColor: this.secondaryColor)),
+                primaryColor: primaryColor,
+                secondaryColor: secondaryColor)),
       ),
     );
   }
@@ -117,18 +126,25 @@ class _Dot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final slideShowModel = Provider.of<_SlideShowModel>(context);
+    final ssModel = Provider.of<_SlideShowModel>(context);
+    Color color;
+    double size;
+    if (ssModel.currentPageValue >= index - 0.5 &&
+        ssModel.currentPageValue <= index + 0.5) {
+      size = ssModel.primaryBulletValue;
+      color = ssModel.primaryColorValue;
+    } else {
+      size = ssModel.secondaryBulletValue;
+      color = ssModel.secondaryColorValue;
+    }
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
-      width: 12,
-      height: 12,
+      width: size,
+      height: size,
       margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
-        color: (slideShowModel.currentPage >= index - 0.5 &&
-                slideShowModel.currentPage <= index + 0.5)
-            ? slideShowModel.primaryColor
-            : slideShowModel.secondaryColor,
+        color: color,
         shape: BoxShape.circle,
       ),
     );
@@ -197,25 +213,34 @@ class _Slide extends StatelessWidget {
 }
 
 class _SlideShowModel with ChangeNotifier {
-  double currentPage = 0;
-  Color primaryColor = Colors.blue;
-  Color secondaryColor = Colors.white;
-
-  double get currentPageValue => currentPage;
+  double _currentPage = 0;
+  Color _primaryColor = Colors.blue;
+  Color _secondaryColor = Colors.white;
+  double _primaryBullet = 12;
+  double _secondaryBullet = 12;
+  double get currentPageValue => _currentPage;
   set currentPageValue(double value) {
-    currentPage = value;
+    _currentPage = value;
     notifyListeners();
   }
 
-  Color get primaryColorValue => primaryColor;
+  Color get primaryColorValue => _primaryColor;
   set primaryColorValue(Color value) {
-    primaryColor = value;
-    notifyListeners();
+    _primaryColor = value;
   }
 
-  Color get secondaryColorValue => secondaryColor;
+  Color get secondaryColorValue => _secondaryColor;
   set secondaryColorValue(Color value) {
-    secondaryColor = value;
-    notifyListeners();
+    _secondaryColor = value;
+  }
+
+  double get primaryBulletValue => _primaryBullet;
+  set primaryBulletValue(double value) {
+    _primaryBullet = value;
+  }
+
+  double get secondaryBulletValue => _secondaryBullet;
+  set secondaryBulletValue(double value) {
+    _secondaryBullet = value;
   }
 }
