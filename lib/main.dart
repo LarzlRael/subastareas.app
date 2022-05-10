@@ -4,16 +4,19 @@ import 'package:subastareaspp/initialPresentation/slideshow_page.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = UserPreferences();
+  await prefs.initPrefs();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
-
   final prefs = UserPreferences();
+  MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    print(prefs.showInitialSlider);
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -22,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       /* home: SlideshowPage(), */
       routes: appRoutes,
-      initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'loading',
+      initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'welcome',
     );
   }
 }
