@@ -1,4 +1,4 @@
-package com.example.subastareaspp
+package com.neo.subastareas
 
 import io.flutter.embedding.android.FlutterActivity
 

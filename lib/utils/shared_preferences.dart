@@ -26,10 +26,10 @@ class UserPreferences {
   }
 
   bool get showInitialSlider {
-    return _prefs.getBool('showInitialSlider') ?? false;
+    return _prefs.getBool('showInitialSlider') ?? true;
   }
 
-  set showInitialSlider(bool value) {
+  set setShowInitialSlider(bool value) {
     _prefs.setBool('showInitialSlider', value);
   }
 }

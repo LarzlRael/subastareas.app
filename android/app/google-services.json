@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "917999900039",
+    "project_id": "subastareas-72416",
+    "storage_bucket": "subastareas-72416.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:917999900039:android:54e325d0ca90398202ef22",
+        "android_client_info": {
+          "package_name": "com.neo.subastareas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "917999900039-20808mbi8pt1j1hdo2jaqq9vgkpu96of.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.neo.subastareas",
+            "certificate_hash": "f84f83ddcf7715243b8edbbc00e514e5a719640c"
+          }
+        },
+        {
+          "client_id": "917999900039-hhmp729r4qk00euhcqh7c7l25t9c9gak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKUmQ4D8apKKKTE9LGzQf6uuba3ieYQsc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "917999900039-hhmp729r4qk00euhcqh7c7l25t9c9gak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

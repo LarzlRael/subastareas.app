@@ -50,8 +50,10 @@ class WelcomePage extends StatelessWidget {
                       backgroundColorButton: Colors.white,
                       styleLabelButton: const TextStyle(color: Colors.black),
                       onPressed: () {
-                        Navigator.pushNamed(context, 'newWallet',
-                            arguments: 'wallet_page');
+                        Navigator.pushNamed(
+                          context,
+                          'register',
+                        );
                       },
                     ),
                   ],
