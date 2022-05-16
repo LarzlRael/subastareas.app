@@ -22,7 +22,7 @@ class AuthServices with ChangeNotifier {
     print(resp!.body);
     if (validateStatus(resp.statusCode)) {
       final userModel = userModelFromJson(resp.body);
-      await _saveToken(userModel.accessToken);
+      await _saveIdAnToken(userModel.id.toString(), userModel.accessToken);
       return true;
     } else {
       return false;
@@ -36,10 +36,13 @@ class AuthServices with ChangeNotifier {
         null,
         await _storage.read(key: 'token'));
     print(resp!.body);
+    await _storage.delete(key: 'token');
+    await _storage.delete(key: 'id');
     return true;
   }
 
-  Future _saveToken(String token) async {
-    return await _storage.write(key: 'token', value: token);
+  Future _saveIdAnToken(String id, String token) async {
+    await _storage.write(key: 'token', value: token);
+    await _storage.write(key: 'id', value: id);
   }
 }

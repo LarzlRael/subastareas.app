@@ -4,12 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:mime_type/mime_type.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
     as Enviroments;
-import 'package:subastareaspp/models/error_model.dart';
 import 'package:http_parser/http_parser.dart';
 
 class Services {
+  String uri = '${Enviroments.serverHttpUrl}/';
+
   static Future<http.Response?> sendRequest(
-      String method, String url, body) async {
+      String method, String url, Map<String, String> body) async {
     final headers = {
       'Content-Type': 'application/json',
     };
@@ -37,6 +38,7 @@ class Services {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     };
+
     final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
@@ -55,39 +57,35 @@ class Services {
     return res;
   }
 
-  Future sendRequestWithFile(
-      File file, String url, String method, token) async {
+  static Future<http.Response> sendRequestWithFile(
+    File file,
+    String url,
+    String method,
+    Map<String, String> otherFields,
+    String token,
+  ) async {
+    late http.Response res;
     final URI = Uri.parse('${Enviroments.serverHttpUrl}/$url');
     final mimeType = mime(file.path)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',
     };
     final uploadFile = await http.MultipartFile.fromPath(
-      'file',
+      'homeworkfile',
       file.path,
       contentType: MediaType(mimeType[0], mimeType[1]),
     );
-    switch (method) {
-      case "POST":
-        final uploadPostRequest = await http.MultipartRequest(
-          'POST',
-          URI,
-        );
-        uploadPostRequest.headers.addAll(headers);
-        uploadPostRequest.files.add(uploadFile);
-        final streamResponse = await uploadPostRequest.send();
-        final resp = await http.Response.fromStream(streamResponse);
-        break;
-      case "PUT":
-        final uploadPostRequest = await http.MultipartRequest(
-          'PUT',
-          URI,
-        );
-        uploadPostRequest.headers.addAll(headers);
-        uploadPostRequest.files.add(uploadFile);
-        final streamResponse = await uploadPostRequest.send();
-        final resp = await http.Response.fromStream(streamResponse);
-        break;
-    }
+
+    final uploadPostRequest = http.MultipartRequest(
+      method,
+      URI,
+    );
+    uploadPostRequest.headers.addAll(headers);
+    uploadPostRequest.files.add(uploadFile);
+    uploadPostRequest.fields.addAll(otherFields);
+    final streamResponse = await uploadPostRequest.send();
+    res = await http.Response.fromStream(streamResponse);
+
+    return res;
   }
 }

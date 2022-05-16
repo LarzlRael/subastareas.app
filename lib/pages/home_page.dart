@@ -1,66 +1,182 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_file_picker/form_builder_file_picker.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:subastareaspp/servives/services.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  final sampleUrl =
-      'https://res.cloudinary.com/negocioexitoso-online/image/upload/v1651872441/HOMEWORK/ruao6elwfrbi3ilflz0y.pdf';
-
-  String? pdfFlePath;
-
-  Future<String> downloadAndSavePdf() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final file = File('${directory.path}/sample.pdf');
-    if (await file.exists()) {
-      return file.path;
-    }
-    final response = await http.get(Uri.parse(sampleUrl));
-    await file.writeAsBytes(response.bodyBytes);
-    return file.path;
-  }
-
-  void loadPdf() async {
-    pdfFlePath = await downloadAndSavePdf();
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    loadPdf();
-    super.initState();
-  }
-
+  final _formKey = GlobalKey<FormBuilderState>();
+  bool _useCustomFileViewer = true;
+  final format = DateFormat("dd-MM-yyyy hh:mm");
+  final category = [
+    'matematica',
+    'programacion',
+    'lenguaje',
+    'fisica',
+    'quimica',
+    'algebra',
+    'trigonometria',
+    'geometria',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.file_download),
+      appBar: AppBar(
+        title: const Text('Subir nueva tarea'),
       ),
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            children: <Widget>[
-              pdfFlePath != null
-                  ? Expanded(
-                      child: Container(
-                        child: PdfView(path: pdfFlePath!),
-                      ),
-                    )
-                  : const CircularProgressIndicator(),
-            ],
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: FormBuilder(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                FormBuilderFilePicker(
+                  /* allowedExtensions: const ['jpeg', 'jpg', 'heic', 'pdf'], */
+                  name: 'images',
+                  validator: FormBuilderValidators.required(),
+                  decoration: const InputDecoration(labelText: 'Attachments'),
+                  maxFiles: 1,
+                  allowMultiple: false,
+                  previewImages: true,
+                  onChanged: (val) => debugPrint(val.toString()),
+                  selector: Row(
+                    children: const <Widget>[
+                      Icon(Icons.file_upload),
+                      Text('Subir imagen o pdf'),
+                    ],
+                  ),
+                  onFileLoading: (val) {
+                    debugPrint(val.toString());
+                  },
+                  /* customFileViewerBuilder:
+                      _useCustomFileViewer ? customFileViewerBuilder : null, */
+                ),
+                FormBuilderTextField(
+                  name: 'title',
+                  validator: FormBuilderValidators.required(),
+                  decoration: const InputDecoration(
+                    labelText: 'Titulo de la tarea',
+                    suffixIcon: Icon(Icons.person),
+                  ),
+                ),
+                FormBuilderTextField(
+                  name: 'description',
+                  validator: FormBuilderValidators.required(),
+                  decoration: const InputDecoration(
+                    labelText: 'Descripcion',
+                    suffixIcon: Icon(Icons.person),
+                  ),
+                ),
+                FormBuilderTextField(
+                  name: 'offered_amount',
+                  validator: FormBuilderValidators.required(),
+                  decoration: const InputDecoration(
+                    labelText: 'Precio de oferta',
+                    suffixIcon: Icon(Icons.person),
+                  ),
+                ),
+                FormBuilderDropdown(
+                  name: "category",
+                  decoration: InputDecoration(labelText: "Categoria"),
+                  /* initialValue: category[0], */
+                  hint: Text('Categoria'),
+                  validator: FormBuilderValidators.required(),
+                  items: category
+                      .map((category) => DropdownMenuItem(
+                          value: category, child: Text("$category")))
+                      .toList(),
+                ),
+                FormBuilderDateTimePicker(
+                  format: format,
+                  name: 'resolutionTime',
+                  validator: FormBuilderValidators.required(),
+                  decoration: const InputDecoration(
+                    labelText: 'tiempo de resolucion',
+                    suffixIcon: Icon(Icons.person),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      child: const Text('Nueva tarea  '),
+                      onPressed: () async {
+                        _formKey.currentState!.save();
+                        File file = File(
+                            _formKey.currentState!.value['images'][0].path);
+                        final res = await Services.sendRequestWithFile(
+                            file,
+                            'homework/create',
+                            'POST',
+                            {
+                              'title': _formKey.currentState!.value['title'],
+                              'description':
+                                  _formKey.currentState!.value['description'],
+                              'offered_amount': _formKey
+                                  .currentState!.value['offered_amount'],
+                              'category':
+                                  _formKey.currentState!.value['category'],
+                              'resolutionTime': DateTime.now().toString(),
+                            },
+                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhdG9tb24iLCJpYXQiOjE2NTI3MjUzMjUsImV4cCI6MTY1MjgxMTcyNX0.4cbUUASySyqj1iHimGEEHW3wlwZYgMQRCksxBZsRal4');
+                        print(res);
+                      },
+                    ),
+                    /* const Spacer(), */
+                    /* ElevatedButton(
+                      child: Text(_useCustomFileViewer
+                          ? 'Use Default File Viewer'
+                          : 'Use Custom File Viewer'),
+                      onPressed: () {
+                        setState(
+                            () => _useCustomFileViewer = !_useCustomFileViewer);
+                      },
+                    ), */
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget customFileViewerBuilder(
+    List<PlatformFile>? files,
+    FormFieldSetter<List<PlatformFile>> setter,
+  ) {
+    return ListView.separated(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        final file = files![index];
+        return ListTile(
+          title: Text(file.name),
+          trailing: IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              files.removeAt(index);
+              setter.call([...files]);
+            },
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => const Divider(
+        color: Colors.blueAccent,
+      ),
+      itemCount: files!.length,
     );
   }
 }
