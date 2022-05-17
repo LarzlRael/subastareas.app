@@ -36,13 +36,21 @@ class AuthServices with ChangeNotifier {
         null,
         await _storage.read(key: 'token'));
     print(resp!.body);
-    await _storage.delete(key: 'token');
-    await _storage.delete(key: 'id');
+    await clear();
     return true;
   }
 
   Future _saveIdAnToken(String id, String token) async {
     await _storage.write(key: 'token', value: token);
     await _storage.write(key: 'id', value: id);
+  }
+
+  Future clear() async {
+    await _storage.delete(key: 'token');
+    await _storage.delete(key: 'id');
+  }
+
+  Future<String> getCurrentToken() async {
+    return await _storage.read(key: 'token') ?? '';
   }
 }

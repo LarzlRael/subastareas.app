@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_file_picker/form_builder_file_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:provider/provider.dart';
+import 'package:subastareaspp/servives/auth_services.dart';
 import 'package:subastareaspp/servives/services.dart';
 import 'package:intl/intl.dart';
 
@@ -16,6 +18,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormBuilderState>();
+
   bool _useCustomFileViewer = true;
   final format = DateFormat("dd-MM-yyyy hh:mm");
   final category = [
@@ -30,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthServices>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Subir nueva tarea'),
@@ -43,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 FormBuilderFilePicker(
                   /* allowedExtensions: const ['jpeg', 'jpg', 'heic', 'pdf'], */
-                  name: 'images',
+                  name: 'files',
                   validator: FormBuilderValidators.required(),
                   decoration: const InputDecoration(labelText: 'Attachments'),
                   maxFiles: 1,
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 FormBuilderTextField(
                   name: 'offered_amount',
+                  keyboardType: TextInputType.number,
                   validator: FormBuilderValidators.required(),
                   decoration: const InputDecoration(
                     labelText: 'Precio de oferta',
@@ -114,23 +119,24 @@ class _HomePageState extends State<HomePage> {
                       child: const Text('Nueva tarea  '),
                       onPressed: () async {
                         _formKey.currentState!.save();
-                        File file = File(
-                            _formKey.currentState!.value['images'][0].path);
+                        File file =
+                            File(_formKey.currentState!.value['files'][0].path);
                         final res = await Services.sendRequestWithFile(
-                            file,
-                            'homework/create',
-                            'POST',
-                            {
-                              'title': _formKey.currentState!.value['title'],
-                              'description':
-                                  _formKey.currentState!.value['description'],
-                              'offered_amount': _formKey
-                                  .currentState!.value['offered_amount'],
-                              'category':
-                                  _formKey.currentState!.value['category'],
-                              'resolutionTime': DateTime.now().toString(),
-                            },
-                            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdhdG9tb24iLCJpYXQiOjE2NTI3MjUzMjUsImV4cCI6MTY1MjgxMTcyNX0.4cbUUASySyqj1iHimGEEHW3wlwZYgMQRCksxBZsRal4');
+                          file,
+                          'homework/create',
+                          'POST',
+                          {
+                            'title': _formKey.currentState!.value['title'],
+                            'description':
+                                _formKey.currentState!.value['description'],
+                            'offered_amount':
+                                _formKey.currentState!.value['offered_amount'],
+                            'category':
+                                _formKey.currentState!.value['category'],
+                            'resolutionTime': DateTime.now().toString(),
+                          },
+                          await authService.getCurrentToken(),
+                        );
                         print(res);
                       },
                     ),
