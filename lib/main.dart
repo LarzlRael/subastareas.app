@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         /* home: SlideshowPage(), */
         routes: appRoutes,
         /* initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'welcome', */
-        initialRoute: 'autionWithOffer',
+        initialRoute: 'makeOffer',
         localizationsDelegates: [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

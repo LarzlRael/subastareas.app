@@ -10,7 +10,7 @@ import 'package:subastareaspp/servives/services.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -93,9 +93,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 FormBuilderDropdown(
                   name: "category",
-                  decoration: InputDecoration(labelText: "Categoria"),
+                  decoration: const InputDecoration(labelText: "Categoria"),
                   /* initialValue: category[0], */
-                  hint: Text('Categoria'),
+                  hint: const Text('Categoria'),
                   validator: FormBuilderValidators.required(),
                   items: category
                       .map((category) => DropdownMenuItem(

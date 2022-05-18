@@ -6,6 +6,7 @@ import 'package:subastareaspp/pages/aution_with_offer.dart';
 import 'package:subastareaspp/pages/home_page.dart';
 import 'package:subastareaspp/pages/loading_page.dart';
 import 'package:subastareaspp/pages/login_page.dart';
+import 'package:subastareaspp/pages/make_offer_page.dart';
 import 'package:subastareaspp/pages/register_page.dart';
 import 'package:subastareaspp/pages/welcome_page.dart';
 
@@ -16,7 +17,8 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'loading': (_) => LoadingPage(),
   'initialSlideShow': (_) => const SlideshowPage(),
   'welcome': (_) => WelcomePage(),
-  'homePage': (_) => HomePage(),
-  'auctionPage': (_) => AuctionPage(),
-  'autionWithOffer': (_) => AutionWithOffer(),
+  'homePage': (_) => const HomePage(),
+  'auctionPage': (_) => const AuctionPage(),
+  'autionWithOffer': (_) => const AutionWithOffer(),
+  'makeOffer': (_) => MakeOfferPage(),
 };

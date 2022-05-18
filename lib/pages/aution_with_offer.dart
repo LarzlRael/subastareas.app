@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/index.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
-class AutionWithOffer extends StatelessWidget {
+class AutionWithOffer extends StatefulWidget {
   const AutionWithOffer({Key? key}) : super(key: key);
+
+  @override
+  State<AutionWithOffer> createState() => _AutionWithOfferState();
+}
+
+class _AutionWithOfferState extends State<AutionWithOffer> {
+  late CountdownTimerController controller;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
+  }
+
+  void onEnd() {
+    print('onEnd');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,16 +131,16 @@ class AutionWithOffer extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          SimpleText(
-                            fontSize: 15,
-                            top: 5,
-                            text: '28 : 30 : 00',
-                            fontWeight: FontWeight.w400,
-                          ),
+                          TimerCounter(
+                            endTime: DateTime.now().millisecondsSinceEpoch +
+                                1000 * 30,
+                          )
                         ],
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          /* startTimer(); */
+                        },
                         child: SimpleText(
                           fontSize: 15,
                           text: "Hacer una oferta",

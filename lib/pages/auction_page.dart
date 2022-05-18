@@ -86,6 +86,11 @@ class _AuctionPageState extends State<AuctionPage> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
+                /*   TimerCounter(
+                  endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 30,
+                  testStyle: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                ), */
               ),
             ],
           ),
@@ -98,8 +103,9 @@ class _AuctionPageState extends State<AuctionPage> {
           ),
           DescriptionText(
             desc:
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic',
-          )
+                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
+          ),
+          Comments(),
         ],
       ),
     );
@@ -151,7 +157,9 @@ class _AuctionPageState extends State<AuctionPage> {
               ],
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                /* _makeAndOffer(); */
+              },
               child: Text('Hacer una oferta'),
             ),
           ],
