@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:provider/provider.dart';
@@ -11,3 +13,5 @@ part 'float_menu.dart';
 part 'timer_counter.dart';
 part 'comments/comment_card.dart';
 part 'comments/comments.dart';
+part 'homework_card.dart';
+part 'circle_avatar_group.dart';

@@ -8,15 +8,18 @@ class ButtonWithIcon extends StatelessWidget {
 
   final VoidCallback onPressed;
   final Color backgroundColorButton;
-
-  ButtonWithIcon(
-      {this.icon,
-      required this.label,
-      required this.backgroundColorButton,
-      this.buttonBorderColor = Colors.transparent,
-      this.styleLabelButton =
-          const TextStyle(color: Colors.white, fontSize: 16),
-      required this.onPressed});
+  final double verticalPadding;
+  final double iconSize;
+  ButtonWithIcon({
+    this.icon,
+    required this.label,
+    this.backgroundColorButton = Colors.blue,
+    this.buttonBorderColor = Colors.transparent,
+    this.styleLabelButton = const TextStyle(color: Colors.white, fontSize: 16),
+    this.verticalPadding = 5,
+    this.iconSize = 24.0,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +31,11 @@ class ButtonWithIcon extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: icon != null
             ? TextButton.icon(
-                icon: Icon(icon, color: Colors.white),
+                icon: Icon(
+                  icon,
+                  color: Colors.white,
+                  size: iconSize,
+                ),
                 label: Text(label, style: styleLabelButton),
                 onPressed: onPressed,
                 style: buttonsStyles(context),
@@ -44,7 +51,8 @@ class ButtonWithIcon extends StatelessWidget {
 
   buttonsStyles(BuildContext context) {
     return ElevatedButton.styleFrom(
-      shape: StadiumBorder(),
+      padding: EdgeInsets.symmetric(vertical: verticalPadding),
+      shape: const StadiumBorder(),
       primary: backgroundColorButton,
       side: BorderSide(
         width: .8,

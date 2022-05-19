@@ -54,7 +54,7 @@ class _AuctionPageState extends State<AuctionPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SimpleText(
-            text: 'Afro Weeb',
+            text: 'Afro Web',
             fontWeight: FontWeight.w500,
             bottom: 15,
             fontSize: 22,
@@ -65,14 +65,14 @@ class _AuctionPageState extends State<AuctionPage> {
               _infoContainer(
                   'Creador',
                   Row(
-                    children: [
+                    children: const [
                       CircleAvatar(
                         backgroundColor: Colors.blue,
                       ),
                       SizedBox(
                         width: 7,
                       ),
-                      const SimpleText(
+                      SimpleText(
                         text: 'Nick Cannon',
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -105,6 +105,23 @@ class _AuctionPageState extends State<AuctionPage> {
             desc:
                 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
           ),
+          TextButton(
+            child: Text('Ver Tarea '),
+            onPressed: () {
+              Navigator.pushNamed(context, 'showHomework');
+            },
+          ),
+          const CircleAvatarGroup(
+            urlImages: [
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
+            ],
+          ),
           Comments(),
         ],
       ),
@@ -117,7 +134,7 @@ class _AuctionPageState extends State<AuctionPage> {
       height: size.height * 0.35,
       width: size.width,
       child: Image.network(
-        'https://buscatuprofesor.mx/data/files/news/16182182048646.jpg',
+        'https://octutor.org/media/posts/11/math.jpg',
         /* width: 280.0, */
       ),
     );
@@ -158,7 +175,7 @@ class _AuctionPageState extends State<AuctionPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                /* _makeAndOffer(); */
+                Navigator.pushNamed(context, 'makeOffer');
               },
               child: Text('Hacer una oferta'),
             ),

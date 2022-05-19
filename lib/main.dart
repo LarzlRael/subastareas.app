@@ -6,12 +6,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/servives/auth_services.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final prefs = UserPreferences();
   await prefs.initPrefs();
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+      );
   runApp(MyApp());
 }
 
@@ -33,13 +37,13 @@ class MyApp extends StatelessWidget {
         /* home: SlideshowPage(), */
         routes: appRoutes,
         /* initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'welcome', */
-        initialRoute: 'makeOffer',
-        localizationsDelegates: [
+        initialRoute: 'listOpenHomeworks',
+        localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en', ''),
           Locale('es', ''),
           Locale('fr', ''),

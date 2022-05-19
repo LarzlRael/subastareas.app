@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/initialPresentation/SlideShow.dart';
 import 'package:subastareaspp/initialPresentation/slideshow_page.dart';
+import 'package:subastareaspp/pages/ShowHomework.dart';
 import 'package:subastareaspp/pages/auction_page.dart';
 import 'package:subastareaspp/pages/aution_with_offer.dart';
 import 'package:subastareaspp/pages/home_page.dart';
+import 'package:subastareaspp/pages/list_open_homeworks.dart';
 import 'package:subastareaspp/pages/loading_page.dart';
 import 'package:subastareaspp/pages/login_page.dart';
 import 'package:subastareaspp/pages/make_offer_page.dart';
@@ -21,4 +23,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'auctionPage': (_) => const AuctionPage(),
   'autionWithOffer': (_) => const AutionWithOffer(),
   'makeOffer': (_) => MakeOfferPage(),
+  'listOpenHomeworks': (_) => const ListOpenHomeworks(),
+  'showHomework': (_) => ShowHomework(),
 };

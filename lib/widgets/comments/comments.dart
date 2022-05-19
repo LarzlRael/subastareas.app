@@ -9,6 +9,7 @@ class Comments extends StatefulWidget {
 
 class _CommentsState extends State<Comments> {
   final myController = TextEditingController();
+  bool _showSendIcon = false;
   @override
   void dispose() {
     myController.dispose();
@@ -63,34 +64,53 @@ class _CommentsState extends State<Comments> {
       context: context,
       isScrollControlled: true,
       builder: (context) {
-        return Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                const CircleAvatar(),
-                const SizedBox(
-                  width: 15,
-                ),
-                Expanded(
-                    child: TextField(
-                  controller: controller,
-                  onChanged: (value) {},
-                )),
-                controller.text.length > 0
-                    ? IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.send),
-                      )
-                    : const SizedBox(),
-              ],
+        return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const CircleAvatar(),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Expanded(
+                      child: TextField(
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Escribe un comentario',
+                    ),
+                    autofocus: true,
+                    controller: controller,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        setState(() {
+                          _showSendIcon = true;
+                        });
+                      } else {
+                        setState(() {
+                          _showSendIcon = false;
+                        });
+                      }
+                    },
+                  )),
+                  _showSendIcon
+                      ? IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            controller.clear();
+                          },
+                          icon: const Icon(Icons.send),
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
-          ),
-        );
+          );
+        });
       },
     );
   }

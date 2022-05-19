@@ -147,7 +147,7 @@ class _CommentCardState extends State<CommentCard>
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.edit),
-              title: const Text('Editar'),
+              title: const Text('Editar comentario'),
               onTap: () {
                 Navigator.pop(context);
               },

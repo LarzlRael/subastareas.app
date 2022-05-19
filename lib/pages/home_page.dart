@@ -19,7 +19,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  bool _useCustomFileViewer = true;
   final format = DateFormat("dd-MM-yyyy hh:mm");
   final category = [
     'matematica',

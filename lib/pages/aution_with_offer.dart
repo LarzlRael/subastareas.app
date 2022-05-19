@@ -126,7 +126,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SimpleText(
+                          const SimpleText(
                             text: 'Afro Weed',
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
@@ -139,7 +139,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          /* startTimer(); */
+                          Navigator.pushNamed(context, 'makeOffer');
                         },
                         child: SimpleText(
                           fontSize: 15,

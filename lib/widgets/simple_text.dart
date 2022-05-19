@@ -38,14 +38,13 @@ class SimpleText extends StatelessWidget {
       child: Text(
         text,
         textAlign: textAlign ?? TextAlign.start,
-        style: style != null
-            ? style
-            : TextStyle(
-                height: lineHeight,
-                fontWeight: fontWeight ?? FontWeight.normal,
-                fontSize: fontSize ?? 14,
-                color: color ?? Colors.black,
-              ),
+        style: style ??
+            TextStyle(
+              height: lineHeight,
+              fontWeight: fontWeight ?? FontWeight.normal,
+              fontSize: fontSize ?? 14,
+              color: color ?? Colors.black,
+            ),
       ),
     );
   }

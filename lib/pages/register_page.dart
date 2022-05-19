@@ -72,13 +72,7 @@ class RegisterPage extends StatelessWidget {
                           _formKey.currentState!.value['password']); */
                     }
                   },
-                  child: Text('Iniciar sesión'),
-                ),
-                RaisedButton(
-                  onPressed: () async {
-                    await authService.logout();
-                  },
-                  child: Text('Cerrar sesion'),
+                  child: Text('Registrarse'),
                 ),
               ],
             ),
