@@ -15,3 +15,5 @@ part 'comments/comment_card.dart';
 part 'comments/comments.dart';
 part 'homework_card.dart';
 part 'circle_avatar_group.dart';
+part 'chip_choice.dart';
+part 'bell_icon_notification.dart';

@@ -14,7 +14,6 @@ class PersonOfferHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.all(5.0),
       child: Row(
@@ -26,10 +25,10 @@ class PersonOfferHorizontal extends StatelessWidget {
                   /* radius: 20, */
                   ),
               SimpleText(
-                left: 15,
-                text: 'Daniela Ready',
+                left: 10,
+                text: nameOffered,
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
               ),
             ],
           ),

@@ -1,10 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:provider/provider.dart';
-import 'package:subastareaspp/alerts/simple_alert.dart';
-import 'package:subastareaspp/servives/auth_services.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'pages.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
@@ -21,7 +15,7 @@ class LoginPage extends StatelessWidget {
             key: _formKey,
             child: Column(
               children: [
-                SimpleText(text: 'Iniciar sesión'),
+                const SimpleText(text: 'Iniciar sesión'),
                 FormBuilderTextField(
                   name: 'username',
                   validator: FormBuilderValidators.required(),

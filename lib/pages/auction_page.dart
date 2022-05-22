@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'pages.dart';
 
 class AuctionPage extends StatefulWidget {
   const AuctionPage({Key? key}) : super(key: key);
@@ -39,7 +38,7 @@ class _AuctionPageState extends State<AuctionPage> {
             children: [
               _imageCategory(),
               _cardAuction(),
-              _buttonMakeOffer(),
+              /* _buttonMakeOffer(), */
             ],
           ),
         ),
@@ -94,17 +93,9 @@ class _AuctionPageState extends State<AuctionPage> {
               ),
             ],
           ),
-          const SimpleText(
-            text: 'Descripción',
-            top: 20,
-            bottom: 10,
-            color: Colors.black,
-            fontSize: 18,
-          ),
-          DescriptionText(
-            desc:
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
-          ),
+          descripction(
+              'este es un adescripcion de mi tarea we no teng a nad mas que tgodo sjs'),
+          _buttonMakeOffer(),
           TextButton(
             child: Text('Ver Tarea '),
             onPressed: () {
@@ -140,6 +131,21 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
+  _infoContainer(String title, Widget content) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SimpleText(
+          text: title,
+          fontSize: 16,
+          color: Colors.grey,
+          bottom: 10,
+        ),
+        content,
+      ],
+    );
+  }
+
   Widget _buttonMakeOffer() {
     final size = MediaQuery.of(context).size;
     return Positioned(
@@ -147,8 +153,9 @@ class _AuctionPageState extends State<AuctionPage> {
       height: size.height, */
       bottom: 0,
       child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 20),
         width: size.width * 1,
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.blue,
@@ -185,17 +192,21 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  _infoContainer(String title, Widget content) {
+  Widget descripction(String? desc) {
+    if (desc == null || desc.isEmpty) return Container();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SimpleText(
-          text: title,
-          fontSize: 16,
-          color: Colors.grey,
+        const SimpleText(
+          text: 'Descripción',
+          top: 20,
           bottom: 10,
+          color: Colors.black,
+          fontSize: 18,
         ),
-        content,
+        DescriptionText(
+          desc: desc,
+        ),
       ],
     );
   }

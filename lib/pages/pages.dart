@@ -1,0 +1,36 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/index.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_builder_file_picker/form_builder_file_picker.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
+import 'package:provider/provider.dart';
+import 'package:subastareaspp/alerts/simple_alert.dart';
+import 'package:subastareaspp/routes/routes_page.dart';
+import 'package:subastareaspp/servives/auth_services.dart';
+import 'package:subastareaspp/servives/services.dart';
+import 'package:subastareaspp/utils/shared_preferences.dart';
+import 'package:subastareaspp/widgets/slideshow.dart';
+import 'package:subastareaspp/widgets/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+
+part 'login_page.dart';
+part 'register_page.dart';
+part 'auction_page.dart';
+part 'home_page.dart';
+part 'list_open_homeworks.dart';
+part 'loading_page.dart';
+part 'make_offer_page.dart';
+part 'ShowHomework.dart';
+part 'welcome_page.dart';
+part 'bottom_navigation.dart';
+part 'initialPresentation/slideshow_page.dart';
+part 'aution_with_offer.dart';
+part 'profile_page.dart';

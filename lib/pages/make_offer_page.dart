@@ -1,7 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'pages.dart';
 
 class MakeOfferPage extends StatelessWidget {
   @override

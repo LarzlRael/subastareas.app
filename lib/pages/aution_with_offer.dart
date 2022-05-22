@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/index.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'pages.dart';
 
 class AutionWithOffer extends StatefulWidget {
   const AutionWithOffer({Key? key}) : super(key: key);
@@ -50,21 +48,19 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
           ),
           Container(
             padding: const EdgeInsets.all(16.0),
-            child: SimpleText(
+            child: const SimpleText(
               text: "Ofertas de los vendedores",
               fontSize: 20,
               top: 10,
-              bottom: 10,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            height: size.height * 0.20,
+          Expanded(
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+              /* scrollDirection: Axis.horizontal, */
               itemCount: 10,
               itemBuilder: (context, index) {
-                return PersonOfferCard(
+                return PersonOfferHorizontal(
                   nameOffered: "Juan Perez",
                   offerPrice: 100,
                   active: index % 2 == 0,
@@ -131,10 +127,10 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          TimerCounter(
+                          /* TimerCounter(
                             endTime: DateTime.now().millisecondsSinceEpoch +
                                 1000 * 30,
-                          )
+                          ) */
                         ],
                       ),
                       ElevatedButton(

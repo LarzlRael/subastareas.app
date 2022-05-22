@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
-import 'package:ionicons/ionicons.dart';
+part of 'pages.dart';
 
 class WelcomePage extends StatelessWidget {
   @override

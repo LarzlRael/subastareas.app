@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:provider/provider.dart';
-import 'package:subastareaspp/servives/auth_services.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'pages.dart';
 
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
