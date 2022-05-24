@@ -13,15 +13,8 @@ class WelcomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    width: 200,
-                    height: 200,
-                    child: Image.asset('assets/icon.png')),
-                const SimpleText(
-                  text: 'Subastareas',
-                  fontSize: 24,
-                  top: 16,
-                  bottom: 16,
-                  fontWeight: FontWeight.bold,
+                  margin: const EdgeInsets.symmetric(vertical: 35),
+                  child: Image.asset('assets/logo_with_letters.png'),
                 ),
                 const SimpleText(
                   text:

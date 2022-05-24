@@ -5,7 +5,7 @@ import '../pages/pages.dart';
 final Map<String, Widget Function(BuildContext)> appRoutes = {
   'initialSlideShow': (_) => const SlideshowPage(),
   /* Register and login  */
-  'login': (_) => RegisterPage(),
+  'login': (_) => LoginPage(),
   'register': (_) => RegisterPage(),
   'bottomNavigation': (_) => const BottomNavigation(),
   'loading': (_) => LoadingPage(),
@@ -17,4 +17,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'listOpenHomeworks': (_) => const ListOpenHomeworks(),
   'showHomework': (_) => const ShowHomework(),
   'profile': (_) => ProfilePage(),
+  'forgot_password': (_) => ForgotPassword(),
 };

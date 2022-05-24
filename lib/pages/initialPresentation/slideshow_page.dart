@@ -5,48 +5,77 @@ class SlideshowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
-    /*  final _services = Services();
-    final data = {
-      'username': 'gatomon2',
-      'password': 'gatomon22',
-      'idDevice': '123455'
-    };
-    _services.sendRequest('POST', 'auth/signin', data).then((value) {
-      /* print(value!.body); */
-      if ((validateStatus(value?.statusCode))) {
-        print('ok');
-      } else {
 
-        print('error en la solicitud');
-        print(value!.body);
-        /* final error = errorModelFromJson(value!.body);
-        print(error.message); */
-
-      }
-    }); */
     return Scaffold(
-      body: Center(
-        child: Slideshow(
-          primaryColor: Colors.blue,
-          secondaryColor: Colors.blueGrey,
-          primaryBullet: 20.0,
-          secondaryBullet: 10.0,
-          slides: [
-            SvgPicture.asset('assets/svg/slide-1.svg'),
-            SvgPicture.asset('assets/svg/slide-2.svg'),
-            SvgPicture.asset('assets/svg/slide-3.svg'),
-            Column(
-              children: [
-                Expanded(child: SvgPicture.asset('assets/svg/slide-3.svg')),
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacementNamed(context, 'welcome');
-                      prefs.setShowInitialSlider = false;
-                    },
-                    child: Text('Ir al inicio')),
-              ],
-            )
-          ],
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 32),
+                child: Image.asset(
+                  'assets/logo_with_letters.png',
+                  fit: BoxFit.contain,
+                  width: 250,
+                ),
+              ),
+              const Expanded(
+                child: Slideshow(
+                  primaryColor: Colors.blue,
+                  secondaryColor: Colors.blueGrey,
+                  primaryBullet: 15.0,
+                  secondaryBullet: 10.0,
+                  slides: [
+                    SlidePage(
+                        assetImage: 'assets/svg/slide-1.svg',
+                        title: "¿Bloqueado y con muchas prácticas?",
+                        subtitle:
+                            "En nivel de dificultad no es un problema en subastareas"),
+                    SlidePage(
+                        assetImage: 'assets/svg/slide-2.svg',
+                        title: "¿Sabes la respuesta?",
+                        subtitle:
+                            "Ayuda con la tarea propuesta y gana dinero por ello"),
+                    SlidePage(
+                        assetImage: 'assets/svg/slide-3.svg',
+                        title: "Tareas de todas las materias",
+                        subtitle:
+                            "Porque enseñar también es una manera de aprender"),
+                  ],
+                ),
+              ),
+              /* Expanded(
+                child: Slideshow(
+                  primaryColor: Colors.blue,
+                  secondaryColor: Colors.blueGrey,
+                  primaryBullet: 15.0,
+                  secondaryBullet: 10.0,
+                  slides: [
+                    SvgPicture.asset('assets/svg/slide-1.svg'),
+                    SvgPicture.asset('assets/svg/slide-2.svg'),
+                    SvgPicture.asset('assets/svg/slide-3.svg'),
+                  ],
+                ),
+              ), */
+              FillButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'login');
+                },
+                text: 'Iniciar sesion',
+                textColor: Colors.white,
+                backgroundColor: Colors.amber,
+              ),
+              FillButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'register');
+                },
+                ghostButton: true,
+                text: 'Registrarse',
+                backgroundColor: Colors.blue,
+              ),
+            ],
+          ),
         ),
       ),
     );

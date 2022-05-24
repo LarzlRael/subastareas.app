@@ -15,11 +15,19 @@ class LabelLoginRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SimpleText(
-          text: 'Olvide mi contraseña',
-          color: Colors.indigo,
-          fontWeight: FontWeight.bold,
-          fontSize: 15,
+        GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              'forgot_password',
+            );
+          },
+          child: const SimpleText(
+            text: 'Olvide mi contraseña',
+            color: Colors.indigo,
+            fontWeight: FontWeight.bold,
+            fontSize: 15,
+          ),
         ),
         const SizedBox(height: 10),
         GestureDetector(
