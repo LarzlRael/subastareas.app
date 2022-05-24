@@ -9,55 +9,116 @@ class LoginPage extends StatelessWidget {
     final authService = Provider.of<AuthServices>(context);
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: FormBuilder(
-            key: _formKey,
-            child: Column(
-              children: [
-                const SimpleText(text: 'Iniciar sesión'),
-                FormBuilderTextField(
-                  name: 'username',
-                  validator: FormBuilderValidators.required(),
-                  decoration: const InputDecoration(
-                    labelText: 'Nombre de usuario',
-                    suffixIcon: Icon(Icons.person),
-                  ),
-                ),
-                FormBuilderTextField(
-                  name: 'password',
-                  obscureText: true,
-                  validator: FormBuilderValidators.required(),
-                  decoration: const InputDecoration(
-                    labelText: 'Contraseña',
-                    suffixIcon: Icon(Icons.password_outlined),
-                  ),
-                ),
-                RaisedButton(
-                  onPressed: () async {
-                    final validationSuccess = _formKey.currentState!.validate();
-                    if (validationSuccess) {
-                      _formKey.currentState!.save();
-                      final login = await authService.login(
-                          _formKey.currentState!.value['username'],
-                          _formKey.currentState!.value['password']);
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.only(
+              left: 30.0,
+              right: 30.0,
+            ),
+            child: FormBuilder(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      const HeaderLoginRegister(
+                        headerTitle: 'Iniciar sesión',
+                      ),
+                      const SimpleText(
+                        text: 'o',
+                        fontSize: 20,
+                        color: Colors.grey,
+                        top: 10,
+                        bottom: 10,
+                      ),
+                      LoginButton(
+                        onPressed: () {},
+                        text: "Iniciar sesión con google",
+                        backGroundColor: Colors.white,
+                        icon: SvgPicture.asset(
+                          'assets/svg/google_icon.svg',
+                          width: 30,
+                          height: 30,
+                        ),
+                        textColor: Colors.black87,
+                      ),
 
-                      if (login) {
-                        Navigator.pushReplacementNamed(context, 'homePage');
-                      } else {
-                        showSimpleAlert(context, 'Credenciales incorrectas');
-                      }
-                    }
-                  },
-                  child: Text('Iniciar sesión'),
-                ),
-                RaisedButton(
-                  onPressed: () async {
-                    await authService.logout();
-                  },
-                  child: Text('Cerrar sesion'),
-                ),
-              ],
+                      /* FormBuilderTextField(
+                    name: 'username',
+                    validator: FormBuilderValidators.required(),
+                    decoration: const InputDecoration(
+                      labelText: 'Nombre de usuario',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                  ), */
+                      const CustomFormbuildeRTextField(
+                        name: 'username',
+                        icon: FontAwesomeIcons.at,
+                        placeholder: 'Nombre de usuario o email',
+                      ),
+                      /*  FormBuilderTextField(
+                    name: 'password',
+                    obscureText: true,
+                    validator: FormBuilderValidators.required(),
+                    decoration: const InputDecoration(
+                      labelText: 'Contraseña',
+                      prefixIcon: Icon(
+                        Icons.password_outlined,
+                      ),
+                    ),
+                  ), */
+                      const CustomFormbuildeRTextField(
+                        name: 'password',
+                        icon: FontAwesomeIcons.lock,
+                        placeholder: 'Contraseña',
+                        passwordField: true,
+                      ),
+
+                      /* RaisedButton(
+                    onPressed: () async {
+                      await authService.logout();
+                    },
+                    child: Text('Cerrar sesion'),
+                  ), */
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      LoginButton(
+                        text: "Iniciar sesión",
+                        textColor: Colors.white,
+                        showIcon: false,
+                        onPressed: () async {
+                          final validationSuccess =
+                              _formKey.currentState!.validate();
+                          print(_formKey.currentState!.value['username']);
+                          print(_formKey.currentState!.value['password']);
+                          if (validationSuccess) {
+                            _formKey.currentState!.save();
+                            /*   final login = await authService.login(
+                            _formKey.currentState!.value['username'],
+                            _formKey.currentState!.value['password']);
+        
+                        if (login) {
+                          Navigator.pushReplacementNamed(context, 'homePage');
+                        } else {
+                          showSimpleAlert(context, 'Credenciales incorrectas');
+                        } */
+                          }
+                        },
+                      ),
+                      const LabelLoginRegister(
+                        title: '¿No tienes cuenta?',
+                        subtitle: 'Registrate',
+                        route: 'register',
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

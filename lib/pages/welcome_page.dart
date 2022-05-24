@@ -12,8 +12,10 @@ class WelcomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network(
-                    'https://docs.flutter.dev/assets/images/dash/dash-fainting.gif'),
+                Container(
+                    width: 200,
+                    height: 200,
+                    child: Image.asset('assets/icon.png')),
                 const SimpleText(
                   text: 'Subastareas',
                   fontSize: 24,

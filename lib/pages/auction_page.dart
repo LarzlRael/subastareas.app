@@ -93,8 +93,8 @@ class _AuctionPageState extends State<AuctionPage> {
               ),
             ],
           ),
-          descripction(
-              'este es un adescripcion de mi tarea we no teng a nad mas que tgodo sjs'),
+          description(
+              'este es un adescripcion de mi tarea we no teng a nada lorem ipusn lorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusn'),
           _buttonMakeOffer(),
           TextButton(
             child: Text('Ver Tarea '),
@@ -192,7 +192,7 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget descripction(String? desc) {
+  Widget description(String? desc) {
     if (desc == null || desc.isEmpty) return Container();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -40,6 +40,7 @@ class MakeOfferPage extends StatelessWidget {
                 desc:
                     'esta es la tarea a demas de todos lo demas qeue teihufhs cuando no todo sennerne ademas de todo esto no podemo snegar que fue lo que fue xd',
                 textAlign: TextAlign.center,
+                despegable: false,
               ),
               /* TimerCounter(
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
