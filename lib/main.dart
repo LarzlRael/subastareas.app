@@ -34,11 +34,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        /* home: SlideshowPage(), */
         routes: appRoutes,
-        /* initialRoute: prefs.showInitialSlider ? 'initialSlideShow' : 'welcome', */
-        initialRoute: 'initialSlideShow',
-        /* initialRoute: 'welcome', */
+        initialRoute: 'welcome',
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

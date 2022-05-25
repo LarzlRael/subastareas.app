@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
@@ -27,3 +26,4 @@ part 'drawer_menu.dart';
 part 'custom_formbuildeR_text_field.dart';
 part 'label_login_register.dart';
 part 'header_login_register.dart';
+part 'slide_item.dart';

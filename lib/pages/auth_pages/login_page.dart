@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
@@ -35,7 +35,10 @@ class LoginPage extends StatelessWidget {
                         bottom: 10,
                       ),
                       LoginButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          var googleinfo =
+                              await GoogleSignInServices.signiWithGoogle();
+                        },
                         text: "Iniciar sesión con google",
                         backGroundColor: Colors.white,
                         icon: SvgPicture.asset(

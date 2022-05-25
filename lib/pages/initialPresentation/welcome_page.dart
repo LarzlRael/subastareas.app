@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
-class SlideshowPage extends StatelessWidget {
-  const SlideshowPage({Key? key}) : super(key: key);
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final prefs = UserPreferences();
@@ -9,7 +9,7 @@ class SlideshowPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               Container(
@@ -27,17 +27,17 @@ class SlideshowPage extends StatelessWidget {
                   primaryBullet: 15.0,
                   secondaryBullet: 10.0,
                   slides: [
-                    SlidePage(
+                    SlideItem(
                         assetImage: 'assets/svg/slide-1.svg',
                         title: "¿Bloqueado y con muchas prácticas?",
                         subtitle:
                             "En nivel de dificultad no es un problema en subastareas"),
-                    SlidePage(
+                    SlideItem(
                         assetImage: 'assets/svg/slide-2.svg',
                         title: "¿Sabes la respuesta?",
                         subtitle:
                             "Ayuda con la tarea propuesta y gana dinero por ello"),
-                    SlidePage(
+                    SlideItem(
                         assetImage: 'assets/svg/slide-3.svg',
                         title: "Tareas de todas las materias",
                         subtitle:
@@ -45,19 +45,6 @@ class SlideshowPage extends StatelessWidget {
                   ],
                 ),
               ),
-              /* Expanded(
-                child: Slideshow(
-                  primaryColor: Colors.blue,
-                  secondaryColor: Colors.blueGrey,
-                  primaryBullet: 15.0,
-                  secondaryBullet: 10.0,
-                  slides: [
-                    SvgPicture.asset('assets/svg/slide-1.svg'),
-                    SvgPicture.asset('assets/svg/slide-2.svg'),
-                    SvgPicture.asset('assets/svg/slide-3.svg'),
-                  ],
-                ),
-              ), */
               FillButton(
                 onPressed: () {
                   Navigator.pushNamed(context, 'login');
@@ -74,6 +61,18 @@ class SlideshowPage extends StatelessWidget {
                 text: 'Registrarse',
                 backgroundColor: Colors.blue,
               ),
+              TextOnTap(
+                text: const SimpleText(
+                  text: 'No ahora',
+                  fontSize: 16,
+                  color: Colors.indigo,
+                  top: 10,
+                  bottom: 10,
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, 'bottomNavigation');
+                },
+              )
             ],
           ),
         ),

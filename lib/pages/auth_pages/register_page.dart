@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class RegisterPage extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();

@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of 'widgets.dart';
 
-class SlidePage extends StatelessWidget {
+class SlideItem extends StatelessWidget {
   final String title;
   final String subtitle;
   final String assetImage;
-  const SlidePage({
+  const SlideItem({
     Key? key,
     required this.title,
     required this.subtitle,

@@ -13,6 +13,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static final List<Widget> _widgetOptions = <Widget>[
     const ListOpenHomeworks(),
     MyOffers(),
+    CategoriesPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -38,7 +39,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         onPressed: () {
           Navigator.pushNamed(context, 'homePage');
         },
-        tooltip: 'Subir nueva Tarea',
+        tooltip: 'Subir nueva tarea',
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -50,6 +51,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'Ofertas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.category),
+            label: 'Categorias',
           ),
         ],
         currentIndex: _selectedIndex,

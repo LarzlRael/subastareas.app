@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../pages/pages.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-  'initialSlideShow': (_) => const SlideshowPage(),
   /* Register and login  */
   'login': (_) => LoginPage(),
   'register': (_) => RegisterPage(),
