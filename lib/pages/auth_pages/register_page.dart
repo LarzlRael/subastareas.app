@@ -25,8 +25,8 @@ class RegisterPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
-                    children: [
-                      const HeaderLoginRegister(
+                    children: const [
+                      HeaderLoginRegister(
                         headerTitle: 'Registro',
                       ),
                       /* FormBuilderTextField(
@@ -37,13 +37,14 @@ class RegisterPage extends StatelessWidget {
                           prefixIcon: Icon(Icons.person),
                         ),
                       ), */
-                      const CustomFormbuildeRTextField(
+                      CustomFormbuildeRTextField(
                         name: 'username',
                         icon: FontAwesomeIcons.user,
                         placeholder: 'Nombre de usuario',
                       ),
-                      const CustomFormbuildeRTextField(
+                      CustomFormbuildeRTextField(
                         name: 'email',
+                        keyboardType: TextInputType.emailAddress,
                         icon: FontAwesomeIcons.at,
                         placeholder: 'Correo electrónico',
                       ),
@@ -58,13 +59,13 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                       ), */
-                      const CustomFormbuildeRTextField(
+                      CustomFormbuildeRTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Contraseña',
                         passwordField: true,
                       ),
-                      const CustomFormbuildeRTextField(
+                      CustomFormbuildeRTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Repetir contraseña',

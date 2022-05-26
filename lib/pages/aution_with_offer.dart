@@ -23,6 +23,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthServices>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Column(
@@ -32,13 +33,13 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
             children: [
               Image.network(
                   'https://concepto.de/wp-content/uploads/2018/08/f%C3%ADsica-e1534938838719.jpg'),
-              _buttonOffer(size),
+              _buttonOffer(size, auth.isLogged),
               Positioned(
                 bottom: 30,
                 child: Container(
                   width: size.width,
                   height: 100,
-                  child: Align(
+                  child: const Align(
                     child: FloatMenu(),
                   ),
                 ),
@@ -87,7 +88,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
     );
   }
 
-  Widget _buttonOffer(Size size) {
+  Widget _buttonOffer(Size size, bool isLogged) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -135,9 +136,9 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, 'makeOffer');
+                          pushTo(context, isLogged, 'makeOffer');
                         },
-                        child: SimpleText(
+                        child: const SimpleText(
                           fontSize: 15,
                           text: "Hacer una oferta",
                           fontWeight: FontWeight.w400,

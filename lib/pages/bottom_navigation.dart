@@ -12,8 +12,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int counter = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const ListOpenHomeworks(),
-    MyOffers(),
     CategoriesPage(),
+    MyOffers(),
   ];
 
   void _onItemTapped(int index) {
@@ -24,39 +24,38 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthServices>(context, listen: true);
+
     return Scaffold(
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       appBar: AppBar(
         title: Text(_selectedIndex == 0 ? 'Tareas disponibles' : 'Mis ofertas'),
-        actions: [
-          BellIconNotification(),
-        ],
+        actions: auth.isLogged
+            ? [
+                const BellIconNotification(),
+              ]
+            : [],
       ),
-      drawer: DrawerMenu(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, 'homePage');
-        },
-        tooltip: 'Subir nueva tarea',
-        child: const Icon(Icons.add),
-      ),
+      drawer: auth.isLogged
+          ? DrawerMenu(
+              onPressedLogout: auth.logout,
+              userName: auth.usuario.username,
+              profileImage: auth.usuario.profileImageUrl,
+            )
+          : null,
+      floatingActionButton: auth.isLogged
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'homePage');
+              },
+              tooltip: 'Subir nueva tarea',
+              child: const Icon(Icons.add),
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_work),
-            label: 'Tareas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Ofertas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Categorias',
-          ),
-        ],
+        items: auth.isLogged ? bottonItemsLogin : bottonItemsNotLogin,
         currentIndex: _selectedIndex,
         /* selectedItemColor: Colors.amber[800], */
         onTap: _onItemTapped,

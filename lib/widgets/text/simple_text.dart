@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of 'text.dart';
 
 class SimpleText extends StatelessWidget {
   final String text;

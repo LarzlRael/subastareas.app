@@ -10,6 +10,8 @@ class MenuButton {
 }
 
 class FloatMenu extends StatelessWidget {
+  const FloatMenu({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final List<MenuButton> items = [
@@ -43,7 +45,7 @@ class _MenuBackground extends StatelessWidget {
       width: 250,
       height: 50,
       decoration: BoxDecoration(
-          color: Color(0xFF333446),
+          color: const Color(0xFF333446),
           borderRadius: BorderRadius.circular(100),
           boxShadow: <BoxShadow>[
             BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5),

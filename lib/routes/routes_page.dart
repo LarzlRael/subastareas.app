@@ -10,13 +10,18 @@ final pageRoutes = <_Route>[
     page: WalletPage(),
   ),
   _Route(
-    icon: FontAwesomeIcons.fileContract,
-    titulo: 'Terminos de uso',
+    icon: FontAwesomeIcons.gear,
+    titulo: 'Configuraciones',
     page: WalletPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.heading,
     titulo: 'Encabezados',
+    page: WalletPage(),
+  ),
+  _Route(
+    icon: FontAwesomeIcons.fileContract,
+    titulo: 'Terminos de uso',
     page: WalletPage(),
   ),
 ];

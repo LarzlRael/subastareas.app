@@ -40,6 +40,9 @@ class CircleAvatarGroup extends StatelessWidget {
                           ))
                       .toList(),
                 ),
+                const SizedBox(
+                  width: 5,
+                ),
                 urlImages.length > elementsToShow
                     ? _createCircleAvatarMore()
                     : Container(),

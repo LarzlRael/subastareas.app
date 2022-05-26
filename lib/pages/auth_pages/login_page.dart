@@ -101,17 +101,19 @@ class LoginPage extends StatelessWidget {
                           print(_formKey.currentState!.value['password']);
                           if (validationSuccess) {
                             _formKey.currentState!.save();
-                            Navigator.pushReplacementNamed(
-                                context, 'bottomNavigation');
-                            /*   final login = await authService.login(
-                            _formKey.currentState!.value['username'],
-                            _formKey.currentState!.value['password']);
-        
-                        if (login) {
-                          Navigator.pushReplacementNamed(context, 'homePage');
-                        } else {
-                          showSimpleAlert(context, 'Credenciales incorrectas');
-                        } */
+                            /* Navigator.pushReplacementNamed(
+                                context, 'bottomNavigation'); */
+                            final login = await authService.login(
+                                _formKey.currentState!.value['username'],
+                                _formKey.currentState!.value['password']);
+
+                            if (login) {
+                              Navigator.pushReplacementNamed(
+                                  context, 'bottomNavigation');
+                            } else {
+                              showSimpleAlert(
+                                  context, 'Credenciales incorrectas');
+                            }
                           }
                         },
                       ),

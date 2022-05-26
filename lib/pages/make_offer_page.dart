@@ -1,8 +1,18 @@
 part of 'pages.dart';
 
-class MakeOfferPage extends StatelessWidget {
+class MakeOfferPage extends StatefulWidget {
+  const MakeOfferPage({Key? key}) : super(key: key);
+
+  @override
+  State<MakeOfferPage> createState() => _MakeOfferPageState();
+}
+
+class _MakeOfferPageState extends State<MakeOfferPage> {
+  TextEditingController textController = TextEditingController();
+  bool editing = false;
   @override
   Widget build(BuildContext context) {
+    textController.text = '100';
     return Scaffold(
       appBar: AppBar(
         /* title: Text('Hacer oferta'), */
@@ -52,53 +62,60 @@ class MakeOfferPage extends StatelessWidget {
                 fontSize: 19,
                 fontWeight: FontWeight.w900,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SimpleText(
-                    text: '\$',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                  SimpleText(
-                    text: '10',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                  ),
-                ],
-              ),
-              SizedBox(
-                /* width: double.infinity,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.symmetric(vertical: 16)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100.0),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: const SimpleText(
-                    text: 'Enviar oferta',
-                    color: Colors.white,
-                    fontSize: 17,
-                  ), */
-                width: double.infinity,
-                child: ButtonWithIcon(
-                  label: 'Enviar oferta',
-                  icon: Icons.money_rounded,
-                  onPressed: () {},
-                  backgroundColorButton: Colors.blue,
-                  verticalPadding: 14,
-                  styleLabelButton: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                  ),
-                  iconSize: 28,
+              Container(
+                width: MediaQuery.of(context).size.width * 0.7,
+                child: Focus(
+                  onFocusChange: (hasFocus) {
+                    setState(() {
+                      if (hasFocus) {
+                        editing = true;
+                      } else {
+                        editing = false;
+                      }
+                    });
+                  },
+                  child: editing
+                      ? TextField(
+                          textAlign: TextAlign.center,
+                          controller: textController,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Escribe tu oferta',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          textAlignVertical: TextAlignVertical.center,
+                        )
+                      : TextOnTap(
+                          text: SimpleText(
+                            text: textController.text,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w900,
+                            textAlign: TextAlign.center,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              editing = true;
+                            });
+                          },
+                        ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ButtonWithIcon(
+                  onPressed: () {},
+                  label: 'Enviar Oferta',
+                  icon: Icons.send,
+                  /* marginVertical: 10, */
+                ),
+              )
             ],
           ),
         ),

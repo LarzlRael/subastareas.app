@@ -10,6 +10,9 @@ class ButtonWithIcon extends StatelessWidget {
   final Color backgroundColorButton;
   final double verticalPadding;
   final double iconSize;
+
+  final double marginHorizontal;
+  final double marginVertical;
   ButtonWithIcon({
     this.icon,
     required this.label,
@@ -18,6 +21,8 @@ class ButtonWithIcon extends StatelessWidget {
     this.styleLabelButton = const TextStyle(color: Colors.white, fontSize: 16),
     this.verticalPadding = 5,
     this.iconSize = 24.0,
+    this.marginHorizontal = 0,
+    this.marginVertical = 0,
     required this.onPressed,
   });
 
@@ -28,6 +33,10 @@ class ButtonWithIcon extends StatelessWidget {
       color: Colors.amber, */
       /* width: double.infinity, */
       child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: marginHorizontal,
+          vertical: marginVertical,
+        ),
         padding: const EdgeInsets.symmetric(horizontal: 5),
         child: icon != null
             ? TextButton.icon(

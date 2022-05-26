@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
@@ -13,9 +15,11 @@ import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:provider/provider.dart';
+import 'package:subastareaspp/alerts/simple_alert.dart';
 import 'package:subastareaspp/servives/auth_services.dart';
 import 'package:subastareaspp/servives/google_services.dart';
 import 'package:subastareaspp/servives/services.dart';
+import 'package:subastareaspp/utils/data.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:subastareaspp/utils/validation.dart';
 import 'package:subastareaspp/widgets/slideshow.dart';
@@ -42,3 +46,4 @@ part 'profile_page.dart';
 part 'my_offers.dart';
 part 'wallet_page.dart';
 part 'categories_page.dart';
+part 'notification_page.dart';

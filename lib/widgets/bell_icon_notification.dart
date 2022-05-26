@@ -19,7 +19,13 @@ class _BellIconNotificationState extends State<BellIconNotification> {
         IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
-              Navigator.pushNamed(context, 'profile');
+              /* Navigator.pushNamed(context, 'notifications'); */
+              Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: NotificationPage()),
+              );
               setState(() {
                 counter++;
               });

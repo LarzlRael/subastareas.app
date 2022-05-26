@@ -17,4 +17,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'showHomework': (_) => const ShowHomework(),
   'profile': (_) => ProfilePage(),
   'forgot_password': (_) => ForgotPassword(),
+  'notifications': (_) => NotificationPage(),
 };

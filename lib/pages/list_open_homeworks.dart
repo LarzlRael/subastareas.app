@@ -26,6 +26,7 @@ class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -36,15 +37,15 @@ class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
                 print('Selected: ${_choicesList[defaultChoiceIndex]}');
               },
             ),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
-            HomeworkCard(),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged),
           ],
         ),
       ),

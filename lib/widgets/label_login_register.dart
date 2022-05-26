@@ -23,13 +23,15 @@ class LabelLoginRegister extends StatelessWidget {
             );
           },
           child: const SimpleText(
+            top: 5,
+            bottom: 5,
             text: 'Olvide mi contraseña',
             color: Colors.indigo,
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 5),
         GestureDetector(
           onTap: () {
             Navigator.pushReplacementNamed(context, route);

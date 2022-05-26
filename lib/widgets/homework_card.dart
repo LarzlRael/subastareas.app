@@ -1,7 +1,11 @@
 part of 'widgets.dart';
 
 class HomeworkCard extends StatelessWidget {
-  const HomeworkCard({Key? key}) : super(key: key);
+  final isLogged;
+  const HomeworkCard({
+    Key? key,
+    required this.isLogged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

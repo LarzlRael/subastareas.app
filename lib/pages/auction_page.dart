@@ -10,6 +10,7 @@ class AuctionPage extends StatefulWidget {
 class _AuctionPageState extends State<AuctionPage> {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthServices>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -37,7 +38,7 @@ class _AuctionPageState extends State<AuctionPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _imageCategory(),
-              _cardAuction(),
+              _cardAuction(auth.isLogged),
               /* _buttonMakeOffer(), */
             ],
           ),
@@ -46,7 +47,7 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _cardAuction() {
+  Widget _cardAuction(bool isLogged) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -95,7 +96,7 @@ class _AuctionPageState extends State<AuctionPage> {
           ),
           description(
               'este es un adescripcion de mi tarea we no teng a nada lorem ipusn lorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusn'),
-          _buttonMakeOffer(),
+          _buttonMakeOffer(isLogged),
           TextButton(
             child: Text('Ver Tarea '),
             onPressed: () {
@@ -113,7 +114,7 @@ class _AuctionPageState extends State<AuctionPage> {
               'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
             ],
           ),
-          Comments(),
+          Comments(isLogged: isLogged),
         ],
       ),
     );
@@ -146,7 +147,7 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _buttonMakeOffer() {
+  Widget _buttonMakeOffer(bool isLogged) {
     final size = MediaQuery.of(context).size;
     return Positioned(
       /* width: size.width,
@@ -166,13 +167,13 @@ class _AuctionPageState extends State<AuctionPage> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SimpleText(
+              children: const [
+                SimpleText(
                   text: 'Ofertar',
                   fontSize: 15,
                   color: Colors.white,
                 ),
-                const SimpleText(
+                SimpleText(
                   text: '8.52 ETH',
                   fontSize: 20,
                   color: Colors.white,
@@ -182,9 +183,10 @@ class _AuctionPageState extends State<AuctionPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'makeOffer');
+                /* Navigator.pushNamed(context, 'makeOffer'); */
+                pushTo(context, isLogged, 'makeOffer');
               },
-              child: Text('Hacer una oferta'),
+              child: const Text('Hacer una oferta'),
             ),
           ],
         ),

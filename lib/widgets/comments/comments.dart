@@ -1,7 +1,11 @@
 part of '../widgets.dart';
 
 class Comments extends StatefulWidget {
-  const Comments({Key? key}) : super(key: key);
+  final bool isLogged;
+  const Comments({
+    Key? key,
+    required this.isLogged,
+  }) : super(key: key);
 
   @override
   State<Comments> createState() => _CommentsState();
@@ -20,25 +24,27 @@ class _CommentsState extends State<Comments> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        GestureDetector(
-          onTap: () {
-            showBottomMenuShet(myController);
-          },
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 25,
-              ),
-              SizedBox(
-                width: 15,
-              ),
-              SimpleText(
-                text: 'Agregar un comentario ....',
-                color: Colors.grey,
-              ),
-            ],
-          ),
-        ),
+        widget.isLogged
+            ? GestureDetector(
+                onTap: () {
+                  showBottomMenuShet(myController);
+                },
+                child: Row(
+                  children: const [
+                    CircleAvatar(
+                      radius: 25,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    SimpleText(
+                      text: 'Agregar un comentario ....',
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+              )
+            : Container(),
         CommentCard(
           text:
               'Esto es un comentairo random que solo pasa un par de veces y no deberias verlo',
