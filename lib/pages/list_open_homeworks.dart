@@ -28,25 +28,27 @@ class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ChipChoice(
-              elementsList: _choicesList,
-              onClickAction: () {
-                print('Selected: ${_choicesList[defaultChoiceIndex]}');
-              },
-            ),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged),
-          ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ChipChoice(
+                elementsList: _choicesList,
+                onClickAction: () {
+                  print('Selected: ${_choicesList[defaultChoiceIndex]}');
+                },
+              ),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged),
+            ],
+          ),
         ),
       ),
     );

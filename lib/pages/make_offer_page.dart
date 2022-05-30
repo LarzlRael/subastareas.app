@@ -30,7 +30,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
@@ -108,8 +108,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 50,
                 child: ButtonWithIcon(
+                  verticalPadding: 15,
                   onPressed: () {},
                   label: 'Enviar Oferta',
                   icon: Icons.send,

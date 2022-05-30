@@ -29,8 +29,8 @@ class AuthServices with ChangeNotifier {
 
     final resp = await Services.sendRequest('POST', 'auth/signin', data);
 
-    print(resp!.body);
-    if (validateStatus(resp.statusCode)) {
+    if (validateStatus(resp!.statusCode)) {
+      print(userModelFromJson(resp.body).accessToken);
       setUsuario(userModelFromJson(resp.body));
       await _saveIdAnToken(usuario.id.toString(), usuario.accessToken);
       isLogged = true;
@@ -41,8 +41,35 @@ class AuthServices with ChangeNotifier {
     }
   }
 
+  Future<bool> register(
+    String username,
+    String email,
+    String password,
+  ) async {
+    /* this.autenticando = true; */
+
+    final data = {
+      'username': email,
+      'password': password,
+      'email': email,
+    };
+
+    final resp = await Services.sendRequest('POST', 'auth/signup', data);
+
+    print(resp!.body);
+    if (validateStatus(resp.statusCode)) {
+      /* setUsuario(userModelFromJson(resp.body));
+      await _saveIdAnToken(usuario.id.toString(), usuario.accessToken); */
+      isLogged = true;
+      notifyListeners();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<bool> logout() async {
-    final resp = await Services.sendRequestWithToken(
+    await Services.sendRequestWithToken(
         'GET',
         'auth/signout/${await messaging.getToken()}',
         null,
@@ -50,6 +77,7 @@ class AuthServices with ChangeNotifier {
 
     await clearIdAndToken();
     isLogged = false;
+    /* setUsuario(null); */
     notifyListeners();
     return true;
   }

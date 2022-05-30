@@ -2,15 +2,15 @@ part of 'pages.dart';
 
 class AuctionPage extends StatefulWidget {
   const AuctionPage({Key? key}) : super(key: key);
-
   @override
   State<AuctionPage> createState() => _AuctionPageState();
 }
 
 class _AuctionPageState extends State<AuctionPage> {
+  late AuthServices auth;
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: false);
+    auth = Provider.of<AuthServices>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -65,10 +65,11 @@ class _AuctionPageState extends State<AuctionPage> {
               _infoContainer(
                   'Creador',
                   Row(
-                    children: const [
+                    children: [
                       CircleAvatar(
-                        backgroundColor: Colors.blue,
-                      ),
+                          /* child: showProfileImage(profileImage, userName) */
+                          child: showProfileImage(auth.usuario.profileImageUrl,
+                              auth.usuario.username)),
                       SizedBox(
                         width: 7,
                       ),
@@ -149,10 +150,10 @@ class _AuctionPageState extends State<AuctionPage> {
 
   Widget _buttonMakeOffer(bool isLogged) {
     final size = MediaQuery.of(context).size;
-    return Positioned(
+    return SizedBox(
       /* width: size.width,
       height: size.height, */
-      bottom: 0,
+
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20),
         width: size.width * 1,
@@ -174,7 +175,7 @@ class _AuctionPageState extends State<AuctionPage> {
                   color: Colors.white,
                 ),
                 SimpleText(
-                  text: '8.52 ETH',
+                  text: '20 bs',
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -184,7 +185,7 @@ class _AuctionPageState extends State<AuctionPage> {
             ElevatedButton(
               onPressed: () {
                 /* Navigator.pushNamed(context, 'makeOffer'); */
-                pushTo(context, isLogged, 'makeOffer');
+                navigatorProtected(context, isLogged, 'makeOffer');
               },
               child: const Text('Hacer una oferta'),
             ),

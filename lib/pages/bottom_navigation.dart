@@ -13,7 +13,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   static final List<Widget> _widgetOptions = <Widget>[
     const ListOpenHomeworks(),
     CategoriesPage(),
-    MyOffers(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -30,14 +30,14 @@ class _BottomNavigationState extends State<BottomNavigation> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      appBar: AppBar(
+      /*  appBar: AppBar(
         title: Text(_selectedIndex == 0 ? 'Tareas disponibles' : 'Mis ofertas'),
         actions: auth.isLogged
             ? [
                 const BellIconNotification(),
               ]
             : [],
-      ),
+      ), */
       drawer: auth.isLogged
           ? DrawerMenu(
               onPressedLogout: auth.logout,
@@ -55,7 +55,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             )
           : null,
       bottomNavigationBar: BottomNavigationBar(
-        items: auth.isLogged ? bottonItemsLogin : bottonItemsNotLogin,
+        items: bottonItems,
         currentIndex: _selectedIndex,
         /* selectedItemColor: Colors.amber[800], */
         onTap: _onItemTapped,

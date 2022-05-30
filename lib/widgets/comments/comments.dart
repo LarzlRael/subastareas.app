@@ -14,6 +14,7 @@ class Comments extends StatefulWidget {
 class _CommentsState extends State<Comments> {
   final myController = TextEditingController();
   bool _showSendIcon = false;
+  late AuthServices auth;
   @override
   void dispose() {
     myController.dispose();
@@ -22,6 +23,7 @@ class _CommentsState extends State<Comments> {
 
   @override
   Widget build(BuildContext context) {
+    auth = Provider.of<AuthServices>(context, listen: false);
     return Column(
       children: [
         widget.isLogged
@@ -30,9 +32,11 @@ class _CommentsState extends State<Comments> {
                   showBottomMenuShet(myController);
                 },
                 child: Row(
-                  children: const [
+                  children: [
                     CircleAvatar(
                       radius: 25,
+                      child: showProfileImage(
+                          auth.usuario.profileImageUrl, auth.usuario.username),
                     ),
                     SizedBox(
                       width: 15,
@@ -47,7 +51,7 @@ class _CommentsState extends State<Comments> {
             : Container(),
         CommentCard(
           text:
-              'Esto es un comentairo random que solo pasa un par de veces y no deberias verlo',
+              'Esto es un comentario random que solo pasa un par de veces y no deberias verlo',
         ),
         CommentCard(
           text:
@@ -79,12 +83,15 @@ class _CommentsState extends State<Comments> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const CircleAvatar(),
+                  CircleAvatar(
+                      child: showProfileImage(
+                          auth.usuario.profileImageUrl, auth.usuario.username)),
                   const SizedBox(
                     width: 15,
                   ),
                   Expanded(
                       child: TextField(
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Escribe un comentario',
@@ -105,7 +112,16 @@ class _CommentsState extends State<Comments> {
                   )),
                   _showSendIcon
                       ? IconButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            // usar servicio en este punto
+
+                            final comment = await Services.sendRequestWithToken(
+                                'POST',
+                                'comments/newComment/16',
+                                {'content': controller.text},
+                                await auth.getCurrentToken());
+                            print(comment?.body);
+
                             Navigator.pop(context);
                             controller.clear();
                           },

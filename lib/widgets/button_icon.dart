@@ -28,33 +28,31 @@ class ButtonWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      /* padding: EdgeInsets.symmetric(horizontal: 5),
-      color: Colors.amber, */
-      /* width: double.infinity, */
-      child: Container(
-        margin: EdgeInsets.symmetric(
-          horizontal: marginHorizontal,
-          vertical: marginVertical,
-        ),
-        padding: const EdgeInsets.symmetric(horizontal: 5),
-        child: icon != null
-            ? TextButton.icon(
-                icon: Icon(
-                  icon,
-                  color: Colors.white,
-                  size: iconSize,
-                ),
-                label: Text(label, style: styleLabelButton),
-                onPressed: onPressed,
-                style: buttonsStyles(context),
-              )
-            : ElevatedButton(
-                child: Text(label, style: styleLabelButton),
-                style: buttonsStyles(context),
-                onPressed: onPressed,
-              ),
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: marginHorizontal,
+        vertical: marginVertical,
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: icon != null
+          ? TextButton.icon(
+              icon: Icon(
+                icon,
+                color: Colors.white,
+                size: iconSize,
+              ),
+              label: Text(label, style: styleLabelButton),
+              onPressed: onPressed,
+              style: buttonsStyles(context),
+            )
+          : ElevatedButton(
+              child: Text(
+                label,
+                style: styleLabelButton,
+              ),
+              style: buttonsStyles(context),
+              onPressed: onPressed,
+            ),
     );
   }
 

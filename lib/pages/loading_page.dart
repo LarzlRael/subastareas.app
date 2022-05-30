@@ -50,7 +50,7 @@ class LoadingPage extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => LoginPage(),
+          pageBuilder: (_, __, ___) => WelcomePage(),
           transitionDuration: const Duration(milliseconds: 0),
         ),
       );

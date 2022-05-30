@@ -17,22 +17,10 @@ class DrawerMenu extends StatelessWidget {
       child: Column(
         children: [
           SafeArea(
-            child: Container(
-              width: double.infinity,
-              height: 200,
-              child: CircleAvatar(
-                backgroundColor: Colors.blue,
-                child: profileImage == null
-                    ? Text(
-                        convertName(userName),
-                        style: TextStyle(fontSize: 50),
-                      )
-                    : FadeInImage(
-                        image: NetworkImage(profileImage),
-                        placeholder: const AssetImage('assets/icon.png'),
-                      ),
-              ),
-            ),
+            child: SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: showProfileImage(profileImage, userName)),
           ),
           Expanded(
               child: _ListOptions(
@@ -44,10 +32,14 @@ class DrawerMenu extends StatelessWidget {
             left: false,
             right: false,
             child: GestureDetector(
-              onTap: () => Navigator.pushReplacementNamed(context, 'welcome'),
+              onTap: () => {
+                Navigator.pushReplacementNamed(context, 'welcome'),
+                onPressedLogout(),
+              },
               child: const ListTile(
-                leading: Icon(Icons.add_to_home_screen, color: Colors.blue),
-                title: Text('Cerrar sesión'),
+                leading: Icon(Icons.add_to_home_screen, color: Colors.red),
+                title:
+                    Text('Cerrar sesión', style: TextStyle(color: Colors.red)),
               ),
             ),
           ),
@@ -55,6 +47,18 @@ class DrawerMenu extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget showProfileImage(String? profileImage, String userName) {
+  return profileImage == null
+      ? Text(
+          convertName(userName),
+          style: const TextStyle(fontSize: 50),
+        )
+      : FadeInImage(
+          image: NetworkImage(profileImage),
+          placeholder: const AssetImage('assets/icon.png'),
+        );
 }
 
 class _ListOptions extends StatelessWidget {
@@ -81,7 +85,7 @@ class _ListOptions extends StatelessWidget {
           Icons.chevron_right,
         ),
         onTap: () {
-          onPressedLogout();
+          /* onPressedLogout(); */
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => pageRoutes[i].page));
         },

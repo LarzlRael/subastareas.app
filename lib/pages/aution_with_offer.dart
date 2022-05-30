@@ -136,7 +136,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          pushTo(context, isLogged, 'makeOffer');
+                          navigatorProtected(context, isLogged, 'makeOffer');
                         },
                         child: const SimpleText(
                           fontSize: 15,

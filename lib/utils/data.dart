@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
+import 'package:subastareaspp/widgets/widgets.dart';
+import 'package:subastareaspp/pages/pages.dart';
 
 List<Widget> categoryList = [
   CircleButton(
@@ -36,20 +38,64 @@ List<Widget> categoryList = [
   ),
 ];
 
-final List<BottomNavigationBarItem> bottonItemsNotLogin = [
+final List<BottomNavigationBarItem> bottonItems = [
   const BottomNavigationBarItem(
     icon: Icon(Icons.home_work),
-    label: 'Tareas',
+    label: 'Preguntar',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Icons.category),
-    label: 'Categorias',
+    label: 'Aportar',
   ),
-];
-final List<BottomNavigationBarItem> bottonItemsLogin = [
-  ...bottonItemsNotLogin,
   const BottomNavigationBarItem(
-    icon: Icon(Icons.list),
-    label: 'Ofertas',
+    icon: Icon(Icons.person),
+    label: 'Perfil',
   ),
 ];
+
+List<MenuProfileOption> getMenuProfileOptions() {
+  return [
+    MenuProfileOption(
+      icon: Icons.wallet_giftcard_rounded,
+      title: "Cartera",
+      page: WalletPage(),
+    ),
+    MenuProfileOption(
+      icon: Icons.notifications_rounded,
+      title: "Notificaciones",
+      page: NotificationPage(),
+    ),
+    MenuProfileOption(
+      icon: Icons.message_rounded,
+      title: "Mensajes",
+      showTrailing: true,
+      page: WalletPage(),
+    ),
+    MenuProfileOption(
+      icon: Icons.question_answer,
+      title: "Mis tareas",
+      page: WalletPage(),
+    ),
+    MenuProfileOption(
+      icon: Icons.question_answer,
+      title: "Mis ofertas",
+      page: MyOffers(),
+    ),
+    MenuProfileOption(
+      icon: Icons.question_answer,
+      title: "Tus marcadores",
+      page: WalletPage(),
+      showTrailing: true,
+    ),
+    MenuProfileOption(
+      icon: Icons.settings,
+      title: "Ajustes",
+      page: SettingsPage(),
+    ),
+    MenuProfileOption(
+      icon: Icons.question_answer,
+      title: "Cerrar sesión",
+      page: WalletPage(),
+    ),
+  ];
+}

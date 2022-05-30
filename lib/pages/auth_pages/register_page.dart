@@ -86,15 +86,19 @@ class RegisterPage extends StatelessWidget {
                           print(_formKey.currentState!.value['password']);
                           if (validationSuccess) {
                             _formKey.currentState!.save();
-                            /*   final login = await authService.login(
-                                _formKey.currentState!.value['username'],
-                                _formKey.currentState!.value['password']);
-        
+                            final login = await authService.register(
+                              _formKey.currentState!.value['username'],
+                              _formKey.currentState!.value['email'],
+                              _formKey.currentState!.value['password'],
+                            );
+
                             if (login) {
-                              Navigator.pushReplacementNamed(context, 'homePage');
+                              Navigator.pushReplacementNamed(
+                                  context, 'homePage');
                             } else {
-                              showSimpleAlert(context, 'Credenciales incorrectas');
-                            } */
+                              showSimpleAlert(
+                                  context, 'Credenciales incorrectas');
+                            }
                           }
                         },
                       ),

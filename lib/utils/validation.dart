@@ -15,7 +15,7 @@ bool validateEmail(String email) {
       .hasMatch(email);
 }
 
-void pushTo(BuildContext context, bool isLogged, String route) {
+void navigatorProtected(BuildContext context, bool isLogged, String route) {
   if (isLogged) {
     Navigator.pushNamed(context, route);
   } else {

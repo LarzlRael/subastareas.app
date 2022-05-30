@@ -47,3 +47,6 @@ part 'my_offers.dart';
 part 'wallet_page.dart';
 part 'categories_page.dart';
 part 'notification_page.dart';
+part 'my_profile_page.dart';
+part 'settings_page.dart';
+part 'my_homeworks.dart';
