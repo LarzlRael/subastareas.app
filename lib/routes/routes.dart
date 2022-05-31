@@ -18,4 +18,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'profile': (_) => ProfilePage(),
   'forgot_password': (_) => ForgotPassword(),
   'notifications': (_) => NotificationPage(),
+  'filter': (_) => FilterPage(),
 };

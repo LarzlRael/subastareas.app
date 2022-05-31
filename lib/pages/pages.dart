@@ -50,3 +50,4 @@ part 'notification_page.dart';
 part 'my_profile_page.dart';
 part 'settings_page.dart';
 part 'my_homeworks.dart';
+part 'filter/filter_page.dart';

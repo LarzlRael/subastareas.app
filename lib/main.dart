@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: appRoutes,
-        initialRoute: 'loading',
+        initialRoute: 'filter',
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
