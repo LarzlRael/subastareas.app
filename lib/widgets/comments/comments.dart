@@ -120,7 +120,7 @@ class _CommentsState extends State<Comments> {
                                 'comments/newComment/16',
                                 {'content': controller.text},
                                 await auth.getCurrentToken());
-                            print(comment?.body);
+                            /* print(comment?.body); */
 
                             Navigator.pop(context);
                             controller.clear();
