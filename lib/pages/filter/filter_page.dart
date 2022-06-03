@@ -3,44 +3,30 @@ part of '../pages.dart';
 class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => _FilterStateModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Filtrar por '),
-        ),
-        body: SafeArea(
-          child: Container(
-            child: Builder(builder: (context) {
-              final state =
-                  Provider.of<_FilterStateModel>(context, listen: false);
-
-              return Expanded(
-                child: Column(
-                  /* mainAxisAlignment: MainAxisAlignment.start, */
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Nivel"),
-                    FilterItem(title: 'Secundaria', type: 'level'),
-                    FilterItem(title: 'Pre universitario', type: 'level'),
-                    FilterItem(title: 'Universitario', type: 'level'),
-                    Text("Asignatura"),
-                    FilterItem(title: 'matematica,', type: 'category'),
-                    FilterItem(title: 'fisica', type: 'category'),
-                    FilterItem(title: 'quimica', type: 'category'),
-                    ElevatedButton(
-                      child: Text('Filtrar'),
-                      onPressed: () {
-                        print(state.getListLevelSelected);
-                        print(state.getListCategorySelected);
-                      },
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ),
+    final state = Provider.of<FilterProvider>(context, listen: false);
+    return Scaffold(
+      body: SafeArea(
+        child: Container(
+            child: Column(
+          /* mainAxisAlignment: MainAxisAlignment.start, */
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("Nivel"),
+            FilterItem(title: 'Secundaria', type: 'level'),
+            FilterItem(title: 'Pre universitario', type: 'level'),
+            FilterItem(title: 'Universitario', type: 'level'),
+            Text("Asignatura"),
+            FilterItem(title: 'matematica', type: 'category'),
+            FilterItem(title: 'fisica', type: 'category'),
+            FilterItem(title: 'quimica', type: 'category'),
+            ElevatedButton(
+              child: Text('Filtrar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        )),
       ),
     );
   }
@@ -62,20 +48,22 @@ class _FilterItemState extends State<FilterItem> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<_FilterStateModel>(context, listen: false);
+    final provider = Provider.of<FilterProvider>(context, listen: false);
+    /* isSelected = provider..contains(widget.title); */
+    isSelected = provider.getListAllSelected.contains(widget.title);
     return CheckboxListTile(
-      contentPadding: EdgeInsets.all(5),
+      contentPadding: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(2.0),
       ),
       side: MaterialStateBorderSide.resolveWith(
-        (states) => BorderSide(width: 2.5, color: Colors.blue),
+        (states) => const BorderSide(width: 2.5, color: Colors.blue),
       ),
       title: Text(widget.title),
       value: isSelected,
       onChanged: (value) {
         setState(() {
-          if (widget.type == "level") {
+          if (widget.type == 'level') {
             provider.setAddListLevelSelected = widget.title;
           } else {
             provider.setAddListCategorySelected = widget.title;
@@ -88,7 +76,7 @@ class _FilterItemState extends State<FilterItem> {
   }
 }
 
-class _FilterStateModel with ChangeNotifier {
+/* class _FilterStateModel with ChangeNotifier {
   final List<String> _listLevelSelected = [];
   final List<String> _listCategorySelected = [];
 
@@ -112,3 +100,4 @@ class _FilterStateModel with ChangeNotifier {
     notifyListeners();
   }
 }
+ */

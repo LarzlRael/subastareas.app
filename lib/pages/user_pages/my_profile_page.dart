@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class MyProfilePage extends StatelessWidget {
   late final AuthServices auth;
@@ -49,6 +49,14 @@ class MyProfilePage extends StatelessWidget {
                     return getMenuProfileOptions()[index];
                   },
                 ),
+              ),
+              MenuProfileOption(
+                icon: Icons.question_answer,
+                title: "Cerrar sesión",
+                page: WalletPage(),
+                onPressed: () async {
+                  await auth.logout();
+                },
               ),
             ],
           ),

@@ -4,7 +4,7 @@ class MenuProfileOption extends StatelessWidget {
   final String title;
   final Widget page;
   final IconData icon;
-  final Future<bool>? onPressed;
+  final Future Function()? onPressed;
   final bool showTrailing;
   const MenuProfileOption({
     Key? key,
@@ -26,7 +26,7 @@ class MenuProfileOption extends StatelessWidget {
       child: ListTile(
         onTap: () async {
           if (onPressed != null) {
-            await onPressed!;
+            await onPressed!();
             print('close sesion');
           } else {
             Navigator.push(context,

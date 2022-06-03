@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class AutionWithOffer extends StatefulWidget {
   const AutionWithOffer({Key? key}) : super(key: key);

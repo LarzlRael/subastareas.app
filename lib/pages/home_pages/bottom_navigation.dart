@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
@@ -11,8 +11,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
   int counter = 0;
   static final List<Widget> _widgetOptions = <Widget>[
+    /* CategoriesPage(), */
     const ListOpenHomeworks(),
-    CategoriesPage(),
+    UploadHomework(),
     ProfilePage(),
   ];
 
@@ -30,14 +31,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      /*  appBar: AppBar(
-        title: Text(_selectedIndex == 0 ? 'Tareas disponibles' : 'Mis ofertas'),
-        actions: auth.isLogged
-            ? [
-                const BellIconNotification(),
-              ]
-            : [],
-      ), */
       drawer: auth.isLogged
           ? DrawerMenu(
               onPressedLogout: auth.logout,
@@ -45,7 +38,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               profileImage: auth.usuario.profileImageUrl,
             )
           : null,
-      floatingActionButton: auth.isLogged
+      /* floatingActionButton: auth.isLogged
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.pushNamed(context, 'homePage');
@@ -53,7 +46,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               tooltip: 'Subir nueva tarea',
               child: const Icon(Icons.add),
             )
-          : null,
+          : null, */
       bottomNavigationBar: BottomNavigationBar(
         items: bottonItems,
         currentIndex: _selectedIndex,

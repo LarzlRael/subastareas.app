@@ -1,23 +1,13 @@
-/* import 'dart:io';
+part of '../pages.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_file_picker/form_builder_file_picker.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:provider/provider.dart';
-import 'package:subastareaspp/servives/auth_services.dart';
-import 'package:subastareaspp/servives/services.dart';
-import 'package:intl/intl.dart'; */
-part of 'pages.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class UploadHomework extends StatefulWidget {
+  const UploadHomework({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _UploadHomeworkState createState() => _UploadHomeworkState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _UploadHomeworkState extends State<UploadHomework> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   final format = DateFormat("dd-MM-yyyy hh:mm");

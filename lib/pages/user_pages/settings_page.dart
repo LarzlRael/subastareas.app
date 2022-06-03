@@ -1,11 +1,11 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
-class MyHomeworks extends StatelessWidget {
+class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('MyHomeworks'),
+        child: Text('SettingsPage'),
       ),
     );
   }

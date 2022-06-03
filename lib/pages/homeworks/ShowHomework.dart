@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:flutter_downloader/flutter_downloader.dart'; */
-part of 'pages.dart';
+part of '../pages.dart';
 
 class ShowHomework extends StatefulWidget {
   const ShowHomework({Key? key}) : super(key: key);

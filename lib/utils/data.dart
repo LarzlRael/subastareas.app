@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 import 'package:subastareaspp/pages/pages.dart';
@@ -40,12 +41,12 @@ List<Widget> categoryList = [
 
 final List<BottomNavigationBarItem> bottonItems = [
   const BottomNavigationBarItem(
-    icon: Icon(Icons.home_work),
-    label: 'Preguntar',
-  ),
-  const BottomNavigationBarItem(
     icon: Icon(Icons.category),
     label: 'Aportar',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.question_answer),
+    label: 'Preguntar',
   ),
   const BottomNavigationBarItem(
     icon: Icon(Icons.person),
@@ -87,15 +88,14 @@ List<MenuProfileOption> getMenuProfileOptions() {
       page: WalletPage(),
       showTrailing: true,
     ),
-    MenuProfileOption(
-      icon: Icons.settings,
-      title: "Ajustes",
-      page: SettingsPage(),
-    ),
-    MenuProfileOption(
-      icon: Icons.question_answer,
-      title: "Cerrar sesión",
-      page: WalletPage(),
-    ),
   ];
 }
+
+/* final List<CategoryFilter> listCategories = [
+  CategoryFilter('Secundaria', 'level'),
+  CategoryFilter('Pre universitario', 'level'),
+  CategoryFilter('Universitario', 'level'),
+  CategoryFilter('matematica', 'category'),
+  CategoryFilter('fisica', 'category'),
+  CategoryFilter('quimica', 'category'),
+]; */

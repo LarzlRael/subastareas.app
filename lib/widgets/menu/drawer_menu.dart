@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class DrawerMenu extends StatelessWidget {
   final Function onPressedLogout;

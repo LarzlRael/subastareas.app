@@ -4,6 +4,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/servives/auth_services.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
+        ChangeNotifierProvider(create: (_) => FilterProvider()),
       ],
       child: MaterialApp(
         title: 'Subastareas',
@@ -72,7 +74,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: appRoutes,
-        initialRoute: 'filter',
+        initialRoute: 'loading',
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,

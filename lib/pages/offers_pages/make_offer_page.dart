@@ -1,4 +1,4 @@
-part of 'pages.dart';
+part of '../pages.dart';
 
 class MakeOfferPage extends StatefulWidget {
   const MakeOfferPage({Key? key}) : super(key: key);

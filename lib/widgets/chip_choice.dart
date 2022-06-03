@@ -63,8 +63,6 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> choices = [];
-
     return Wrap(
       children: _buildChoiceList(),
     );
@@ -91,7 +89,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
                   ? selectedChoices.remove(item)
                   : selectedChoices.add(item);
               widget.onSelectionChanged(selectedChoices);
-              widget.onClickAction();
+              widget.onClickAction(item);
             });
           },
         ),
