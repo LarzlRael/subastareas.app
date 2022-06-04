@@ -2,6 +2,7 @@ part of '../pages.dart';
 
 class MyProfilePage extends StatelessWidget {
   late final AuthServices auth;
+  /* final _googleSignInServices = GoogleSignInServices; */
   @override
   Widget build(BuildContext context) {
     auth = Provider.of<AuthServices>(context, listen: true);
@@ -56,6 +57,7 @@ class MyProfilePage extends StatelessWidget {
                 page: WalletPage(),
                 onPressed: () async {
                   await auth.logout();
+                  GoogleSignInServices.signOut();
                 },
               ),
             ],

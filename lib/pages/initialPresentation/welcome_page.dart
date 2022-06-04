@@ -61,7 +61,7 @@ class WelcomePage extends StatelessWidget {
                 text: 'Registrarse',
                 backgroundColor: Colors.blue,
               ),
-              TextOnTap(
+              /* TextOnTap(
                 text: const SimpleText(
                   text: 'No ahora',
                   fontSize: 16,
@@ -72,7 +72,7 @@ class WelcomePage extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, 'bottomNavigation');
                 },
-              )
+              ) */
             ],
           ),
         ),

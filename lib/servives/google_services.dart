@@ -1,7 +1,10 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 
 class GoogleSignInServices {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
   static GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
@@ -14,6 +17,7 @@ class GoogleSignInServices {
 
       final googleKey = await account!.authentication;
 
+      print('token de google : ');
       print(googleKey.idToken);
       return googleKey.idToken!;
       // TODO idTOken form google
@@ -26,6 +30,8 @@ class GoogleSignInServices {
         signInWithGoogleEndPont,
         body: {
           'googleToken': googleKey.idToken,
+          'idDevice': await messaging.getToken() ?? ''
+
         },
       );
 
@@ -42,10 +48,8 @@ class GoogleSignInServices {
   static Future<GoogleSignInAccount?> signOut() async {
     try {
       final GoogleSignInAccount? account = await _googleSignIn.signOut();
-
       return account;
     } catch (e) {
-      print(e);
       print('Error en google SignOut');
       return null;
     }

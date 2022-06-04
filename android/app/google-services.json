@@ -37,6 +37,13 @@
             {
               "client_id": "917999900039-hhmp729r4qk00euhcqh7c7l25t9c9gak.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "917999900039-sjgcjm5p0gse5sq5758h0fptsp49v91u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.neo.subastareas"
+              }
             }
           ]
         }

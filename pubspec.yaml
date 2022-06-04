@@ -56,10 +56,21 @@ dependencies:
   firebase_core: ^1.17.1
   
 flutter_native_splash:
-  android: true
-  android_gravity: fill
-  #color: "#42a5f5"
-  background_image: "assets/icon.png"
+  color: "#ffffff"
+  image: assets/icon.png
+  #branding: assets/branding-development.png
+  color_dark: "#121212"
+  image_dark: assets/icon.png
+  #branding_dark: assets/branding-development.png
+
+  android_12:
+    image: assets/icon.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/icon.png
+    icon_background_color_dark: "#121212"
+  
+  web: false
+  
   
   
 
