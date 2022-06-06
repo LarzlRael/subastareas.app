@@ -1,10 +1,3 @@
-/* import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
-import 'package:flutter_downloader/flutter_downloader.dart'; */
 part of '../pages.dart';
 
 class ShowHomework extends StatefulWidget {
@@ -21,16 +14,17 @@ class _ShowHomeworkState extends State<ShowHomework> {
     super.initState();
   }
 
-  final sampleUrl = 'http://www.africau.edu/images/default/sample.pdf';
+  final sampleUrl =
+      'https://res.cloudinary.com/negocioexitoso-online/image/upload/v1654532296/HOMEWORK/hzpdelmqxczejhetpaas.pdf';
 
   String? pdfFlePath;
 
   Future<String> downloadAndSavePdf() async {
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/sample.pdf');
-    if (await file.exists()) {
+    /* if (await file.exists()) {
       return file.path;
-    }
+    } */
     final response = await http.get(Uri.parse(sampleUrl));
     await file.writeAsBytes(response.bodyBytes);
     return file.path;
@@ -50,7 +44,7 @@ class _ShowHomeworkState extends State<ShowHomework> {
       body: Center(
         child: Column(
           children: <Widget>[
-            ElevatedButton(
+            /* ElevatedButton(
               child: Text("Descargar pdf"),
               onPressed: () async {
                 final taskId = await FlutterDownloader.enqueue(
@@ -63,16 +57,26 @@ class _ShowHomeworkState extends State<ShowHomework> {
                       true, // click on notification to open downloaded file (for Android)
                 );
               },
-            ),
+            ), */
             if (pdfFlePath != null)
               Expanded(
                 child: PdfView(path: pdfFlePath!),
               )
             else
-              Text("Pdf is not Loaded"),
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
           ],
         ),
       ),
+      floatingActionButton: pdfFlePath != null
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/homeworks');
+              },
+              child: Icon(Icons.download),
+            )
+          : null,
     );
   }
 }

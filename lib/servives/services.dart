@@ -10,7 +10,7 @@ class Services {
   String uri = '${Enviroments.serverHttpUrl}/';
 
   static Future<http.Response?> sendRequest(
-      String method, String url, Map<String, String> body) async {
+      String method, String url, Map<String, String>? body) async {
     final headers = {
       'Content-Type': 'application/json',
     };

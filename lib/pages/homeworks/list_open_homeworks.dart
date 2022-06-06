@@ -65,7 +65,7 @@ class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
                   future: homework.gethomeworks(),
                   /* initialData: InitialData, */
                   builder: (BuildContext context,
-                      AsyncSnapshot<List<HomeworkModel>> snapshot) {
+                      AsyncSnapshot<List<HomeworksModel>> snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
                         scrollDirection: Axis.vertical,

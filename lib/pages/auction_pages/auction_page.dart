@@ -74,13 +74,16 @@ class _AuctionPageState extends State<AuctionPage> {
   }
 
   Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged) {
+    DateTime dt1 = (oneHomeworkModel.homework.resolutionTime);
+    final diff = getDateDiff(dt1);
+
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SimpleText(
-            text: oneHomeworkModel.user.username,
+            text: oneHomeworkModel.homework.title,
             fontWeight: FontWeight.w500,
             bottom: 15,
             fontSize: 22,
@@ -95,14 +98,14 @@ class _AuctionPageState extends State<AuctionPage> {
                       CircleAvatar(
                         /* child: showProfileImage(profileImage, userName) */
                         child: showProfileImage(
-                            oneHomeworkModel.user.profileImageUrl,
-                            oneHomeworkModel.user.username),
+                            oneHomeworkModel.homework.user.profileImageUrl,
+                            oneHomeworkModel.homework.user.username),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 7,
                       ),
                       SimpleText(
-                        text: 'Nick Cannon',
+                        text: oneHomeworkModel.homework.user.username,
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -110,33 +113,41 @@ class _AuctionPageState extends State<AuctionPage> {
                   )),
               _infoContainer(
                 'Acaba en ',
-                const SimpleText(
+                /* const SimpleText(
                   text: '28 : 32 :12',
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                ),
-                /*   TimerCounter(
-                  endTime: DateTime.now().millisecondsSinceEpoch + 1000 * 30,
-                  testStyle: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
                 ), */
+                TimerCounter(
+                  endTime: DateTime.now().millisecondsSinceEpoch +
+                      diff.inMilliseconds,
+                  testStyle: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 18,
+                  ),
+                ),
               ),
             ],
           ),
-          description(oneHomeworkModel.description),
+          description(oneHomeworkModel.homework.description),
           _buttonMakeOffer(oneHomeworkModel, isLogged),
           TextButton(
             child: Text('Ver Tarea '),
             onPressed: () {
               Navigator.pushNamed(context, 'showHomework',
-                  arguments: oneHomeworkModel.fileUrl);
+                  arguments: oneHomeworkModel.homework.fileUrl);
             },
           ),
           CircleAvatarGroup(
               urlImages: oneHomeworkModel.offers
-                  .map((e) => e.user.profileImageUrl)
+                  .map((e) => e.user.profileImageUrl == null
+                      ? e.user.profileImageUrl
+                      : e.user.username)
                   .toList()),
-          Comments(comments: oneHomeworkModel.comments, isLogged: isLogged),
+          CommentsWidget(
+              comments: oneHomeworkModel.comments,
+              isLogged: isLogged,
+              homeworkId: oneHomeworkModel.homework.id),
         ],
       ),
     );
@@ -169,8 +180,9 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModelbool, isLogged) {
+  Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModel, bool isLogged) {
     final size = MediaQuery.of(context).size;
+    final isBearer = oneHomeworkModel.homework.user.id == auth.usuario.id;
     return SizedBox(
       /* width: size.width,
       height: size.height, */
@@ -190,13 +202,13 @@ class _AuctionPageState extends State<AuctionPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SimpleText(
+                const SimpleText(
                   text: 'Ofertar',
                   fontSize: 15,
                   color: Colors.white,
                 ),
                 SimpleText(
-                  text: '${oneHomeworkModelbool.offeredAmount} bs',
+                  text: '${oneHomeworkModel.homework.offeredAmount} bs',
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -206,9 +218,14 @@ class _AuctionPageState extends State<AuctionPage> {
             ElevatedButton(
               onPressed: () {
                 /* Navigator.pushNamed(context, 'makeOffer'); */
-                navigatorProtected(context, isLogged, 'makeOffer');
+                if (isBearer) {
+                  navigatorProtected(context, isLogged, 'autionWithOffer');
+                } else {
+                  navigatorProtected(context, isLogged, 'makeOffer');
+                }
               },
-              child: const Text('Hacer una oferta'),
+              child:
+                  isBearer ? const Text('Ver ofertas') : const Text('Ofertar'),
             ),
           ],
         ),

@@ -37,8 +37,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ? DrawerMenu(
               onPressedLogout: auth.logout,
               userName: auth.usuario.username,
-              profileImage: auth.usuario.profileImageUrl,
-            )
+              profileImage: '')
           : null,
       /* floatingActionButton: auth.isLogged
           ? FloatingActionButton(

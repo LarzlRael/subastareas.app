@@ -1,19 +1,21 @@
 part of '../widgets.dart';
 
-class Comments extends StatefulWidget {
+class CommentsWidget extends StatefulWidget {
   final bool isLogged;
   final List<Comment> comments;
-  const Comments({
+  final int homeworkId;
+  const CommentsWidget({
     Key? key,
     required this.isLogged,
     required this.comments,
+    required this.homeworkId,
   }) : super(key: key);
 
   @override
-  State<Comments> createState() => _CommentsState();
+  State<CommentsWidget> createState() => _CommentsWidgetState();
 }
 
-class _CommentsState extends State<Comments> {
+class _CommentsWidgetState extends State<CommentsWidget> {
   final myController = TextEditingController();
   bool _showSendIcon = false;
   late AuthServices auth;
@@ -40,10 +42,10 @@ class _CommentsState extends State<Comments> {
                       child: showProfileImage(
                           auth.usuario.profileImageUrl, auth.usuario.username),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    SimpleText(
+                    const SimpleText(
                       text: 'Agregar un comentario ....',
                       color: Colors.grey,
                     ),
@@ -53,7 +55,7 @@ class _CommentsState extends State<Comments> {
             : Container(),
         ListView.builder(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: widget.comments.length,
           itemBuilder: (context, index) {
             return CommentCard(
@@ -117,10 +119,10 @@ class _CommentsState extends State<Comments> {
 
                             final comment = await Services.sendRequestWithToken(
                                 'POST',
-                                'comments/newComment/16',
+                                'comments/newComment/${widget.homeworkId}',
                                 {'content': controller.text},
                                 await auth.getCurrentToken());
-                            /* print(comment?.body); */
+                            print(comment?.statusCode);
 
                             Navigator.pop(context);
                             controller.clear();

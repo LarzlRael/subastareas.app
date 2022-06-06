@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 class HomeworkCard extends StatelessWidget {
   final bool isLogged;
-  final HomeworkModel homework;
+  final HomeworksModel homework;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
@@ -53,16 +53,17 @@ class HomeworkCard extends StatelessWidget {
                     color: Colors.black45,
                   ),
                   Row(
-                    children: const [
-                      Icon(
+                    children: [
+                      const Icon(
                         Icons.timer_outlined,
                         color: Colors.red,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 5,
                       ),
                       SimpleText(
-                        text: '2.5 horas restantes',
+                        text:
+                            '${getDateDiff(homework.resolutionTime).inHours} horas restantes',
                         color: Colors.red,
                         fontWeight: FontWeight.w700,
                       ),
@@ -84,13 +85,13 @@ class HomeworkCard extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                homework.offers.length > 0
+                /* homework.offers.length > 0
                     ? SimpleText(
                         text: '${homework.offers.length} ofertas',
                         color: Colors.grey,
                         fontSize: 16,
                       )
-                    : Container(),
+                    : Container(), */
               ],
             ),
           ],

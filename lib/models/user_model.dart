@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final userModel = userModelFromJson(jsonString);
-
 import 'dart:convert';
 
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
@@ -17,16 +13,13 @@ class UserModel {
     required this.email,
     required this.nickName,
     required this.phone,
-    required this.profileImageUrl,
+    this.profileImageUrl,
     required this.google,
     required this.verify,
     required this.createdAt,
     required this.updatedAt,
-    required this.supervisor,
     required this.wallet,
-    required this.professor,
     required this.userRols,
-    required this.userDevices,
     required this.accessToken,
   });
 
@@ -37,16 +30,13 @@ class UserModel {
   String email;
   dynamic nickName;
   dynamic phone;
-  dynamic profileImageUrl;
+  String? profileImageUrl;
   bool google;
   bool verify;
   DateTime createdAt;
   DateTime updatedAt;
-  dynamic supervisor;
   Wallet wallet;
-  dynamic professor;
   List<String> userRols;
-  List<String> userDevices;
   String accessToken;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -62,11 +52,8 @@ class UserModel {
         verify: json["verify"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        supervisor: json["supervisor"],
         wallet: Wallet.fromJson(json["wallet"]),
-        professor: json["professor"],
         userRols: List<String>.from(json["userRols"].map((x) => x)),
-        userDevices: List<String>.from(json["userDevices"].map((x) => x)),
         accessToken: json["accessToken"],
       );
 
@@ -83,11 +70,8 @@ class UserModel {
         "verify": verify,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "supervisor": supervisor,
         "wallet": wallet.toJson(),
-        "professor": professor,
         "userRols": List<dynamic>.from(userRols.map((x) => x)),
-        "userDevices": List<dynamic>.from(userDevices.map((x) => x)),
         "accessToken": accessToken,
       };
 }

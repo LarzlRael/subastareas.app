@@ -2,7 +2,7 @@ part of 'widgets.dart';
 
 //TODO corregir esta parte en caso de que no se tenga una imagen de perfil
 class CircleAvatarGroup extends StatelessWidget {
-  final List<String> urlImages;
+  final List<String?> urlImages;
   final int elementsToShow;
 
   const CircleAvatarGroup({
@@ -38,7 +38,7 @@ class CircleAvatarGroup extends StatelessWidget {
                       Row(
                         children: sliceArray
                             .map((circle) => CircleAvatar(
-                                  backgroundImage: NetworkImage(circle),
+                                  child: Text('que fue'),
                                 ))
                             .toList(),
                       ),

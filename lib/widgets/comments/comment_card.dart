@@ -3,8 +3,11 @@ part of '../widgets.dart';
 class CommentCard extends StatefulWidget {
   final Comment comment;
   bool isExpanded;
-  CommentCard({Key? key, this.isExpanded = false, required this.comment})
-      : super(key: key);
+  CommentCard({
+    Key? key,
+    this.isExpanded = false,
+    required this.comment,
+  }) : super(key: key);
 
   @override
   State<CommentCard> createState() => _CommentCardState();
@@ -20,6 +23,7 @@ class _CommentCardState extends State<CommentCard>
   @override
   Widget build(BuildContext context) {
     /* double c_width = MediaQuery.of(context).size.width * 0.8; */
+    final auth = Provider.of<AuthServices>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -41,28 +45,33 @@ class _CommentCardState extends State<CommentCard>
                   isExpanded: widget.isExpanded,
                   limit: 75,
                 ),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: SimpleText(
-                        text: 'Me gusta',
-                        color: Colors.grey,
-                      ),
-                    )
-                  ],
-                )
+                widget.comment.edited
+                    ? Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {},
+                            child: SimpleText(
+                              text: 'Editado',
+                              color: Colors.grey,
+                            ),
+                          )
+                        ],
+                      )
+                    : Container()
               ],
             ),
           ),
-          IconButton(
-              onPressed: () {
-                showBottomMenuShet();
-              },
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.grey,
-              ))
+          auth.isLogged
+              ? IconButton(
+                  onPressed: () {
+                    showBottomMenuShet(auth.usuario.id, widget.comment.user.id);
+                  },
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: Colors.grey,
+                  ),
+                )
+              : Container(),
         ],
       ),
     );
@@ -85,29 +94,42 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 
-  showBottomMenuShet() {
+  showBottomMenuShet(int currentUserId, int commentId) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const Text('Editar comentario'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.delete),
-              title: const Text('Eliminar'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );
+        return currentUserId == commentId
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.edit),
+                    title: const Text('Editar comentario'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.delete),
+                    title: const Text('Eliminar'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              )
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.flag),
+                    title: const Text('Denunciar comentario'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              );
       },
     );
   }

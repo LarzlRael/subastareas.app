@@ -30,7 +30,7 @@ class AuthServices with ChangeNotifier {
     final resp = await Services.sendRequest('POST', 'auth/signin', data);
 
     if (validateStatus(resp!.statusCode)) {
-      print(userModelFromJson(resp.body).accessToken);
+      /* print(userModelFromJson(resp.body).accessToken); */
       setUsuario(userModelFromJson(resp.body));
       await _saveIdAnToken(usuario.id.toString(), usuario.accessToken);
       isLogged = true;

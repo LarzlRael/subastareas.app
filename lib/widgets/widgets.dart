@@ -7,7 +7,8 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:subastareaspp/models/homework_model.dart';
+import 'package:subastareaspp/models/one_homework_model.dart';
+import 'package:subastareaspp/models/homeworks_model.dart';
 import 'package:subastareaspp/models/one_homework_model.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/servives/auth_services.dart';
@@ -16,6 +17,7 @@ import 'package:subastareaspp/utils/text_util.dart';
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import '../routes/routes_page.dart';
+import '../utils/time_utils.dart';
 
 part 'button_icon.dart';
 part 'text/description_text.dart';
