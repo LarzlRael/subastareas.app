@@ -11,15 +11,18 @@ import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'firebase_options.dart';
 
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   print("Handling a background message: ${message.messageId}");
   print('Message data: ${message.data}');
+  navigatorKey.currentState?.pushNamed('profile');
+  print('Ir a  ${navigatorKey.currentState}');
 }
 
 void main() async {
@@ -27,7 +30,7 @@ void main() async {
 
   await Firebase.initializeApp();
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
@@ -45,21 +48,36 @@ void main() async {
       debug: true // optional: set false to disable printing logs to console
       );
 
-  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    print('Got a message whilst in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-  });
-
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final prefs = UserPreferences();
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+      showSnackBar(message.data['type_notification'], message.data['content']);
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
+  final prefs = UserPreferences();
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -69,6 +87,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Subastareas',
+        scaffoldMessengerKey: _messangerKey,
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -87,6 +107,18 @@ class MyApp extends StatelessWidget {
           Locale('ja', ''),
           Locale('pt', ''),
         ],
+      ),
+    );
+  }
+
+  showSnackBar(String type, String message) {
+    print(type);
+    print(message);
+    print('showSnackBar');
+    _messangerKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: type == "comment" ? Colors.green : Colors.blue,
       ),
     );
   }

@@ -14,11 +14,10 @@ class SlideItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
+      /* height: double.infinity, */
       child: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+          Expanded(
             child: SvgPicture.asset(assetImage),
           ),
           SimpleText(

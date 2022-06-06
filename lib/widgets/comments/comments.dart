@@ -2,9 +2,11 @@ part of '../widgets.dart';
 
 class Comments extends StatefulWidget {
   final bool isLogged;
+  final List<Comment> comments;
   const Comments({
     Key? key,
     required this.isLogged,
+    required this.comments,
   }) : super(key: key);
 
   @override
@@ -49,22 +51,20 @@ class _CommentsState extends State<Comments> {
                 ),
               )
             : Container(),
-        CommentCard(
+        ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: widget.comments.length,
+          itemBuilder: (context, index) {
+            return CommentCard(
+              comment: widget.comments[index],
+            );
+          },
+        ),
+        /* CommentCard(
           text:
               'Esto es un comentario random que solo pasa un par de veces y no deberias verlo',
-        ),
-        CommentCard(
-          text:
-              '50esto es solo un numero oe 50esto es solo un numero oe50esto es solo un numero oe50esto es solo un numero oe  specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
-        ),
-        CommentCard(
-          text:
-              '50esto es solo un numero oe 50esto es solo un numero oe50esto es solo un numero oe50esto es solo un numero oe  specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
-        ),
-        CommentCard(
-          text:
-              '50esto es solo un numero oe 50esto es solo un numero oe50esto es solo un numero oe50esto es solo un numero oe  specimen book. It has survived not only five centuries, but also the leap into electronic 38883888f8f899d',
-        ),
+        ), */
       ],
     );
   }

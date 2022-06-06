@@ -12,7 +12,7 @@ class LoadingPage extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(25),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.black45,
                   border: Border.all(),
                   borderRadius: const BorderRadius.all(Radius.circular(15)),
                 ),
@@ -20,8 +20,7 @@ class LoadingPage extends StatelessWidget {
                   children: const [
                     CircularProgressIndicator(),
                     SizedBox(height: 10),
-                    Text('Cargando ...',
-                        style: TextStyle(color: Colors.black54)),
+                    Text('Cargando ...', style: TextStyle(color: Colors.grey)),
                   ],
                 ),
               ),

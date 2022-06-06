@@ -6,12 +6,14 @@ class MenuProfileOption extends StatelessWidget {
   final IconData icon;
   final Future Function()? onPressed;
   final bool showTrailing;
+  final bool showTrailingIcon;
   const MenuProfileOption({
     Key? key,
     required this.title,
     required this.page,
     required this.icon,
     this.showTrailing = false,
+    this.showTrailingIcon = true,
     this.onPressed,
   }) : super(key: key);
 
@@ -33,7 +35,9 @@ class MenuProfileOption extends StatelessWidget {
                 PageTransition(type: PageTransitionType.fade, child: page));
           }
         },
-        trailing: Icon(showTrailing ? Icons.lock_clock : Icons.chevron_right),
+        trailing: showTrailingIcon
+            ? Icon(showTrailing ? Icons.lock_clock : Icons.chevron_right)
+            : null,
         leading: Icon(icon),
         title: Text(title),
       ),

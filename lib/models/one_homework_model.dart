@@ -1,18 +1,17 @@
-// To parse this JSON data, do
+// To parse  required this JSON data, do
 //
-//     final homeworkModel = homeworkModelFromJson(jsonString);
+//     final oneHomeworkModel = oneHomeworkModelFromJson(jsonString);
 
 import 'dart:convert';
 
-List<HomeworkModel> homeworkModelFromJson(String str) =>
-    List<HomeworkModel>.from(
-        json.decode(str).map((x) => HomeworkModel.fromJson(x)));
+OneHomeworkModel oneHomeworkModelFromJson(String str) =>
+    OneHomeworkModel.fromJson(json.decode(str));
 
-String homeworkModelToJson(List<HomeworkModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String oneHomeworkModelToJson(OneHomeworkModel data) =>
+    json.encode(data.toJson());
 
-class HomeworkModel {
-  HomeworkModel({
+class OneHomeworkModel {
+  OneHomeworkModel({
     required this.id,
     required this.title,
     required this.description,
@@ -26,6 +25,8 @@ class HomeworkModel {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
+    required this.user,
+    required this.comments,
     required this.offers,
     required this.userSupervisor,
   });
@@ -43,10 +44,13 @@ class HomeworkModel {
   String status;
   DateTime createdAt;
   DateTime updatedAt;
+  OneHomeworkModelUser user;
+  List<Comment> comments;
   List<Offer> offers;
   dynamic userSupervisor;
 
-  factory HomeworkModel.fromJson(Map<String, dynamic> json) => HomeworkModel(
+  factory OneHomeworkModel.fromJson(Map<String, dynamic> json) =>
+      OneHomeworkModel(
         id: json["id"],
         title: json["title"],
         description: json["description"],
@@ -60,6 +64,9 @@ class HomeworkModel {
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        user: OneHomeworkModelUser.fromJson(json["user"]),
+        comments: List<Comment>.from(
+            json["comments"].map((x) => Comment.fromJson(x))),
         offers: List<Offer>.from(json["offers"].map((x) => Offer.fromJson(x))),
         userSupervisor: json["userSupervisor"],
       );
@@ -78,16 +85,17 @@ class HomeworkModel {
         "status": status,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "user": user.toJson(),
+        "comments": List<dynamic>.from(comments.map((x) => x.toJson())),
         "offers": List<dynamic>.from(offers.map((x) => x.toJson())),
         "userSupervisor": userSupervisor,
       };
 }
 
-class Offer {
-  Offer({
+class Comment {
+  Comment({
     required this.id,
-    required this.priceOffer,
-    required this.accept,
+    required this.content,
     required this.edited,
     required this.createdAt,
     required this.updatedAt,
@@ -95,27 +103,24 @@ class Offer {
   });
 
   int id;
-  int priceOffer;
-  bool accept;
+  String content;
   bool edited;
   DateTime createdAt;
   DateTime updatedAt;
-  User user;
+  CommentUser user;
 
-  factory Offer.fromJson(Map<String, dynamic> json) => Offer(
+  factory Comment.fromJson(Map<String, dynamic> json) => Comment(
         id: json["id"],
-        priceOffer: json["priceOffer"],
-        accept: json["accept"],
+        content: json["content"],
         edited: json["edited"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        user: User.fromJson(json["user"]),
+        user: CommentUser.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "priceOffer": priceOffer,
-        "accept": accept,
+        "content": content,
         "edited": edited,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
@@ -123,8 +128,8 @@ class Offer {
       };
 }
 
-class User {
-  User({
+class CommentUser {
+  CommentUser({
     required this.id,
     required this.username,
     required this.password,
@@ -138,7 +143,6 @@ class User {
     required this.verify,
     required this.createdAt,
     required this.updatedAt,
-    required this.rols,
     required this.supervisor,
     required this.wallet,
     required this.professor,
@@ -158,13 +162,13 @@ class User {
   bool verify;
   DateTime createdAt;
   DateTime updatedAt;
-  List<Rol> rols;
+
   dynamic supervisor;
   Wallet wallet;
   Professor professor;
   List<Device> device;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory CommentUser.fromJson(Map<String, dynamic> json) => CommentUser(
         id: json["id"],
         username: json["username"],
         password: json["password"],
@@ -178,7 +182,6 @@ class User {
         verify: json["verify"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        rols: List<Rol>.from(json["rols"].map((x) => Rol.fromJson(x))),
         supervisor: json["supervisor"],
         wallet: Wallet.fromJson(json["wallet"]),
         professor: Professor.fromJson(json["professor"]),
@@ -200,7 +203,6 @@ class User {
         "verify": verify,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-        "rols": List<dynamic>.from(rols.map((x) => x.toJson())),
         "supervisor": supervisor,
         "wallet": wallet.toJson(),
         "professor": professor.toJson(),
@@ -264,30 +266,6 @@ class Professor {
       };
 }
 
-class Rol {
-  Rol({
-    required this.id,
-    required this.rolName,
-    required this.active,
-  });
-
-  int id;
-  String rolName;
-  bool active;
-
-  factory Rol.fromJson(Map<String, dynamic> json) => Rol(
-        id: json["id"],
-        rolName: json["rolName"],
-        active: json["active"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "rolName": rolName,
-        "active": active,
-      };
-}
-
 class Wallet {
   Wallet({
     required this.id,
@@ -313,5 +291,110 @@ class Wallet {
         "balance": balance,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Offer {
+  Offer({
+    required this.id,
+    required this.priceOffer,
+    required this.accept,
+    required this.edited,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.user,
+  });
+
+  int id;
+  int priceOffer;
+  bool accept;
+  bool edited;
+  DateTime createdAt;
+  DateTime updatedAt;
+  CommentUser user;
+
+  factory Offer.fromJson(Map<String, dynamic> json) => Offer(
+        id: json["id"],
+        priceOffer: json["priceOffer"],
+        accept: json["accept"],
+        edited: json["edited"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        user: CommentUser.fromJson(json["user"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "priceOffer": priceOffer,
+        "accept": accept,
+        "edited": edited,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "user": user.toJson(),
+      };
+}
+
+class OneHomeworkModelUser {
+  OneHomeworkModelUser({
+    required this.id,
+    required this.username,
+    required this.name,
+    required this.lastName,
+    required this.email,
+    required this.nickName,
+    required this.phone,
+    required this.profileImageUrl,
+    required this.google,
+    required this.verify,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.supervisor,
+  });
+
+  int id;
+  String username;
+  dynamic name;
+  dynamic lastName;
+  String email;
+  dynamic nickName;
+  dynamic phone;
+  String profileImageUrl;
+  bool google;
+  bool verify;
+  DateTime createdAt;
+  DateTime updatedAt;
+  dynamic supervisor;
+
+  factory OneHomeworkModelUser.fromJson(Map<String, dynamic> json) =>
+      OneHomeworkModelUser(
+        id: json["id"],
+        username: json["username"],
+        name: json["name"],
+        lastName: json["lastName"],
+        email: json["email"],
+        nickName: json["nickName"],
+        phone: json["phone"],
+        profileImageUrl: json["profileImageUrl"],
+        google: json["google"],
+        verify: json["verify"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        supervisor: json["supervisor"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "name": name,
+        "lastName": lastName,
+        "email": email,
+        "nickName": nickName,
+        "phone": phone,
+        "profileImageUrl": profileImageUrl,
+        "google": google,
+        "verify": verify,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "supervisor": supervisor,
       };
 }

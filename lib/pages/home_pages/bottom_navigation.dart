@@ -10,12 +10,12 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
   int counter = 0;
-  static final List<Widget> _widgetOptions = <Widget>[
+  /* static final List<Widget> _widgetOptions = <Widget>[
     /* CategoriesPage(), */
     const ListOpenHomeworks(),
     UploadHomework(),
     ProfilePage(),
-  ];
+  ]; */
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,7 +29,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
     return Scaffold(
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: auth.isLogged
+            ? bottomItemsWithLogin.elementAt(_selectedIndex)
+            : bottomItemsWithoutLogin.elementAt(_selectedIndex),
       ),
       drawer: auth.isLogged
           ? DrawerMenu(
@@ -48,7 +50,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             )
           : null, */
       bottomNavigationBar: BottomNavigationBar(
-        items: bottonItems,
+        items: auth.isLogged ? bottonItemsWithLogin : bottonItemsWithoutLogin,
         currentIndex: _selectedIndex,
         /* selectedItemColor: Colors.amber[800], */
         onTap: _onItemTapped,

@@ -1,5 +1,6 @@
 part of 'widgets.dart';
 
+//TODO corregir esta parte en caso de que no se tenga una imagen de perfil
 class CircleAvatarGroup extends StatelessWidget {
   final List<String> urlImages;
   final int elementsToShow;
@@ -22,34 +23,36 @@ class CircleAvatarGroup extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SimpleText(
-              text: 'Ofertas',
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              bottom: 5,
-            ),
-            Row(
-              children: [
-                Row(
-                  children: sliceArray
-                      .map((circle) => CircleAvatar(
-                            backgroundImage: NetworkImage(circle),
-                          ))
-                      .toList(),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                urlImages.length > elementsToShow
-                    ? _createCircleAvatarMore()
-                    : Container(),
-              ],
-            ),
-          ],
-        ),
+        child: urlImages.isNotEmpty
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SimpleText(
+                    text: 'Ofertas',
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    bottom: 5,
+                  ),
+                  Row(
+                    children: [
+                      Row(
+                        children: sliceArray
+                            .map((circle) => CircleAvatar(
+                                  backgroundImage: NetworkImage(circle),
+                                ))
+                            .toList(),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      urlImages.length > elementsToShow
+                          ? _createCircleAvatarMore()
+                          : Container(),
+                    ],
+                  ),
+                ],
+              )
+            : Container(),
       ),
     );
   }

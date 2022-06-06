@@ -71,7 +71,7 @@ class _FilterItemState extends State<FilterItem> {
           isSelected = value!;
         });
       },
-      secondary: CircleAvatar(),
+      secondary: const CircleAvatar(),
     );
   }
 }

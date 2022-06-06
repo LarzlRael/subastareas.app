@@ -1,7 +1,15 @@
 part of '../pages.dart';
 
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatefulWidget {
+  const MyProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyProfilePage> createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
   late final AuthServices auth;
+
   /* final _googleSignInServices = GoogleSignInServices; */
   @override
   Widget build(BuildContext context) {
@@ -9,7 +17,7 @@ class MyProfilePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.all(30),
+          padding: const EdgeInsets.all(30),
           child: Column(
             children: [
               Row(
@@ -40,18 +48,18 @@ class MyProfilePage extends StatelessWidget {
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: getMenuProfileOptions().length,
+                  itemCount: getMenuProfileOptions(closeSession).length,
                   itemBuilder: (BuildContext context, int index) {
-                    return getMenuProfileOptions()[index];
+                    return getMenuProfileOptions(closeSession)[index];
                   },
                 ),
               ),
-              MenuProfileOption(
+              /* MenuProfileOption(
                 icon: Icons.question_answer,
                 title: "Cerrar sesión",
                 page: WalletPage(),
@@ -59,10 +67,22 @@ class MyProfilePage extends StatelessWidget {
                   await auth.logout();
                   GoogleSignInServices.signOut();
                 },
-              ),
+              ), */
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Future closeSession() async {
+    await auth.logout();
+    GoogleSignInServices.signOut();
+    Navigator.pushReplacement(
+      context,
+      PageTransition(
+        type: PageTransitionType.leftToRightWithFade,
+        child: WelcomePage(),
       ),
     );
   }
@@ -76,7 +96,7 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: Colors.white,

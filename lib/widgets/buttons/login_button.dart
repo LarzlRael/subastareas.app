@@ -61,7 +61,7 @@ class LoginButton extends StatelessWidget {
                   ),
                 ],
               )
-            : Container(
+            : SizedBox(
                 width: double.infinity,
                 child: Text(
                   text,

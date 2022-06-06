@@ -71,6 +71,8 @@ class _CreateSlideShow extends StatelessWidget {
               primaryColor: primaryColor,
               secondaryColor: secondaryColor),
         Expanded(
+          /* color: Colors.blue,
+          height: MediaQuery.of(context).size.height * 0.48, */
           child: _Slides(slides: slides),
         ),
         if (!indicatorTopPosition)
@@ -98,8 +100,7 @@ class _Dots extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 70,
-      /* color: Colors.red, */
+      height: 30,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(

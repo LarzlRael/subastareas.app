@@ -1,11 +1,9 @@
 part of '../pages.dart';
 
 class WelcomePage extends StatelessWidget {
-  WelcomePage({Key? key}) : super(key: key);
+  const WelcomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final prefs = UserPreferences();
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -61,7 +59,7 @@ class WelcomePage extends StatelessWidget {
                 text: 'Registrarse',
                 backgroundColor: Colors.blue,
               ),
-              /* TextOnTap(
+              TextOnTap(
                 text: const SimpleText(
                   text: 'No ahora',
                   fontSize: 16,
@@ -70,9 +68,9 @@ class WelcomePage extends StatelessWidget {
                   bottom: 10,
                 ),
                 onTap: () {
-                  Navigator.pushNamed(context, 'bottomNavigation');
+                  Navigator.pushReplacementNamed(context, 'bottomNavigation');
                 },
-              ) */
+              )
             ],
           ),
         ),

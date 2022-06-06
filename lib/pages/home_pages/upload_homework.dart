@@ -27,6 +27,7 @@ class _UploadHomeworkState extends State<UploadHomework> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Subir nueva tarea'),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10),

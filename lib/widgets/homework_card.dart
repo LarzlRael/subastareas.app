@@ -1,10 +1,12 @@
 part of 'widgets.dart';
 
 class HomeworkCard extends StatelessWidget {
-  final isLogged;
+  final bool isLogged;
+  final HomeworkModel homework;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
+    required this.homework,
   }) : super(key: key);
 
   @override
@@ -12,7 +14,7 @@ class HomeworkCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'auctionPage');
+        Navigator.pushNamed(context, 'auctionPage', arguments: homework.id);
       },
       child: Container(
         margin: const EdgeInsets.all(15),
@@ -34,17 +36,17 @@ class HomeworkCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SimpleText(
-                    text: 'Alguien me ayuda con una tarea',
+                  SimpleText(
+                    text: homework.title,
                     fontSize: 18,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
                     color: Colors.black54,
                   ),
-                  const SimpleText(
+                  SimpleText(
                     top: 5,
                     bottom: 5,
-                    text: 'Matematica',
+                    text: homework.category,
                     fontSize: 16,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
@@ -72,21 +74,23 @@ class HomeworkCard extends StatelessWidget {
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 SimpleText(
-                  text: '\$ 1.000',
+                  text: '\$ ${homework.offeredAmount}',
                   color: Colors.lightGreen,
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
-                SimpleText(
-                  text: '3 ofertas',
-                  color: Colors.grey,
-                  fontSize: 16,
-                ),
+                homework.offers.length > 0
+                    ? SimpleText(
+                        text: '${homework.offers.length} ofertas',
+                        color: Colors.grey,
+                        fontSize: 16,
+                      )
+                    : Container(),
               ],
             ),
           ],

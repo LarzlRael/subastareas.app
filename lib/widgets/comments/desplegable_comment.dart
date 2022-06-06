@@ -34,6 +34,7 @@ class _DesplegableCommentState extends State<DesplegableComment> {
               padding: const EdgeInsets.only(top: 5),
               child: Text(
                 widget.text,
+                textAlign: TextAlign.start,
                 softWrap: true,
                 overflow: TextOverflow.fade,
                 style: const TextStyle(

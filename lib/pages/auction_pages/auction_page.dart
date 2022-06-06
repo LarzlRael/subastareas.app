@@ -8,8 +8,16 @@ class AuctionPage extends StatefulWidget {
 
 class _AuctionPageState extends State<AuctionPage> {
   late AuthServices auth;
+  late HomeworkServices homeworkServices;
+  @override
+  void initState() {
+    homeworkServices = HomeworkServices();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final idHomeWork = ModalRoute.of(context)?.settings.arguments as int;
     auth = Provider.of<AuthServices>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -37,8 +45,26 @@ class _AuctionPageState extends State<AuctionPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _imageCategory(),
-              _cardAuction(auth.isLogged),
+              FutureBuilder(
+                future: homeworkServices.getOneHomework(idHomeWork),
+                /* initialData: InitialData, */
+                builder: (BuildContext context,
+                    AsyncSnapshot<OneHomeworkModel> snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      children: [
+                        _imageCategory(),
+                        _cardAuction(snapshot.data!, auth.isLogged),
+                      ],
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+
               /* _buttonMakeOffer(), */
             ],
           ),
@@ -47,14 +73,14 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _cardAuction(bool isLogged) {
+  Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SimpleText(
-            text: 'Afro Web',
+          SimpleText(
+            text: oneHomeworkModel.user.username,
             fontWeight: FontWeight.w500,
             bottom: 15,
             fontSize: 22,
@@ -67,9 +93,11 @@ class _AuctionPageState extends State<AuctionPage> {
                   Row(
                     children: [
                       CircleAvatar(
-                          /* child: showProfileImage(profileImage, userName) */
-                          child: showProfileImage(auth.usuario.profileImageUrl,
-                              auth.usuario.username)),
+                        /* child: showProfileImage(profileImage, userName) */
+                        child: showProfileImage(
+                            oneHomeworkModel.user.profileImageUrl,
+                            oneHomeworkModel.user.username),
+                      ),
                       SizedBox(
                         width: 7,
                       ),
@@ -95,27 +123,20 @@ class _AuctionPageState extends State<AuctionPage> {
               ),
             ],
           ),
-          description(
-              'este es un adescripcion de mi tarea we no teng a nada lorem ipusn lorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusnlorem ipusn'),
-          _buttonMakeOffer(isLogged),
+          description(oneHomeworkModel.description),
+          _buttonMakeOffer(oneHomeworkModel, isLogged),
           TextButton(
             child: Text('Ver Tarea '),
             onPressed: () {
-              Navigator.pushNamed(context, 'showHomework');
+              Navigator.pushNamed(context, 'showHomework',
+                  arguments: oneHomeworkModel.fileUrl);
             },
           ),
-          const CircleAvatarGroup(
-            urlImages: [
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-              'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-            ],
-          ),
-          Comments(isLogged: isLogged),
+          CircleAvatarGroup(
+              urlImages: oneHomeworkModel.offers
+                  .map((e) => e.user.profileImageUrl)
+                  .toList()),
+          Comments(comments: oneHomeworkModel.comments, isLogged: isLogged),
         ],
       ),
     );
@@ -148,7 +169,7 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _buttonMakeOffer(bool isLogged) {
+  Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModelbool, isLogged) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
       /* width: size.width,
@@ -168,14 +189,14 @@ class _AuctionPageState extends State<AuctionPage> {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 SimpleText(
                   text: 'Ofertar',
                   fontSize: 15,
                   color: Colors.white,
                 ),
                 SimpleText(
-                  text: '20 bs',
+                  text: '${oneHomeworkModelbool.offeredAmount} bs',
                   fontSize: 20,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -208,6 +229,7 @@ class _AuctionPageState extends State<AuctionPage> {
           fontSize: 18,
         ),
         DescriptionText(
+          despegable: false,
           desc: desc,
         ),
       ],

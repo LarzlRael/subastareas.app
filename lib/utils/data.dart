@@ -39,7 +39,18 @@ List<Widget> categoryList = [
   ),
 ];
 
-final List<BottomNavigationBarItem> bottonItems = [
+final List<Widget> bottomItemsWithoutLogin = <Widget>[
+  const ListOpenHomeworks(),
+  ProfilePage(),
+];
+
+final List<Widget> bottomItemsWithLogin = <Widget>[
+  const ListOpenHomeworks(),
+  const UploadHomework(),
+  ProfilePage(),
+];
+
+final List<BottomNavigationBarItem> bottonItemsWithLogin = [
   const BottomNavigationBarItem(
     icon: Icon(Icons.category),
     label: 'Aportar',
@@ -53,8 +64,19 @@ final List<BottomNavigationBarItem> bottonItems = [
     label: 'Perfil',
   ),
 ];
+final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.category),
+    label: 'Aportar',
+  ),
+  const BottomNavigationBarItem(
+    icon: Icon(Icons.person),
+    label: 'Perfil',
+  ),
+];
 
-List<MenuProfileOption> getMenuProfileOptions() {
+List<MenuProfileOption> getMenuProfileOptions(
+    Future<dynamic> Function() onPress) {
   return [
     MenuProfileOption(
       icon: Icons.wallet_giftcard_rounded,
@@ -87,6 +109,15 @@ List<MenuProfileOption> getMenuProfileOptions() {
       title: "Tus marcadores",
       page: WalletPage(),
       showTrailing: true,
+    ),
+    MenuProfileOption(
+      icon: Icons.question_answer,
+      title: "Cerrar sesión",
+      page: WalletPage(),
+      showTrailingIcon: false,
+      onPressed: () async {
+        await onPress();
+      },
     ),
   ];
 }

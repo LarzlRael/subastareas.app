@@ -1,9 +1,9 @@
 part of '../widgets.dart';
 
 class CommentCard extends StatefulWidget {
-  final String text;
+  final Comment comment;
   bool isExpanded;
-  CommentCard({Key? key, required this.text, this.isExpanded = false})
+  CommentCard({Key? key, this.isExpanded = false, required this.comment})
       : super(key: key);
 
   @override
@@ -25,9 +25,10 @@ class _CommentCardState extends State<CommentCard>
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 20,
-            /* backgroundImage: AssetImage('assets/images/avatar.png'), */
+            child: showProfileImage(widget.comment.user.profileImageUrl,
+                widget.comment.user.username),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -36,7 +37,7 @@ class _CommentCardState extends State<CommentCard>
               children: [
                 _nameAndTimeAgo(),
                 DesplegableComment(
-                  text: widget.text,
+                  text: widget.comment.content,
                   isExpanded: widget.isExpanded,
                   limit: 75,
                 ),
@@ -71,7 +72,7 @@ class _CommentCardState extends State<CommentCard>
     return Row(
       children: [
         SimpleText(
-          text: 'DonalRice',
+          text: widget.comment.user.username,
           fontSize: 17,
           fontWeight: FontWeight.bold,
         ),
