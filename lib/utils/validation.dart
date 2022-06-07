@@ -15,9 +15,10 @@ bool validateEmail(String email) {
       .hasMatch(email);
 }
 
-void navigatorProtected(BuildContext context, bool isLogged, String route) {
+void navigatorProtected(
+    BuildContext context, bool isLogged, String route, dynamic arguments) {
   if (isLogged) {
-    Navigator.pushNamed(context, route);
+    Navigator.pushNamed(context, route, arguments: arguments);
   } else {
     Navigator.pushReplacementNamed(context, 'welcome');
   }

@@ -46,7 +46,7 @@ part 'offers_pages/make_offer_page.dart';
 part 'homeworks/ShowHomework.dart';
 part 'initialPresentation/welcome_page.dart';
 part 'home_pages/bottom_navigation.dart';
-part 'auction_pages/aution_with_offer.dart';
+part 'auction_pages/aution_with_offer_page.dart';
 part 'user_pages/my_offers.dart';
 part 'user_pages/wallet_page.dart';
 part 'home_pages/categories_page.dart';

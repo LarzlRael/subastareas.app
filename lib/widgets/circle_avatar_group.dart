@@ -1,29 +1,28 @@
 part of 'widgets.dart';
 
-//TODO corregir esta parte en caso de que no se tenga una imagen de perfil
 class CircleAvatarGroup extends StatelessWidget {
-  final List<String?> urlImages;
   final int elementsToShow;
-
+  final OneHomeworkModel oneHomeworkModel;
   const CircleAvatarGroup({
     Key? key,
-    required this.urlImages,
+    required this.oneHomeworkModel,
     this.elementsToShow = 5,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final sliceArray = urlImages.length > elementsToShow
-        ? urlImages.sublist(0, elementsToShow)
-        : urlImages;
+    final sliceArray = oneHomeworkModel.offers.length > elementsToShow
+        ? oneHomeworkModel.offers.sublist(0, elementsToShow)
+        : oneHomeworkModel.offers;
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'autionWithOffer');
+        Navigator.pushNamed(context, 'autionWithOfferPage',
+            arguments: oneHomeworkModel);
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),
-        child: urlImages.isNotEmpty
+        child: oneHomeworkModel.offers.isNotEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -37,15 +36,17 @@ class CircleAvatarGroup extends StatelessWidget {
                     children: [
                       Row(
                         children: sliceArray
-                            .map((circle) => CircleAvatar(
-                                  child: Text('que fue'),
+                            .map((offer) => CircleAvatar(
+                                  child: showProfileImage(
+                                      offer.user.profileImageUrl,
+                                      offer.user.username),
                                 ))
                             .toList(),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      urlImages.length > elementsToShow
+                      oneHomeworkModel.offers.length > elementsToShow
                           ? _createCircleAvatarMore()
                           : Container(),
                     ],
@@ -65,7 +66,7 @@ class CircleAvatarGroup extends StatelessWidget {
   }
 
   _createCircleAvatarMore() {
-    final showNumber = urlImages.length - elementsToShow;
+    final showNumber = oneHomeworkModel.offers.length - elementsToShow;
     return CircleAvatar(
       backgroundColor: Colors.grey,
       radius: 18,

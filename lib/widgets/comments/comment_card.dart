@@ -27,7 +27,6 @@ class _CommentCardState extends State<CommentCard>
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CircleAvatar(
             radius: 20,
@@ -50,7 +49,7 @@ class _CommentCardState extends State<CommentCard>
                         children: [
                           TextButton(
                             onPressed: () {},
-                            child: SimpleText(
+                            child: const SimpleText(
                               text: 'Editado',
                               color: Colors.grey,
                             ),
@@ -86,6 +85,7 @@ class _CommentCardState extends State<CommentCard>
           fontWeight: FontWeight.bold,
         ),
         const SizedBox(width: 15),
+        //TODO cambiar por una fecha
         SimpleText(
           text: '5 min ago',
           color: Colors.grey,

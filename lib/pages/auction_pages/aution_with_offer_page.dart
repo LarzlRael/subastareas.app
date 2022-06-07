@@ -1,13 +1,15 @@
 part of '../pages.dart';
 
-class AutionWithOffer extends StatefulWidget {
-  const AutionWithOffer({Key? key}) : super(key: key);
+class AutionWithOfferPage extends StatefulWidget {
+  const AutionWithOfferPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<AutionWithOffer> createState() => _AutionWithOfferState();
+  State<AutionWithOfferPage> createState() => _AutionWithOfferPageState();
 }
 
-class _AutionWithOfferState extends State<AutionWithOffer> {
+class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
   late CountdownTimerController controller;
   int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
 
@@ -23,6 +25,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Scaffold(
@@ -33,7 +36,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
             children: [
               Image.network(
                   'https://concepto.de/wp-content/uploads/2018/08/f%C3%ADsica-e1534938838719.jpg'),
-              _buttonOffer(size, auth.isLogged),
+              _buttonOffer(size, auth.isLogged, args.homework.resolutionTime),
               Positioned(
                 bottom: 30,
                 child: Container(
@@ -59,12 +62,11 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
           Expanded(
             child: ListView.builder(
               /* scrollDirection: Axis.horizontal, */
-              itemCount: 10,
+              itemCount: args.offers.length,
               itemBuilder: (context, index) {
                 return PersonOfferHorizontal(
-                  nameOffered: "Juan Perez",
-                  offerPrice: 100,
-                  active: index % 2 == 0,
+                  offer: args.offers[index],
+                  /* active: index % 2 == 0, */
                 );
               },
             ),
@@ -88,7 +90,7 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
     );
   }
 
-  Widget _buttonOffer(Size size, bool isLogged) {
+  Widget _buttonOffer(Size size, bool isLogged, DateTime durationOffer) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -99,12 +101,12 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
           ),
           Container(
             width: size.width * 0.75,
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(5),
               boxShadow: [
-                BoxShadow(
+                const BoxShadow(
                   color: Colors.black12,
                   blurRadius: 5.0,
                   spreadRadius: 1.0,
@@ -128,15 +130,16 @@ class _AutionWithOfferState extends State<AutionWithOffer> {
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          /* TimerCounter(
+                          TimerCounter(
                             endTime: DateTime.now().millisecondsSinceEpoch +
-                                1000 * 30,
-                          ) */
+                                getDateDiff(durationOffer).inMilliseconds,
+                          )
                         ],
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          navigatorProtected(context, isLogged, 'makeOffer');
+                          navigatorProtected(
+                              context, isLogged, 'makeOffer', null);
                         },
                         child: const SimpleText(
                           fontSize: 15,

@@ -18,6 +18,7 @@ class _DesplegableCommentState extends State<DesplegableComment> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AnimatedSize(
           duration: const Duration(milliseconds: 250),

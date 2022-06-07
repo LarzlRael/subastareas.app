@@ -2,13 +2,11 @@ part of 'widgets.dart';
 
 class PersonOfferHorizontal extends StatelessWidget {
   final bool active;
-  final String nameOffered;
-  final int offerPrice;
+  final Offer offer;
 
   const PersonOfferHorizontal({
     Key? key,
-    required this.nameOffered,
-    required this.offerPrice,
+    required this.offer,
     this.active = false,
   }) : super(key: key);
 
@@ -26,13 +24,13 @@ class PersonOfferHorizontal extends StatelessWidget {
                   ),
               SimpleText(
                 left: 10,
-                text: nameOffered,
+                text: offer.user.username,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
             ],
           ),
-          SimpleText(text: '70bs')
+          SimpleText(text: '${offer.priceOffer}')
         ],
       ),
     );

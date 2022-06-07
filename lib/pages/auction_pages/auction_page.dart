@@ -58,7 +58,7 @@ class _AuctionPageState extends State<AuctionPage> {
                       ],
                     );
                   } else {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -113,37 +113,33 @@ class _AuctionPageState extends State<AuctionPage> {
                   )),
               _infoContainer(
                 'Acaba en ',
-                /* const SimpleText(
-                  text: '28 : 32 :12',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ), */
-                TimerCounter(
+                /*  TimerCounter(
                   endTime: DateTime.now().millisecondsSinceEpoch +
                       diff.inMilliseconds,
                   testStyle: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 18,
                   ),
-                ),
+                ), */
+                Container(),
               ),
             ],
           ),
           description(oneHomeworkModel.homework.description),
           _buttonMakeOffer(oneHomeworkModel, isLogged),
           TextButton(
-            child: Text('Ver Tarea '),
+            child: const Text('Ver Tarea '),
             onPressed: () {
-              Navigator.pushNamed(context, 'showHomework',
-                  arguments: oneHomeworkModel.homework.fileUrl);
+              Navigator.pushNamed(
+                context,
+                'showHomework',
+                arguments: oneHomeworkModel.homework.fileUrl,
+              );
             },
           ),
           CircleAvatarGroup(
-              urlImages: oneHomeworkModel.offers
-                  .map((e) => e.user.profileImageUrl == null
-                      ? e.user.profileImageUrl
-                      : e.user.username)
-                  .toList()),
+            oneHomeworkModel: oneHomeworkModel,
+          ),
           CommentsWidget(
               comments: oneHomeworkModel.comments,
               isLogged: isLogged,
@@ -184,9 +180,6 @@ class _AuctionPageState extends State<AuctionPage> {
     final size = MediaQuery.of(context).size;
     final isBearer = oneHomeworkModel.homework.user.id == auth.usuario.id;
     return SizedBox(
-      /* width: size.width,
-      height: size.height, */
-
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20),
         width: size.width * 1,
@@ -219,9 +212,10 @@ class _AuctionPageState extends State<AuctionPage> {
               onPressed: () {
                 /* Navigator.pushNamed(context, 'makeOffer'); */
                 if (isBearer) {
-                  navigatorProtected(context, isLogged, 'autionWithOffer');
+                  navigatorProtected(context, isLogged, 'autionWithOfferPage',
+                      oneHomeworkModel);
                 } else {
-                  navigatorProtected(context, isLogged, 'makeOffer');
+                  navigatorProtected(context, isLogged, 'makeOffer', null);
                 }
               },
               child:
