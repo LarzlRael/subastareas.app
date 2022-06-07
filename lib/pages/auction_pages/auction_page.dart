@@ -53,7 +53,7 @@ class _AuctionPageState extends State<AuctionPage> {
                   if (snapshot.hasData) {
                     return Column(
                       children: [
-                        _imageCategory(),
+                        _imageCategory(idHomeWork),
                         _cardAuction(snapshot.data!, auth.isLogged),
                       ],
                     );
@@ -95,12 +95,9 @@ class _AuctionPageState extends State<AuctionPage> {
                   'Creador',
                   Row(
                     children: [
-                      CircleAvatar(
-                        /* child: showProfileImage(profileImage, userName) */
-                        child: showProfileImage(
-                            oneHomeworkModel.homework.user.profileImageUrl,
-                            oneHomeworkModel.homework.user.username),
-                      ),
+                      showProfileImage(
+                          oneHomeworkModel.homework.user.profileImageUrl,
+                          oneHomeworkModel.homework.user.username),
                       const SizedBox(
                         width: 7,
                       ),
@@ -149,14 +146,17 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _imageCategory() {
+  Widget _imageCategory(int idHomeWork) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.35,
       width: size.width,
-      child: Image.network(
-        'https://octutor.org/media/posts/11/math.jpg',
-        /* width: 280.0, */
+      child: Hero(
+        tag: idHomeWork,
+        child: Image.network(
+          'https://octutor.org/media/posts/11/math.jpg',
+          /* width: 280.0, */
+        ),
       ),
     );
   }
@@ -215,7 +215,8 @@ class _AuctionPageState extends State<AuctionPage> {
                   navigatorProtected(context, isLogged, 'autionWithOfferPage',
                       oneHomeworkModel);
                 } else {
-                  navigatorProtected(context, isLogged, 'makeOffer', null);
+                  navigatorProtected(
+                      context, isLogged, 'makeOffer', oneHomeworkModel);
                 }
               },
               child:

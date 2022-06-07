@@ -24,13 +24,15 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 children: [
                   Column(
                     children: [
-                      CircleAvatar(
+                      /*   CircleAvatar(
                         radius: 50,
                         child: showProfileImage(
                           auth.usuario.profileImageUrl,
                           auth.usuario.username,
                         ),
-                      ),
+                      ), */
+                      showProfileImage(auth.usuario.profileImageUrl,
+                          auth.usuario.username, 50),
                       const SizedBox(
                         height: 10,
                       ),

@@ -13,15 +13,14 @@ class PersonOfferHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.amber,
       margin: const EdgeInsets.all(5.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                  /* radius: 20, */
-                  ),
+              showProfileImage(offer.user.profileImageUrl, offer.user.username),
               SimpleText(
                 left: 10,
                 text: offer.user.username,

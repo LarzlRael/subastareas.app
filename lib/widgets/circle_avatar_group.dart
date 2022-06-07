@@ -36,11 +36,9 @@ class CircleAvatarGroup extends StatelessWidget {
                     children: [
                       Row(
                         children: sliceArray
-                            .map((offer) => CircleAvatar(
-                                  child: showProfileImage(
-                                      offer.user.profileImageUrl,
-                                      offer.user.username),
-                                ))
+                            .map((offer) => showProfileImage(
+                                offer.user.profileImageUrl,
+                                offer.user.username))
                             .toList(),
                       ),
                       const SizedBox(

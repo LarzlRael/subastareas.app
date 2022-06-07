@@ -49,16 +49,20 @@ class DrawerMenu extends StatelessWidget {
   }
 }
 
-Widget showProfileImage(String? profileImage, String userName) {
-  return profileImage == null
-      ? Text(
-          convertName(userName),
-          style: const TextStyle(fontSize: 50),
-        )
-      : FadeInImage(
-          image: NetworkImage(profileImage),
-          placeholder: const AssetImage('assets/icon.png'),
-        );
+Widget showProfileImage(String? profileImage, String userName,
+    [double radius = 30]) {
+  return CircleAvatar(
+    radius: radius,
+    child: profileImage != null
+        ? null
+        : SimpleText(
+            text: convertName(userName),
+            fontSize: 20,
+            color: Colors.white,
+          ),
+    backgroundImage: profileImage == null ? null : NetworkImage(profileImage),
+    backgroundColor: Colors.green,
+  );
 }
 
 class _ListOptions extends StatelessWidget {

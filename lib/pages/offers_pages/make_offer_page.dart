@@ -11,8 +11,16 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   TextEditingController textController = TextEditingController();
   bool editing = false;
   @override
+  void dispose() {
+    textController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    textController.text = '100';
+    final argumets =
+        ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
+    /* textController.text = argumets.homework.offeredAmount.toString(); */
     return Scaffold(
       appBar: AppBar(
         /* title: Text('Hacer oferta'), */
@@ -34,21 +42,22 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              const CircleAvatar(
-                radius: 75,
+              showProfileImage(
+                argumets.homework.user.profileImageUrl,
+                argumets.homework.user.username,
+                75,
               ),
-              const SimpleText(
+              SimpleText(
                 top: 25,
                 bottom: 25,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
-                text: 'Andrea Parada',
+                text: argumets.homework.user.username,
                 /* color: Colors.grey, */
               ),
-              const DescriptionText(
-                desc:
-                    'esta es la tarea a demas de todos lo demas qeue teihufhs cuando no todo sennerne ademas de todo esto no podemo snegar que fue lo que fue xd',
+              DescriptionText(
+                desc: argumets.homework.description,
                 textAlign: TextAlign.center,
                 despegable: false,
               ),
@@ -56,7 +65,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
               ), */
               const SimpleText(
-                text: 'Tu oferta',
+                text: 'Precio',
                 top: 15,
                 bottom: 15,
                 fontSize: 19,
@@ -110,8 +119,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 width: double.infinity,
                 child: ButtonWithIcon(
                   verticalPadding: 15,
-                  onPressed: () {},
-                  label: 'Enviar Oferta',
+                  onPressed: () {
+                    showDataAlert(textController, argumets.homework.id);
+                  },
+                  label: 'Hacer Oferta',
                   icon: Icons.send,
                   /* marginVertical: 10, */
                 ),
@@ -121,5 +132,92 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
         ),
       ),
     );
+  }
+
+  showDataAlert(TextEditingController myController, int idHomework) {
+    final offersServices = OffersServices();
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  20.0,
+                ),
+              ),
+            ),
+            contentPadding: const EdgeInsets.only(
+              top: 10.0,
+            ),
+            title: const SimpleText(
+              text: "Hacer oferta",
+              fontSize: 24.0,
+            ),
+            content: Container(
+              height: 300,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        "Ingrese cantidad ",
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: myController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Ingrese su oferta',
+                          labelText: 'Oferta',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 60,
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          final offer = await offersServices.makeOffer(
+                              idHomework, int.parse(myController.text));
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue,
+                          // fixedSize: Size(250, 50),
+                        ),
+                        child: const Text(
+                          "Ofertar",
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8.0),
+                      child: const SimpleText(text: 'Nota: '),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: SimpleText(
+                        text:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
+                            ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

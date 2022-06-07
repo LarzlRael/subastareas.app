@@ -36,7 +36,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
             children: [
               Image.network(
                   'https://concepto.de/wp-content/uploads/2018/08/f%C3%ADsica-e1534938838719.jpg'),
-              _buttonOffer(size, auth.isLogged, args.homework.resolutionTime),
+              _buttonOffer(size, auth.isLogged, args),
               Positioned(
                 bottom: 30,
                 child: Container(
@@ -51,11 +51,11 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
             ],
           ),
           Container(
+            color: Colors.yellow,
             padding: const EdgeInsets.all(16.0),
             child: const SimpleText(
               text: "Ofertas de los vendedores",
               fontSize: 20,
-              top: 10,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -90,7 +90,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
     );
   }
 
-  Widget _buttonOffer(Size size, bool isLogged, DateTime durationOffer) {
+  Widget _buttonOffer(Size size, bool isLogged, OneHomeworkModel homework) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -132,14 +132,15 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
                           ),
                           TimerCounter(
                             endTime: DateTime.now().millisecondsSinceEpoch +
-                                getDateDiff(durationOffer).inMilliseconds,
+                                getDateDiff(homework.homework.resolutionTime)
+                                    .inMilliseconds,
                           )
                         ],
                       ),
                       ElevatedButton(
                         onPressed: () {
                           navigatorProtected(
-                              context, isLogged, 'makeOffer', null);
+                              context, isLogged, 'makeOffer', homework);
                         },
                         child: const SimpleText(
                           fontSize: 15,

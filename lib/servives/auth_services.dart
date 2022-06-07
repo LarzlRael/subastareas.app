@@ -72,7 +72,7 @@ class AuthServices with ChangeNotifier {
     await Services.sendRequestWithToken(
         'GET',
         'auth/signout/${await messaging.getToken()}',
-        null,
+        {},
         await _storage.read(key: 'token'));
 
     await clearIdAndToken();
@@ -91,7 +91,7 @@ class AuthServices with ChangeNotifier {
     final resp = await Services.sendRequestWithToken(
       'GET',
       'auth/renewtoken',
-      null,
+      {},
       await _storage.read(key: 'token'),
     );
 

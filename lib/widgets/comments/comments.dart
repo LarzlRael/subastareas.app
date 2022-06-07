@@ -37,11 +37,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                 },
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 25,
-                      child: showProfileImage(
-                          auth.usuario.profileImageUrl, auth.usuario.username),
-                    ),
+                    showProfileImage(auth.usuario.profileImageUrl,
+                        auth.usuario.username, 25),
                     const SizedBox(
                       width: 15,
                     ),
@@ -85,9 +82,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  CircleAvatar(
-                      child: showProfileImage(
-                          auth.usuario.profileImageUrl, auth.usuario.username)),
+                  showProfileImage(
+                      auth.usuario.profileImageUrl, auth.usuario.username),
                   const SizedBox(
                     width: 15,
                   ),

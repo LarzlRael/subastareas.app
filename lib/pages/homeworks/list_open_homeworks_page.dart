@@ -1,13 +1,13 @@
 part of '../pages.dart';
 
-class ListOpenHomeworks extends StatefulWidget {
-  const ListOpenHomeworks({Key? key}) : super(key: key);
+class ListOpenHomeworksPage extends StatefulWidget {
+  const ListOpenHomeworksPage({Key? key}) : super(key: key);
 
   @override
-  State<ListOpenHomeworks> createState() => _ListOpenHomeworksState();
+  State<ListOpenHomeworksPage> createState() => _ListOpenHomeworksPageState();
 }
 
-class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
+class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   late int defaultChoiceIndex;
   /* final List<String> _choicesList = [
     'Matematica',
@@ -81,7 +81,7 @@ class _ListOpenHomeworksState extends State<ListOpenHomeworks> {
                         },
                       );
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }

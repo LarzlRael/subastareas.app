@@ -24,11 +24,12 @@ class HomeworkCard extends StatelessWidget {
             Container(
               width: size.width * 0.25,
               height: size.height * 0.15,
-              child: const FadeInImage(
-                image:
-                    NetworkImage('https://octutor.org/media/posts/11/math.jpg'),
-                placeholder: AssetImage('assets/icon.png'),
-                fit: BoxFit.cover,
+              child: Hero(
+                tag: homework.id,
+                child: Image.asset(
+                  'assets/category/quimica.jpg',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(width: 10),

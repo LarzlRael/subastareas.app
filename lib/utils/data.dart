@@ -40,12 +40,12 @@ List<Widget> categoryList = [
 ];
 
 final List<Widget> bottomItemsWithoutLogin = <Widget>[
-  const ListOpenHomeworks(),
+  const ListOpenHomeworksPage(),
   ProfilePage(),
 ];
 
 final List<Widget> bottomItemsWithLogin = <Widget>[
-  const ListOpenHomeworks(),
+  const ListOpenHomeworksPage(),
   const UploadHomework(),
   ProfilePage(),
 ];

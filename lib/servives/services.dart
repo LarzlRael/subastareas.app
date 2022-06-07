@@ -32,8 +32,8 @@ class Services {
     return res;
   }
 
-  static Future<http.Response?> sendRequestWithToken(
-      String method, String url, body, String? token) async {
+  static Future<http.Response?> sendRequestWithToken(String method, String url,
+      Map<String, dynamic> body, String? token) async {
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
