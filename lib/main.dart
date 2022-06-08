@@ -112,9 +112,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   showSnackBar(String type, String message) {
-    print(type);
-    print(message);
-    print('showSnackBar');
     _messangerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text(message),

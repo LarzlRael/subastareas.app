@@ -137,87 +137,88 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   showDataAlert(TextEditingController myController, int idHomework) {
     final offersServices = OffersServices();
     showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20.0,
-                ),
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20.0,
               ),
             ),
-            contentPadding: const EdgeInsets.only(
-              top: 10.0,
-            ),
-            title: const SimpleText(
-              text: "Hacer oferta",
-              fontSize: 24.0,
-            ),
-            content: Container(
-              height: 300,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        "Ingrese cantidad ",
+          ),
+          contentPadding: const EdgeInsets.only(
+            top: 10.0,
+          ),
+          title: const SimpleText(
+            text: "Hacer oferta",
+            fontSize: 24.0,
+          ),
+          content: Container(
+            height: 300,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Ingrese cantidad ",
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      controller: myController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: 'Ingrese su oferta',
+                        labelText: 'Oferta',
                       ),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        controller: myController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Ingrese su oferta',
-                          labelText: 'Oferta',
-                        ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 60,
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        final offer = await offersServices.makeOffer(
+                            idHomework, int.parse(myController.text));
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        // fixedSize: Size(250, 50),
+                      ),
+                      child: const Text(
+                        "Ofertar",
                       ),
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 60,
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final offer = await offersServices.makeOffer(
-                              idHomework, int.parse(myController.text));
-                          Navigator.of(context).pop();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue,
-                          // fixedSize: Size(250, 50),
-                        ),
-                        child: const Text(
-                          "Ofertar",
-                        ),
-                      ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: const SimpleText(text: 'Nota: '),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: SimpleText(
+                      text:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
+                          ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+                      fontSize: 12,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      child: const SimpleText(text: 'Nota: '),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: SimpleText(
-                        text:
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
-                            ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

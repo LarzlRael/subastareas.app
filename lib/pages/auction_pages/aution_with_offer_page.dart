@@ -39,7 +39,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
               _buttonOffer(size, auth.isLogged, args),
               Positioned(
                 bottom: 30,
-                child: Container(
+                child: SizedBox(
                   width: size.width,
                   height: 100,
                   child: const Align(

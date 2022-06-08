@@ -2,11 +2,13 @@ part of '../widgets.dart';
 
 class CommentCard extends StatefulWidget {
   final Comment comment;
+  final VoidCallback reloadHomework;
   bool isExpanded;
   CommentCard({
     Key? key,
     this.isExpanded = false,
     required this.comment,
+    required this.reloadHomework,
   }) : super(key: key);
 
   @override
@@ -60,7 +62,7 @@ class _CommentCardState extends State<CommentCard>
           auth.isLogged
               ? IconButton(
                   onPressed: () {
-                    showBottomMenuShet(auth.usuario.id, widget.comment.user.id);
+                    showBottomMenuShet(auth, widget.comment.user.id);
                   },
                   icon: const Icon(
                     Icons.more_vert,
@@ -84,18 +86,18 @@ class _CommentCardState extends State<CommentCard>
         const SizedBox(width: 15),
         //TODO cambiar por una fecha
         SimpleText(
-          text: '5 min ago',
+          text: timeago.format(widget.comment.createdAt, locale: 'es'),
           color: Colors.grey,
         ),
       ],
     );
   }
 
-  showBottomMenuShet(int currentUserId, int commentId) {
+  showBottomMenuShet(AuthServices auth, int commentId) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return currentUserId == commentId
+        return auth.usuario.id == commentId
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -104,13 +106,27 @@ class _CommentCardState extends State<CommentCard>
                     title: const Text('Editar comentario'),
                     onTap: () {
                       Navigator.pop(context);
+                      showBottomMenuShetComment(
+                        context,
+                        auth,
+                        widget.comment.id,
+                        editable: true,
+                        currentEditing: widget.comment.content,
+                      );
                     },
                   ),
                   ListTile(
                     leading: const Icon(Icons.delete),
                     title: const Text('Eliminar'),
-                    onTap: () {
+                    onTap: () async {
+                      final commentService = CommentServices();
                       Navigator.pop(context);
+                      showConfirmDialog(
+                        context,
+                        'Eliminar comentario',
+                        '¿Estás seguro de eliminar este comentario?',
+                        commentService.deleteComment(widget.comment.id),
+                      );
                     },
                   ),
                 ],

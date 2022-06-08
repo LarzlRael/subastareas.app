@@ -14,7 +14,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:provider/provider.dart';
-import 'package:subastareaspp/alerts/simple_alert.dart';
+import 'package:subastareaspp/dialogs/dialogs.dart';
 import 'package:subastareaspp/models/homeworks_model.dart';
 import 'package:subastareaspp/models/one_homework_model.dart';
 import 'package:subastareaspp/servives/auth_services.dart';

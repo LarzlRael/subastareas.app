@@ -1,23 +1,33 @@
 part of '../pages.dart';
 
 class AuctionPage extends StatefulWidget {
-  const AuctionPage({Key? key}) : super(key: key);
+  final int args;
+  const AuctionPage({Key? key, required this.args}) : super(key: key);
   @override
   State<AuctionPage> createState() => _AuctionPageState();
 }
 
 class _AuctionPageState extends State<AuctionPage> {
   late AuthServices auth;
-  late HomeworkServices homeworkServices;
+  HomeworkServices homeworkServices = HomeworkServices();
+  OneHomeworkModel? homework;
+
   @override
   void initState() {
-    homeworkServices = HomeworkServices();
+    getOneHomeWork();
     super.initState();
+  }
+
+  getOneHomeWork() async {
+    print('load homework');
+    final getOnehomework = await homeworkServices.getOneHomework(widget.args);
+    setState(() {
+      homework = getOnehomework;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final idHomeWork = ModalRoute.of(context)?.settings.arguments as int;
     auth = Provider.of<AuthServices>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
@@ -45,24 +55,13 @@ class _AuctionPageState extends State<AuctionPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              FutureBuilder(
-                future: homeworkServices.getOneHomework(idHomeWork),
-                /* initialData: InitialData, */
-                builder: (BuildContext context,
-                    AsyncSnapshot<OneHomeworkModel> snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        _imageCategory(idHomeWork),
-                        _cardAuction(snapshot.data!, auth.isLogged),
-                      ],
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
+              Column(
+                children: [
+                  _imageCategory(widget.args),
+                  homework != null
+                      ? _cardAuction(homework!, auth.isLogged)
+                      : const CircularProgressIndicator(),
+                ],
               ),
 
               /* _buttonMakeOffer(), */
@@ -140,7 +139,8 @@ class _AuctionPageState extends State<AuctionPage> {
           CommentsWidget(
               comments: oneHomeworkModel.comments,
               isLogged: isLogged,
-              homeworkId: oneHomeworkModel.homework.id),
+              idhomework: oneHomeworkModel.homework.id,
+              reloadHomework: getOneHomeWork),
         ],
       ),
     );

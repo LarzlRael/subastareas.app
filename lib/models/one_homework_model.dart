@@ -37,11 +37,13 @@ class Comment {
     required this.id,
     required this.content,
     required this.edited,
+    required this.createdAt,
     required this.user,
   });
 
   int id;
   String content;
+  DateTime createdAt;
   bool edited;
   CommentUser user;
 
@@ -49,6 +51,7 @@ class Comment {
         id: json["id"],
         content: json["content"],
         edited: json["edited"],
+        createdAt: DateTime.parse(json["created_at"]),
         user: CommentUser.fromJson(json["user"]),
       );
 

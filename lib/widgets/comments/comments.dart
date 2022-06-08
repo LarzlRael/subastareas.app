@@ -3,12 +3,14 @@ part of '../widgets.dart';
 class CommentsWidget extends StatefulWidget {
   final bool isLogged;
   final List<Comment> comments;
-  final int homeworkId;
+  final int idhomework;
+  final VoidCallback reloadHomework;
   const CommentsWidget({
     Key? key,
     required this.isLogged,
     required this.comments,
-    required this.homeworkId,
+    required this.idhomework,
+    required this.reloadHomework,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class CommentsWidget extends StatefulWidget {
 class _CommentsWidgetState extends State<CommentsWidget> {
   final myController = TextEditingController();
   bool _showSendIcon = false;
+
   late AuthServices auth;
   @override
   void dispose() {
@@ -27,13 +30,14 @@ class _CommentsWidgetState extends State<CommentsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final reverseComments = widget.comments.reversed.toList();
     auth = Provider.of<AuthServices>(context, listen: false);
     return Column(
       children: [
         widget.isLogged
             ? GestureDetector(
                 onTap: () {
-                  showBottomMenuShet(myController);
+                  showBottomMenuShetComment(context, auth, widget.idhomework);
                 },
                 child: Row(
                   children: [
@@ -53,10 +57,11 @@ class _CommentsWidgetState extends State<CommentsWidget> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: widget.comments.length,
+          itemCount: reverseComments.length,
           itemBuilder: (context, index) {
             return CommentCard(
-              comment: widget.comments[index],
+              comment: reverseComments[index],
+              reloadHomework: widget.reloadHomework,
             );
           },
         ),
@@ -68,7 +73,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
     );
   }
 
-  showBottomMenuShet(TextEditingController controller) {
+  /* showBottomMenuShet(TextEditingController controller) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -112,16 +117,15 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       ? IconButton(
                           onPressed: () async {
                             // usar servicio en este punto
-
-                            final comment = await Services.sendRequestWithToken(
-                                'POST',
-                                'comments/newComment/${widget.homeworkId}',
-                                {'content': controller.text},
-                                await auth.getCurrentToken());
-                            print(comment?.statusCode);
-
+                            final commentService = CommentServices();
+                            await commentService.newComment(
+                              widget.homeworkId,
+                              controller.text,
+                            );
                             Navigator.pop(context);
+                            GlobalSnackBar.show(context, 'Comentario enviado');
                             controller.clear();
+                            widget.reloadHomework();
                           },
                           icon: const Icon(Icons.send),
                         )
@@ -133,5 +137,5 @@ class _CommentsWidgetState extends State<CommentsWidget> {
         });
       },
     );
-  }
+  } */
 }

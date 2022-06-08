@@ -10,8 +10,8 @@ class HomeworkServices {
       null,
     );
     /* homeworkRequest.body */
-    print(homeworkRequest!.body);
-    final finalData = homeworksModelFromJson(homeworkRequest.body);
+    /* print(homeworkRequest!.body); */
+    final finalData = homeworksModelFromJson(homeworkRequest!.body);
     return finalData;
   }
 
@@ -21,9 +21,8 @@ class HomeworkServices {
       'homework/getonehomework/$id',
       null,
     );
-    /* homeworkRequest.body */
-    print(homeworkRequest!.body);
-    final finalData = oneHomeworkModelFromJson(homeworkRequest.body);
+
+    final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
     return finalData;
   }
 }
