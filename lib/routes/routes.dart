@@ -9,7 +9,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'bottomNavigation': (_) => const BottomNavigation(),
   'loading': (_) => LoadingPage(),
   'welcome': (_) => WelcomePage(),
-  'homePage': (_) => const UploadHomework(),
+  'uploadHomework': (_) => const UploadHomework(),
   'auctionPage': (context) => AuctionPage(
         args: ModalRoute.of(context)?.settings.arguments as int,
       ),
@@ -21,4 +21,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'forgot_password': (_) => ForgotPassword(),
   'notifications': (_) => NotificationPage(),
   'filter': (_) => FilterPage(),
+  'store_page': (_) => StorePage(),
 };

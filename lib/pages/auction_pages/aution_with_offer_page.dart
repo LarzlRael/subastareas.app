@@ -10,19 +10,6 @@ class AutionWithOfferPage extends StatefulWidget {
 }
 
 class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
-  late CountdownTimerController controller;
-  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = CountdownTimerController(endTime: endTime, onEnd: onEnd);
-  }
-
-  void onEnd() {
-    print('onEnd');
-  }
-
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
@@ -71,20 +58,6 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
               },
             ),
           ),
-          /* SizedBox(
-            height: size.height * 0.20,
-            child: ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return PersonOfferHorizontal(
-                  nameOffered: "Juan Perez",
-                  offerPrice: 100,
-                  active: index % 2 == 0,
-                );
-              },
-            ),
-          ), */
         ],
       ),
     );
@@ -140,7 +113,11 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
                       ElevatedButton(
                         onPressed: () {
                           navigatorProtected(
-                              context, isLogged, 'makeOffer', homework);
+                            context,
+                            isLogged,
+                            'makeOffer',
+                            homework,
+                          );
                         },
                         child: const SimpleText(
                           fontSize: 15,

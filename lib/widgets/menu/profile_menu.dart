@@ -39,7 +39,12 @@ class MenuProfileOption extends StatelessWidget {
             ? Icon(showTrailing ? Icons.lock_clock : Icons.chevron_right)
             : null,
         leading: Icon(icon),
-        title: Text(title),
+        title: SimpleText(
+          text: title,
+          color: Colors.white,
+          fontSize: 17,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

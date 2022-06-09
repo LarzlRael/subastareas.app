@@ -15,8 +15,6 @@ class TimerCounter extends StatefulWidget {
 class _TimerCounterState extends State<TimerCounter> {
   late CountdownTimerController controller;
 
-  /* int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30; */
-
   @override
   void initState() {
     super.initState();

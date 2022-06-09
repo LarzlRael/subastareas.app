@@ -13,7 +13,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   /* final _googleSignInServices = GoogleSignInServices; */
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthServices>(context, listen: true);
+    final auth = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
       body: SafeArea(
         child: Container(

@@ -25,8 +25,8 @@ class RegisterPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Column(
-                    children: const [
-                      HeaderLoginRegister(
+                    children: [
+                      const HeaderLoginRegister(
                         headerTitle: 'Registro',
                       ),
                       /* FormBuilderTextField(
@@ -37,12 +37,12 @@ class RegisterPage extends StatelessWidget {
                           prefixIcon: Icon(Icons.person),
                         ),
                       ), */
-                      CustomFormbuildeRTextField(
+                      const CustomFormbuildeRTextField(
                         name: 'username',
-                        icon: FontAwesomeIcons.user,
+                        icon: Icons.person,
                         placeholder: 'Nombre de usuario',
                       ),
-                      CustomFormbuildeRTextField(
+                      const CustomFormbuildeRTextField(
                         name: 'email',
                         keyboardType: TextInputType.emailAddress,
                         icon: FontAwesomeIcons.at,
@@ -59,17 +59,39 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                       ), */
-                      CustomFormbuildeRTextField(
+                      const CustomFormbuildeRTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Contraseña',
                         passwordField: true,
                       ),
-                      CustomFormbuildeRTextField(
+                      const CustomFormbuildeRTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Repetir contraseña',
                         passwordField: true,
+                      ),
+                      FormBuilderCheckbox(
+                        name: 'accept_terms',
+                        initialValue: false,
+                        title: RichText(
+                          text: const TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Tengo mas de 18 años',
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        validator: FormBuilderValidators.equal(
+                          true,
+                          errorText:
+                              'Debes marcar la casilla de confirmación para continuar',
+                        ),
                       ),
                     ],
                   ),
@@ -93,11 +115,10 @@ class RegisterPage extends StatelessWidget {
                             );
 
                             if (login) {
-                              Navigator.pushReplacementNamed(
-                                  context, 'homePage');
+                              Navigator.pushReplacementNamed(context, 'login');
                             } else {
                               showSimpleAlert(
-                                  context, 'Credenciales incorrectas');
+                                  context, 'hubo un error en el registro');
                             }
                           }
                         },

@@ -20,7 +20,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   Widget build(BuildContext context) {
     final argumets =
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
-    /* textController.text = argumets.homework.offeredAmount.toString(); */
+    final auth = Provider.of<AuthServices>(context, listen: false);
+    final verify =
+        argumets.offers.map((item) => item.user.id).contains(auth.usuario.id);
+
     return Scaffold(
       appBar: AppBar(
         /* title: Text('Hacer oferta'), */
@@ -64,6 +67,19 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               /* TimerCounter(
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
               ), */
+
+              verify
+                  ? SimpleText(
+                      text:
+                          'Tu oferta es de ${argumets.offers.where((i) => i.user.id == auth.usuario.id).first.priceOffer}',
+                      top: 15,
+                      bottom: 15,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w900,
+                    )
+                  : const SizedBox(
+                      height: 10,
+                    ),
               const SimpleText(
                 text: 'Precio',
                 top: 15,
@@ -72,44 +88,13 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 fontWeight: FontWeight.w900,
               ),
               Container(
+                color: Colors.grey[200],
                 width: MediaQuery.of(context).size.width * 0.7,
-                child: Focus(
-                  onFocusChange: (hasFocus) {
-                    setState(() {
-                      if (hasFocus) {
-                        editing = true;
-                      } else {
-                        editing = false;
-                      }
-                    });
-                  },
-                  child: editing
-                      ? TextField(
-                          textAlign: TextAlign.center,
-                          controller: textController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Escribe tu oferta',
-                            hintStyle: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          textAlignVertical: TextAlignVertical.center,
-                        )
-                      : TextOnTap(
-                          text: SimpleText(
-                            text: textController.text,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w900,
-                            textAlign: TextAlign.center,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              editing = true;
-                            });
-                          },
-                        ),
+                child: SimpleText(
+                  text: '${argumets.homework.offeredAmount}',
+                  textAlign: TextAlign.center,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w900,
                 ),
               ),
               const SizedBox(
@@ -121,8 +106,9 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   verticalPadding: 15,
                   onPressed: () {
                     showDataAlert(textController, argumets.homework.id);
+                    /* Navigator.pop(context); */
                   },
-                  label: 'Hacer Oferta',
+                  label: verify ? 'Editar oferta' : 'Hacer oferta',
                   icon: Icons.send,
                   /* marginVertical: 10, */
                 ),

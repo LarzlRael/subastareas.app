@@ -41,3 +41,5 @@ part 'slide_item.dart';
 part 'menu/profile_menu.dart';
 part 'filter/list_fliter.dart';
 part 'global_snack_bar.dart';
+part 'wallet/transaction_card.dart';
+part 'store/store_card.dart';

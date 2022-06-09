@@ -80,7 +80,7 @@ List<MenuProfileOption> getMenuProfileOptions(
   return [
     MenuProfileOption(
       icon: Icons.wallet_giftcard_rounded,
-      title: "Cartera",
+      title: "Billetera",
       page: WalletPage(),
     ),
     MenuProfileOption(

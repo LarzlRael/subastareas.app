@@ -43,11 +43,13 @@ class _AuctionPageState extends State<AuctionPage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: const SimpleText(
-          text: 'Mi tarea de Matematica',
-          color: Colors.black,
-          fontSize: 20,
-        ),
+        title: homework != null
+            ? SimpleText(
+                text: 'Tarea de ${homework?.homework.category}',
+                color: Colors.black,
+                fontSize: 20,
+              )
+            : null,
         centerTitle: true,
       ),
       body: SafeArea(
@@ -109,15 +111,15 @@ class _AuctionPageState extends State<AuctionPage> {
                   )),
               _infoContainer(
                 'Acaba en ',
-                /*  TimerCounter(
+                TimerCounter(
                   endTime: DateTime.now().millisecondsSinceEpoch +
                       diff.inMilliseconds,
                   testStyle: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 18,
                   ),
-                ), */
-                Container(),
+                ),
+                /* Container(), */
               ),
             ],
           ),

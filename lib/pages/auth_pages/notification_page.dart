@@ -7,8 +7,12 @@ class NotificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Tus Notificaciones")),
-      body: Center(
-        child: Text('NotificationPage'),
+      body: Column(
+        children: [
+          StoreCard(amount: 1, price: 4.87),
+          StoreCard(amount: 5, price: 22.37),
+          StoreCard(amount: 10, price: 44.76),
+        ],
       ),
     );
   }

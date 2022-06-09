@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -57,3 +57,4 @@ part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
 part 'homeworks/my_homeworks.dart';
 part 'filter/filter_page.dart';
+part 'store_pages/store_page.dart';

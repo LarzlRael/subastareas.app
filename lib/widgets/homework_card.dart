@@ -64,7 +64,7 @@ class HomeworkCard extends StatelessWidget {
                       ),
                       SimpleText(
                         text:
-                            '${getDateDiff(homework.resolutionTime).inHours} horas restantes',
+                            '${getDateDiff(homework.resolutionTime).inHours < 0 ? 0 : getDateDiff(homework.resolutionTime).inHours} horas restantes',
                         color: Colors.red,
                         fontWeight: FontWeight.w700,
                       ),

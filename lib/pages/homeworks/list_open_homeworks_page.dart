@@ -32,63 +32,62 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Expanded(
-            child: Column(
-              children: [
-                ChipChoice(
-                  elementsList: filter.getListAllSelected,
-                  onClickAction: (String value) {
-                    filter.removeItemFromList(value);
-                  },
+          child: Column(
+            children: [
+              ChipChoice(
+                elementsList: filter.getListAllSelected,
+                onClickAction: (String value) {
+                  filter.removeItemFromList(value);
+                },
+              ),
+              GestureDetector(
+                onTap: () {
+                  showFilterBottomMenuShet(context);
+                },
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.filter_list,
+                      color: Colors.grey,
+                    ),
+                    SimpleText(
+                      text: 'Filtrar busqueda',
+                      color: Colors.grey,
+                    )
+                  ],
                 ),
-                GestureDetector(
-                  onTap: () {
-                    showFilterBottomMenuShet(context);
-                  },
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.filter_list,
-                        color: Colors.grey,
-                      ),
-                      SimpleText(
-                        text: 'Filtrar busqueda',
-                        color: Colors.grey,
-                      )
-                    ],
-                  ),
-                ),
+              ),
 
-                /* HomeworkCard(isLogged: auth.isLogged),
-                HomeworkCard(isLogged: auth.isLogged), */
-                FutureBuilder(
-                  future: homework.gethomeworks(),
-                  /* initialData: InitialData, */
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<HomeworksModel>> snapshot) {
-                    if (snapshot.hasData) {
-                      return ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HomeworkCard(
-                            isLogged: auth.isLogged,
-                            homework: snapshot.data![index],
+              /* HomeworkCard(isLogged: auth.isLogged),
+              HomeworkCard(isLogged: auth.isLogged), */
+              FutureBuilder(
+                future: homework.gethomeworks(),
+                /* initialData: InitialData, */
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<HomeworksModel>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return HomeworkCard(
+                          isLogged:
+                              auth.isLogged == null ? false : auth.isLogged,
+                          homework: snapshot.data![index],
 
-                            /* homework: snapshot.data[index], */
-                          );
-                        },
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
-              ],
-            ),
+                          /* homework: snapshot.data[index], */
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ],
           ),
         ),
       ),
