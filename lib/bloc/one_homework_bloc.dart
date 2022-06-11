@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:subastareaspp/models/homeworks_model.dart';
 import 'package:subastareaspp/models/one_homework_model.dart';
 import 'package:subastareaspp/services/services.dart';
 
@@ -14,11 +15,14 @@ class OneHomeworkBloc {
   OneHomeworkBloc._internal();
 
   final _oneHomeworkController = StreamController<OneHomeworkModel>.broadcast();
+  final _homeworksController =
+      StreamController<List<HomeworksModel>>.broadcast();
 
   Stream<OneHomeworkModel> get oneHomeworkStream =>
       _oneHomeworkController.stream;
   dispose() {
     _oneHomeworkController.close();
+    _homeworksController.close();
   }
 
   getOneHomework(int id) async {
@@ -52,5 +56,9 @@ class OneHomeworkBloc {
   makeOffer(int idHomework, int offer) async {
     await offersServices.makeOffer(idHomework, offer);
     await getOneHomework(idHomework);
+  }
+
+  getHomeworks() async {
+    _homeworksController.sink.add(await homeworkServices.getHomeworks());
   }
 }

@@ -2,23 +2,17 @@ part of 'services.dart';
 
 class HomeworkServices {
   final _storage = const FlutterSecureStorage();
-  Future<List<HomeworksModel>> gethomeworks(
-      List<String> categories, List<String> level) async {
-    var homeworkRequest;
-    if (categories.isEmpty && level.isEmpty) {
-      final homeworkRequest = await Request.sendRequest(
-        'GET',
-        'homework',
-        null,
-      );
-      /* homeworkRequest.body */
-      /* print(homeworkRequest!.body); */
-      final finalData = homeworksModelFromJson(homeworkRequest!.body);
-      print(homeworkRequest.body);
-      return finalData;
-    } else {
-      return getHomeworksByCategoryAndLevel(categories, level);
-    }
+  Future<List<HomeworksModel>> getHomeworks() async {
+    final homeworkRequest = await Request.sendRequest(
+      'GET',
+      'homework',
+      null,
+    );
+    /* homeworkRequest.body */
+    /* print(homeworkRequest!.body); */
+    final finalData = homeworksModelFromJson(homeworkRequest!.body);
+    print(homeworkRequest.body);
+    return finalData;
   }
 
   Future<OneHomeworkModel> getOneHomework(int id) async {

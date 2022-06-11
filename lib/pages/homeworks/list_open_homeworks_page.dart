@@ -61,7 +61,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
               /* HomeworkCard(isLogged: auth.isLogged),
               HomeworkCard(isLogged: auth.isLogged), */
               FutureBuilder(
-                future: homework.gethomeworks(filter.getListCategorySelected,
+                future: homework.getHomeworks(filter.getListCategorySelected,
                     filter.getListLevelSelected),
                 /* initialData: InitialData, */
                 builder: (BuildContext context,
