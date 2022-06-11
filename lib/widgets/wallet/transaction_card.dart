@@ -1,6 +1,8 @@
 part of '../widgets.dart';
 
 class TransactionCard extends StatelessWidget {
+  const TransactionCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Card(

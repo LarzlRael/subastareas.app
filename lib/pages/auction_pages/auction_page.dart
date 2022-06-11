@@ -9,22 +9,22 @@ class AuctionPage extends StatefulWidget {
 
 class _AuctionPageState extends State<AuctionPage> {
   late AuthServices auth;
-  HomeworkServices homeworkServices = HomeworkServices();
-  OneHomeworkModel? homework;
+  final _oneHomeworkBloc = OneHomeworkBloc();
 
   @override
   void initState() {
-    getOneHomeWork();
+    /* getOneHomeWork(); */
+    _oneHomeworkBloc.getOneHomework(widget.args);
     super.initState();
   }
 
-  getOneHomeWork() async {
+  /*  getOneHomeWork() async {
     print('load homework');
     final getOnehomework = await homeworkServices.getOneHomework(widget.args);
     setState(() {
       homework = getOnehomework;
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +43,7 @@ class _AuctionPageState extends State<AuctionPage> {
         ),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: homework != null
-            ? SimpleText(
-                text: 'Tarea de ${homework?.homework.category}',
-                color: Colors.black,
-                fontSize: 20,
-              )
-            : null,
+        title: Text('que fue '),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -60,9 +54,19 @@ class _AuctionPageState extends State<AuctionPage> {
               Column(
                 children: [
                   _imageCategory(widget.args),
-                  homework != null
-                      ? _cardAuction(homework!, auth.isLogged)
-                      : const CircularProgressIndicator(),
+                  StreamBuilder(
+                    stream: _oneHomeworkBloc.oneHomeworkStream,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<OneHomeworkModel> snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return _cardAuction(snapshot.data!, auth.isLogged);
+                      }
+                    },
+                  ),
                 ],
               ),
 
@@ -111,15 +115,15 @@ class _AuctionPageState extends State<AuctionPage> {
                   )),
               _infoContainer(
                 'Acaba en ',
-                TimerCounter(
+                /* TimerCounter(
                   endTime: DateTime.now().millisecondsSinceEpoch +
                       diff.inMilliseconds,
                   testStyle: const TextStyle(
                     fontWeight: FontWeight.w900,
                     fontSize: 18,
                   ),
-                ),
-                /* Container(), */
+                ), */
+                Container(),
               ),
             ],
           ),
@@ -139,10 +143,10 @@ class _AuctionPageState extends State<AuctionPage> {
             oneHomeworkModel: oneHomeworkModel,
           ),
           CommentsWidget(
-              comments: oneHomeworkModel.comments,
-              isLogged: isLogged,
-              idhomework: oneHomeworkModel.homework.id,
-              reloadHomework: getOneHomeWork),
+            comments: oneHomeworkModel.comments,
+            isLogged: isLogged,
+            idhomework: oneHomeworkModel.homework.id,
+          ),
         ],
       ),
     );
@@ -179,8 +183,12 @@ class _AuctionPageState extends State<AuctionPage> {
   }
 
   Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModel, bool isLogged) {
+    /* Change this for the condition */
     final size = MediaQuery.of(context).size;
-    final isBearer = oneHomeworkModel.homework.user.id == auth.usuario.id;
+    bool isBearer = false;
+    if (isLogged) {
+      isBearer = oneHomeworkModel.homework.user.id == auth.usuario.id;
+    }
     return SizedBox(
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 20),

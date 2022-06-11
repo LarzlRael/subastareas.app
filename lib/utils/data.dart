@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:subastareaspp/provider/filter_provider.dart';
+import 'package:subastareaspp/pages/user_pages/my_homeworks_page.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 import 'package:subastareaspp/pages/pages.dart';
@@ -97,7 +97,7 @@ List<MenuProfileOption> getMenuProfileOptions(
     MenuProfileOption(
       icon: Icons.question_answer,
       title: "Mis tareas",
-      page: WalletPage(),
+      page: MyHomeworksPage(),
     ),
     MenuProfileOption(
       icon: Icons.question_answer,

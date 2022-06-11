@@ -3,6 +3,7 @@ part of '../pages.dart';
 class MyOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final homeworkServices = HomeworkServices();
     return Scaffold(
       body: DefaultTabController(
         length: 2,
@@ -23,9 +24,34 @@ class MyOffers extends StatelessWidget {
               ],
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              Icon(Icons.directions_car),
+              FutureBuilder(
+                future: homeworkServices.getHomeworksByUser(),
+                /* initialData: InitialData, */
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<HomeworksModel>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return HomeworkCard(
+                          isLogged: true,
+                          homework: snapshot.data![index],
+
+                          /* homework: snapshot.data[index], */
+                        );
+                      },
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
               Icon(Icons.directions_transit),
             ],
           ),
@@ -33,4 +59,43 @@ class MyOffers extends StatelessWidget {
       ),
     );
   }
+
+/* class OffersPage extends StatelessWidget {
+  const OffersPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final homeworkServices = HomeworkServices();
+
+    return Container(
+      child: FutureBuilder(
+        future: homeworkServices.getHomeworksByUser(),
+        /* initialData: InitialData, */
+        builder: (BuildContext context,
+            AsyncSnapshot<List<HomeworksModel>> snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: snapshot.data!.length,
+              itemBuilder: (BuildContext context, int index) {
+                return HomeworkCard(
+                  isLogged: true,
+                  homework: snapshot.data![index],
+
+                  /* homework: snapshot.data[index], */
+                );
+              },
+            );
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
+ */
 }

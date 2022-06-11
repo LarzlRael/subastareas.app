@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:subastareaspp/servives/auth_services.dart';
-import 'package:subastareaspp/servives/comment_services.dart';
+import 'package:subastareaspp/bloc/one_homework_bloc.dart';
+import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
 void showSimpleAlert(BuildContext context, String message) {
@@ -48,20 +48,26 @@ void showConfirmDialog(
   );
 }
 
-showBottomMenuShetComment(
-    BuildContext context, AuthServices auth, int idHomework,
-    {bool editable = false, String currentEditing = ''}) {
+showBottomMenuSheetAddOrEditComment(
+  BuildContext context,
+  AuthServices auth,
+  int idComment, {
+  int? idHomework,
+  bool editable = false,
+  String currentEditing = '',
+}) {
   TextEditingController controller = TextEditingController();
   if (editable) {
     controller.text = currentEditing;
   }
-  final commentService = CommentServices();
+
   bool _showSendIcon = false;
 
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     builder: (context) {
+      final homeworkbloc = OneHomeworkBloc();
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
         return Padding(
@@ -102,16 +108,17 @@ showBottomMenuShetComment(
                         onPressed: () async {
                           // usar servicio en este punto
                           if (!editable) {
-                            await commentService.newComment(
-                              idHomework,
+                            await homeworkbloc.newCommet(
+                              idComment,
                               controller.text,
                             );
                             Navigator.pop(context);
                             GlobalSnackBar.show(context, 'Comentario enviado');
                             controller.clear();
                           } else {
-                            await commentService.editComment(
-                              idHomework,
+                            await homeworkbloc.editComment(
+                              idComment,
+                              idHomework!,
                               controller.text,
                             );
                             Navigator.pop(context);

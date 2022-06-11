@@ -121,7 +121,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   }
 
   showDataAlert(TextEditingController myController, int idHomework) {
-    final offersServices = OffersServices();
+    final blocHomework = OneHomeworkBloc();
     showDialog(
       context: context,
       builder: (context) {
@@ -173,7 +173,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        final offer = await offersServices.makeOffer(
+                        final offer = await blocHomework.makeOffer(
                             idHomework, int.parse(myController.text));
                         Navigator.of(context).pop();
                       },

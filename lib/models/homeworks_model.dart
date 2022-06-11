@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-List<HomeworksModel> homeworksModelFromJson(String str) =>
-    List<HomeworksModel>.from(
-        json.decode(str).map((x) => HomeworksModel.fromJson(x)));
+List<HomeworksModel> homeworksModelFromJson(String str) {
+  print(str);
+  return List<HomeworksModel>.from(
+      json.decode(str).map((x) => HomeworksModel.fromJson(x)));
+}
 
 String homeworksModelToJson(List<HomeworksModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -26,6 +28,7 @@ class HomeworksModel {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
+    this.offers,
   });
 
   int id;
@@ -41,6 +44,7 @@ class HomeworksModel {
   String status;
   DateTime createdAt;
   DateTime updatedAt;
+  List<OfferManyHomeworks>? offers;
 
   factory HomeworksModel.fromJson(Map<String, dynamic> json) => HomeworksModel(
         id: json["id"],
@@ -56,6 +60,10 @@ class HomeworksModel {
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        offers: json["offers"] == null
+            ? null
+            : List<OfferManyHomeworks>.from(
+                json["offers"].map((x) => OfferManyHomeworks.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -72,5 +80,29 @@ class HomeworksModel {
         "status": status,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "offers": offers == null
+            ? null
+            : List<dynamic>.from(offers!.map((x) => x.toJson())),
+      };
+}
+
+class OfferManyHomeworks {
+  OfferManyHomeworks({
+    required this.id,
+    required this.priceOffer,
+  });
+
+  int id;
+  int priceOffer;
+
+  factory OfferManyHomeworks.fromJson(Map<String, dynamic> json) =>
+      OfferManyHomeworks(
+        id: json["id"],
+        priceOffer: json["priceOffer"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "priceOffer": priceOffer,
       };
 }

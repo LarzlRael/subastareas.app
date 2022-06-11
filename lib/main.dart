@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/routes/routes.dart';
-import 'package:subastareaspp/servives/auth_services.dart';
+import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'firebase_options.dart';
@@ -27,11 +27,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await PushNotificationService.initializeApp();
+  /* FirebaseMessaging messaging = FirebaseMessaging.instance; */
 
-  await Firebase.initializeApp();
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-  NotificationSettings settings = await messaging.requestPermission(
+  /* NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     announcement: false,
     badge: true,
@@ -46,7 +45,7 @@ void main() async {
   await prefs.initPrefs();
   await FlutterDownloader.initialize(
       debug: true // optional: set false to disable printing logs to console
-      );
+      ); */
 
   runApp(MyApp());
 }
@@ -64,7 +63,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    /* FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
@@ -73,6 +72,11 @@ class _MyAppState extends State<MyApp> {
       if (message.notification != null) {
         print('Message also contained a notification: ${message.notification}');
       }
+    }); */
+    PushNotificationService.messageStream.listen((message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: $message');
+      /* showSnackBar(message); */
     });
   }
 

@@ -4,13 +4,11 @@ class CommentsWidget extends StatefulWidget {
   final bool isLogged;
   final List<Comment> comments;
   final int idhomework;
-  final VoidCallback reloadHomework;
   const CommentsWidget({
     Key? key,
     required this.isLogged,
     required this.comments,
     required this.idhomework,
-    required this.reloadHomework,
   }) : super(key: key);
 
   @override
@@ -19,7 +17,6 @@ class CommentsWidget extends StatefulWidget {
 
 class _CommentsWidgetState extends State<CommentsWidget> {
   final myController = TextEditingController();
-  bool _showSendIcon = false;
 
   late AuthServices auth;
   @override
@@ -37,7 +34,11 @@ class _CommentsWidgetState extends State<CommentsWidget> {
         widget.isLogged
             ? GestureDetector(
                 onTap: () {
-                  showBottomMenuShetComment(context, auth, widget.idhomework);
+                  showBottomMenuSheetAddOrEditComment(
+                    context,
+                    auth,
+                    widget.idhomework,
+                  );
                 },
                 child: Row(
                   children: [
@@ -47,7 +48,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                       width: 15,
                     ),
                     const SimpleText(
-                      text: 'Agregar un comentario ....',
+                      text: 'Agregar un comentario ...',
                       color: Colors.grey,
                     ),
                   ],
@@ -61,7 +62,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
           itemBuilder: (context, index) {
             return CommentCard(
               comment: reverseComments[index],
-              reloadHomework: widget.reloadHomework,
+              idHomework: widget.idhomework,
             );
           },
         ),

@@ -2,13 +2,14 @@ part of '../widgets.dart';
 
 class CommentCard extends StatefulWidget {
   final Comment comment;
-  final VoidCallback reloadHomework;
+  final int idHomework;
+
   bool isExpanded;
   CommentCard({
     Key? key,
     this.isExpanded = false,
     required this.comment,
-    required this.reloadHomework,
+    required this.idHomework,
   }) : super(key: key);
 
   @override
@@ -62,7 +63,8 @@ class _CommentCardState extends State<CommentCard>
           auth.isLogged
               ? IconButton(
                   onPressed: () {
-                    showBottomMenuShet(auth, widget.comment.user.id);
+                    showBottomMenuShet(
+                        auth, widget.comment.user.id, widget.idHomework);
                   },
                   icon: const Icon(
                     Icons.more_vert,
@@ -93,11 +95,12 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 
-  showBottomMenuShet(AuthServices auth, int commentId) {
+  showBottomMenuShet(AuthServices auth, int idComment, int idHomework) {
+    final homeworkbloc = OneHomeworkBloc();
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return auth.usuario.id == commentId
+        return auth.usuario.id == idComment
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -106,10 +109,11 @@ class _CommentCardState extends State<CommentCard>
                     title: const Text('Editar comentario'),
                     onTap: () {
                       Navigator.pop(context);
-                      showBottomMenuShetComment(
+                      showBottomMenuSheetAddOrEditComment(
                         context,
                         auth,
                         widget.comment.id,
+                        idHomework: widget.idHomework,
                         editable: true,
                         currentEditing: widget.comment.content,
                       );
@@ -119,13 +123,12 @@ class _CommentCardState extends State<CommentCard>
                     leading: const Icon(Icons.delete),
                     title: const Text('Eliminar'),
                     onTap: () async {
-                      final commentService = CommentServices();
                       Navigator.pop(context);
                       showConfirmDialog(
                         context,
                         'Eliminar comentario',
                         '¿Estás seguro de eliminar este comentario?',
-                        commentService.deleteComment(widget.comment.id),
+                        homeworkbloc.deleteComment(idComment, idHomework),
                       );
                     },
                   ),
@@ -147,3 +150,4 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 }
+// todo buscar comentario por id

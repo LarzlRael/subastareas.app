@@ -1,9 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:subastareaspp/models/user_model.dart';
-import 'package:subastareaspp/servives/services.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:subastareaspp/utils/validation.dart';
+part of 'services.dart';
 
 class AuthServices with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -27,7 +22,7 @@ class AuthServices with ChangeNotifier {
       'idDevice': await messaging.getToken() ?? ''
     };
 
-    final resp = await Services.sendRequest('POST', 'auth/signin', data);
+    final resp = await Request.sendRequest('POST', 'auth/signin', data);
 
     if (validateStatus(resp!.statusCode)) {
       /* print(userModelFromJson(resp.body).accessToken); */
@@ -54,7 +49,7 @@ class AuthServices with ChangeNotifier {
       'email': email,
     };
 
-    final resp = await Services.sendRequest('POST', 'auth/signup', data);
+    final resp = await Request.sendRequest('POST', 'auth/signup', data);
 
     print(resp!.body);
     if (validateStatus(resp.statusCode)) {
@@ -69,7 +64,7 @@ class AuthServices with ChangeNotifier {
   }
 
   Future<bool> logout() async {
-    await Services.sendRequestWithToken(
+    await Request.sendRequestWithToken(
         'GET',
         'auth/signout/${await messaging.getToken()}',
         {},
@@ -88,7 +83,7 @@ class AuthServices with ChangeNotifier {
   }
 
   Future<bool> isLoggenIn() async {
-    final resp = await Services.sendRequestWithToken(
+    final resp = await Request.sendRequestWithToken(
       'GET',
       'auth/renewtoken',
       {},

@@ -112,7 +112,7 @@ class _UploadHomeworkState extends State<UploadHomework> {
                         _formKey.currentState!.save();
                         File file =
                             File(_formKey.currentState!.value['files'][0].path);
-                        final res = await Services.sendRequestWithFile(
+                        final res = await Request.sendRequestWithFile(
                           file,
                           'homework/create',
                           'POST',

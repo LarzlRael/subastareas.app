@@ -22,6 +22,9 @@ class FilterPage extends StatelessWidget {
             ElevatedButton(
               child: Text('Filtrar'),
               onPressed: () {
+                /*  final homeworkServices = HomeworkServices();
+                homeworkServices.getHomeworksByCategoryAndLevel(
+                    state.getListCategorySelected, state.getListLevelSelected); */
                 Navigator.of(context).pop();
               },
             ),

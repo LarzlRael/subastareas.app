@@ -1,10 +1,9 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:subastareaspp/servives/services.dart';
+part of 'services.dart';
 
 class OffersServices {
   final _storage = const FlutterSecureStorage();
   Future makeOffer(int idHomework, int priceOffer) async {
-    final homeworkRequest = await Services.sendRequestWithToken(
+    final homeworkRequest = await Request.sendRequestWithToken(
         'POST',
         'offer/makeOffer/$idHomework',
         {

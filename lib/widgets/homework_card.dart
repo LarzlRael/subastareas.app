@@ -21,7 +21,7 @@ class HomeworkCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: size.width * 0.25,
               height: size.height * 0.15,
               child: Hero(
@@ -86,13 +86,13 @@ class HomeworkCard extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                /* homework.offers.length > 0
+                homework.offers!.isNotEmpty
                     ? SimpleText(
-                        text: '${homework.offers.length} ofertas',
+                        text: '${homework.offers!.length} ofertas',
                         color: Colors.grey,
                         fontSize: 16,
                       )
-                    : Container(), */
+                    : Container(),
               ],
             ),
           ],

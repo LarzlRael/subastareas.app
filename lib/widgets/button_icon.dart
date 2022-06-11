@@ -13,7 +13,8 @@ class ButtonWithIcon extends StatelessWidget {
 
   final double marginHorizontal;
   final double marginVertical;
-  ButtonWithIcon({
+  const ButtonWithIcon({
+    Key? key,
     this.icon,
     required this.label,
     this.backgroundColorButton = Colors.blue,
@@ -24,7 +25,7 @@ class ButtonWithIcon extends StatelessWidget {
     this.marginHorizontal = 0,
     this.marginVertical = 0,
     required this.onPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

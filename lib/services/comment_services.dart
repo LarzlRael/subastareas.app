@@ -1,13 +1,9 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:subastareaspp/models/homeworks_model.dart';
-import 'package:subastareaspp/models/one_homework_model.dart';
-import 'package:subastareaspp/servives/services.dart';
-import 'package:subastareaspp/utils/validation.dart';
+part of 'services.dart';
 
 class CommentServices {
   final _storage = const FlutterSecureStorage();
   Future<bool> newComment(int idCommnent, String commentContent) async {
-    final comment = await Services.sendRequestWithToken(
+    final comment = await Request.sendRequestWithToken(
         'POST',
         'comments/newComment/$idCommnent',
         {'content': commentContent},
@@ -17,7 +13,7 @@ class CommentServices {
   }
 
   Future<bool> editComment(int idCommnent, String commentContent) async {
-    final comment = await Services.sendRequestWithToken(
+    final comment = await Request.sendRequestWithToken(
       'PUT',
       'comments/editComment/$idCommnent',
       {'content': commentContent},
@@ -28,12 +24,13 @@ class CommentServices {
   }
 
   Future<bool> deleteComment(int idCommnent) async {
-    final comment = await Services.sendRequestWithToken(
+    final comment = await Request.sendRequestWithToken(
         'DELETE',
         'comments/deletecomment/$idCommnent',
         {},
         await _storage.read(key: 'token'));
     /* homeworkRequest.body */
-    return validateStatus(comment!.statusCode);
+    print(comment!.body);
+    return validateStatus(comment.statusCode);
   }
 }
