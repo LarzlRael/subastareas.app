@@ -4,32 +4,40 @@ class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<FilterProvider>(context, listen: false);
+    final oneHomeworkBloc = OneHomeworkBloc();
     return Scaffold(
       body: SafeArea(
         child: Container(
-            child: Column(
-          /* mainAxisAlignment: MainAxisAlignment.start, */
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Nivel"),
-            FilterItem(title: 'Secundaria', type: 'level'),
-            FilterItem(title: 'Pre universitario', type: 'level'),
-            FilterItem(title: 'Universitario', type: 'level'),
-            Text("Asignatura"),
-            FilterItem(title: 'matematica', type: 'category'),
-            FilterItem(title: 'fisica', type: 'category'),
-            FilterItem(title: 'quimica', type: 'category'),
-            ElevatedButton(
-              child: Text('Filtrar'),
-              onPressed: () {
-                /*  final homeworkServices = HomeworkServices();
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            /* mainAxisAlignment: MainAxisAlignment.start, */
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Nivel"),
+              FilterItem(title: 'Pre universitario', type: 'level'),
+              FilterItem(title: 'Universitario', type: 'level'),
+              Text("Asignatura"),
+              FilterItem(title: 'matematica', type: 'category'),
+              FilterItem(title: 'fisica', type: 'category'),
+              FilterItem(title: 'quimica', type: 'category'),
+              FilterItem(title: 'algebra', type: 'category'),
+              FilterItem(title: 'programacion', type: 'category'),
+              FillButton(
+                text: 'Filtrar',
+                borderRadius: 100,
+                onPressed: () {
+                  /*  final homeworkServices = HomeworkServices();
                 homeworkServices.getHomeworksByCategoryAndLevel(
                     state.getListCategorySelected, state.getListLevelSelected); */
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        )),
+                  oneHomeworkBloc.getHomeworksByCategory(
+                      state.getListCategorySelected,
+                      state.getListLevelSelected);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -78,29 +86,3 @@ class _FilterItemState extends State<FilterItem> {
     );
   }
 }
-
-/* class _FilterStateModel with ChangeNotifier {
-  final List<String> _listLevelSelected = [];
-  final List<String> _listCategorySelected = [];
-
-  List<String> get getListLevelSelected => _listLevelSelected;
-  set setAddListLevelSelected(String value) {
-    if (_listLevelSelected.contains(value)) {
-      _listLevelSelected.remove(value);
-    } else {
-      _listLevelSelected.add(value);
-    }
-    notifyListeners();
-  }
-
-  List<String> get getListCategorySelected => _listCategorySelected;
-  set setAddListCategorySelected(String value) {
-    if (_listCategorySelected.contains(value)) {
-      _listCategorySelected.remove(value);
-    } else {
-      _listCategorySelected.add(value);
-    }
-    notifyListeners();
-  }
-}
- */

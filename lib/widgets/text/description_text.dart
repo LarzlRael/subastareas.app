@@ -15,7 +15,7 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return despegable
         ? DesplegableComment(
-            text: desc,
+            commentContent: desc,
             limit: 150,
           )
         : SimpleText(

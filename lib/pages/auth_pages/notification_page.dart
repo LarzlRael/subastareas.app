@@ -9,9 +9,9 @@ class NotificationPage extends StatelessWidget {
       appBar: AppBar(title: Text("Tus Notificaciones")),
       body: Column(
         children: [
-          StoreCard(amount: 1, price: 4.87),
-          StoreCard(amount: 5, price: 22.37),
-          StoreCard(amount: 10, price: 44.76),
+          StoreCard2(amount: 1, price: 4.87),
+          StoreCard2(amount: 5, price: 22.37),
+          StoreCard2(amount: 10, price: 44.76),
         ],
       ),
     );

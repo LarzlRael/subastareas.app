@@ -40,9 +40,12 @@ class HomeworkServices {
 
   Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
       List<String> category, List<String> level) async {
+    /* category/programacion,algebra/level/Universitario */
+    final categorFilter = category.isNotEmpty ? category.join(',') : 'empty';
+    final levelFilter = level.isNotEmpty ? level.join(',') : 'empty';
     final homeworkRequest = await Request.sendRequest(
       'GET',
-      'homework/${category.map((e) => e)}/fisica/level/${level.map((e) => e)}',
+      'homework/category/$categorFilter/level/$levelFilter',
       {},
     );
     /* print(homeworkRequest!.body); */

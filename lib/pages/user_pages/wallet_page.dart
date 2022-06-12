@@ -3,6 +3,7 @@ part of '../pages.dart';
 class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthServices>(context);
     return Scaffold(
       backgroundColor: Colors.grey,
       body: SafeArea(
@@ -35,7 +36,7 @@ class WalletPage extends StatelessWidget {
                             height: 30,
                           ),
                           SimpleText(
-                            text: '9999',
+                            text: auth.usuario.wallet.balance.toString(),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),

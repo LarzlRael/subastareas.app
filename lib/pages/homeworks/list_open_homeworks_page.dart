@@ -9,6 +9,7 @@ class ListOpenHomeworksPage extends StatefulWidget {
 
 class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   late int defaultChoiceIndex;
+  OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
   /* final List<String> _choicesList = [
     'Matematica',
     'Programación',
@@ -25,10 +26,20 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   }
 
   @override
+  void dispose() {
+    /* homeworksBloc.dispose(); */
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
-    final homework = HomeworkServices();
+
+    /* final homeworksBloc = OneHomeworkBloc(); */
+    /* homeworksBloc.getHomeworksByCategory(
+        filter.getListCategorySelected, filter.getListLevelSelected); */
+    homeworksBloc.getHomeworks();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -38,6 +49,9 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 elementsList: filter.getListAllSelected,
                 onClickAction: (String value) {
                   filter.removeItemFromList(value);
+                  homeworksBloc.getHomeworksByCategory(
+                      filter.getListCategorySelected,
+                      filter.getListLevelSelected);
                 },
               ),
               GestureDetector(
@@ -60,14 +74,13 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
 
               /* HomeworkCard(isLogged: auth.isLogged),
               HomeworkCard(isLogged: auth.isLogged), */
-              FutureBuilder(
-                future: homework.getHomeworks(filter.getListCategorySelected,
-                    filter.getListLevelSelected),
-                /* initialData: InitialData, */
+              StreamBuilder(
+                stream: homeworksBloc.homeworksStream,
                 builder: (BuildContext context,
                     AsyncSnapshot<List<HomeworksModel>> snapshot) {
                   if (snapshot.hasData) {
                     return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,

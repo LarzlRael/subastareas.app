@@ -40,7 +40,7 @@ class _CommentCardState extends State<CommentCard>
               children: [
                 _nameAndTimeAgo(),
                 DesplegableComment(
-                  text: widget.comment.content,
+                  commentContent: widget.comment.content,
                   isExpanded: widget.isExpanded,
                   limit: 75,
                 ),

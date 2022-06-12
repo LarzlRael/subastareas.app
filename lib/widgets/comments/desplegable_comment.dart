@@ -1,12 +1,12 @@
 part of '../widgets.dart';
 
 class DesplegableComment extends StatefulWidget {
-  final String text;
+  final String commentContent;
   bool isExpanded;
   final int limit;
   DesplegableComment({
     Key? key,
-    required this.text,
+    required this.commentContent,
     this.isExpanded = false,
     this.limit = 75,
   }) : super(key: key);
@@ -34,7 +34,7 @@ class _DesplegableCommentState extends State<DesplegableComment> {
             child: Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(
-                widget.text,
+                widget.commentContent,
                 textAlign: TextAlign.start,
                 softWrap: true,
                 overflow: TextOverflow.fade,
@@ -47,7 +47,7 @@ class _DesplegableCommentState extends State<DesplegableComment> {
             ),
           ),
         ),
-        widget.text.length > widget.limit
+        widget.commentContent.length > widget.limit
             ? widget.isExpanded
                 ? /*  Column(
                             children: [

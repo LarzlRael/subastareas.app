@@ -102,3 +102,104 @@ class StoreCard extends StatelessWidget {
     );
   }
 }
+
+class StoreCard2 extends StatelessWidget {
+  final double height = 150;
+  final double amount;
+  final double price;
+
+  const StoreCard2({
+    Key? key,
+    required this.amount,
+    required this.price,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      /* color: Colors.yellow, */
+      width: size.width,
+      height: height,
+      child: Stack(
+        children: <Widget>[
+          // The containers in the background
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                width: 0.9 * size.width,
+                height: height * 0.75,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.currency_bitcoin,
+                      size: 70,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SimpleText(
+                          text: '$amount ${amount > 1 ? 'moneda' : 'monedas'}',
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          bottom: 10,
+                        ),
+                        SimpleText(
+                          text: '$price bolivianos',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          bottom: 10,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Stack(
+            children: <Widget>[
+              Positioned(
+                bottom: 0,
+                right: 75,
+                child: Container(
+                  width: 150,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    /* color: Colors.black, */
+                  ),
+                  child: Card(
+                    color: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    elevation: 10.0,
+                    child: const Center(
+                      child: SimpleText(
+                        text: 'Comprar',
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}

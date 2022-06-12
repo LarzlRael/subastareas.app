@@ -9,15 +9,17 @@ class FillButton extends StatelessWidget {
   final double marginVertical;
   final double marginHorizontal;
   final bool ghostButton;
+  final double borderRadius;
   const FillButton({
     Key? key,
     required this.onPressed,
     required this.text,
     this.backgroundColor = Colors.blue,
-    this.textColor = Colors.black,
+    this.textColor = Colors.white,
     this.marginVertical = 5,
     this.marginHorizontal = 0,
     this.ghostButton = false,
+    this.borderRadius = 5,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,7 @@ class FillButton extends StatelessWidget {
             horizontal: 40.0,
           ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
 

@@ -2,7 +2,7 @@ part of 'services.dart';
 
 class Request {
   String uri = '${Enviroments.serverHttpUrl}/';
-
+  final _storage = const FlutterSecureStorage();
   static Future<http.Response?> sendRequest(
       String method, String url, Map<String, String>? body) async {
     final headers = {
@@ -26,11 +26,11 @@ class Request {
     return res;
   }
 
-  static Future<http.Response?> sendRequestWithToken(String method, String url,
-      Map<String, dynamic> body, String? token) async {
+  static Future<http.Response?> sendRequestWithToken(
+      String method, String url, Map<String, dynamic> body) async {
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer ${token}',
     };
 
     final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');

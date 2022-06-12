@@ -114,13 +114,16 @@ class ProfileCard extends StatelessWidget {
           SizedBox(
             width: 10,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Personas que te sigues'),
-              Text('999999'),
-            ],
-          )
+          Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      'Personas que te sigues Personas que te siguesPersonas que te siguesPersonas que te sigues'),
+                  Text('999999'),
+                ],
+              ))
         ],
       ),
     );

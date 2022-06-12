@@ -20,6 +20,8 @@ class OneHomeworkBloc {
 
   Stream<OneHomeworkModel> get oneHomeworkStream =>
       _oneHomeworkController.stream;
+  Stream<List<HomeworksModel>> get homeworksStream =>
+      _homeworksController.stream;
   dispose() {
     _oneHomeworkController.close();
     _homeworksController.close();
@@ -60,5 +62,10 @@ class OneHomeworkBloc {
 
   getHomeworks() async {
     _homeworksController.sink.add(await homeworkServices.getHomeworks());
+  }
+
+  getHomeworksByCategory(List<String> category, List<String> level) async {
+    _homeworksController.sink.add(
+        await homeworkServices.getHomeworksByCategoryAndLevel(category, level));
   }
 }
