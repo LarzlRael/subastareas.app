@@ -27,34 +27,38 @@ class _CustomFormbuildeRTextFieldState
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: FormBuilderTextField(
-        keyboardType: widget.keyboardType,
-        obscureText: widget.passwordField && _obscureText,
-        name: widget.name,
-        validator: FormBuilderValidators.required(),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          labelText: widget.placeholder,
-          labelStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 18,
+        margin: const EdgeInsets.symmetric(vertical: 10.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
           ),
-          suffixIcon: widget.passwordField
-              ? IconButton(
-                  icon: _obscureText
-                      ? const Icon(Icons.password)
-                      : const Icon(Ionicons.eye),
-                  onPressed: () {
-                    setState(() {
-                      _obscureText = !_obscureText;
-                    });
-                  },
-                )
-              : null,
-          prefixIcon: Icon(widget.icon),
-        ),
-      ),
-    );
+          child: FormBuilderTextField(
+            keyboardType: widget.keyboardType,
+            obscureText: widget.passwordField && _obscureText,
+            name: widget.name,
+            validator: FormBuilderValidators.required(),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              labelText: widget.placeholder,
+              labelStyle: const TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
+              ),
+              suffixIcon: widget.passwordField
+                  ? IconButton(
+                      icon: _obscureText
+                          ? const Icon(Icons.password)
+                          : const Icon(Ionicons.eye),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : null,
+              prefixIcon: Icon(widget.icon),
+            ),
+          ),
+        ));
   }
 }

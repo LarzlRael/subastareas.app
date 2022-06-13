@@ -4,9 +4,10 @@ class MenuProfileOption extends StatelessWidget {
   final String title;
   final Widget page;
   final IconData icon;
-  final Future Function()? onPressed;
   final bool showTrailing;
   final bool showTrailingIcon;
+  final bool closeSession;
+
   const MenuProfileOption({
     Key? key,
     required this.title,
@@ -14,38 +15,50 @@ class MenuProfileOption extends StatelessWidget {
     required this.icon,
     this.showTrailing = false,
     this.showTrailingIcon = true,
-    this.onPressed,
+    this.closeSession = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final color = !closeSession ? Colors.black87 : Colors.white;
+    final auth = Provider.of<AuthServices>(context);
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      child: ListTile(
-        onTap: () async {
-          if (onPressed != null) {
-            await onPressed!();
-            print('close sesion');
-          } else {
-            Navigator.push(context,
-                PageTransition(type: PageTransitionType.fade, child: page));
-          }
-        },
-        trailing: showTrailingIcon
-            ? Icon(showTrailing ? Icons.lock_clock : Icons.chevron_right)
-            : null,
-        leading: Icon(icon),
-        title: SimpleText(
-          text: title,
-          color: Colors.white,
-          fontSize: 17,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
+        margin: const EdgeInsets.only(bottom: 5),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: closeSession ? Colors.red : Colors.white,
+          elevation: 5,
+          child: ListTile(
+            onTap: () async {
+              if (closeSession) {
+                auth.logout();
+              } else {
+                if (!showTrailing) {
+                  Navigator.push(
+                    context,
+                    PageTransition(type: PageTransitionType.fade, child: page),
+                  );
+                } else {
+                  GlobalSnackBar.show(context, 'Proximamente!');
+                }
+              }
+            },
+            trailing: showTrailingIcon
+                ? Icon(
+                    showTrailing ? Icons.lock_clock : Icons.chevron_right,
+                    color: color,
+                  )
+                : null,
+            leading: Icon(icon, color: color),
+            title: SimpleText(
+              text: title,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+        ));
   }
 }

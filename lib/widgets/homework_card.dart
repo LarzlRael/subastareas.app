@@ -1,5 +1,16 @@
 part of 'widgets.dart';
 
+class HomeworkArguments {
+  int idHomework;
+  int idUser;
+  String category;
+  HomeworkArguments(
+    this.idHomework,
+    this.idUser,
+    this.category,
+  );
+}
+
 class HomeworkCard extends StatelessWidget {
   final bool isLogged;
   final HomeworksModel homework;
@@ -14,7 +25,12 @@ class HomeworkCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'auctionPage', arguments: homework.id);
+        Navigator.pushNamed(context, 'auctionPage',
+            arguments: HomeworkArguments(
+              homework.id,
+              homework.user.id,
+              homework.category,
+            ));
       },
       child: Container(
         margin: const EdgeInsets.all(15),
@@ -27,7 +43,7 @@ class HomeworkCard extends StatelessWidget {
               child: Hero(
                 tag: homework.id,
                 child: Image.asset(
-                  'assets/category/quimica.jpg',
+                  'assets/category/${homework.category}.jpg',
                   fit: BoxFit.cover,
                 ),
               ),

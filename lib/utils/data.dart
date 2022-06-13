@@ -75,52 +75,48 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   ),
 ];
 
-List<MenuProfileOption> getMenuProfileOptions(
-    Future<dynamic> Function() onPress) {
-  return [
-    MenuProfileOption(
-      icon: Icons.wallet_giftcard_rounded,
-      title: "Billetera",
-      page: WalletPage(),
-    ),
-    MenuProfileOption(
-      icon: Icons.notifications_rounded,
-      title: "Notificaciones",
-      page: NotificationPage(),
-    ),
-    MenuProfileOption(
-      icon: Icons.message_rounded,
-      title: "Mensajes",
-      showTrailing: true,
-      page: WalletPage(),
-    ),
-    MenuProfileOption(
-      icon: Icons.question_answer,
-      title: "Mis tareas",
-      page: MyHomeworksPage(),
-    ),
-    MenuProfileOption(
-      icon: Icons.question_answer,
-      title: "Mis ofertas",
-      page: MyOffers(),
-    ),
-    MenuProfileOption(
-      icon: Icons.question_answer,
-      title: "Tus marcadores",
-      page: WalletPage(),
-      showTrailing: true,
-    ),
-    MenuProfileOption(
-      icon: Icons.question_answer,
-      title: "Cerrar sesión",
-      page: WalletPage(),
-      showTrailingIcon: false,
-      onPressed: () async {
-        await onPress();
-      },
-    ),
-  ];
-}
+List<MenuProfileOption> menuProfileOptions = [
+  MenuProfileOption(
+    icon: Icons.wallet_giftcard_rounded,
+    title: "Billetera",
+    page: WalletPage(),
+  ),
+  const MenuProfileOption(
+    icon: Icons.notifications_rounded,
+    title: "Notificaciones",
+    page: NotificationPage(),
+  ),
+  MenuProfileOption(
+    icon: Icons.message_rounded,
+    title: "Mensajes",
+    showTrailing: true,
+    page: WalletPage(),
+  ),
+  const MenuProfileOption(
+    icon: Icons.task,
+    title: "Mis tareas",
+    page: MyHomeworksPage(),
+  ),
+  MenuProfileOption(
+    icon: Icons.currency_exchange_sharp,
+    title: "Mis ofertas",
+    page: MyOffers(),
+  ),
+  MenuProfileOption(
+    icon: Icons.question_answer,
+    title: "Tus marcadores",
+    page: WalletPage(),
+    showTrailing: true,
+  ),
+  MenuProfileOption(
+    icon: Icons.exit_to_app,
+    title: "Cerrar sesión",
+    page: WalletPage(),
+    showTrailingIcon: false,
+    closeSession: true,
+  ),
+];
+
 
 /* final List<CategoryFilter> listCategories = [
   CategoryFilter('Secundaria', 'level'),

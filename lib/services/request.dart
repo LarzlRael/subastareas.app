@@ -8,29 +8,29 @@ class Request {
     final headers = {
       'Content-Type': 'application/json',
     };
-    final URI = Uri.parse('${Enviroments.serverHttpUrl}/$url');
+    Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
       case "GET":
-        res = await http.get(URI);
+        res = await http.get(uri);
         break;
       case "POST":
-        res = await http.post(URI, body: jsonEncode(body), headers: headers);
+        res = await http.post(uri, body: jsonEncode(body), headers: headers);
         break;
       case "PUT":
-        res = await http.put(URI, body: jsonEncode(body), headers: headers);
+        res = await http.put(uri, body: jsonEncode(body), headers: headers);
         break;
       case "DELETE":
-        res = await http.delete(URI);
+        res = await http.delete(uri);
     }
     return res;
   }
 
-  static Future<http.Response?> sendRequestWithToken(
-      String method, String url, Map<String, dynamic> body) async {
+  static Future<http.Response?> sendRequestWithToken(String method, String url,
+      Map<String, dynamic> body, String? token) async {
     final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ${token}',
+      'Authorization': 'Bearer $token',
     };
 
     final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
@@ -59,7 +59,7 @@ class Request {
     String token,
   ) async {
     late http.Response res;
-    final URI = Uri.parse('${Enviroments.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
     final mimeType = mime(file.path)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',
@@ -72,7 +72,7 @@ class Request {
 
     final uploadPostRequest = http.MultipartRequest(
       method,
-      URI,
+      uri,
     );
     uploadPostRequest.headers.addAll(headers);
     uploadPostRequest.files.add(uploadFile);

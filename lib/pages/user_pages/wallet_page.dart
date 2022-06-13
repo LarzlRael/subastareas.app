@@ -1,11 +1,13 @@
 part of '../pages.dart';
 
 class WalletPage extends StatelessWidget {
+  const WalletPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context);
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Column(
           children: [
@@ -14,7 +16,7 @@ class WalletPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SimpleText(
+                  const SimpleText(
                     text: 'BILLETERA',
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -25,8 +27,8 @@ class WalletPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
-                        Icons.wallet,
+                      const Icon(
+                        Ionicons.wallet,
                         size: 150,
                         color: Colors.black87,
                       ),
@@ -40,12 +42,12 @@ class WalletPage extends StatelessWidget {
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
-                          SimpleText(
+                          const SimpleText(
                             text: 'Monedas',
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                         ],
@@ -55,17 +57,21 @@ class WalletPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ButtonWithIcon(
-                        label: 'Depositar',
-                        icon: Icons.arrow_upward,
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'store_page');
-                        },
+                      Expanded(
+                        child: ButtonWithIcon(
+                          label: 'Depositar',
+                          icon: Icons.arrow_upward,
+                          onPressed: () {
+                            Navigator.pushNamed(context, 'store_page');
+                          },
+                        ),
                       ),
-                      ButtonWithIcon(
-                        label: 'Retirar',
-                        onPressed: () {},
-                        icon: Icons.arrow_downward,
+                      Expanded(
+                        child: ButtonWithIcon(
+                          label: 'Retirar',
+                          onPressed: () {},
+                          icon: Icons.arrow_downward,
+                        ),
                       ),
                     ],
                   ),

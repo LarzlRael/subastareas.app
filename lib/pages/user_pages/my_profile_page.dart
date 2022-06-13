@@ -55,9 +55,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: getMenuProfileOptions(closeSession).length,
+                  itemCount: menuProfileOptions.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return getMenuProfileOptions(closeSession)[index];
+                    return menuProfileOptions[index];
                   },
                 ),
               ),
@@ -84,7 +84,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       context,
       PageTransition(
         type: PageTransitionType.leftToRightWithFade,
-        child: WelcomePage(),
+        child: const WelcomePage(),
       ),
     );
   }

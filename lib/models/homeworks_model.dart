@@ -5,7 +5,6 @@
 import 'dart:convert';
 
 List<HomeworksModel> homeworksModelFromJson(String str) {
-  print(str);
   return List<HomeworksModel>.from(
       json.decode(str).map((x) => HomeworksModel.fromJson(x)));
 }
@@ -29,6 +28,7 @@ class HomeworksModel {
     required this.createdAt,
     required this.updatedAt,
     this.offers,
+    required this.user,
   });
 
   int id;
@@ -45,6 +45,7 @@ class HomeworksModel {
   DateTime createdAt;
   DateTime updatedAt;
   List<OfferManyHomeworks>? offers;
+  UserHomework user;
 
   factory HomeworksModel.fromJson(Map<String, dynamic> json) => HomeworksModel(
         id: json["id"],
@@ -64,6 +65,7 @@ class HomeworksModel {
             ? null
             : List<OfferManyHomeworks>.from(
                 json["offers"].map((x) => OfferManyHomeworks.fromJson(x))),
+        user: UserHomework.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -83,6 +85,7 @@ class HomeworksModel {
         "offers": offers == null
             ? null
             : List<dynamic>.from(offers!.map((x) => x.toJson())),
+        "user": user.toJson(),
       };
 }
 
@@ -104,5 +107,21 @@ class OfferManyHomeworks {
   Map<String, dynamic> toJson() => {
         "id": id,
         "priceOffer": priceOffer,
+      };
+}
+
+class UserHomework {
+  UserHomework({
+    required this.id,
+  });
+
+  int id;
+
+  factory UserHomework.fromJson(Map<String, dynamic> json) => UserHomework(
+        id: json["id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
       };
 }

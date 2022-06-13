@@ -36,11 +36,18 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
 
-    /* final homeworksBloc = OneHomeworkBloc(); */
-    /* homeworksBloc.getHomeworksByCategory(
-        filter.getListCategorySelected, filter.getListLevelSelected); */
     homeworksBloc.getHomeworks();
     return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/logo_with_letters.png',
+          height: 30,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

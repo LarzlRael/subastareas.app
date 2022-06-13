@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
 class AuctionPage extends StatefulWidget {
-  final int args;
+  final HomeworkArguments args;
   const AuctionPage({Key? key, required this.args}) : super(key: key);
   @override
   State<AuctionPage> createState() => _AuctionPageState();
@@ -14,21 +14,17 @@ class _AuctionPageState extends State<AuctionPage> {
   @override
   void initState() {
     /* getOneHomeWork(); */
-    _oneHomeworkBloc.getOneHomework(widget.args);
+    _oneHomeworkBloc.getOneHomework(widget.args.idHomework);
     super.initState();
   }
-
-  /*  getOneHomeWork() async {
-    print('load homework');
-    final getOnehomework = await homeworkServices.getOneHomework(widget.args);
-    setState(() {
-      homework = getOnehomework;
-    });
-  } */
 
   @override
   Widget build(BuildContext context) {
     auth = Provider.of<AuthServices>(context, listen: false);
+    bool isBearer = false;
+    if (auth.isLogged) {
+      isBearer = widget.args.idUser == auth.usuario.id;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -42,8 +38,30 @@ class _AuctionPageState extends State<AuctionPage> {
           ),
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
-        title: Text('que fue '),
+        elevation: 5,
+        actions: <Widget>[
+          isBearer
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.fade, child: ProfilePage()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 25,
+                  ),
+                )
+              : Container(),
+        ],
+        title: SimpleText(
+          text: 'Tarea de ${widget.args.category} ',
+          color: Colors.black,
+          fontSize: 16,
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -51,23 +69,24 @@ class _AuctionPageState extends State<AuctionPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  _imageCategory(widget.args),
-                  StreamBuilder(
-                    stream: _oneHomeworkBloc.oneHomeworkStream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<OneHomeworkModel> snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return _cardAuction(snapshot.data!, auth.isLogged);
-                      }
-                    },
-                  ),
-                ],
+              StreamBuilder(
+                stream: _oneHomeworkBloc.oneHomeworkStream,
+                builder: (BuildContext context,
+                    AsyncSnapshot<OneHomeworkModel> snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        _imageCategory(snapshot.data!.homework.id,
+                            snapshot.data!.homework.category),
+                        _cardAuction(snapshot.data!, auth.isLogged)
+                      ],
+                    );
+                  }
+                },
               ),
 
               /* _buttonMakeOffer(), */
@@ -152,15 +171,15 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _imageCategory(int idHomeWork) {
+  Widget _imageCategory(int idHomeWork, String category) {
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.35,
       width: size.width,
       child: Hero(
         tag: idHomeWork,
-        child: Image.network(
-          'https://octutor.org/media/posts/11/math.jpg',
+        child: Image.asset(
+          'assets/category/$category.jpg',
           /* width: 280.0, */
         ),
       ),
