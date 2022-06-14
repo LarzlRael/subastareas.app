@@ -16,6 +16,18 @@ class MyHomeworksPage extends StatelessWidget {
         builder: (BuildContext context,
             AsyncSnapshot<List<HomeworksModel>> snapshot) {
           if (snapshot.hasData) {
+            if (snapshot.data!.isEmpty) {
+              return NoInformation(
+                icon: Icons.assignment,
+                message: 'No tienes tareas Subidas',
+                showButton: true,
+                iconButton: Icons.abc,
+                onPressed: () {
+                  Navigator.pushNamed(context, 'uploadHomework');
+                },
+                buttonTitle: 'Subir Tarea',
+              );
+            }
             return ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,

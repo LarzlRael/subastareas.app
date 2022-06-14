@@ -20,34 +20,42 @@ class _MyProfilePageState extends State<MyProfilePage> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Column(
-                    children: [
-                      /*   CircleAvatar(
-                        radius: 50,
-                        child: showProfileImage(
-                          auth.usuario.profileImageUrl,
-                          auth.usuario.username,
-                        ),
-                      ), */
-                      showProfileImage(auth.usuario.profileImageUrl,
-                          auth.usuario.username, 50),
-                      const SizedBox(
-                        height: 10,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.blue,
+                ),
+                width: double.infinity,
+                height: 200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /*   CircleAvatar(
+                      radius: 50,
+                      child: showProfileImage(
+                        auth.usuario.profileImageUrl,
+                        auth.usuario.username,
                       ),
-                      SimpleText(
-                        text: auth.usuario.username,
-                      )
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ProfileCard(),
-                      ProfileCard(),
-                    ],
-                  )
+                    ), */
+                    showProfileImage(auth.usuario.profileImageUrl,
+                        auth.usuario.username, 50),
+                    /*  const SizedBox(
+                      height: 10,
+                    ),
+                    SimpleText(
+                      text: auth.usuario.username,
+                      textAlign: TextAlign.center,
+                    ) */
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  /* ProfileCard(),
+                  ProfileCard(), */
                 ],
               ),
               const SizedBox(

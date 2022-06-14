@@ -48,44 +48,53 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ChipChoice(
-                elementsList: filter.getListAllSelected,
-                onClickAction: (String value) {
-                  filter.removeItemFromList(value);
-                  homeworksBloc.getHomeworksByCategory(
-                    filter.getListCategorySelected,
-                  );
-                },
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            ChipChoice(
+              elementsList: filter.getListAllSelected,
+              onClickAction: (String value) {
+                filter.removeItemFromList(value);
+                homeworksBloc.getHomeworksByCategory(
+                  filter.getListCategorySelected,
+                );
+              },
+            ),
+            GestureDetector(
+              onTap: () {
+                showFilterBottomMenuShet(context);
+              },
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.filter_list,
+                    color: Colors.grey,
+                  ),
+                  SimpleText(
+                    text: 'Filtrar busqueda',
+                    color: Colors.grey,
+                  )
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  showFilterBottomMenuShet(context);
-                },
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.filter_list,
-                      color: Colors.grey,
-                    ),
-                    SimpleText(
-                      text: 'Filtrar busqueda',
-                      color: Colors.grey,
-                    )
-                  ],
-                ),
-              ),
+            ),
 
-              /* HomeworkCard(isLogged: auth.isLogged),
-              HomeworkCard(isLogged: auth.isLogged), */
-              StreamBuilder(
-                stream: homeworksBloc.homeworksStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<HomeworksModel>> snapshot) {
-                  if (snapshot.hasData) {
+            /* HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged), */
+            StreamBuilder(
+              stream: homeworksBloc.homeworksStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<HomeworksModel>> snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data!.isEmpty) {
+                    return Center(
+                      child: NoInformation(
+                        message: 'No se encontraron resultados',
+                        icon: Icons.search_off,
+                        showButton: false,
+                        iconButton: Icons.abc,
+                      ),
+                    );
+                  } else {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
@@ -101,15 +110,15 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                         );
                       },
                     );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
                   }
-                },
-              ),
-            ],
-          ),
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
     );

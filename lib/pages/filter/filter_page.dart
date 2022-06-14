@@ -9,7 +9,7 @@ class FilterPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 60),
 
           /* Text("Nivel"),
               FilterItem(title: 'Pre universitario', type: 'level'),
@@ -27,15 +27,24 @@ class FilterPage extends StatelessWidget {
               if (snapshot.hasData) {
                 return Column(
                   children: [
-                    Text("Asignatura"),
+                    const SimpleText(
+                      text: "Asignatura",
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                     Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return FilterItem(
-                              title: snapshot.data![index], type: 'level');
-                        },
-                      ),
+                      child: ListView.separated(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return FilterItem(
+                                title: snapshot.data![index], type: 'level');
+                          },
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              height: 1,
+                              color: Colors.blue,
+                            );
+                          }),
                     ),
                     FillButton(
                       text: 'Filtrar',
@@ -105,7 +114,7 @@ class _FilterItemState extends State<FilterItem> {
           isSelected = value!;
         });
       },
-      secondary: const CircleAvatar(),
+      secondary: const Icon(Icons.add),
     );
   }
 }
