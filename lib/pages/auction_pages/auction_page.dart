@@ -64,35 +64,92 @@ class _AuctionPageState extends State<AuctionPage> {
         ),
         centerTitle: true,
       ), */
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              StreamBuilder(
-                stream: _oneHomeworkBloc.oneHomeworkStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<OneHomeworkModel> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return Column(
-                      children: [
-                        _imageCategory(snapshot.data!.homework.id,
-                            snapshot.data!.homework.category),
-                        _cardAuction(snapshot.data!, auth.isLogged)
-                      ],
-                    );
-                  }
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+              elevation: 5,
+              centerTitle: true,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
                 },
+                icon: const Icon(
+                  Icons.chevron_left,
+                  color: Colors.white,
+                  size: 25,
+                ),
               ),
+              actions: <Widget>[
+                isBearer
+                    ? IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.leftToRightWithFade,
+                                child: ProfilePage()),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 25,
+                        ),
+                      )
+                    : Container(),
+              ],
+              floating: true,
+              pinned: true,
+              snap: false,
+              expandedHeight: 200,
+              flexibleSpace: FlexibleSpaceBar(
+                background: Image.asset(
+                  'assets/category/${removeDiacritics(widget.args.category)}.jpg',
+                  fit: BoxFit.cover,
+                  /* width: 280.0, */
+                ),
+                centerTitle: true,
+                title: SimpleText(
+                  text: 'Tarea de ${widget.args.category} ',
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              )),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                SafeArea(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        StreamBuilder(
+                          stream: _oneHomeworkBloc.oneHomeworkStream,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<OneHomeworkModel> snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return Column(
+                                children: [
+                                  _cardAuction(snapshot.data!, auth.isLogged)
+                                ],
+                              );
+                            }
+                          },
+                        ),
 
-              /* _buttonMakeOffer(), */
-            ],
+                        /* _buttonMakeOffer(), */
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -180,6 +237,7 @@ class _AuctionPageState extends State<AuctionPage> {
         tag: idHomeWork,
         child: Image.asset(
           'assets/category/${removeDiacritics(category)}.jpg',
+          fit: BoxFit.cover,
           /* width: 280.0, */
         ),
       ),
