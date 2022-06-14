@@ -26,7 +26,7 @@ class _AuctionPageState extends State<AuctionPage> {
       isBearer = widget.args.idUser == auth.usuario.id;
     }
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -63,7 +63,7 @@ class _AuctionPageState extends State<AuctionPage> {
           fontSize: 16,
         ),
         centerTitle: true,
-      ),
+      ), */
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -179,7 +179,7 @@ class _AuctionPageState extends State<AuctionPage> {
       child: Hero(
         tag: idHomeWork,
         child: Image.asset(
-          'assets/category/$category.jpg',
+          'assets/category/${removeDiacritics(category)}.jpg',
           /* width: 280.0, */
         ),
       ),

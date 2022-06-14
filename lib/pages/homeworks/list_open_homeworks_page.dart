@@ -57,8 +57,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 onClickAction: (String value) {
                   filter.removeItemFromList(value);
                   homeworksBloc.getHomeworksByCategory(
-                      filter.getListCategorySelected,
-                      filter.getListLevelSelected);
+                    filter.getListCategorySelected,
+                  );
                 },
               ),
               GestureDetector(

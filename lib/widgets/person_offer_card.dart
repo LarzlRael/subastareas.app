@@ -28,7 +28,7 @@ class PersonOfferCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 25,
               ),
               SimpleText(

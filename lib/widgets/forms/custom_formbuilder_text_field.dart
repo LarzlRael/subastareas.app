@@ -1,12 +1,12 @@
 part of '../widgets.dart';
 
-class CustomFormbuildeRTextField extends StatefulWidget {
+class CustomFormbuilderTextField extends StatefulWidget {
   final String name;
   final IconData icon;
   final String placeholder;
   final bool passwordField;
   final TextInputType keyboardType;
-  const CustomFormbuildeRTextField({
+  const CustomFormbuilderTextField({
     Key? key,
     required this.name,
     required this.icon,
@@ -16,12 +16,12 @@ class CustomFormbuildeRTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CustomFormbuildeRTextField> createState() =>
-      _CustomFormbuildeRTextFieldState();
+  State<CustomFormbuilderTextField> createState() =>
+      _CustomFormbuilderTextFieldState();
 }
 
-class _CustomFormbuildeRTextFieldState
-    extends State<CustomFormbuildeRTextField> {
+class _CustomFormbuilderTextFieldState
+    extends State<CustomFormbuilderTextField> {
   bool _obscureText = true;
   /* bool showPassword = false; */
   @override

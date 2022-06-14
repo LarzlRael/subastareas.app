@@ -1,8 +1,4 @@
-// To parse this JSON data, do
-//
-//     final homeworksModel = homeworksModelFromJson(jsonString);
-
-import 'dart:convert';
+part of 'models.dart';
 
 List<HomeworksModel> homeworksModelFromJson(String str) {
   return List<HomeworksModel>.from(
@@ -22,8 +18,8 @@ class HomeworksModel {
     required this.fileType,
     required this.resolutionTime,
     required this.category,
-    required this.level,
     required this.observation,
+    required this.subCategory,
     required this.status,
     required this.createdAt,
     required this.updatedAt,
@@ -39,8 +35,8 @@ class HomeworksModel {
   String fileType;
   DateTime resolutionTime;
   String category;
-  String level;
   dynamic observation;
+  dynamic subCategory;
   String status;
   DateTime createdAt;
   DateTime updatedAt;
@@ -56,7 +52,7 @@ class HomeworksModel {
         fileType: json["fileType"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         category: json["category"],
-        level: json["level"],
+        subCategory: json["subCategory"],
         observation: json["observation"],
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -77,7 +73,7 @@ class HomeworksModel {
         "fileType": fileType,
         "resolutionTime": resolutionTime.toIso8601String(),
         "category": category,
-        "level": level,
+        "subCategory": subCategory,
         "observation": observation,
         "status": status,
         "created_at": createdAt.toIso8601String(),

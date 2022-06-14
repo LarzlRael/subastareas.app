@@ -43,7 +43,7 @@ class HomeworkCard extends StatelessWidget {
               child: Hero(
                 tag: homework.id,
                 child: Image.asset(
-                  'assets/category/${homework.category}.jpg',
+                  'assets/category/${removeDiacritics(homework.category)}.jpg',
                   fit: BoxFit.cover,
                 ),
               ),

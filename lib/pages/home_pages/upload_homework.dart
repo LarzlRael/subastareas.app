@@ -1,6 +1,6 @@
 part of '../pages.dart';
 
-class UploadHomework extends StatefulWidget {
+/* class UploadHomework extends StatefulWidget {
   const UploadHomework({Key? key}) : super(key: key);
 
   @override
@@ -174,6 +174,132 @@ class _UploadHomeworkState extends State<UploadHomework> {
         color: Colors.blueAccent,
       ),
       itemCount: files!.length,
+    );
+  }
+}
+ */
+
+class UploadHomework extends StatefulWidget {
+  @override
+  State<UploadHomework> createState() => _UploadHomeworkState();
+}
+
+class _UploadHomeworkState extends State<UploadHomework> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const SimpleText(
+          text: 'Subir nueva tarea',
+          color: Colors.black,
+          fontSize: 20,
+        ),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        centerTitle: true,
+      ),
+      body: DefaultTabController(
+        length: 4,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            toolbarHeight: 20,
+            automaticallyImplyLeading: false,
+            bottom: const TabBar(
+              indicatorColor: Colors.grey,
+              padding: EdgeInsets.only(bottom: 20),
+              tabs: [
+                Tab(
+                  icon: Icon(FontAwesomeIcons.filePdf,
+                      size: 40, color: Colors.grey),
+                ),
+                Tab(
+                  icon: Icon(Icons.image, size: 40, color: Colors.grey),
+                ),
+                Tab(
+                  icon: Icon(Icons.mic, size: 40, color: Colors.grey),
+                ),
+                Tab(
+                  icon: Icon(Icons.video_label_rounded,
+                      size: 40, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              UploadHomeworkWithPDF(),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_transit),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class UploadHomeworkWithPDF extends StatelessWidget {
+  final _formKey = GlobalKey<FormBuilderState>();
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FormBuilder(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Column(
+              children: [
+                const CustomFormbuilderTextArea(
+                  name: 'title',
+                  title: 'Escribe tu pregunta',
+                  icon: Icons.person,
+                ),
+                const CustomRowFormbuilderTextField(
+                  name: 'username',
+                  icon: FontAwesomeIcons.at,
+                  placeholder: 'Presupuesto : ',
+                ),
+                const CustomRowFormbuilderTextField(
+                  name: 'username',
+                  icon: FontAwesomeIcons.at,
+                  placeholder: 'Plazo : ',
+                ),
+                CustomFormbuilderFetchDropdown(),
+                /* RaisedButton(
+                    onPressed: () async {
+                      await authService.logout();
+                    },
+                    child: Text('Cerrar sesion'),
+                  ), */
+              ],
+            ),
+            Column(
+              children: [
+                LoginButton(
+                  text: "Subir Tarea",
+                  textColor: Colors.white,
+                  showIcon: false,
+                  onPressed: () async {
+                    final validationSuccess = _formKey.currentState!.validate();
+                    print(_formKey.currentState!.value['username']);
+                    print(_formKey.currentState!.value['password']);
+                    if (validationSuccess) {
+                      _formKey.currentState!.save();
+                      /* Navigator.pushReplacementNamed(
+                                context, 'bottomNavigation'); */
+
+                    }
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }

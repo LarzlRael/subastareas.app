@@ -1,4 +1,4 @@
-import 'dart:convert';
+part of 'models.dart';
 
 OneHomeworkModel oneHomeworkModelFromJson(String str) =>
     OneHomeworkModel.fromJson(json.decode(str));
@@ -97,7 +97,6 @@ class Homework {
     required this.fileType,
     required this.resolutionTime,
     required this.category,
-    required this.level,
     required this.observation,
     required this.status,
     required this.createdAt,
@@ -113,7 +112,7 @@ class Homework {
   String fileType;
   DateTime resolutionTime;
   String category;
-  String level;
+
   dynamic observation;
   String status;
   DateTime createdAt;
@@ -129,7 +128,6 @@ class Homework {
         fileType: json["fileType"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         category: json["category"],
-        level: json["level"],
         observation: json["observation"],
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -146,7 +144,6 @@ class Homework {
         "fileType": fileType,
         "resolutionTime": resolutionTime.toIso8601String(),
         "category": category,
-        "level": level,
         "observation": observation,
         "status": status,
         "created_at": createdAt.toIso8601String(),

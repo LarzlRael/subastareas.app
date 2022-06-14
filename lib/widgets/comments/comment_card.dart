@@ -86,7 +86,6 @@ class _CommentCardState extends State<CommentCard>
           fontWeight: FontWeight.bold,
         ),
         const SizedBox(width: 15),
-        //TODO cambiar por una fecha
         SimpleText(
           text: timeago.format(widget.comment.createdAt, locale: 'es'),
           color: Colors.grey,
@@ -150,4 +149,3 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 }
-// todo buscar comentario por id

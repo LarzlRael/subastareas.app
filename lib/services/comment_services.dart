@@ -19,7 +19,6 @@ class CommentServices {
       {'content': commentContent},
       await _storage.read(key: 'token'),
     );
-    /* homeworkRequest.body */
     return validateStatus(comment!.statusCode);
   }
 
@@ -29,7 +28,7 @@ class CommentServices {
         'comments/deletecomment/$idCommnent',
         {},
         await _storage.read(key: 'token'));
-    /* homeworkRequest.body */
+
     print(comment!.body);
     return validateStatus(comment.statusCode);
   }

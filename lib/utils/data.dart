@@ -46,7 +46,7 @@ final List<Widget> bottomItemsWithoutLogin = <Widget>[
 
 final List<Widget> bottomItemsWithLogin = <Widget>[
   const ListOpenHomeworksPage(),
-  const UploadHomework(),
+  UploadHomework(),
   ProfilePage(),
 ];
 

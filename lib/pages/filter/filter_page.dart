@@ -5,15 +5,13 @@ class FilterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = Provider.of<FilterProvider>(context, listen: false);
     final oneHomeworkBloc = OneHomeworkBloc();
+    final homeworkServices = HomeworkServices();
     return Scaffold(
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            /* mainAxisAlignment: MainAxisAlignment.start, */
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Nivel"),
+
+          /* Text("Nivel"),
               FilterItem(title: 'Pre universitario', type: 'level'),
               FilterItem(title: 'Universitario', type: 'level'),
               Text("Asignatura"),
@@ -21,21 +19,45 @@ class FilterPage extends StatelessWidget {
               FilterItem(title: 'fisica', type: 'category'),
               FilterItem(title: 'quimica', type: 'category'),
               FilterItem(title: 'algebra', type: 'category'),
-              FilterItem(title: 'programacion', type: 'category'),
-              FillButton(
-                text: 'Filtrar',
-                borderRadius: 100,
-                onPressed: () {
-                  /*  final homeworkServices = HomeworkServices();
+              FilterItem(title: 'programacion', type: 'category'), */
+          child: FutureBuilder(
+            future: homeworkServices.getSubjectAndLevels(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: [
+                    Text("Asignatura"),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return FilterItem(
+                              title: snapshot.data![index], type: 'level');
+                        },
+                      ),
+                    ),
+                    FillButton(
+                      text: 'Filtrar',
+                      borderRadius: 100,
+                      onPressed: () {
+                        /*  final homeworkServices = HomeworkServices();
                 homeworkServices.getHomeworksByCategoryAndLevel(
                     state.getListCategorySelected, state.getListLevelSelected); */
-                  oneHomeworkBloc.getHomeworksByCategory(
-                      state.getListCategorySelected,
-                      state.getListLevelSelected);
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
+                        oneHomeworkBloc.getHomeworksByCategory(
+                          state.getListCategorySelected,
+                        );
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
         ),
       ),
@@ -46,6 +68,7 @@ class FilterPage extends StatelessWidget {
 class FilterItem extends StatefulWidget {
   final String title;
   final String type;
+
   const FilterItem({
     Key? key,
     required this.title,

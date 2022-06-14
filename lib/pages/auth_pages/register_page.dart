@@ -37,12 +37,12 @@ class RegisterPage extends StatelessWidget {
                           prefixIcon: Icon(Icons.person),
                         ),
                       ), */
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'username',
                         icon: Icons.person,
                         placeholder: 'Nombre de usuario',
                       ),
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'email',
                         keyboardType: TextInputType.emailAddress,
                         icon: FontAwesomeIcons.at,
@@ -59,13 +59,13 @@ class RegisterPage extends StatelessWidget {
                           ),
                         ),
                       ), */
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Contraseña',
                         passwordField: true,
                       ),
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Repetir contraseña',

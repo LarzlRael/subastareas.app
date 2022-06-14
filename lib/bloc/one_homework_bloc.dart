@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:subastareaspp/models/homeworks_model.dart';
-import 'package:subastareaspp/models/one_homework_model.dart';
+import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/services/services.dart';
 
 class OneHomeworkBloc {
@@ -64,8 +63,8 @@ class OneHomeworkBloc {
     _homeworksController.sink.add(await homeworkServices.getHomeworks());
   }
 
-  getHomeworksByCategory(List<String> category, List<String> level) async {
-    _homeworksController.sink.add(
-        await homeworkServices.getHomeworksByCategoryAndLevel(category, level));
+  getHomeworksByCategory(List<String> category) async {
+    _homeworksController.sink
+        .add(await homeworkServices.getHomeworksByCategoryAndLevel(category));
   }
 }

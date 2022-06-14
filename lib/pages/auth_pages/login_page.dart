@@ -48,44 +48,17 @@ class LoginPage extends StatelessWidget {
                         ),
                         textColor: Colors.black87,
                       ),
-
-                      /* FormBuilderTextField(
-                    name: 'username',
-                    validator: FormBuilderValidators.required(),
-                    decoration: const InputDecoration(
-                      labelText: 'Nombre de usuario',
-                      prefixIcon: Icon(Icons.person),
-                    ),
-                  ), */
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'username',
                         icon: FontAwesomeIcons.at,
                         placeholder: 'Nombre de usuario o email',
                       ),
-                      /*  FormBuilderTextField(
-                    name: 'password',
-                    obscureText: true,
-                    validator: FormBuilderValidators.required(),
-                    decoration: const InputDecoration(
-                      labelText: 'Contraseña',
-                      prefixIcon: Icon(
-                        Icons.password_outlined,
-                      ),
-                    ),
-                  ), */
-                      const CustomFormbuildeRTextField(
+                      const CustomFormbuilderTextField(
                         name: 'password',
                         icon: FontAwesomeIcons.lock,
                         placeholder: 'Contraseña',
                         passwordField: true,
                       ),
-
-                      /* RaisedButton(
-                    onPressed: () async {
-                      await authService.logout();
-                    },
-                    child: Text('Cerrar sesion'),
-                  ), */
                     ],
                   ),
                   Column(

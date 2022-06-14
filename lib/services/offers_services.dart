@@ -10,7 +10,7 @@ class OffersServices {
           'priceOffer': priceOffer,
         },
         await _storage.read(key: 'token'));
-    /* homeworkRequest.body */
+
     print(homeworkRequest!.body);
   }
 }

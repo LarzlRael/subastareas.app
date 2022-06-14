@@ -8,10 +8,9 @@ class HomeworkServices {
       'homework',
       null,
     );
-    /* homeworkRequest.body */
-    /* print(homeworkRequest!.body); */
+
     final finalData = homeworksModelFromJson(homeworkRequest!.body);
-    print(homeworkRequest.body);
+    print('Solicitando datos');
     return finalData;
   }
 
@@ -21,7 +20,6 @@ class HomeworkServices {
       'homework/getonehomework/$id',
       null,
     );
-    /* print(homeworkRequest!.body); */
     final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
     return finalData;
   }
@@ -33,24 +31,34 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
-    /* print(homeworkRequest!.body); */
+
     final finalData = homeworksModelFromJson(homeworkRequest!.body);
     return finalData;
   }
 
   Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
-      List<String> category, List<String> level) async {
+      List<String> category) async {
     /* category/programacion,algebra/level/Universitario */
     final categorFilter = category.isNotEmpty ? category.join(',') : 'empty';
-    final levelFilter = level.isNotEmpty ? level.join(',') : 'empty';
+    /* final levelFilter = level.isNotEmpty ? level.join(',') : 'empty'; */
     final homeworkRequest = await Request.sendRequest(
       'GET',
-      'homework/category/$categorFilter/level/$levelFilter',
+      'homework/category/$categorFilter',
       {},
     );
-    /* print(homeworkRequest!.body); */
+
     final finalData = homeworksModelFromJson(homeworkRequest!.body);
-    print(homeworkRequest.body);
+
+    return finalData;
+  }
+
+  Future<List<String>> getSubjectAndLevels() async {
+    final homeworkRequest = await Request.sendRequest(
+      'GET',
+      'homework/getsubjectslist',
+      {},
+    );
+    final finalData = subjectsFromJson(homeworkRequest!.body);
     return finalData;
   }
 }
