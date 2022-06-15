@@ -41,6 +41,7 @@ class ProfileCardWithStars extends StatelessWidget {
                 username: auth.usuario.username,
                 profileImage: auth.usuario.profileImageUrl,
                 editable: false,
+                auth: auth,
               ),
               /*  const SizedBox(
                 height: 10,

@@ -4,11 +4,13 @@ class ProfileImageEdit extends StatefulWidget {
   final String username;
   final String? profileImage;
   final bool editable;
+  final AuthServices auth;
   const ProfileImageEdit({
     Key? key,
     required this.username,
     this.profileImage,
     this.editable = true,
+    required this.auth,
   }) : super(key: key);
 
   @override
@@ -22,12 +24,12 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        /* if (widget.editable) {
-          null;
-        } else {
+        if (widget.editable) {
           _selectGalleryPhoto();
-        } */
-        await showDialog(context: context, builder: (_) => PublicProfilePage());
+        } else {
+          null;
+        }
+        /* await showDialog(context: context, builder: (_) => PublicProfilePage()); */
       },
       child: Container(
         /* color: Colors.blue, */
@@ -86,13 +88,15 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
 
   _procesarImagen(ImageSource origen) async {
     final picker = ImagePicker();
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker.pickImage(
       source: origen,
+      imageQuality: 50,
     );
 
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        widget.auth.updateProfileImage(_image!, widget.auth.usuario.id);
       } else {
         print('No image selected.');
       }

@@ -65,7 +65,7 @@ class Request {
       'Authorization': 'Bearer $token',
     };
     final uploadFile = await http.MultipartFile.fromPath(
-      'homeworkfile',
+      'file',
       file.path,
       contentType: MediaType(mimeType[0], mimeType[1]),
     );

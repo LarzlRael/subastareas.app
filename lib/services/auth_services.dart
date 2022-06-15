@@ -110,4 +110,16 @@ class AuthServices with ChangeNotifier {
   Future<String> getCurrentToken() async {
     return await _storage.read(key: 'token') ?? '';
   }
+
+  Future updateProfileImage(File file, int idUser) async {
+    final resp = await Request.sendRequestWithFile(
+        file,
+        'auth/updateprofileimage/$idUser',
+        'PUT',
+        {},
+        await _storage.read(key: 'token') ?? '');
+    print(resp.body);
+    await isLoggenIn();
+    return resp.body;
+  }
 }

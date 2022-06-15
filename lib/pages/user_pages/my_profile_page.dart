@@ -105,6 +105,7 @@ class CardProfile extends StatelessWidget {
           ProfileImageEdit(
             username: auth.usuario.username,
             profileImage: auth.usuario.profileImageUrl,
+            auth: auth,
           ),
           /*  const SizedBox(
             height: 10,
