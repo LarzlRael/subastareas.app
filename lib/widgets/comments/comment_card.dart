@@ -31,8 +31,10 @@ class _CommentCardState extends State<CommentCard>
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          showProfileImage(widget.comment.user.profileImageUrl,
-              widget.comment.user.username),
+          showProfileImage(
+            widget.comment.user.profileImageUrl,
+            widget.comment.user.username,
+          ),
           const SizedBox(width: 15),
           Expanded(
             child: Column(

@@ -86,13 +86,11 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                   AsyncSnapshot<List<HomeworksModel>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.isEmpty) {
-                    return Center(
-                      child: NoInformation(
-                        message: 'No se encontraron resultados',
-                        icon: Icons.search_off,
-                        showButton: false,
-                        iconButton: Icons.abc,
-                      ),
+                    return NoInformation(
+                      message: 'No se encontraron resultados',
+                      icon: Icons.search_off,
+                      showButton: false,
+                      iconButton: Icons.abc,
                     );
                   } else {
                     return ListView.builder(

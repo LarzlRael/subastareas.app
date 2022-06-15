@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_file_picker/form_builder_file_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
@@ -28,7 +29,7 @@ import 'package:subastareaspp/widgets/slideshow.dart';
 
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
-import 'package:intl/intl.dart';
+
 import 'package:http/http.dart' as http;
 
 import '../widgets/buttons/buttons.dart';
@@ -52,6 +53,7 @@ part 'auth_pages/notification_page.dart';
 part 'user_pages/my_profile_page.dart';
 part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
+part 'user_pages/public_profile_page.dart';
 part 'homeworks/my_homeworks.dart';
 part 'filter/filter_page.dart';
 part 'store_pages/store_page.dart';

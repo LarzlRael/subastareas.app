@@ -23,4 +23,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'notifications': (_) => const NotificationPage(),
   'filter': (_) => FilterPage(),
   'store_page': (_) => StorePage(),
+  'public_profile_page': (_) => PublicProfilePage(),
 };

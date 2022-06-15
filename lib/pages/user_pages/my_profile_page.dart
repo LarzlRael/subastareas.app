@@ -10,7 +10,6 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   late final AuthServices auth;
 
-  /* final _googleSignInServices = GoogleSignInServices; */
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
@@ -20,37 +19,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
           padding: const EdgeInsets.all(30),
           child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.blue,
-                ),
-                width: double.infinity,
-                height: 200,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /*   CircleAvatar(
-                      radius: 50,
-                      child: showProfileImage(
-                        auth.usuario.profileImageUrl,
-                        auth.usuario.username,
-                      ),
-                    ), */
-                    showProfileImage(auth.usuario.profileImageUrl,
-                        auth.usuario.username, 50),
-                    /*  const SizedBox(
-                      height: 10,
-                    ),
-                    SimpleText(
-                      text: auth.usuario.username,
-                      textAlign: TextAlign.center,
-                    ) */
-                  ],
-                ),
-              ),
+              CardProfile(auth: auth),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,8 +32,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
               ),
               Expanded(
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: menuProfileOptions.length,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (
+                    BuildContext context,
+                    int index,
+                  ) {
                     return menuProfileOptions[index];
                   },
                 ),
@@ -98,11 +71,74 @@ class _MyProfilePageState extends State<MyProfilePage> {
   }
 }
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({
+class CardProfile extends StatelessWidget {
+  const CardProfile({
     Key? key,
+    required this.auth,
   }) : super(key: key);
 
+  final AuthServices auth;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Colors.black87,
+      ),
+      width: double.infinity,
+      height: 200,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          /*   CircleAvatar(
+            radius: 50,
+            child: showProfileImage(
+              auth.usuario.profileImageUrl,
+              auth.usuario.username,
+            ),
+          ), */
+          /* showProfileImage(auth.usuario.profileImageUrl,
+              auth.usuario.username, 50), 
+              */
+          ProfileImageEdit(
+            username: auth.usuario.username,
+            profileImage: auth.usuario.profileImageUrl,
+          ),
+          /*  const SizedBox(
+            height: 10,
+          ),
+          */
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            /* crossAxisAlignment: CrossAxisAlignment.center, */
+            children: const [
+              ProfileCard(amount: 20, title: 'Seguidores'),
+              ProfileCard(amount: 44, title: 'Seguidores'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileCard extends StatefulWidget {
+  final String title;
+  final int amount;
+  const ProfileCard({
+    Key? key,
+    required this.title,
+    required this.amount,
+  }) : super(key: key);
+
+  @override
+  State<ProfileCard> createState() => _ProfileCardState();
+}
+
+class _ProfileCardState extends State<ProfileCard> {
+  File? _image;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,9 +163,8 @@ class ProfileCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      'Personas que te sigues Personas que te siguesPersonas que te siguesPersonas que te sigues'),
-                  Text('999999'),
+                  Text(widget.title),
+                  Text('${widget.amount}'),
                 ],
               ))
         ],
