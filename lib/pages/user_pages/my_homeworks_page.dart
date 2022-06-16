@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/models/models.dart';
-import 'package:subastareaspp/services/services.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
+part of '../pages.dart';
 
 class MyHomeworksPage extends StatelessWidget {
   const MyHomeworksPage({Key? key}) : super(key: key);

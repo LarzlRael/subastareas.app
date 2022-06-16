@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   final IconData? icon;

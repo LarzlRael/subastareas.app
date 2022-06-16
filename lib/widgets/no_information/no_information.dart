@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class NoInformation extends StatelessWidget {
   final IconData icon;
@@ -9,13 +9,14 @@ class NoInformation extends StatelessWidget {
   final IconData iconButton;
 
   NoInformation({
+    Key? key,
     required this.icon,
     required this.message,
     required this.showButton,
     this.buttonTitle,
     this.onPressed,
     required this.iconButton,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

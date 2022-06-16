@@ -15,6 +15,8 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
     final args = ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
     final size = MediaQuery.of(context).size;
+    OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
+    homeworksBloc.getOneHomework(args.homework.id);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,17 +48,34 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              /* scrollDirection: Axis.horizontal, */
-              itemCount: args.offers.length,
-              itemBuilder: (context, index) {
-                return PersonOfferHorizontal(
-                  offer: args.offers[index],
-                  /* active: index % 2 == 0, */
+          StreamBuilder(
+            stream: homeworksBloc.oneHomeworkStream,
+            builder: (BuildContext context,
+                AsyncSnapshot<OneHomeworkModel> snapshot) {
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              } else if (snapshot.data!.offers.isEmpty) {
+                return NoInformation(
+                  message: 'No hay ofertas aun',
+                  icon: Icons.search_off,
+                  showButton: true,
+                  iconButton: Icons.add,
                 );
-              },
-            ),
+              } else {
+                return Expanded(
+                  child: ListView.builder(
+                    /* scrollDirection: Axis.horizontal, */
+                    itemCount: snapshot.data!.offers.length,
+                    itemBuilder: (context, index) {
+                      return PersonOfferHorizontal(
+                        offer: snapshot.data!.offers[index],
+                        /* active: index % 2 == 0, */
+                      );
+                    },
+                  ),
+                );
+              }
+            },
           ),
         ],
       ),

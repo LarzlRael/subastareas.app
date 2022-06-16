@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class ChipChoice extends StatefulWidget {
   final List<String> elementsList;

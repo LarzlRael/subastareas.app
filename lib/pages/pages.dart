@@ -25,7 +25,7 @@ import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:subastareaspp/utils/text_util.dart';
 import 'package:subastareaspp/utils/time_utils.dart';
 import 'package:subastareaspp/utils/validation.dart';
-import 'package:subastareaspp/widgets/slideshow.dart';
+import 'package:subastareaspp/widgets/slideshows/slideshow.dart';
 
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
@@ -47,6 +47,7 @@ part 'initialPresentation/welcome_page.dart';
 part 'home_pages/bottom_navigation.dart';
 part 'auction_pages/aution_with_offer_page.dart';
 part 'user_pages/my_offers.dart';
+part 'user_pages/my_homeworks_page.dart';
 part 'user_pages/wallet_page.dart';
 part 'home_pages/categories_page.dart';
 part 'auth_pages/notification_page.dart';

@@ -1,4 +1,4 @@
-part of 'widgets.dart';
+part of '../widgets.dart';
 
 class HeaderLoginRegister extends StatelessWidget {
   final String headerTitle;
