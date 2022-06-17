@@ -50,7 +50,7 @@ class DrawerMenu extends StatelessWidget {
 }
 
 Widget showProfileImage(String? profileImage, String userName,
-    [double radius = 30]) {
+    {double radius = 30}) {
   return CircleAvatar(
     radius: radius,
     child: profileImage != null

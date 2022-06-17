@@ -3,6 +3,13 @@ import 'package:flutter/foundation.dart';
 class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
   final List<String> _listCategorySelected = [];
+  bool _showButtonAcept = false;
+
+  bool get getShowButtonAcept => _showButtonAcept;
+  set setShowButtonAcept(bool value) {
+    _showButtonAcept = value;
+    notifyListeners();
+  }
 
   List<String> get getListLevelSelected => _listLevelSelected;
 

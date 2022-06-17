@@ -34,6 +34,7 @@ class _CommentCardState extends State<CommentCard>
           showProfileImage(
             widget.comment.user.profileImageUrl,
             widget.comment.user.username,
+            radius: 20,
           ),
           const SizedBox(width: 15),
           Expanded(

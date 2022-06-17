@@ -48,7 +48,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               showProfileImage(
                 argumets.homework.user.profileImageUrl,
                 argumets.homework.user.username,
-                75,
+                radius: 75,
               ),
               SimpleText(
                 top: 25,

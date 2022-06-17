@@ -21,7 +21,7 @@ class NoInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
+      /* color: Colors.yellow, */
       padding: const EdgeInsets.all(40),
       child: Center(
         child: Column(

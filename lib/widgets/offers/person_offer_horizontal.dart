@@ -12,26 +12,55 @@ class PersonOfferHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber,
-      margin: const EdgeInsets.all(5.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
+    final filterProvider = Provider.of<FilterProvider>(context);
+    return InkWell(
+      onLongPress: () {
+        showFilterBottomMenuShett(
+          context,
+          AcceptOfferButton(amount: offer.priceOffer),
+        );
+      },
+      child: Ink(
+        child: Container(
+          /* color: Colors.amber, */
+          margin: const EdgeInsets.only(bottom: 15),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              showProfileImage(offer.user.profileImageUrl, offer.user.username),
+              Row(
+                children: [
+                  showProfileImage(
+                    offer.user.profileImageUrl,
+                    offer.user.username,
+                    radius: 20,
+                  ),
+                  SimpleText(
+                    left: 15,
+                    text: offer.user.username,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ],
+              ),
               SimpleText(
-                left: 10,
-                text: offer.user.username,
-                fontSize: 16,
+                text: '${offer.priceOffer}',
+                fontSize: 18,
                 fontWeight: FontWeight.w500,
               ),
             ],
           ),
-          SimpleText(text: '${offer.priceOffer}')
-        ],
+        ),
       ),
     );
   }
+}
+
+showFilterBottomMenuShett(BuildContext context, Widget content) {
+  showModalBottomSheet(
+    /* isScrollControlled: true, */
+    context: context,
+    builder: (context) {
+      return SafeArea(child: content);
+    },
+  );
 }
