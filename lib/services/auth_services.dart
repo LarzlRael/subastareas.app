@@ -4,14 +4,14 @@ class AuthServices with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   bool isLogged = false;
   final _storage = const FlutterSecureStorage();
-  late UserModel _usuario;
+  late UserModel _user;
 
-  UserModel get usuario {
-    _usuario.name = _usuario.name;
-    return _usuario;
+  UserModel get user {
+    _user.name = _user.name;
+    return _user;
   }
 
-  setUsuario(UserModel value) => _usuario = value;
+  setUsuario(UserModel value) => _user = value;
 
   Future<bool> login(String email, String password) async {
     /* this.autenticando = true; */
@@ -27,7 +27,7 @@ class AuthServices with ChangeNotifier {
     if (validateStatus(resp!.statusCode)) {
       /* print(userModelFromJson(resp.body).accessToken); */
       setUsuario(userModelFromJson(resp.body));
-      await _saveIdAnToken(usuario.id.toString(), usuario.accessToken);
+      await _saveIdAnToken(user.id.toString(), user.accessToken);
       isLogged = true;
       notifyListeners();
       return true;
@@ -93,7 +93,7 @@ class AuthServices with ChangeNotifier {
     if (resp?.statusCode == 200) {
       isLogged = true;
       setUsuario(userModelFromJson(resp!.body));
-      await _saveIdAnToken(usuario.id.toString(), usuario.accessToken);
+      await _saveIdAnToken(user.id.toString(), user.accessToken);
       return true;
     } else {
       isLogged = false;

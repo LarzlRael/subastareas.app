@@ -102,7 +102,7 @@ class _CommentCardState extends State<CommentCard>
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return auth.usuario.id == idComment
+        return auth.user.id == idComment
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

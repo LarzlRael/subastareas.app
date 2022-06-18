@@ -77,8 +77,7 @@ showBottomMenuSheetAddOrEditComment(
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                showProfileImage(
-                    auth.usuario.profileImageUrl, auth.usuario.username),
+                showProfileImage(auth.user.profileImageUrl, auth.user.username),
                 const SizedBox(
                   width: 15,
                 ),

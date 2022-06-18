@@ -14,15 +14,16 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
-    final filterProvider = Provider.of<FilterProvider>(context, listen: true);
+
     OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
     homeworksBloc.getOneHomework(args.homework.id);
+    final isOwner = auth.user.id == args.homework.user.id;
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -55,6 +56,9 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
                             itemBuilder: (context, index) {
                               return PersonOfferHorizontal(
                                 offer: snapshot.data!.offers[index],
+                                auth: auth,
+                                homework: args,
+                                isOwner: isOwner,
                                 /* active: index % 2 == 0, */
                               );
                             },
@@ -118,7 +122,9 @@ class AcceptOfferButton extends StatelessWidget {
             ],
           ),
           MaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
             height: 45,
             minWidth: 150,
             elevation: 0,

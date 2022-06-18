@@ -1,7 +1,11 @@
 part of '../pages.dart';
 
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+  final bool showNotNow;
+  const WelcomePage({
+    Key? key,
+    this.showNotNow = true,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,18 +63,21 @@ class WelcomePage extends StatelessWidget {
                 text: 'Registrarse',
                 backgroundColor: Colors.blue,
               ),
-              TextOnTap(
-                text: const SimpleText(
-                  text: 'No ahora',
-                  fontSize: 16,
-                  color: Colors.indigo,
-                  top: 10,
-                  bottom: 10,
-                ),
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, 'bottomNavigation');
-                },
-              )
+              showNotNow
+                  ? TextOnTap(
+                      text: const SimpleText(
+                        text: 'No ahora',
+                        fontSize: 16,
+                        color: Colors.indigo,
+                        top: 10,
+                        bottom: 10,
+                      ),
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                            context, 'bottomNavigation');
+                      },
+                    )
+                  : Container()
             ],
           ),
         ),

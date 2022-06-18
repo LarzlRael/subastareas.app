@@ -2,11 +2,16 @@ part of 'services.dart';
 
 class OffersServices {
   final _storage = const FlutterSecureStorage();
-  Future makeOffer(int idHomework, int priceOffer) async {
+  Future makeOrEditOffer(
+    bool edit,
+    int idHomework,
+    int priceOffer,
+    int idOffer,
+  ) async {
     print('idHomework: $idHomework');
     final homeworkRequest = await Request.sendRequestWithToken(
-        'POST',
-        'offer/makeOffer/$idHomework',
+        !edit ? 'POST' : 'PUT',
+        !edit ? 'offer/makeOffer/$idHomework' : 'offer/editOffer/$idOffer',
         {
           'priceOffer': priceOffer,
         },

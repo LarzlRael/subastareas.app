@@ -38,7 +38,7 @@ class WalletPage extends StatelessWidget {
                             height: 30,
                           ),
                           SimpleText(
-                            text: auth.usuario.wallet.balance.toString(),
+                            text: auth.user.wallet.balance.toString(),
                             fontSize: 30,
                             fontWeight: FontWeight.bold,
                           ),

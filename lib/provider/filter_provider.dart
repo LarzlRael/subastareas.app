@@ -4,6 +4,13 @@ class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
   final List<String> _listCategorySelected = [];
   bool _showButtonAcept = false;
+  int _currentBottomTab = 0;
+
+  int get getCurrentBottomTab => _currentBottomTab;
+  set setCurrentBottomTab(int value) {
+    _currentBottomTab = value;
+    notifyListeners();
+  }
 
   bool get getShowButtonAcept => _showButtonAcept;
   set setShowButtonAcept(bool value) {

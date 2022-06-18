@@ -54,8 +54,8 @@ class OneHomeworkBloc {
     await getOneHomework(idHomework);
   }
 
-  makeOffer(int idHomework, int offer) async {
-    await offersServices.makeOffer(idHomework, offer);
+  makeOrEditOffer(bool edit, int idHomework, int offer, int idOffer) async {
+    await offersServices.makeOrEditOffer(edit, idHomework, offer, idOffer);
     await getOneHomework(idHomework);
   }
 

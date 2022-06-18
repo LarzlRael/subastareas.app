@@ -57,7 +57,7 @@ Widget showProfileImage(String? profileImage, String userName,
         ? null
         : SimpleText(
             text: convertName(userName),
-            fontSize: 20,
+            fontSize: radius * 0.65,
             color: Colors.white,
           ),
     backgroundImage: profileImage == null ? null : NetworkImage(profileImage),

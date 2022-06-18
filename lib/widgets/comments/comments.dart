@@ -43,8 +43,8 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                 child: Row(
                   children: [
                     showProfileImage(
-                      auth.usuario.profileImageUrl,
-                      auth.usuario.username,
+                      auth.user.profileImageUrl,
+                      auth.user.username,
                       radius: 25,
                     ),
                     const SizedBox(

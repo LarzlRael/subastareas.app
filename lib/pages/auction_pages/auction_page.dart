@@ -23,7 +23,7 @@ class _AuctionPageState extends State<AuctionPage> {
     auth = Provider.of<AuthServices>(context, listen: false);
     bool isBearer = false;
     if (auth.isLogged) {
-      isBearer = widget.args.idUser == auth.usuario.id;
+      isBearer = widget.args.idUser == auth.user.id;
     }
     return Scaffold(
       /* appBar: AppBar(
@@ -264,7 +264,7 @@ class _AuctionPageState extends State<AuctionPage> {
     final size = MediaQuery.of(context).size;
     bool isBearer = false;
     if (isLogged) {
-      isBearer = oneHomeworkModel.homework.user.id == auth.usuario.id;
+      isBearer = oneHomeworkModel.homework.user.id == auth.user.id;
     }
     return SizedBox(
       child: Container(

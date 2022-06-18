@@ -103,8 +103,8 @@ class CardProfile extends StatelessWidget {
               auth.usuario.username, 50), 
               */
           ProfileImageEdit(
-            username: auth.usuario.username,
-            profileImage: auth.usuario.profileImageUrl,
+            username: auth.user.username,
+            profileImage: auth.user.profileImageUrl,
             auth: auth,
           ),
           /*  const SizedBox(

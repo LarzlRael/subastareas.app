@@ -22,7 +22,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
     final verify =
-        argumets.offers.map((item) => item.user.id).contains(auth.usuario.id);
+        argumets.offers.map((item) => item.user.id).contains(auth.user.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -71,7 +71,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               verify
                   ? SimpleText(
                       text:
-                          'Tu oferta es de ${argumets.offers.where((i) => i.user.id == auth.usuario.id).first.priceOffer}',
+                          'Tu oferta es de ${argumets.offers.where((i) => i.user.id == auth.user.id).first.priceOffer}',
                       top: 15,
                       bottom: 15,
                       fontSize: 19,
@@ -105,7 +105,15 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 child: ButtonWithIcon(
                   verticalPadding: 15,
                   onPressed: () {
-                    showDataAlert(textController, argumets.homework.id);
+                    showDataAlert(
+                      argumets.homework.id,
+                      verify,
+                      amount: argumets.homework.offeredAmount,
+                      idOffer: argumets.offers
+                          .where((i) => i.user.id == auth.user.id)
+                          .first
+                          .id,
+                    );
                     /* Navigator.pop(context); */
                   },
                   label: verify ? 'Editar oferta' : 'Hacer oferta',
@@ -120,7 +128,16 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     );
   }
 
-  showDataAlert(TextEditingController myController, int idHomework) {
+  showDataAlert(
+    int idHomework,
+    bool verify, {
+    int amount = 0,
+    int idOffer = 0,
+  }) {
+    TextEditingController myController = TextEditingController();
+    if (verify) {
+      myController.text = amount.toString();
+    }
     final blocHomework = OneHomeworkBloc();
     showDialog(
       context: context,
@@ -139,6 +156,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           title: const SimpleText(
             text: "Hacer oferta",
             fontSize: 24.0,
+            textAlign: TextAlign.center,
+            fontWeight: FontWeight.bold,
           ),
           content: Container(
             height: 300,
@@ -173,16 +192,20 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        final offer = await blocHomework.makeOffer(
-                            idHomework, int.parse(myController.text));
+                        final offer = await blocHomework.makeOrEditOffer(
+                          verify,
+                          idHomework,
+                          int.parse(myController.text),
+                          idOffer,
+                        );
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.blue,
                         // fixedSize: Size(250, 50),
                       ),
-                      child: const Text(
-                        "Ofertar",
+                      child: Text(
+                        !verify ? "Ofertar" : "Editar oferta",
                       ),
                     ),
                   ),

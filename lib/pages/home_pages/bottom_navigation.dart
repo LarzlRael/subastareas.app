@@ -8,7 +8,6 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
   int counter = 0;
   /* static final List<Widget> _widgetOptions = <Widget>[
     /* CategoriesPage(), */
@@ -17,28 +16,22 @@ class _BottomNavigationState extends State<BottomNavigation> {
     ProfilePage(),
   ]; */
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
-
+    final filter = Provider.of<FilterProvider>(context, listen: true);
     return Scaffold(
       body: Center(
         child: auth.isLogged
-            ? bottomItemsWithLogin.elementAt(_selectedIndex)
-            : bottomItemsWithoutLogin.elementAt(_selectedIndex),
+            ? bottomItemsWithLogin.elementAt(filter.getCurrentBottomTab)
+            : bottomItemsWithoutLogin.elementAt(filter.getCurrentBottomTab),
       ),
-      drawer: auth.isLogged
+      /*   drawer: auth.isLogged
           ? DrawerMenu(
               onPressedLogout: auth.logout,
-              userName: auth.usuario.username,
+              userName: auth.user.username,
               profileImage: '')
-          : null,
+          : null, */
       /* floatingActionButton: auth.isLogged
           ? FloatingActionButton(
               onPressed: () {
@@ -50,9 +43,11 @@ class _BottomNavigationState extends State<BottomNavigation> {
           : null, */
       bottomNavigationBar: BottomNavigationBar(
         items: auth.isLogged ? bottonItemsWithLogin : bottonItemsWithoutLogin,
-        currentIndex: _selectedIndex,
+        currentIndex: filter.getCurrentBottomTab,
         /* selectedItemColor: Colors.amber[800], */
-        onTap: _onItemTapped,
+        onTap: (int index) {
+          filter.setCurrentBottomTab = index;
+        },
       ),
     );
   }

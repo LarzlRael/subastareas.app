@@ -7,6 +7,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthServices>(context);
+    final filter = Provider.of<FilterProvider>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -88,6 +89,7 @@ class LoginPage extends StatelessWidget {
                           if (login) {
                             Navigator.pushReplacementNamed(
                                 context, 'bottomNavigation');
+                            filter.setCurrentBottomTab = 0;
                           } else {
                             showSimpleAlert(
                                 context, 'Credenciales incorrectas');
