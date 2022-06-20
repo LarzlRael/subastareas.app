@@ -76,39 +76,39 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
 
 List<MenuProfileOption> menuProfileOptions = [
   MenuProfileOption(
-    icon: Icons.wallet_giftcard_rounded,
+    icon: Icon(Icons.wallet_giftcard_rounded),
     title: "Billetera",
     page: WalletPage(),
   ),
-  const MenuProfileOption(
-    icon: Icons.notifications_rounded,
+  MenuProfileOption(
+    icon: BellIconNotification(),
     title: "Notificaciones",
     page: NotificationPage(),
   ),
   MenuProfileOption(
-    icon: Icons.message_rounded,
+    icon: Icon(Icons.message_rounded),
     title: "Mensajes",
     showTrailing: true,
     page: WalletPage(),
   ),
   const MenuProfileOption(
-    icon: Icons.task,
+    icon: Icon(Icons.task),
     title: "Mis tareas",
     page: MyHomeworksPage(),
   ),
   MenuProfileOption(
-    icon: Icons.currency_exchange_sharp,
+    icon: Icon(Icons.currency_exchange_sharp),
     title: "Mis ofertas",
     page: MyOffers(),
   ),
   MenuProfileOption(
-    icon: Icons.question_answer,
+    icon: Icon(Icons.question_answer),
     title: "Tus marcadores",
     page: WalletPage(),
     showTrailing: true,
   ),
   MenuProfileOption(
-    icon: Icons.exit_to_app,
+    icon: Icon(Icons.exit_to_app),
     title: "Cerrar sesión",
     page: WalletPage(),
     showTrailingIcon: false,

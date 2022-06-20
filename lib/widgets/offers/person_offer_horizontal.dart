@@ -24,7 +24,7 @@ class PersonOfferHorizontal extends StatelessWidget {
             onLongPress: () {
               showFilterBottomMenuShett(
                 context,
-                AcceptOfferButton(amount: offer.priceOffer),
+                AcceptOfferButton(offer: offer),
               );
             },
             child: Ink(

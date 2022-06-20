@@ -51,3 +51,5 @@ part 'store/store_card.dart';
 part 'no_information/no_information.dart';
 part 'profile/profile_image_edit.dart';
 part 'profile/profile_card_with_stars.dart';
+
+part 'notifications/notifications_card.dart';

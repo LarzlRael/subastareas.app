@@ -35,7 +35,7 @@ class LoadingPage extends StatelessWidget {
 
   Future checkLoginState(BuildContext context) async {
     final authService = Provider.of<AuthServices>(context, listen: false);
-    final autenticado = await authService.isLoggenIn();
+    final autenticado = await authService.renewToken();
     /* final socketService = Provider.of<AuthServices>(context, listen: false); */
 
     if (autenticado) {

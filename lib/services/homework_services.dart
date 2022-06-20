@@ -61,4 +61,27 @@ class HomeworkServices {
     final finalData = subjectsFromJson(homeworkRequest!.body);
     return finalData;
   }
+
+  Future<List<NotificationModel>> getUserNotifications() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'devices/getUserNotifications',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    print(homeworkRequest!.body);
+    final finalData = notificationModelFromJson(homeworkRequest!.body);
+
+    return finalData;
+  }
+
+  Future seeNotification(int idNotification) async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'PUT',
+      'devices/seeNotification/$idNotification',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    print(homeworkRequest!.body);
+  }
 }

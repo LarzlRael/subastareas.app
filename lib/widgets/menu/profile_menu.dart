@@ -3,7 +3,7 @@ part of '../widgets.dart';
 class MenuProfileOption extends StatelessWidget {
   final String title;
   final Widget page;
-  final IconData icon;
+  final Widget icon;
   final bool showTrailing;
   final bool showTrailingIcon;
   final bool closeSession;
@@ -53,7 +53,7 @@ class MenuProfileOption extends StatelessWidget {
                   color: color,
                 )
               : null,
-          leading: Icon(icon, color: color),
+          leading: icon,
           title: SimpleText(
             text: title,
             fontSize: 17,

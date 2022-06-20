@@ -76,7 +76,7 @@ class CommentUser {
 
   factory CommentUser.fromJson(Map<String, dynamic> json) => CommentUser(
         id: json["id"],
-        username: json["username"],
+        username: capitalizeFirstLetter(json["username"]),
         profileImageUrl: json["profileImageUrl"],
       );
 

@@ -82,7 +82,7 @@ class AuthServices with ChangeNotifier {
     await _storage.write(key: 'id', value: id);
   }
 
-  Future<bool> isLoggenIn() async {
+  Future<bool> renewToken() async {
     final resp = await Request.sendRequestWithToken(
       'GET',
       'auth/renewtoken',
@@ -107,10 +107,6 @@ class AuthServices with ChangeNotifier {
     await _storage.delete(key: 'id');
   }
 
-  Future<String> getCurrentToken() async {
-    return await _storage.read(key: 'token') ?? '';
-  }
-
   Future updateProfileImage(File file, int idUser) async {
     final resp = await Request.sendRequestWithFile(
         file,
@@ -119,7 +115,7 @@ class AuthServices with ChangeNotifier {
         {},
         await _storage.read(key: 'token') ?? '');
     print(resp.body);
-    await isLoggenIn();
+    await renewToken();
     return resp.body;
   }
 }

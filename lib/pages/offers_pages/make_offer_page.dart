@@ -105,15 +105,20 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 child: ButtonWithIcon(
                   verticalPadding: 15,
                   onPressed: () {
-                    showDataAlert(
-                      argumets.homework.id,
-                      verify,
-                      amount: argumets.homework.offeredAmount,
-                      idOffer: argumets.offers
-                          .where((i) => i.user.id == auth.user.id)
-                          .first
-                          .id,
-                    );
+                    showDataAlert(argumets.homework.id, verify,
+                        amount: argumets.homework.offeredAmount,
+                        //TODO corregir este bug
+                        idOffer: /* argumets.offers
+                                  .where((i) => i.user.id == auth.user.id)
+                                  .first
+                                  .id ==
+                              null
+                          ? 0
+                          : argumets.offers
+                              .where((i) => i.user.id == auth.user.id)
+                              .first
+                              .id ,*/
+                            0);
                     /* Navigator.pop(context); */
                   },
                   label: verify ? 'Editar oferta' : 'Hacer oferta',

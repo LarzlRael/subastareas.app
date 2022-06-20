@@ -27,7 +27,8 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _ImageBackgorundAndTimer(auth: auth, homework: args),
+                  _ImageBackgorundAndTimer(
+                      auth: auth, homework: args, isOwner: isOwner),
                   const SimpleText(
                     text: "Ofertas de los vendedores",
                     fontSize: 20,
@@ -87,14 +88,15 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
 }
 
 class AcceptOfferButton extends StatelessWidget {
-  final int amount;
+  final Offer offer;
   const AcceptOfferButton({
     Key? key,
-    required this.amount,
+    required this.offer,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final offersServices = OffersServices();
     return Container(
       padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
@@ -118,11 +120,12 @@ class AcceptOfferButton extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
-              SimpleText(text: amount.toString()),
+              SimpleText(text: offer.priceOffer.toString()),
             ],
           ),
           MaterialButton(
             onPressed: () {
+              offersServices.enterPendingTrade(offer.id);
               Navigator.of(context).pop();
             },
             height: 45,
@@ -226,8 +229,12 @@ class _ButtonOffer extends StatelessWidget {
 class _ImageBackgorundAndTimer extends StatelessWidget {
   final AuthServices auth;
   final OneHomeworkModel homework;
+  final bool isOwner;
   const _ImageBackgorundAndTimer(
-      {Key? key, required this.auth, required this.homework})
+      {Key? key,
+      required this.auth,
+      required this.homework,
+      required this.isOwner})
       : super(key: key);
 
   @override
@@ -280,14 +287,16 @@ class _ImageBackgorundAndTimer extends StatelessWidget {
               ) */
           ],
         ),
-
-        Container(
-          alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(
-            top: height * 0.75,
-          ),
-          child: _ButtonOffer(isLogged: auth.isLogged, homework: homework),
-        )
+        !isOwner
+            ? Container(
+                alignment: Alignment.bottomCenter,
+                padding: EdgeInsets.only(
+                  top: height * 0.75,
+                ),
+                child:
+                    _ButtonOffer(isLogged: auth.isLogged, homework: homework),
+              )
+            : Container()
       ],
     );
   }

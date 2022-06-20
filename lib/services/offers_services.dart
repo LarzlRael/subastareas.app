@@ -19,4 +19,15 @@ class OffersServices {
 
     print(homeworkRequest!.body);
   }
+
+  Future enterPendingTrade(int idOffer) async {
+    print('idHomework: $idOffer');
+    final homeworkRequest = await Request.sendRequestWithToken(
+        'GET',
+        'trade/enterPendingTrade/$idOffer',
+        {},
+        await _storage.read(key: 'token'));
+
+    print(homeworkRequest!.body);
+  }
 }
