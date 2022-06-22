@@ -101,7 +101,7 @@ class AcceptOfferButton extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       height: 100,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.green,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
@@ -115,7 +115,7 @@ class AcceptOfferButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SimpleText(
+              const SimpleText(
                 text: 'Aceptar oferta',
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -124,17 +124,17 @@ class AcceptOfferButton extends StatelessWidget {
             ],
           ),
           MaterialButton(
-            onPressed: () {
-              offersServices.enterPendingTrade(offer.id);
+            onPressed: () async {
+              await offersServices.enterPendingTrade(offer.id);
               Navigator.of(context).pop();
             },
             height: 45,
             minWidth: 150,
             elevation: 0,
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             color: Colors.black,
-            child:
-                SimpleText(text: 'Aceptar', color: Colors.white, fontSize: 22),
+            child: const SimpleText(
+                text: 'Aceptar', color: Colors.white, fontSize: 22),
           ),
         ],
       ),
@@ -164,8 +164,8 @@ class _ButtonOffer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(5),
-              boxShadow: [
-                const BoxShadow(
+              boxShadow: const [
+                BoxShadow(
                   color: Colors.black12,
                   blurRadius: 5.0,
                   spreadRadius: 1.0,
@@ -183,8 +183,8 @@ class _ButtonOffer extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SimpleText(
+                        children: const [
+                          SimpleText(
                             text: 'Afro Weed',
                             fontWeight: FontWeight.bold,
                             fontSize: 17,

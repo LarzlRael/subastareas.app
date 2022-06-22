@@ -45,7 +45,7 @@ class _CustomFormbuilderTextAreaState extends State<CustomFormbuilderTextArea> {
               validator: FormBuilderValidators.required(),
               decoration: const InputDecoration(
                 border: InputBorder.none,
-                labelStyle: const TextStyle(
+                labelStyle: TextStyle(
                   color: Colors.grey,
                   fontSize: 18,
                 ),

@@ -87,7 +87,7 @@ class _AuctionPageState extends State<AuctionPage> {
                             context,
                             PageTransition(
                                 type: PageTransitionType.leftToRightWithFade,
-                                child: ProfilePage()),
+                                child: const ProfilePage()),
                           );
                         },
                         icon: const Icon(
@@ -132,11 +132,16 @@ class _AuctionPageState extends State<AuctionPage> {
                                 child: CircularProgressIndicator(),
                               );
                             } else {
-                              return Column(
-                                children: [
-                                  _cardAuction(snapshot.data!, auth.isLogged)
-                                ],
-                              );
+                              if (snapshot.data!.homework.status !=
+                                  'pending_to_approved') {
+                                return Column(
+                                  children: [
+                                    _cardAuction(snapshot.data!, auth.isLogged)
+                                  ],
+                                );
+                              } else {
+                                return CircularProgressIndicator();
+                              }
                             }
                           },
                         ),
@@ -155,9 +160,6 @@ class _AuctionPageState extends State<AuctionPage> {
   }
 
   Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged) {
-    DateTime dt1 = (oneHomeworkModel.homework.resolutionTime);
-    final diff = getDateDiff(dt1);
-
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(

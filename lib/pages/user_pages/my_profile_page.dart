@@ -153,22 +153,23 @@ class _ProfileCardState extends State<ProfileCard> {
           width: 1,
         ),
       ),
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       child: Row(
         children: [
-          CircleAvatar(),
-          SizedBox(
+          const CircleAvatar(),
+          const SizedBox(
             width: 10,
           ),
           Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(widget.title),
-                  Text('${widget.amount}'),
-                ],
-              ))
+            padding: const EdgeInsets.only(top: 5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(widget.title),
+                Text('${widget.amount}'),
+              ],
+            ),
+          )
         ],
       ),
     );

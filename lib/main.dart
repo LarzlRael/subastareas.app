@@ -1,29 +1,14 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'firebase_options.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  print("Handling a background message: ${message.messageId}");
-  print('Message data: ${message.data}');
-  navigatorKey.currentState?.pushNamed('profile');
-  print('Ir a  ${navigatorKey.currentState}');
-}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,11 +32,11 @@ void main() async {
       debug: true // optional: set false to disable printing logs to console
       ); */
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();

@@ -27,7 +27,6 @@ class OneHomeworkBloc {
   }
 
   getOneHomework(int id) async {
-    print('id del homework: $id');
     _oneHomeworkController.sink.add(await homeworkServices.getOneHomework(id));
   }
 

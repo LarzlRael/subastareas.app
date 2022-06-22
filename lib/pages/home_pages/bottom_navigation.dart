@@ -9,12 +9,6 @@ class BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<BottomNavigation> {
   int counter = 0;
-  /* static final List<Widget> _widgetOptions = <Widget>[
-    /* CategoriesPage(), */
-    const ListOpenHomeworks(),
-    UploadHomework(),
-    ProfilePage(),
-  ]; */
 
   @override
   Widget build(BuildContext context) {

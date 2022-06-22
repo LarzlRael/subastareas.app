@@ -1,6 +1,8 @@
 part of '../pages.dart';
 
 class MyOffers extends StatelessWidget {
+  const MyOffers({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
@@ -64,7 +66,7 @@ class MyOffers extends StatelessWidget {
                   }
                 },
               ),
-              Icon(Icons.directions_transit),
+              const Icon(Icons.directions_transit),
             ],
           ),
         ),

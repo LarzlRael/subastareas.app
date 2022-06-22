@@ -8,6 +8,14 @@ part of 'models.dart';
 //
 //     final notificationModel = notificationModelFromJson(jsonString);
 
+// To parse this JSON data, do
+//
+//     final subjectsAndLevel = subjectsAndLevelFromJson(jsonString);
+
+// To parse this JSON data, do
+//
+//     final notificationModel = notificationModelFromJson(jsonString);
+
 List<NotificationModel> notificationModelFromJson(String str) =>
     List<NotificationModel>.from(
         json.decode(str).map((x) => NotificationModel.fromJson(x)));
@@ -21,16 +29,20 @@ class NotificationModel {
     required this.type,
     required this.visible,
     required this.seen,
+    required this.idHomeworkOrOffer,
     required this.content,
     required this.createdAt,
     required this.updatedAt,
     required this.user,
+    this.category,
   });
 
   int id;
   String type;
   bool visible;
   bool seen;
+  int idHomeworkOrOffer;
+  dynamic category;
   String content;
   DateTime createdAt;
   DateTime updatedAt;
@@ -42,7 +54,9 @@ class NotificationModel {
         type: json["type"],
         visible: json["visible"],
         seen: json["seen"],
+        idHomeworkOrOffer: json["idHomeworkOrOffer"],
         content: json["content"],
+        category: json["category"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         user: User.fromJson(json["user"]),
@@ -53,6 +67,8 @@ class NotificationModel {
         "type": type,
         "visible": visible,
         "seen": seen,
+        "idHomeworkOrOffer": idHomeworkOrOffer,
+        "category": category,
         "content": content,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
@@ -62,19 +78,23 @@ class NotificationModel {
 
 class User {
   User({
+    required this.id,
     required this.username,
     required this.profileImageUrl,
   });
 
+  int id;
   String username;
-  String profileImageUrl;
+  dynamic profileImageUrl;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        username: capitalizeFirstLetter(json["username"]),
+        id: json["id"],
+        username: json["username"].toString().toCapitalized(),
         profileImageUrl: json["profileImageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "username": username,
         "profileImageUrl": profileImageUrl,
       };

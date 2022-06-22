@@ -35,7 +35,8 @@ class LoginPage extends StatelessWidget {
                     ),
                     LoginButton(
                       onPressed: () async {
-                        var googleinfo =
+                        //TODO redirect to main menu
+                        final googleinfo =
                             await GoogleSignInServices.signiWithGoogle();
                       },
                       text: "Iniciar sesión con google",
@@ -50,13 +51,13 @@ class LoginPage extends StatelessWidget {
                     FormBuilder(
                       key: _formKey,
                       child: Column(
-                        children: [
-                          const CustomFormbuilderTextField(
+                        children: const [
+                          CustomFormbuilderTextField(
                             name: 'username',
                             icon: FontAwesomeIcons.at,
                             placeholder: 'Nombre de usuario o email',
                           ),
-                          const CustomFormbuilderTextField(
+                          CustomFormbuilderTextField(
                             name: 'password',
                             icon: FontAwesomeIcons.lock,
                             placeholder: 'Contraseña',

@@ -164,7 +164,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
             textAlign: TextAlign.center,
             fontWeight: FontWeight.bold,
           ),
-          content: Container(
+          content: SizedBox(
             height: 300,
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(8.0),
@@ -197,7 +197,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        final offer = await blocHomework.makeOrEditOffer(
+                        await blocHomework.makeOrEditOffer(
                           verify,
                           idHomework,
                           int.parse(myController.text),

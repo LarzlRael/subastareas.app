@@ -17,8 +17,6 @@ class PersonOfferHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(homework.homework.user.id);
-    print(auth.user.id);
     return isOwner
         ? InkWell(
             onLongPress: () {

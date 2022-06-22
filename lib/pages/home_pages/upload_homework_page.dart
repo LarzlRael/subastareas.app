@@ -179,12 +179,14 @@ class _UploadHomeworkState extends State<UploadHomework> {
 }
  */
 
-class UploadHomework extends StatefulWidget {
+class UploadHomeworkPage extends StatefulWidget {
+  const UploadHomeworkPage({Key? key}) : super(key: key);
+
   @override
-  State<UploadHomework> createState() => _UploadHomeworkState();
+  State<UploadHomeworkPage> createState() => _UploadHomeworkPageState();
 }
 
-class _UploadHomeworkState extends State<UploadHomework> {
+class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -243,62 +245,62 @@ class _UploadHomeworkState extends State<UploadHomework> {
 
 class UploadHomeworkWithPDF extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
+
+  UploadHomeworkWithPDF({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: FormBuilder(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              children: [
-                const CustomFormbuilderTextArea(
-                  name: 'title',
-                  title: 'Escribe tu pregunta',
-                  icon: Icons.person,
-                ),
-                const CustomRowFormbuilderTextField(
-                  name: 'username',
-                  icon: FontAwesomeIcons.at,
-                  placeholder: 'Presupuesto : ',
-                ),
-                const CustomRowFormbuilderTextField(
-                  name: 'username',
-                  icon: FontAwesomeIcons.at,
-                  placeholder: 'Plazo : ',
-                ),
-                CustomFormbuilderFetchDropdown(),
-                /* RaisedButton(
-                    onPressed: () async {
-                      await authService.logout();
-                    },
-                    child: Text('Cerrar sesion'),
-                  ), */
-              ],
-            ),
-            Column(
-              children: [
-                LoginButton(
-                  text: "Subir Tarea",
-                  textColor: Colors.white,
-                  showIcon: false,
+    return FormBuilder(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Column(
+            children: [
+              const CustomFormbuilderTextArea(
+                name: 'title',
+                title: 'Escribe tu pregunta',
+                icon: Icons.person,
+              ),
+              const CustomRowFormbuilderTextField(
+                name: 'username',
+                icon: FontAwesomeIcons.at,
+                placeholder: 'Presupuesto : ',
+              ),
+              const CustomRowFormbuilderTextField(
+                name: 'username',
+                icon: FontAwesomeIcons.at,
+                placeholder: 'Plazo : ',
+              ),
+              CustomFormbuilderFetchDropdown(),
+              /* RaisedButton(
                   onPressed: () async {
-                    final validationSuccess = _formKey.currentState!.validate();
-                    print(_formKey.currentState!.value['username']);
-                    print(_formKey.currentState!.value['password']);
-                    if (validationSuccess) {
-                      _formKey.currentState!.save();
-                      /* Navigator.pushReplacementNamed(
-                                context, 'bottomNavigation'); */
-
-                    }
+                    await authService.logout();
                   },
-                ),
-              ],
-            )
-          ],
-        ),
+                  child: Text('Cerrar sesion'),
+                ), */
+            ],
+          ),
+          Column(
+            children: [
+              LoginButton(
+                text: "Subir Tarea",
+                textColor: Colors.white,
+                showIcon: false,
+                onPressed: () async {
+                  final validationSuccess = _formKey.currentState!.validate();
+                  print(_formKey.currentState!.value['username']);
+                  print(_formKey.currentState!.value['password']);
+                  if (validationSuccess) {
+                    _formKey.currentState!.save();
+                    /* Navigator.pushReplacementNamed(
+                              context, 'bottomNavigation'); */
+
+                  }
+                },
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

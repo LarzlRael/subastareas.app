@@ -3,7 +3,7 @@ part of 'services.dart';
 class GoogleSignInServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  static GoogleSignIn _googleSignIn = GoogleSignIn(
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
     ],

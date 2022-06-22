@@ -31,7 +31,7 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
         }
         /* await showDialog(context: context, builder: (_) => PublicProfilePage()); */
       },
-      child: Container(
+      child: SizedBox(
         /* color: Colors.blue, */
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +47,7 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: widget.editable
-                          ? CircleAvatar(
+                          ? const CircleAvatar(
                               backgroundColor: Colors.white,
                               radius: 12.0,
                               child: Icon(

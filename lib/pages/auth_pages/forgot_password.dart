@@ -64,6 +64,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
+                    //TODO send email verification, create service
                     /* _submit(); */
                   },
                   child: Row(
@@ -83,7 +84,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                       const SimpleText(
                         top: 20,
                         bottom: 20,
-                        text: 'Envia email de recuperación',
+                        text: 'Enviar email de recuperación',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,

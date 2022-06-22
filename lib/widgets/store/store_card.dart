@@ -40,7 +40,7 @@ class StoreCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.currency_bitcoin,
                         size: 70,
                       ),
@@ -77,7 +77,7 @@ class StoreCard extends StatelessWidget {
             alignment: Alignment.topCenter,
             padding:
                 EdgeInsets.only(top: height * 0.75, right: 20.0, left: 150.0),
-            child: Container(
+            child: SizedBox(
               height: 50.0,
               width: 150,
               child: Card(
@@ -141,7 +141,7 @@ class StoreCard2 extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.currency_bitcoin,
                       size: 70,
                     ),

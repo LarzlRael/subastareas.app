@@ -13,32 +13,29 @@ class SlideItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      /* height: double.infinity, */
-      child: Column(
-        children: [
-          Expanded(
-            child: SvgPicture.asset(assetImage),
-          ),
-          SimpleText(
-            text: title,
-            fontSize: 20,
-            color: Colors.black,
-            bottom: 10,
-            top: 10,
-            fontWeight: FontWeight.bold,
-            textAlign: TextAlign.center,
-          ),
-          SimpleText(
-            text: subtitle,
-            fontSize: 16,
-            color: Colors.black,
-            textAlign: TextAlign.center,
-            left: 20,
-            right: 20,
-          ),
-        ],
-      ),
+    return Column(
+      children: [
+        Expanded(
+          child: SvgPicture.asset(assetImage),
+        ),
+        SimpleText(
+          text: title,
+          fontSize: 20,
+          color: Colors.black,
+          bottom: 10,
+          top: 10,
+          fontWeight: FontWeight.bold,
+          textAlign: TextAlign.center,
+        ),
+        SimpleText(
+          text: subtitle,
+          fontSize: 16,
+          color: Colors.black,
+          textAlign: TextAlign.center,
+          left: 20,
+          right: 20,
+        ),
+      ],
     );
   }
 }

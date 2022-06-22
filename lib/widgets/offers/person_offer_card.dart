@@ -21,7 +21,7 @@ class PersonOfferCard extends StatelessWidget {
         width: size.width * 0.25,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: active ? Color(0xFF353853) : Colors.white,
+          color: active ? const Color(0xFF353853) : Colors.white,
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),

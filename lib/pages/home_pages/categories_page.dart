@@ -32,7 +32,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     ));
   }
 
-  Widget _fondoApp() {
+  /* Widget _fondoApp() {
     final gradiente = Container(
       width: double.infinity,
       height: double.infinity,
@@ -74,7 +74,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
       ],
     );
-  }
+  } */
 
   Widget _titulos() {
     return SafeArea(
@@ -106,23 +106,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
     );
   }
 
-  Widget _roundedButtons() {
+  /* Widget _roundedButtons() {
     return Expanded(
       child: GridView.count(
           /* shrinkWrap: true, */
           /* physics: NeverScrollableScrollPhysics(), */
           crossAxisCount: 2,
-          children: [
-            /* 
-    Matematica
-    Programación
-    Fisica
-    Quimica
-    Algebra
-    Trigonometria
-    Geometria 
-     */
-          ]),
+          children: []),
     );
-  }
+  } */
 }

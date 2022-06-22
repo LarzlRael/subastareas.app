@@ -8,7 +8,6 @@ class OffersServices {
     int priceOffer,
     int idOffer,
   ) async {
-    print('idHomework: $idHomework');
     final homeworkRequest = await Request.sendRequestWithToken(
         !edit ? 'POST' : 'PUT',
         !edit ? 'offer/makeOffer/$idHomework' : 'offer/editOffer/$idOffer',
@@ -21,7 +20,6 @@ class OffersServices {
   }
 
   Future enterPendingTrade(int idOffer) async {
-    print('idHomework: $idOffer');
     final homeworkRequest = await Request.sendRequestWithToken(
         'GET',
         'trade/enterPendingTrade/$idOffer',

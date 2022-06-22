@@ -94,7 +94,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     );
                   } else {
                     return ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: snapshot.data!.length,
@@ -128,7 +128,7 @@ showFilterBottomMenuShet(BuildContext context) {
     isScrollControlled: true,
     context: context,
     builder: (context) {
-      return SafeArea(child: FilterPage());
+      return const SafeArea(child: FilterPage());
     },
   );
 }

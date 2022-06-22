@@ -1,6 +1,8 @@
 part of '../widgets.dart';
 
 class CustomFormbuilderFetchDropdown extends StatelessWidget {
+  const CustomFormbuilderFetchDropdown({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
@@ -10,7 +12,7 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
         if (snapshot.hasData) {
           return Row(
             children: [
-              SimpleText(
+              const SimpleText(
                 text: "Categoria",
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -20,7 +22,7 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
                   name: "category",
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    labelStyle: const TextStyle(
+                    labelStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 18,
                     ),
@@ -30,7 +32,7 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
                   validator: FormBuilderValidators.required(),
                   items: snapshot.data!
                       .map((category) => DropdownMenuItem(
-                          value: category, child: Text("$category")))
+                          value: category, child: Text(category)))
                       .toList(),
                 ),
               ),

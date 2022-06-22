@@ -40,13 +40,13 @@ List<Widget> categoryList = [
 
 final List<Widget> bottomItemsWithoutLogin = <Widget>[
   const ListOpenHomeworksPage(),
-  ProfilePage(),
+  const ProfilePage(),
 ];
 
 final List<Widget> bottomItemsWithLogin = <Widget>[
   const ListOpenHomeworksPage(),
-  UploadHomework(),
-  ProfilePage(),
+  const UploadHomeworkPage(),
+  const ProfilePage(),
 ];
 
 final List<BottomNavigationBarItem> bottonItemsWithLogin = [
@@ -74,7 +74,7 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   ),
 ];
 
-List<MenuProfileOption> menuProfileOptions = [
+List<MenuProfileOption> menuProfileOptions = const [
   MenuProfileOption(
     icon: Icon(Icons.wallet_giftcard_rounded),
     title: "Billetera",
@@ -91,7 +91,7 @@ List<MenuProfileOption> menuProfileOptions = [
     showTrailing: true,
     page: WalletPage(),
   ),
-  const MenuProfileOption(
+  MenuProfileOption(
     icon: Icon(Icons.task),
     title: "Mis tareas",
     page: MyHomeworksPage(),

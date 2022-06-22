@@ -2,7 +2,6 @@ part of 'services.dart';
 
 class Request {
   String uri = '${Enviroments.serverHttpUrl}/';
-  final _storage = const FlutterSecureStorage();
   static Future<http.Response?> sendRequest(
       String method, String url, Map<String, String>? body) async {
     final headers = {

@@ -36,20 +36,22 @@ class LabelLoginRegister extends StatelessWidget {
           onTap: () {
             Navigator.pushReplacementNamed(context, route);
           },
-          child: Column(children: [
-            SimpleText(
-              text: title,
-              color: Colors.indigo,
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-            SimpleText(
-              text: subtitle,
-              color: Colors.indigo,
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-            ),
-          ]),
+          child: Column(
+            children: [
+              SimpleText(
+                text: title,
+                color: Colors.indigo,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+              SimpleText(
+                text: subtitle,
+                color: Colors.indigo,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
+            ],
+          ),
         )
       ],
     );

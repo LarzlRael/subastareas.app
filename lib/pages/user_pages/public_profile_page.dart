@@ -1,9 +1,11 @@
 part of '../pages.dart';
 
 class PublicProfilePage extends StatelessWidget {
+  const PublicProfilePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       fontSize: 23,
       fontWeight: FontWeight.bold,
     );
@@ -35,15 +37,15 @@ class PublicProfilePage extends StatelessWidget {
                   padding: const EdgeInsets.all(25),
                   child: Column(
                     children: [
-                      SimpleText(
+                      const SimpleText(
                         text: 'Trayectoria en subastareas',
                         style: textStyle,
                       ),
                       const SizedBox(height: 25),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Icon(Icons.breakfast_dining),
+                        children: const [
+                          Icon(Icons.breakfast_dining),
                           SimpleText(
                               text: 'Trabajos resueltos: ', style: textStyle),
                           SimpleText(text: '0', style: textStyle),
@@ -62,12 +64,12 @@ class PublicProfilePage extends StatelessWidget {
                   width: double.infinity,
                   padding: const EdgeInsets.all(25),
                   child: Column(
-                    children: [
+                    children: const [
                       SimpleText(
                         text: 'Biografia',
                         style: textStyle,
                       ),
-                      const SizedBox(height: 15),
+                      SizedBox(height: 15),
                     ],
                   ),
                 ),
@@ -85,7 +87,7 @@ Widget information() {
     margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         Icon(
           Ionicons.checkmark_circle,
           color: Colors.lightGreen,

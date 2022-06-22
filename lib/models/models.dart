@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import "package:subastareaspp/utils/extensions.dart";
 import 'package:subastareaspp/utils/text_util.dart';
 
 part 'error_model.dart';

@@ -47,7 +47,7 @@ class _MenuBackground extends StatelessWidget {
       decoration: BoxDecoration(
           color: const Color(0xFF333446),
           borderRadius: BorderRadius.circular(100),
-          boxShadow: <BoxShadow>[
+          boxShadow: const [
             BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5),
           ]),
       /* child: Text('Hola mundo desde el menu'), */
@@ -94,7 +94,7 @@ class _MenuPinterestMenuButton extends StatelessWidget {
         item.onPressed();
       },
       behavior: HitTestBehavior.translucent,
-      child: Container(
+      child: SizedBox(
         child: Icon(
           item.icon,
           size: (itemSelected == index) ? 30 : 25,

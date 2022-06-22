@@ -1,6 +1,8 @@
 part of '../pages.dart';
 
 class FilterPage extends StatelessWidget {
+  const FilterPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<FilterProvider>(context, listen: false);
@@ -40,7 +42,7 @@ class FilterPage extends StatelessWidget {
                                 title: snapshot.data![index], type: 'level');
                           },
                           separatorBuilder: (context, index) {
-                            return Divider(
+                            return const Divider(
                               height: 1,
                               color: Colors.blue,
                             );

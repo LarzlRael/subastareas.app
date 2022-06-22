@@ -61,21 +61,14 @@ class CircleAvatarGroup extends StatelessWidget {
     );
   }
 
-  _createCircleAvatar(String url) {
-    return CircleAvatar(
-      backgroundImage: NetworkImage(url),
-      radius: 20,
-    );
-  }
-
   _createCircleAvatarMore() {
     final showNumber = oneHomeworkModel.offers.length - elementsToShow;
     return CircleAvatar(
       backgroundColor: Colors.grey,
       radius: 18,
-      child: Text(
-        showNumber.toString() + "+",
-        style: TextStyle(color: Colors.white),
+      child: SimpleText(
+        text: showNumber.toString() + "+",
+        color: Colors.white,
       ),
     );
   }

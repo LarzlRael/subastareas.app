@@ -43,7 +43,7 @@ class LoadingPage extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => BottomNavigation(),
+          pageBuilder: (_, __, ___) => const BottomNavigation(),
           transitionDuration: const Duration(milliseconds: 0),
         ),
       );
@@ -51,7 +51,7 @@ class LoadingPage extends StatelessWidget {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
-          pageBuilder: (_, __, ___) => WelcomePage(),
+          pageBuilder: (_, __, ___) => const WelcomePage(),
           transitionDuration: const Duration(milliseconds: 0),
         ),
       );

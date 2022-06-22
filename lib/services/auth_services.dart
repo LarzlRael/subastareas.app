@@ -23,7 +23,7 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp = await Request.sendRequest('POST', 'auth/signin', data);
-
+    print(resp!.body);
     if (validateStatus(resp!.statusCode)) {
       /* print(userModelFromJson(resp.body).accessToken); */
       setUsuario(userModelFromJson(resp.body));
@@ -44,7 +44,7 @@ class AuthServices with ChangeNotifier {
     /* this.autenticando = true; */
 
     final data = {
-      'username': email,
+      'username': username,
       'password': password,
       'email': email,
     };
@@ -114,7 +114,7 @@ class AuthServices with ChangeNotifier {
         'PUT',
         {},
         await _storage.read(key: 'token') ?? '');
-    print(resp.body);
+
     await renewToken();
     return resp.body;
   }

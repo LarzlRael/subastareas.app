@@ -15,44 +15,60 @@ class NotificationsCard extends StatelessWidget {
         if (!notification.seen) {
           await homeworkServices.seeNotification(notification.id);
         }
+        if (notification.type == 'new_comment') {
+          Navigator.pushNamed(
+            context,
+            'auctionPage',
+            arguments: HomeworkArguments(
+              notification.id,
+              notification.user.id,
+              notification.category,
+            ),
+          );
+        }
       },
-      child: Container(
-          width: double.infinity,
-          height: 75,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color:
-                          notification.seen ? Colors.transparent : Colors.red,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+      child: SizedBox(
+        width: double.infinity,
+        height: 75,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Row(
+              children: [
+                Container(
+                  height: 10,
+                  width: 10,
+                  decoration: BoxDecoration(
+                    color: notification.seen ? Colors.transparent : Colors.red,
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  const SizedBox(width: 5),
-                  Container(
-                    child: showProfileImage(notification.user.profileImageUrl,
-                        notification.user.username,
-                        radius: 20),
-                  ),
-                ],
+                ),
+                const SizedBox(width: 5),
+                Container(
+                  child: showProfileImage(notification.user.profileImageUrl,
+                      notification.user.username,
+                      radius: 20),
+                ),
+              ],
+            ),
+            contentNotification(notification),
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                /* color: Colors.red, */
+                borderRadius: BorderRadius.circular(10),
               ),
-              contentNotification(notification),
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  borderRadius: BorderRadius.circular(10),
+              child: Center(
+                child: Icon(
+                  iconType(notification.type),
                 ),
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -65,32 +81,32 @@ class NotificationsCard extends StatelessWidget {
           text: TextSpan(
             /* text: 'Nombre ', */
             /* style: DefaultTextStyle.of(context).style, */
-            children: <TextSpan>[
+            children: [
               TextSpan(
                   text: notification.user.username,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.blue)),
               TextSpan(
                 text: ' ' + typeNotification(notification.type),
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: Colors.grey),
               ),
             ],
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Container(
           /* color: Colors.yellowAccent, */
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SimpleText(
+              const SimpleText(
                 text: '045 favorites',
                 fontSize: 12,
                 color: Colors.black,
               ),
               SimpleText(
-                text: '${timeago.format(notification.createdAt, locale: 'es')}',
+                text: timeago.format(notification.createdAt, locale: 'es'),
                 fontSize: 12,
                 color: Colors.black,
               ),
@@ -116,5 +132,18 @@ String typeNotification(String type) {
       return 'Rechazaste una oferta';
     default:
       return 'Notification';
+  }
+}
+
+IconData iconType(String type) {
+  switch (type) {
+    case 'new_comment':
+      return FontAwesomeIcons.commentDots;
+    case 'new_offer':
+      return FontAwesomeIcons.dollarSign;
+    case 'offer_accepted':
+      return FontAwesomeIcons.commentsDollar;
+    default:
+      return FontAwesomeIcons.dollarSign;
   }
 }

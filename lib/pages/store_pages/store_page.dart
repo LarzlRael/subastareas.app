@@ -1,6 +1,8 @@
 part of '../pages.dart';
 
 class StorePage extends StatelessWidget {
+  const StorePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,7 +11,7 @@ class StorePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: const [
               SimpleText(
                 text: 'ADQUIERE MONEDAS PARA SUBASTAREAS',
                 fontSize: 30,
@@ -30,6 +32,7 @@ class StorePage extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w700,
               ),
+              //todo consulta a la base de datos
               StoreCard(amount: 1, price: 4.87),
               StoreCard(amount: 1, price: 4.87),
               StoreCard(amount: 1, price: 4.87),

@@ -10,7 +10,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'bottomNavigation': (_) => const BottomNavigation(),
   'loading': (_) => const LoadingPage(),
   'welcome': (_) => const WelcomePage(),
-  'uploadHomework': (_) => UploadHomework(),
+  'uploadHomework': (_) => const UploadHomeworkPage(),
   'auctionPage': (context) => AuctionPage(
         args: ModalRoute.of(context)?.settings.arguments as HomeworkArguments,
       ),
@@ -20,8 +20,8 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'showHomework': (_) => const ShowHomework(),
   'profile': (_) => const ProfilePage(),
   'forgot_password': (_) => const ForgotPassword(),
-  'notifications': (_) => NotificationPage(),
-  'filter': (_) => FilterPage(),
-  'store_page': (_) => StorePage(),
-  'public_profile_page': (_) => PublicProfilePage(),
+  'notifications': (_) => const NotificationPage(),
+  'filter': (_) => const FilterPage(),
+  'store_page': (_) => const StorePage(),
+  'public_profile_page': (_) => const PublicProfilePage(),
 };
