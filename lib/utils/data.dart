@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 import 'package:subastareaspp/pages/pages.dart';
@@ -74,8 +75,9 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   ),
 ];
 
-List<MenuProfileOption> menuProfileOptions = const [
-  MenuProfileOption(
+final homeworServices = HomeworkServices();
+List<MenuProfileOption> menuProfileOptions = [
+  const MenuProfileOption(
     icon: Icon(Icons.wallet_giftcard_rounded),
     title: "Billetera",
     page: WalletPage(),
@@ -84,30 +86,31 @@ List<MenuProfileOption> menuProfileOptions = const [
     icon: BellIconNotification(),
     title: "Notificaciones",
     page: NotificationPage(),
+    callback: () => homeworServices.clearNotifications(),
   ),
-  MenuProfileOption(
+  const MenuProfileOption(
     icon: Icon(Icons.message_rounded),
     title: "Mensajes",
     showTrailing: true,
     page: WalletPage(),
   ),
-  MenuProfileOption(
+  const MenuProfileOption(
     icon: Icon(Icons.task),
     title: "Mis tareas",
     page: MyHomeworksPage(),
   ),
-  MenuProfileOption(
+  const MenuProfileOption(
     icon: Icon(Icons.currency_exchange_sharp),
     title: "Mis ofertas",
     page: MyOffers(),
   ),
-  MenuProfileOption(
+  const MenuProfileOption(
     icon: Icon(Icons.question_answer),
     title: "Tus marcadores",
     page: WalletPage(),
     showTrailing: true,
   ),
-  MenuProfileOption(
+  const MenuProfileOption(
     icon: Icon(Icons.exit_to_app),
     title: "Cerrar sesión",
     page: WalletPage(),

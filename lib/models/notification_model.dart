@@ -34,6 +34,7 @@ class NotificationModel {
     required this.createdAt,
     required this.updatedAt,
     required this.user,
+    required this.notified,
     this.category,
   });
 
@@ -41,6 +42,7 @@ class NotificationModel {
   String type;
   bool visible;
   bool seen;
+  bool notified;
   int idHomeworkOrOffer;
   dynamic category;
   String content;
@@ -52,6 +54,7 @@ class NotificationModel {
       NotificationModel(
         id: json["id"],
         type: json["type"],
+        notified: json["notified"],
         visible: json["visible"],
         seen: json["seen"],
         idHomeworkOrOffer: json["idHomeworkOrOffer"],
@@ -70,6 +73,7 @@ class NotificationModel {
         "idHomeworkOrOffer": idHomeworkOrOffer,
         "category": category,
         "content": content,
+        "notified": notified,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "user": user.toJson(),

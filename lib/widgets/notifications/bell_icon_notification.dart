@@ -15,7 +15,7 @@ class BellIconNotification extends StatelessWidget {
             AsyncSnapshot<List<NotificationModel>> snapshot) {
           if (snapshot.hasData) {
             final notificationsNotRead = snapshot.data!
-                .where((element) => element.seen == false)
+                .where((element) => element.notified == true)
                 .toList()
                 .length;
             return Stack(

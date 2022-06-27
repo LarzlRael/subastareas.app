@@ -31,8 +31,6 @@ class OneHomeworkBloc {
   }
 
   deleteComment(int idComment, int idHomework) async {
-    print('id del comentario: $idComment');
-    print('id del homework: $idHomework');
     await commentService.deleteComment(idComment);
     await getOneHomework(idHomework);
   }

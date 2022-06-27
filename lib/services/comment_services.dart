@@ -29,7 +29,7 @@ class CommentServices {
         {},
         await _storage.read(key: 'token'));
 
-    print(comment!.body);
-    return validateStatus(comment.statusCode);
+    /* print(comment!.body); */
+    return validateStatus(comment!.statusCode);
   }
 }

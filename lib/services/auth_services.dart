@@ -23,7 +23,7 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp = await Request.sendRequest('POST', 'auth/signin', data);
-    print(resp!.body);
+    /* print(resp!.body); */
     if (validateStatus(resp!.statusCode)) {
       /* print(userModelFromJson(resp.body).accessToken); */
       setUsuario(userModelFromJson(resp.body));
@@ -51,8 +51,8 @@ class AuthServices with ChangeNotifier {
 
     final resp = await Request.sendRequest('POST', 'auth/signup', data);
 
-    print(resp!.body);
-    if (validateStatus(resp.statusCode)) {
+    /* print(resp!.body); */
+    if (validateStatus(resp!.statusCode)) {
       /* setUsuario(userModelFromJson(resp.body));
       await _saveIdAnToken(usuario.id.toString(), usuario.accessToken); */
       isLogged = true;

@@ -7,7 +7,7 @@ class MenuProfileOption extends StatelessWidget {
   final bool showTrailing;
   final bool showTrailingIcon;
   final bool closeSession;
-
+  final Future<dynamic> Function()? callback;
   const MenuProfileOption({
     Key? key,
     required this.title,
@@ -16,6 +16,7 @@ class MenuProfileOption extends StatelessWidget {
     this.showTrailing = false,
     this.showTrailingIcon = true,
     this.closeSession = false,
+    this.callback,
   }) : super(key: key);
 
   @override
@@ -42,6 +43,9 @@ class MenuProfileOption extends StatelessWidget {
                   context,
                   PageTransition(type: PageTransitionType.fade, child: page),
                 );
+                if (callback != null) {
+                  await callback!();
+                }
               } else {
                 GlobalSnackBar.show(context, 'Proximamente!');
               }

@@ -1,7 +1,6 @@
 part of 'models.dart';
 
 List<String> subjectsFromJson(String str) {
-  print(str);
   return List<String>.from(json.decode(str).map((x) => x));
 }
 

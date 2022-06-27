@@ -69,10 +69,23 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
-    print(homeworkRequest!.body);
+
     final finalData = notificationModelFromJson(homeworkRequest!.body);
 
     return finalData;
+  }
+
+  Future clearNotifications() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'devices/clearnotificated',
+      {},
+      await _storage.read(key: 'token'),
+    );
+
+    print(homeworkRequest!.statusCode);
+    return (homeworkRequest!.statusCode);
+    /* homeworkRequest!.body; */
   }
 
   Future seeNotification(int idNotification) async {
@@ -82,6 +95,5 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
-    print(homeworkRequest!.body);
   }
 }
