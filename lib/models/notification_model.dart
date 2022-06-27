@@ -62,7 +62,7 @@ class NotificationModel {
         category: json["category"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["userOrigin"]),
       );
 
   Map<String, dynamic> toJson() => {

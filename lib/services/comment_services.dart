@@ -23,7 +23,6 @@ class CommentServices {
   }
 
   Future<bool> deleteComment(int idCommnent) async {
-    print('Eliminando comentario');
     final comment = await Request.sendRequestWithToken(
         'DELETE',
         'comments/deletecomment/$idCommnent',
