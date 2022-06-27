@@ -23,13 +23,13 @@ class CommentServices {
   }
 
   Future<bool> deleteComment(int idCommnent) async {
+    print('Eliminando comentario');
     final comment = await Request.sendRequestWithToken(
         'DELETE',
         'comments/deletecomment/$idCommnent',
         {},
         await _storage.read(key: 'token'));
 
-    /* print(comment!.body); */
     return validateStatus(comment!.statusCode);
   }
 }

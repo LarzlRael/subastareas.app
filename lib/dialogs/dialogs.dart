@@ -23,7 +23,7 @@ void showConfirmDialog(
   BuildContext context,
   String title,
   String description,
-  Future onAccept,
+  Future<dynamic> Function()? onAccept,
 ) {
   showDialog(
     context: context,
@@ -38,8 +38,8 @@ void showConfirmDialog(
         TextButton(
           onPressed: () async {
             Navigator.pop(context, 'OK');
-            await onAccept;
-            GlobalSnackBar.show(context, 'Comentario eliminado');
+            await onAccept!();
+            /* GlobalSnackBar.show(context, 'Comentario eliminado'); */
           },
           child: const Text('OK'),
         ),

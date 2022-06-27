@@ -66,8 +66,7 @@ class _CommentCardState extends State<CommentCard>
           auth.isLogged
               ? IconButton(
                   onPressed: () {
-                    showBottomMenuShet(
-                        auth, widget.comment.user.id, widget.idHomework);
+                    showBottomMenuShet(auth, widget.comment, widget.idHomework);
                   },
                   icon: const Icon(
                     Icons.more_vert,
@@ -97,12 +96,12 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 
-  showBottomMenuShet(AuthServices auth, int idComment, int idHomework) {
+  showBottomMenuShet(AuthServices auth, Comment commnet, int idHomework) {
     final homeworkbloc = OneHomeworkBloc();
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return auth.user.id == idComment
+        return auth.user.id == commnet.user.id
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -130,7 +129,8 @@ class _CommentCardState extends State<CommentCard>
                         context,
                         'Eliminar comentario',
                         '¿Estás seguro de eliminar este comentario?',
-                        homeworkbloc.deleteComment(idComment, idHomework),
+                        () =>
+                            homeworkbloc.deleteComment(commnet.id, idHomework),
                       );
                     },
                   ),

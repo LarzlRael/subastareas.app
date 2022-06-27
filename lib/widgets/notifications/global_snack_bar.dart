@@ -11,9 +11,11 @@ class GlobalSnackBar {
     BuildContext context,
     String message,
   ) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text(message),
-      backgroundColor: Colors.black,
-    ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.black,
+      ),
+    );
   }
 }
