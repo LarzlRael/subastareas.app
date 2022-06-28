@@ -47,4 +47,21 @@ class MyHomeworksPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget showHomework(HomeworksModel homework) {
+    switch (homework.fileType) {
+      case 'only_text':
+        return Text(homework.category);
+
+      case 'application/pdf':
+        return HomeworkCard(
+          isLogged: true,
+          homework: homework,
+
+          /* homework: snapshot.data[index], */
+        );
+      default:
+        return Text(homework.category);
+    }
+  }
 }

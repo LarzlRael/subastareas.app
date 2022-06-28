@@ -106,9 +106,9 @@ class Homework {
 
   int id;
   String title;
-  String description;
+  String? description;
   int offeredAmount;
-  String fileUrl;
+  String? fileUrl;
   String fileType;
   DateTime resolutionTime;
   String category;
@@ -122,9 +122,9 @@ class Homework {
   factory Homework.fromJson(Map<String, dynamic> json) => Homework(
         id: json["id"],
         title: json["title"],
-        description: json["description"],
+        description: json["description"] == null ? null : json["description"],
         offeredAmount: json["offered_amount"],
-        fileUrl: json["fileUrl"],
+        fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
         fileType: json["fileType"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         category: json["category"],

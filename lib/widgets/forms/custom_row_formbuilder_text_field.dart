@@ -22,8 +22,6 @@ class CustomRowFormbuilderTextField extends StatefulWidget {
 
 class _CustomRowFormbuilderTextFieldState
     extends State<CustomRowFormbuilderTextField> {
-  bool _obscureText = true;
-  /* bool showPassword = false; */
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,35 +36,39 @@ class _CustomRowFormbuilderTextFieldState
             ),
             Expanded(
               child: Card(
-                elevation: 15,
+                elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(5),
                 ),
-                child: FormBuilderTextField(
-                  keyboardType: widget.keyboardType,
-                  obscureText: widget.passwordField && _obscureText,
-                  name: widget.name,
-                  validator: FormBuilderValidators.required(),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    /* labelText: widget.placeholder, */
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: FormBuilderTextField(
+                    keyboardType: widget.keyboardType,
+                    name: widget.name,
+                    validator: FormBuilderValidators.required(),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      /* labelText: widget.placeholder, */
+
+                      labelStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                      suffixIcon: Icon(FontAwesomeIcons.coins),
+                      /* suffixIcon: widget.passwordField
+                          ? IconButton(
+                              icon: _obscureText
+                                  ? const Icon(Icons.password)
+                                  : const Icon(Ionicons.eye),
+                              onPressed: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                            )
+                          : null,
+                      prefixIcon: Icon(widget.icon), */
                     ),
-                    /* suffixIcon: widget.passwordField
-                        ? IconButton(
-                            icon: _obscureText
-                                ? const Icon(Icons.password)
-                                : const Icon(Ionicons.eye),
-                            onPressed: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                          )
-                        : null,
-                    prefixIcon: Icon(widget.icon), */
                   ),
                 ),
               ),

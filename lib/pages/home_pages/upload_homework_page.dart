@@ -33,7 +33,7 @@ class _UploadHomeworkState extends State<UploadHomework> {
         padding: const EdgeInsets.all(10),
         child: FormBuilder(
           key: _formKey,
-          child: SingleChildScrollView(
+          child: SingleChfinal format = DateFormat("dd-MM-yyyy hh:mm");ildScrollView(
             child: Column(
               children: <Widget>[
                 FormBuilderFilePicker(
@@ -187,6 +187,10 @@ class UploadHomeworkPage extends StatefulWidget {
 }
 
 class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
+  /* final format = DateFormat("dd-MM-yyyy hh:mm"); */
+
+  final sizeTabIcon = 35.0;
+  final colorTab = Colors.grey;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -205,33 +209,35 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
+            elevation: 5,
             backgroundColor: Colors.white,
             toolbarHeight: 20,
             automaticallyImplyLeading: false,
-            bottom: const TabBar(
-              indicatorColor: Colors.grey,
-              padding: EdgeInsets.only(bottom: 20),
+            bottom: TabBar(
+              /* indicatorColor: Colors.blue, */
+
+              padding: const EdgeInsets.only(bottom: 20),
               tabs: [
                 Tab(
-                  icon: Icon(FontAwesomeIcons.filePdf,
-                      size: 40, color: Colors.grey),
+                  icon: Icon(FontAwesomeIcons.keyboard,
+                      size: sizeTabIcon, color: colorTab),
                 ),
                 Tab(
-                  icon: Icon(Icons.image, size: 40, color: Colors.grey),
+                  icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
                 ),
                 Tab(
-                  icon: Icon(Icons.mic, size: 40, color: Colors.grey),
+                  icon: Icon(Icons.mic, size: sizeTabIcon, color: colorTab),
                 ),
                 Tab(
                   icon: Icon(Icons.video_label_rounded,
-                      size: 40, color: Colors.grey),
+                      size: sizeTabIcon, color: colorTab),
                 ),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              UploadHomeworkWithPDF(),
+              UploadHomeworkOnlyText(),
               Icon(Icons.directions_transit),
               Icon(Icons.directions_transit),
               Icon(Icons.directions_transit),
@@ -243,64 +249,139 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   }
 }
 
-class UploadHomeworkWithPDF extends StatelessWidget {
+class UploadHomeworkOnlyText extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  UploadHomeworkWithPDF({Key? key}) : super(key: key);
+  UploadHomeworkOnlyText({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FormBuilder(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Column(
-            children: [
-              const CustomFormbuilderTextArea(
-                name: 'title',
-                title: 'Escribe tu pregunta',
-                icon: Icons.person,
-              ),
-              const CustomRowFormbuilderTextField(
-                name: 'username',
-                icon: FontAwesomeIcons.at,
-                placeholder: 'Presupuesto : ',
-              ),
-              const CustomRowFormbuilderTextField(
-                name: 'username',
-                icon: FontAwesomeIcons.at,
-                placeholder: 'Plazo : ',
-              ),
-              CustomFormbuilderFetchDropdown(),
-              /* RaisedButton(
-                  onPressed: () async {
-                    await authService.logout();
-                  },
-                  child: Text('Cerrar sesion'),
-                ), */
-            ],
-          ),
-          Column(
-            children: [
-              LoginButton(
-                text: "Subir Tarea",
-                textColor: Colors.white,
-                showIcon: false,
-                onPressed: () async {
-                  final validationSuccess = _formKey.currentState!.validate();
-                  print(_formKey.currentState!.value['username']);
-                  print(_formKey.currentState!.value['password']);
-                  if (validationSuccess) {
-                    _formKey.currentState!.save();
-                    /* Navigator.pushReplacementNamed(
-                              context, 'bottomNavigation'); */
+    final args = ModalRoute.of(context)?.settings.arguments as OneHomeworkModel;
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(20),
+          child: FormBuilder(
+            /* initialValue: {
+              'title': args.homework.title,
+              'offered_amount': args.homework.offeredAmount,
+              'category': args.homework.category,
+              'resolutionTime': args.homework.resolutionTime,
+            }, */
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: [
+                    CustomFormbuilderTextArea(
+                      name: 'title',
+                      title: 'Escribe tu pregunta',
+                      icon: Icons.person,
+                    ),
+                    CustomRowFormbuilderTextField(
+                      name: 'offered_amount',
+                      icon: FontAwesomeIcons.at,
+                      placeholder: 'Presupuesto : ',
+                      keyboardType: TextInputType.number,
+                    ),
+                    /* CustomRowFormbuilderTextField(
+                      name: 'username',
+                      icon: FontAwesomeIcons.at,
+                      placeholder: 'Plazo : ',
+                    ), */
+                    Row(
+                      children: [
+                        SimpleText(
+                          text: 'Tiempo de resolucion : ',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                        ),
+                        Expanded(
+                          child: Card(
+                            elevation: 5,
+                            child: FormBuilderDateTimePicker(
+                              /* format: format, */
+                              name: 'resolutionTime',
+                              // time validation
+                              validator: (DateTime? selectedDateTime) {
+                                if (selectedDateTime != null) {
+                                  // If the DateTime difference is negative,
+                                  // this indicates that the selected DateTime is in the past
+                                  if (selectedDateTime
+                                      .difference(DateTime.now())
+                                      .isNegative) {
+                                    return null;
+                                  } else {
+                                    debugPrint(
+                                        'Selected DateTime is in the future');
+                                  }
+                                } else {
+                                  return 'Selecciona una fecha';
+                                }
+                              },
+                              decoration: const InputDecoration(
+                                suffixIcon: Icon(FontAwesomeIcons.clock),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomFormbuilderFetchDropdown(
+                      formFieldName: 'category',
+                      placeholder: 'Seleccione una categoria',
+                      title: 'Categoria :',
+                    ),
+                    /* RaisedButton(
+                        onPressed: () async {
+                          await authService.logout();
+                        },
+                        child: Text('Cerrar sesion'),
+                      ), */
+                  ],
+                ),
+                Column(
+                  children: [
+                    LoginButton(
+                      text: "Subir Tarea",
+                      textColor: Colors.white,
+                      showIcon: false,
+                      onPressed: () async {
+                        final validationSuccess =
+                            _formKey.currentState!.validate();
+                        print(_formKey.currentState!.value['title']);
+                        print(_formKey.currentState!.value['offered_amount']);
+                        print(_formKey.currentState!.value['category']);
+                        print(_formKey.currentState!.value['resolutionTime']);
+                        if (validationSuccess) {
+                          _formKey.currentState!.save();
+                          /* print(_formKey.currentState!.value); */
+                          final data = {
+                            'title': _formKey.currentState!.value['title'],
+                            'offered_amount':
+                                _formKey.currentState!.value['offered_amount'],
+                            'category':
+                                _formKey.currentState!.value['category'],
+                            'resolutionTime': _formKey
+                                .currentState!.value['resolutionTime']
+                                .toString(),
+                          };
 
-                  }
-                },
-              ),
-            ],
-          )
-        ],
+                          /* await homeworksService.uploadHomeworOnlyText(data); */
+
+                        }
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

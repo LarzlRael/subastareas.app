@@ -10,7 +10,6 @@ class HomeworkServices {
     );
 
     final finalData = homeworksModelFromJson(homeworkRequest!.body);
-    print('Solicitando datos');
     return finalData;
   }
 
@@ -20,6 +19,7 @@ class HomeworkServices {
       'homework/getonehomework/$id',
       null,
     );
+    print(homeworkRequest!.body);
     final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
     return finalData;
   }
@@ -95,5 +95,15 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
+  }
+
+  Future uploadHomeworOnlyText(body) async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'POST',
+      'homework/create',
+      body,
+      await _storage.read(key: 'token'),
+    );
+    print(homeworkRequest!.body);
   }
 }

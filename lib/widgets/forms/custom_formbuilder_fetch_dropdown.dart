@@ -1,7 +1,15 @@
 part of '../widgets.dart';
 
 class CustomFormbuilderFetchDropdown extends StatelessWidget {
-  const CustomFormbuilderFetchDropdown({Key? key}) : super(key: key);
+  final String title;
+  final String formFieldName;
+  final String placeholder;
+  const CustomFormbuilderFetchDropdown({
+    Key? key,
+    required this.title,
+    required this.formFieldName,
+    required this.placeholder,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,28 +20,37 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
         if (snapshot.hasData) {
           return Row(
             children: [
-              const SimpleText(
-                text: "Categoria",
+              SimpleText(
+                text: title,
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
               ),
+              const SizedBox(
+                width: 10,
+              ),
               Expanded(
-                child: FormBuilderDropdown(
-                  name: "category",
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
+                child: Card(
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: FormBuilderDropdown(
+                      name: formFieldName,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        labelStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 18,
+                        ),
+                      ),
+                      /* initialValue: category[0], */
+                      hint: Text(placeholder),
+                      validator: FormBuilderValidators.required(),
+                      items: snapshot.data!
+                          .map((category) => DropdownMenuItem(
+                              value: category, child: Text(category)))
+                          .toList(),
                     ),
                   ),
-                  /* initialValue: category[0], */
-                  hint: const Text('Categoria'),
-                  validator: FormBuilderValidators.required(),
-                  items: snapshot.data!
-                      .map((category) => DropdownMenuItem(
-                          value: category, child: Text(category)))
-                      .toList(),
                 ),
               ),
             ],

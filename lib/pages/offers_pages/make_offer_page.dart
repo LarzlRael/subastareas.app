@@ -60,7 +60,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 /* color: Colors.grey, */
               ),
               DescriptionText(
-                desc: argumets.homework.description,
+                desc: argumets.homework.description!,
                 textAlign: TextAlign.center,
                 despegable: false,
               ),

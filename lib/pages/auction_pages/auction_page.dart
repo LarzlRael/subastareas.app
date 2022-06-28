@@ -86,8 +86,9 @@ class _AuctionPageState extends State<AuctionPage> {
                           Navigator.push(
                             context,
                             PageTransition(
-                                type: PageTransitionType.leftToRightWithFade,
-                                child: const ProfilePage()),
+                              type: PageTransitionType.leftToRightWithFade,
+                              child: UploadHomeworkOnlyText(),
+                            ),
                           );
                         },
                         icon: const Icon(
@@ -207,16 +208,18 @@ class _AuctionPageState extends State<AuctionPage> {
           ),
           description(oneHomeworkModel.homework.description),
           _buttonMakeOffer(oneHomeworkModel, isLogged),
-          TextButton(
-            child: const Text('Ver Tarea '),
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                'showHomework',
-                arguments: oneHomeworkModel.homework.fileUrl,
-              );
-            },
-          ),
+          oneHomeworkModel.homework.fileUrl != null
+              ? TextButton(
+                  child: const Text('Ver Tarea '),
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      'showHomework',
+                      arguments: oneHomeworkModel.homework.fileUrl,
+                    );
+                  },
+                )
+              : Container(),
           CircleAvatarGroup(
             oneHomeworkModel: oneHomeworkModel,
           ),
