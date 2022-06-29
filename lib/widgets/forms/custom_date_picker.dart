@@ -49,13 +49,13 @@ class _input_containerState extends State<CustomRowFormbuilderTextField> {
 }
  */
 
-class CustomRowFormbuilderTextField extends StatelessWidget {
+class CustomDatePicker extends StatelessWidget {
   final String name;
 
   final String placeholder;
   final TextInputType keyboardType;
   final IconData suffixIcon;
-  const CustomRowFormbuilderTextField({
+  const CustomDatePicker({
     Key? key,
     required this.name,
     required this.placeholder,
@@ -67,19 +67,26 @@ class CustomRowFormbuilderTextField extends StatelessWidget {
     return InputContainer(
       name: name,
       placeholder: placeholder,
-      inputField: FormBuilderTextField(
-        keyboardType: keyboardType,
-        name: name,
-        validator: FormBuilderValidators.required(),
-        decoration: InputDecoration(
+      inputField: FormBuilderDateTimePicker(
+        /* format: format, */
+        name: 'resolutionTime',
+        // time validation
+        validator: (DateTime? selectedDateTime) {
+          if (selectedDateTime != null) {
+            // If the DateTime difference is negative,
+            // this indicates that the selected DateTime is in the past
+            if (selectedDateTime.difference(DateTime.now()).isNegative) {
+              return null;
+            } else {
+              debugPrint('Selected DateTime is in the future');
+            }
+          } else {
+            return 'Selecciona una fecha';
+          }
+        },
+        decoration: const InputDecoration(
+          suffixIcon: Icon(FontAwesomeIcons.clock),
           border: InputBorder.none,
-          /* labelText: widget.placeholder, */
-
-          labelStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 18,
-          ),
-          suffixIcon: Icon(suffixIcon),
         ),
       ),
     );

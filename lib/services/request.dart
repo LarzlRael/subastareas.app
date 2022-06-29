@@ -51,10 +51,10 @@ class Request {
   }
 
   static Future<http.Response> sendRequestWithFile(
-    File file,
     String url,
     String method,
     Map<String, String> otherFields,
+    File file,
     String token,
   ) async {
     late http.Response res;

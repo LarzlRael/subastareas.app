@@ -238,7 +238,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
           body: TabBarView(
             children: [
               UploadHomeworkOnlyText(),
-              Icon(Icons.directions_transit),
+              UploadHomeworkWithFile(),
               Icon(Icons.directions_transit),
               Icon(Icons.directions_transit),
             ],
@@ -252,10 +252,36 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
 class UploadHomeworkOnlyText extends StatelessWidget {
   final _formKey = GlobalKey<FormBuilderState>();
 
-  UploadHomeworkOnlyText({Key? key}) : super(key: key);
+  UploadHomeworkOnlyText({
+    Key? key,
+  }) : super(key: key);
+
+  Homework homework = Homework(
+    id: 0,
+    title: '',
+    description: '',
+    offeredAmount: 0,
+    fileUrl: null,
+    fileType: '',
+    resolutionTime: DateTime.now(),
+    category: '',
+    observation: '',
+    status: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    user: CommentUser(
+      id: 0,
+      profileImageUrl: '',
+      username: '',
+    ),
+  );
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as OneHomeworkModel;
+    final homeworkData = ModalRoute.of(context)?.settings.arguments;
+    final homeworksService = HomeworkServices();
+    if (homeworkData != null) {
+      homework = homeworkData as Homework;
+    }
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -263,73 +289,41 @@ class UploadHomeworkOnlyText extends StatelessWidget {
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(20),
           child: FormBuilder(
-            /* initialValue: {
-              'title': args.homework.title,
-              'offered_amount': args.homework.offeredAmount,
-              'category': args.homework.category,
-              'resolutionTime': args.homework.resolutionTime,
-            }, */
+            initialValue: {
+              'title': homework.title,
+              'offered_amount': homework.offeredAmount.toString(),
+              /* 'category': homework.category, */
+              'resolutionTime': homework.resolutionTime,
+            },
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
-                  children: [
+                  children: const [
                     CustomFormbuilderTextArea(
                       name: 'title',
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
                     ),
                     CustomRowFormbuilderTextField(
-                      name: 'offered_amount',
-                      icon: FontAwesomeIcons.at,
-                      placeholder: 'Presupuesto : ',
-                      keyboardType: TextInputType.number,
-                    ),
+                        name: 'offered_amount',
+                        placeholder: 'Presupuesto ',
+                        keyboardType: TextInputType.number,
+                        suffixIcon: FontAwesomeIcons.coins),
                     /* CustomRowFormbuilderTextField(
                       name: 'username',
                       icon: FontAwesomeIcons.at,
                       placeholder: 'Plazo : ',
                     ), */
-                    Row(
-                      children: [
-                        SimpleText(
-                          text: 'Tiempo de resolucion : ',
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                        ),
-                        Expanded(
-                          child: Card(
-                            elevation: 5,
-                            child: FormBuilderDateTimePicker(
-                              /* format: format, */
-                              name: 'resolutionTime',
-                              // time validation
-                              validator: (DateTime? selectedDateTime) {
-                                if (selectedDateTime != null) {
-                                  // If the DateTime difference is negative,
-                                  // this indicates that the selected DateTime is in the past
-                                  if (selectedDateTime
-                                      .difference(DateTime.now())
-                                      .isNegative) {
-                                    return null;
-                                  } else {
-                                    debugPrint(
-                                        'Selected DateTime is in the future');
-                                  }
-                                } else {
-                                  return 'Selecciona una fecha';
-                                }
-                              },
-                              decoration: const InputDecoration(
-                                suffixIcon: Icon(FontAwesomeIcons.clock),
-                                border: InputBorder.none,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    /* text: 'Tiempo de resolucion : ',
+                            name: 'resolutionTime', */
+                    CustomDatePicker(
+                      name: 'resolutionTime',
+                      suffixIcon: FontAwesomeIcons.calendarDays,
+                      placeholder: 'Tiempo de resolucion : ',
+                      keyboardType: TextInputType.datetime,
                     ),
                     CustomFormbuilderFetchDropdown(
                       formFieldName: 'category',
@@ -347,13 +341,13 @@ class UploadHomeworkOnlyText extends StatelessWidget {
                 Column(
                   children: [
                     LoginButton(
-                      text: "Subir Tarea",
+                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
                       textColor: Colors.white,
                       showIcon: false,
                       onPressed: () async {
                         final validationSuccess =
                             _formKey.currentState!.validate();
-                        print(_formKey.currentState!.value['title']);
+                        print(_formKey.currentState!.value['']);
                         print(_formKey.currentState!.value['offered_amount']);
                         print(_formKey.currentState!.value['category']);
                         print(_formKey.currentState!.value['resolutionTime']);
@@ -371,8 +365,149 @@ class UploadHomeworkOnlyText extends StatelessWidget {
                                 .toString(),
                           };
 
-                          /* await homeworksService.uploadHomeworOnlyText(data); */
+                          if (await homeworksService.uploadHomeworOnlyText(
+                            data,
+                            homework.id,
+                          )) {
+                            Navigator.pushNamed(context, 'my_homeworks_page');
+                          }
+                        }
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
+class UploadHomeworkWithFile extends StatelessWidget {
+  final _formKey = GlobalKey<FormBuilderState>();
+
+  UploadHomeworkWithFile({
+    Key? key,
+  }) : super(key: key);
+
+  Homework homework = Homework(
+    id: 0,
+    title: '',
+    description: '',
+    offeredAmount: 0,
+    fileUrl: null,
+    fileType: '',
+    resolutionTime: DateTime.now(),
+    category: '',
+    observation: '',
+    status: '',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
+    user: CommentUser(
+      id: 0,
+      profileImageUrl: '',
+      username: '',
+    ),
+  );
+  @override
+  Widget build(BuildContext context) {
+    final homeworkData = ModalRoute.of(context)?.settings.arguments;
+    final homeworksService = HomeworkServices();
+    if (homeworkData != null) {
+      homework = homeworkData as Homework;
+    }
+    return Scaffold(
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(20),
+          child: FormBuilder(
+            initialValue: {
+              'title': homework.title,
+              'offered_amount': homework.offeredAmount.toString(),
+              /* 'category': homework.category, */
+              'resolutionTime': homework.resolutionTime,
+            },
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  children: const [
+                    CustomFileField(
+                      name: 'file',
+                    ),
+                    CustomFormbuilderTextArea(
+                      name: 'title',
+                      title: 'Escribe tu pregunta',
+                      icon: Icons.person,
+                    ),
+                    CustomRowFormbuilderTextField(
+                        name: 'offered_amount',
+                        placeholder: 'Presupuesto ',
+                        keyboardType: TextInputType.number,
+                        suffixIcon: FontAwesomeIcons.coins),
+                    /* CustomRowFormbuilderTextField(
+                      name: 'username',
+                      icon: FontAwesomeIcons.at,
+                      placeholder: 'Plazo : ',
+                    ), */
+                    /* text: 'Tiempo de resolucion : ',
+                            name: 'resolutionTime', */
+                    CustomDatePicker(
+                      name: 'resolutionTime',
+                      suffixIcon: FontAwesomeIcons.calendarDays,
+                      placeholder: 'Tiempo de resolucion : ',
+                      keyboardType: TextInputType.datetime,
+                    ),
+                    CustomFormbuilderFetchDropdown(
+                      formFieldName: 'category',
+                      placeholder: 'Seleccione una categoria',
+                      title: 'Categoria :',
+                    ),
+                    /* RaisedButton(
+                        onPressed: () async {
+                          await authService.logout();
+                        },
+                        child: Text('Cerrar sesion'),
+                      ), */
+                  ],
+                ),
+                Column(
+                  children: [
+                    LoginButton(
+                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                      textColor: Colors.white,
+                      showIcon: false,
+                      onPressed: () async {
+                        final validationSuccess =
+                            _formKey.currentState!.validate();
+                        print(_formKey.currentState!.value['title']);
+                        print(_formKey.currentState!.value['offered_amount']);
+                        print(_formKey.currentState!.value['category']);
+                        print(_formKey.currentState!.value['resolutionTime']);
+                        if (validationSuccess) {
+                          _formKey.currentState!.save();
+                          /* print(_formKey.currentState!.value); */
+                          final Map<String, String> data = {
+                            'title': _formKey.currentState!.value['title'],
+                            'offered_amount':
+                                _formKey.currentState!.value['offered_amount'],
+                            'category':
+                                _formKey.currentState!.value['category'],
+                            'resolutionTime': _formKey
+                                .currentState!.value['resolutionTime']
+                                .toString(),
+                          };
+
+                          await homeworksService.uploadHomeworkWithFile(
+                              data,
+                              File(_formKey
+                                  .currentState!.value['file'][0].path));
                         }
                       },
                     ),

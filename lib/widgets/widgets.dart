@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_builder_file_picker/form_builder_file_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
@@ -38,6 +39,8 @@ part 'notifications/bell_icon_notification.dart';
 part 'menu/drawer_menu.dart';
 part 'forms/custom_formbuilder_text_field.dart';
 part 'forms/custom_row_formbuilder_text_field.dart';
+part 'forms/custom_date_picker.dart';
+part 'forms/input_container.dart';
 part 'forms/custom_formbuilder_text_area.dart';
 part 'forms/custom_formbuilder_fetch_dropdown.dart';
 part 'login_register/label_login_register.dart';
@@ -53,3 +56,5 @@ part 'profile/profile_image_edit.dart';
 part 'profile/profile_card_with_stars.dart';
 
 part 'notifications/notifications_card.dart';
+
+part 'forms/custom_file_field.dart';

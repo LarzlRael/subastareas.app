@@ -16,7 +16,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               CardProfile(auth: auth),

@@ -1,6 +1,6 @@
 part of '../widgets.dart';
 
-class CustomFormbuilderTextArea extends StatefulWidget {
+class CustomFormbuilderTextArea extends StatelessWidget {
   final String name;
   final IconData icon;
   final String title;
@@ -15,44 +15,36 @@ class CustomFormbuilderTextArea extends StatefulWidget {
     this.passwordField = false,
   }) : super(key: key);
   @override
-  State<CustomFormbuilderTextArea> createState() =>
-      _CustomFormbuilderTextAreaState();
-}
-
-class _CustomFormbuilderTextAreaState extends State<CustomFormbuilderTextArea> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SimpleText(
-            text: widget.title,
-            fontSize: 16,
-            fontWeight: FontWeight.w800,
-            bottom: 20,
-          ),
-          Card(
-            elevation: 5,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: FormBuilderTextField(
-                keyboardType: widget.keyboardType,
-                maxLines: 2,
-                name: widget.name,
-                validator: FormBuilderValidators.required(),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  labelStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SimpleText(
+          text: title,
+          fontSize: 16,
+          fontWeight: FontWeight.w800,
+          bottom: 20,
+        ),
+        Card(
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: FormBuilderTextField(
+              keyboardType: keyboardType,
+              maxLines: 4,
+              name: name,
+              validator: FormBuilderValidators.required(),
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                labelStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

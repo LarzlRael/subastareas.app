@@ -17,19 +17,27 @@ class PersonOfferHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return isOwner
-        ? InkWell(
-            onLongPress: () {
-              showFilterBottomMenuShett(
-                context,
-                AcceptOfferButton(offer: offer),
-              );
-            },
-            child: Ink(
-              child: HorizontalOfferRow(offer: offer),
-            ),
-          )
-        : HorizontalOfferRow(offer: offer);
+    return InkWell(
+      onLongPress: () {
+        if (isOwner) {
+          showFilterBottomMenuShett(
+            context,
+            AcceptOfferButton(offer: offer),
+          );
+        } else {
+          null;
+        }
+      },
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          'public_profile_page',
+        );
+      },
+      child: Ink(
+        child: HorizontalOfferRow(offer: offer),
+      ),
+    );
   }
 }
 

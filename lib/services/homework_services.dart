@@ -97,13 +97,29 @@ class HomeworkServices {
     );
   }
 
-  Future uploadHomeworOnlyText(body) async {
+  Future<bool> uploadHomeworOnlyText(body, int idHomework) async {
+    print(idHomework);
     final homeworkRequest = await Request.sendRequestWithToken(
-      'POST',
-      'homework/create',
+      idHomework == 0 ? 'POST' : 'PUT',
+      idHomework == 0
+          ? 'homework/create'
+          : 'homework/updatehomework/$idHomework',
       body,
       await _storage.read(key: 'token'),
     );
-    print(homeworkRequest!.body);
+
+    return validateStatus(homeworkRequest!.statusCode);
+  }
+
+  Future uploadHomeworkWithFile(Map<String, String> body, File file) async {
+    final uploadWithFile = await Request.sendRequestWithFile(
+      'homework/create',
+      'POST',
+      body,
+      file,
+      await _storage.read(key: 'token') ?? '',
+    );
+    print(uploadWithFile.body);
+    print(uploadWithFile.statusCode);
   }
 }

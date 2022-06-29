@@ -26,136 +26,99 @@ class _AuctionPageState extends State<AuctionPage> {
       isBearer = widget.args.idUser == auth.user.id;
     }
     return Scaffold(
-      /* appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(
-            Icons.chevron_left,
-            color: Colors.black,
-            size: 25,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 5,
-        actions: <Widget>[
-          isBearer
-              ? IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                          type: PageTransitionType.fade, child: ProfilePage()),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.edit,
-                    color: Colors.black,
-                    size: 25,
-                  ),
-                )
-              : Container(),
-        ],
-        title: SimpleText(
-          text: 'Tarea de ${widget.args.category} ',
-          color: Colors.black,
-          fontSize: 16,
-        ),
-        centerTitle: true,
-      ), */
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-              elevation: 5,
-              centerTitle: true,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.chevron_left,
-                  color: Colors.white,
-                  size: 25,
-                ),
-              ),
-              actions: <Widget>[
-                isBearer
-                    ? IconButton(
+      body: StreamBuilder(
+        stream: _oneHomeworkBloc.oneHomeworkStream,
+        builder:
+            (BuildContext context, AsyncSnapshot<OneHomeworkModel> snapshot) {
+          if (snapshot.hasData) {
+            return Container(
+              child: CustomScrollView(
+                slivers: <Widget>[
+                  SliverAppBar(
+                      elevation: 5,
+                      centerTitle: true,
+                      leading: IconButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageTransition(
-                              type: PageTransitionType.leftToRightWithFade,
-                              child: UploadHomeworkOnlyText(),
-                            ),
-                          );
+                          Navigator.pop(context);
                         },
                         icon: const Icon(
-                          Icons.edit,
+                          Icons.chevron_left,
                           color: Colors.white,
                           size: 25,
                         ),
-                      )
-                    : Container(),
-              ],
-              floating: true,
-              pinned: true,
-              snap: false,
-              expandedHeight: 200,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Image.asset(
-                  'assets/category/${removeDiacritics(widget.args.category)}.jpg',
-                  fit: BoxFit.cover,
-                  /* width: 280.0, */
-                ),
-                centerTitle: true,
-                title: SimpleText(
-                  text: 'Tarea de ${widget.args.category} ',
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              )),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                SafeArea(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        StreamBuilder(
-                          stream: _oneHomeworkBloc.oneHomeworkStream,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<OneHomeworkModel> snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              if (snapshot.data!.homework.status !=
-                                  'pending_to_approved') {
-                                return Column(
+                      ),
+                      actions: <Widget>[
+                        isBearer
+                            ? IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    'upload_homework_only_text',
+                                    arguments: snapshot.data!.homework,
+                                    /* PageTransition(
+                                      type: PageTransitionType
+                                          .leftToRightWithFade,
+                                      child: UploadHomeworkOnlyText(),
+                                      settings: snapshot.data!.homework,
+                                    ), */
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              )
+                            : Container(),
+                      ],
+                      floating: true,
+                      pinned: true,
+                      snap: false,
+                      expandedHeight: 200,
+                      flexibleSpace: FlexibleSpaceBar(
+                        background: Image.asset(
+                          'assets/category/${removeDiacritics(snapshot.data!.homework.category)}.jpg',
+                          fit: BoxFit.cover,
+                          /* width: 280.0, */
+                        ),
+                        centerTitle: true,
+                        title: SimpleText(
+                          text: 'Tarea de ${snapshot.data!.homework.category} ',
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      )),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        SafeArea(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
                                   children: [
                                     _cardAuction(snapshot.data!, auth.isLogged)
                                   ],
-                                );
-                              } else {
-                                return CircularProgressIndicator();
-                              }
-                            }
-                          },
-                        ),
+                                ),
+                              ],
+                            ),
 
-                        /* _buttonMakeOffer(), */
+                            /* _buttonMakeOffer(), */
+                          ),
+                        ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }

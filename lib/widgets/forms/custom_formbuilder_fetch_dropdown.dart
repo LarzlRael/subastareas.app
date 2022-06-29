@@ -18,7 +18,8 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
       future: homeworkServices.getSubjectAndLevels(),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
-          return Row(
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SimpleText(
                 text: title,
@@ -28,28 +29,26 @@ class CustomFormbuilderFetchDropdown extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              Expanded(
-                child: Card(
-                  elevation: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: FormBuilderDropdown(
-                      name: formFieldName,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        labelStyle: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 18,
-                        ),
+              Card(
+                elevation: 5,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: FormBuilderDropdown(
+                    name: formFieldName,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      labelStyle: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
                       ),
-                      /* initialValue: category[0], */
-                      hint: Text(placeholder),
-                      validator: FormBuilderValidators.required(),
-                      items: snapshot.data!
-                          .map((category) => DropdownMenuItem(
-                              value: category, child: Text(category)))
-                          .toList(),
                     ),
+                    /* initialValue: category[0], */
+                    hint: Text(placeholder),
+                    validator: FormBuilderValidators.required(),
+                    items: snapshot.data!
+                        .map((category) => DropdownMenuItem(
+                            value: category, child: Text(category)))
+                        .toList(),
                   ),
                 ),
               ),

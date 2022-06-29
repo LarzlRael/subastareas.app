@@ -39,12 +39,14 @@ class LoginPage extends StatelessWidget {
                         final googleinfo =
                             await GoogleSignInServices.signiWithGoogle();
                       },
+                      paddingVertical: 12,
                       text: "Iniciar sesión con google",
+                      fontSize: 15,
                       backGroundColor: Colors.white,
                       icon: SvgPicture.asset(
                         'assets/svg/google_icon.svg',
-                        width: 30,
-                        height: 30,
+                        width: 25,
+                        height: 25,
                       ),
                       textColor: Colors.black87,
                     ),

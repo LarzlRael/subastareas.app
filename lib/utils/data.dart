@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
@@ -52,15 +53,15 @@ final List<Widget> bottomItemsWithLogin = <Widget>[
 
 final List<BottomNavigationBarItem> bottonItemsWithLogin = [
   const BottomNavigationBarItem(
-    icon: Icon(Icons.category),
+    icon: Icon(FontAwesomeIcons.circleDollarToSlot),
     label: 'Aportar',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.question_answer),
+    icon: Icon(FontAwesomeIcons.comment),
     label: 'Preguntar',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.person),
+    icon: Icon(FontAwesomeIcons.user),
     label: 'Perfil',
   ),
 ];
@@ -70,7 +71,7 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
     label: 'Aportar',
   ),
   const BottomNavigationBarItem(
-    icon: Icon(Icons.person),
+    icon: Icon(FontAwesomeIcons.user),
     label: 'Perfil',
   ),
 ];

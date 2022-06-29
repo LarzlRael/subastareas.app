@@ -56,6 +56,5 @@ part 'user_pages/my_profile_page.dart';
 part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
 part 'user_pages/public_profile_page.dart';
-part 'homeworks/my_homeworks.dart';
 part 'filter/filter_page.dart';
 part 'store_pages/store_page.dart';

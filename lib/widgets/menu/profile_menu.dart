@@ -31,7 +31,7 @@ class MenuProfileOption extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         color: closeSession ? Colors.red : Colors.white,
-        elevation: 5,
+        elevation: 3,
         child: ListTile(
           onTap: () async {
             if (closeSession) {
@@ -60,7 +60,7 @@ class MenuProfileOption extends StatelessWidget {
           leading: icon,
           title: SimpleText(
             text: title,
-            fontSize: 17,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
             color: color,
           ),

@@ -24,4 +24,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'filter': (_) => const FilterPage(),
   'store_page': (_) => const StorePage(),
   'public_profile_page': (_) => const PublicProfilePage(),
+  'upload_homework_only_text': (_) => UploadHomeworkOnlyText(),
+  'my_homeworks_page': (_) => const MyHomeworksPage(),
 };

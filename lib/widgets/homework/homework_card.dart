@@ -3,11 +3,10 @@ part of '../widgets.dart';
 class HomeworkArguments {
   int idHomework;
   int idUser;
-  String category;
+
   HomeworkArguments(
     this.idHomework,
     this.idUser,
-    this.category,
   );
 }
 
@@ -29,7 +28,6 @@ class HomeworkCard extends StatelessWidget {
             arguments: HomeworkArguments(
               homework.id,
               homework.user.id,
-              homework.category,
             ));
       },
       child: Container(

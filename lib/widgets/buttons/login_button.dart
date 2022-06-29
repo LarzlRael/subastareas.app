@@ -9,6 +9,9 @@ class LoginButton extends StatelessWidget {
   final bool showIcon;
   final double marginVertical;
   final double marginHorizontal;
+  final double fontSize;
+  final double paddingVertical;
+  final double paddingHorizontal;
   const LoginButton({
     Key? key,
     required this.onPressed,
@@ -19,13 +22,16 @@ class LoginButton extends StatelessWidget {
     this.showIcon = true,
     this.marginVertical = 5,
     this.marginHorizontal = 0,
+    this.fontSize = 17.0,
+    this.paddingVertical = 15.0,
+    this.paddingHorizontal = 40.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(
       color: textColor,
-      fontSize: 17.0,
+      fontSize: fontSize,
       fontWeight: FontWeight.bold,
     );
     return Container(
@@ -35,9 +41,9 @@ class LoginButton extends StatelessWidget {
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(backGroundColor),
           padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(
-              vertical: 15.0,
-              horizontal: 40.0,
+            EdgeInsets.symmetric(
+              vertical: paddingVertical,
+              horizontal: paddingHorizontal,
             ),
           ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

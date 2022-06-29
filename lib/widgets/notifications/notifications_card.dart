@@ -22,7 +22,6 @@ class NotificationsCard extends StatelessWidget {
             arguments: HomeworkArguments(
               notification.id,
               notification.user.id,
-              notification.category,
             ),
           );
         }
