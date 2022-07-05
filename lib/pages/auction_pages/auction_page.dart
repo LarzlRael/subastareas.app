@@ -53,7 +53,10 @@ class _AuctionPageState extends State<AuctionPage> {
                                 onPressed: () {
                                   Navigator.pushNamed(
                                     context,
-                                    'upload_homework_only_text',
+                                    snapshot.data!.homework.fileType ==
+                                            'only_text'
+                                        ? 'upload_homework_only_text'
+                                        : 'upload_homework_with_file',
                                     arguments: snapshot.data!.homework,
                                     /* PageTransition(
                                       type: PageTransitionType

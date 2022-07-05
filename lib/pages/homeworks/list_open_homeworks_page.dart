@@ -103,7 +103,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                           isLogged:
                               auth.isLogged == null ? false : auth.isLogged,
                           homework: snapshot.data![index],
-
+                          goTo: 'auctionPage',
                           /* homework: snapshot.data[index], */
                         );
                       },

@@ -98,7 +98,6 @@ class HomeworkServices {
   }
 
   Future<bool> uploadHomeworOnlyText(body, int idHomework) async {
-    print(idHomework);
     final homeworkRequest = await Request.sendRequestWithToken(
       idHomework == 0 ? 'POST' : 'PUT',
       idHomework == 0

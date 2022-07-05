@@ -70,7 +70,12 @@ class CustomRowFormbuilderTextField extends StatelessWidget {
       inputField: FormBuilderTextField(
         keyboardType: keyboardType,
         name: name,
-        validator: FormBuilderValidators.required(),
+        // multiple validation
+        validator: FormBuilderValidators.compose([
+          FormBuilderValidators.required(),
+          FormBuilderValidators.max(20),
+          FormBuilderValidators.min(1),
+        ]),
         decoration: InputDecoration(
           border: InputBorder.none,
           /* labelText: widget.placeholder, */

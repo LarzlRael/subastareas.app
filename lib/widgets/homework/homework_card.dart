@@ -13,10 +13,12 @@ class HomeworkArguments {
 class HomeworkCard extends StatelessWidget {
   final bool isLogged;
   final HomeworksModel homework;
+  final String goTo;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
     required this.homework,
+    required this.goTo,
   }) : super(key: key);
 
   @override
@@ -24,11 +26,14 @@ class HomeworkCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'auctionPage',
-            arguments: HomeworkArguments(
-              homework.id,
-              homework.user.id,
-            ));
+        Navigator.pushNamed(
+          context,
+          goTo,
+          arguments: HomeworkArguments(
+            homework.id,
+            homework.user.id,
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.all(15),

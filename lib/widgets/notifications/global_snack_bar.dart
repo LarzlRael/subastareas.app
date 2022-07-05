@@ -9,13 +9,14 @@ class GlobalSnackBar {
 
   static show(
     BuildContext context,
-    String message,
-  ) {
+    String message, {
+    Color backgroundColor = Colors.black,
+  }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
         content: Text(message),
-        backgroundColor: Colors.black,
+        backgroundColor: backgroundColor,
       ),
     );
   }

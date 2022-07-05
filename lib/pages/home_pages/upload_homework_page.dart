@@ -370,6 +370,10 @@ class UploadHomeworkOnlyText extends StatelessWidget {
                             homework.id,
                           )) {
                             Navigator.pushNamed(context, 'my_homeworks_page');
+                            _formKey.currentState!.reset();
+                            GlobalSnackBar.show(
+                                context, 'Tarea subida correctamente',
+                                backgroundColor: Colors.green);
                           }
                         }
                       },

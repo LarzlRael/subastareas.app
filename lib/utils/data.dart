@@ -106,6 +106,11 @@ List<MenuProfileOption> menuProfileOptions = [
     page: MyOffers(),
   ),
   const MenuProfileOption(
+    icon: Icon(Icons.task_alt),
+    title: "Pendientes",
+    page: PendingsHomeworksOffersAcepts(),
+  ),
+  const MenuProfileOption(
     icon: Icon(Icons.question_answer),
     title: "Tus marcadores",
     page: WalletPage(),

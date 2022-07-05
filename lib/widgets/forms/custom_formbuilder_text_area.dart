@@ -31,6 +31,7 @@ class CustomFormbuilderTextArea extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: FormBuilderTextField(
               keyboardType: keyboardType,
+              textCapitalization: TextCapitalization.sentences,
               maxLines: 4,
               name: name,
               validator: FormBuilderValidators.required(),

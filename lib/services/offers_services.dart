@@ -28,4 +28,26 @@ class OffersServices {
 
     print(homeworkRequest!.body);
   }
+
+  Future uploadHomeworkResolvedFile(File file, int idOfferAcceptd) async {
+    final homeworkRequest = await Request.sendRequestWithFile(
+        'PUT',
+        'trade/uploadResolvedHomework/$idOfferAcceptd',
+        {},
+        file,
+        await _storage.read(key: 'token') ?? '');
+
+    print(homeworkRequest!.body);
+    return validateStatus(homeworkRequest.statusCode);
+  }
+
+  Future<List<HomeworksModel>> getUsersHomeworksPending() async {
+    final uploadWithFile = await Request.sendRequestWithToken(
+      'GET',
+      'offer/getUsersHomeworksPending',
+      {},
+      await _storage.read(key: 'token') ?? '',
+    );
+    return homeworksModelFromJson(uploadWithFile!.body);
+  }
 }

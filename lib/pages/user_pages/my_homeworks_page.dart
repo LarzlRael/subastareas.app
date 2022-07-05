@@ -33,7 +33,7 @@ class MyHomeworksPage extends StatelessWidget {
                 return HomeworkCard(
                   isLogged: true,
                   homework: snapshot.data![index],
-
+                  goTo: 'auctionPage',
                   /* homework: snapshot.data[index], */
                 );
               },
@@ -48,7 +48,7 @@ class MyHomeworksPage extends StatelessWidget {
     );
   }
 
-  Widget showHomework(HomeworksModel homework) {
+  /* Widget showHomework(HomeworksModel homework) {
     switch (homework.fileType) {
       case 'only_text':
         return Text(homework.category);
@@ -63,5 +63,5 @@ class MyHomeworksPage extends StatelessWidget {
       default:
         return Text(homework.category);
     }
-  }
+  } */
 }

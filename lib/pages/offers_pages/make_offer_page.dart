@@ -59,11 +59,13 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 text: argumets.homework.user.username,
                 /* color: Colors.grey, */
               ),
-              DescriptionText(
-                desc: argumets.homework.description!,
-                textAlign: TextAlign.center,
-                despegable: false,
-              ),
+              argumets.homework.description != null
+                  ? DescriptionText(
+                      desc: argumets.homework.description!,
+                      textAlign: TextAlign.center,
+                      despegable: false,
+                    )
+                  : Container(),
               /* TimerCounter(
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
               ), */

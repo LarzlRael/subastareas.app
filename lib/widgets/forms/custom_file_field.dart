@@ -12,14 +12,23 @@ class CustomFileField extends StatelessWidget {
         allowMultiple: false,
         allowedExtensions: const ['jpg', 'png', 'pdf'],
         name: name,
-        decoration: InputDecoration(labelText: "Attachments"),
-        maxFiles: null,
-        previewImages: true,
+        validator: FormBuilderValidators.required(),
+        decoration: const InputDecoration(
+          labelText: "Subir archivo",
+          hintText: "Subir archivo",
+          //
+          border: InputBorder.none,
+        ),
+        maxFiles: 1,
+        /* previewImages: true, */
         onChanged: (val) => print(val),
         selector: Row(
-          children: <Widget>[
+          children: const [
             Icon(FontAwesomeIcons.file),
-            Text('Subir archivo'),
+            SimpleText(
+              text: 'Escoger archivo',
+              fontSize: 16,
+            ),
           ],
         ),
         onFileLoading: (val) {

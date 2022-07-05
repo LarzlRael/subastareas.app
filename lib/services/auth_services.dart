@@ -109,8 +109,8 @@ class AuthServices with ChangeNotifier {
 
   Future updateProfileImage(File file, int idUser) async {
     final resp = await Request.sendRequestWithFile(
-        'auth/updateprofileimage/$idUser',
         'PUT',
+        'auth/updateprofileimage/$idUser',
         {},
         file,
         await _storage.read(key: 'token') ?? '');

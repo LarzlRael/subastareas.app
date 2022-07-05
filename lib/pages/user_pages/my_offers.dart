@@ -54,7 +54,7 @@ class MyOffers extends StatelessWidget {
                         return HomeworkCard(
                           isLogged: true,
                           homework: snapshot.data![index],
-
+                          goTo: 'auctionPage',
                           /* homework: snapshot.data[index], */
                         );
                       },

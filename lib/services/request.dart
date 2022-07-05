@@ -51,8 +51,8 @@ class Request {
   }
 
   static Future<http.Response> sendRequestWithFile(
-    String url,
     String method,
+    String url,
     Map<String, String> otherFields,
     File file,
     String token,
