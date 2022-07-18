@@ -41,7 +41,7 @@ class StoreCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Icon(
-                        Icons.currency_bitcoin,
+                        Icons.currency_lira_outlined,
                         size: 70,
                       ),
                       Column(

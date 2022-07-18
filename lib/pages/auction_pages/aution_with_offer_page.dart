@@ -1,7 +1,10 @@
 part of '../pages.dart';
 
 class AutionWithOfferPage extends StatefulWidget {
-  const AutionWithOfferPage({
+  OneHomeworkModel args;
+
+  AutionWithOfferPage({
+    required this.args,
     Key? key,
   }) : super(key: key);
 
@@ -10,14 +13,72 @@ class AutionWithOfferPage extends StatefulWidget {
 }
 
 class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
+  late List<PersonOfferHorizontal> _offer = [];
+  late SocketService socketService;
+  late AuthServices auth;
+  @override
+  void initState() {
+    auth = Provider.of<AuthServices>(context, listen: false);
+    socketService = Provider.of<SocketService>(context, listen: false);
+    loadOffers();
+    socketService.socket.on('makeOfferToClient', _escucharMensaje);
+    socketService.socket.emit('joinOfferRoom', 'testingRoom');
+    super.initState();
+  }
+
+  void _escucharConection(dynamic payload) {
+    print(payload);
+  }
+
+  void _escucharMensaje(dynamic payload) {
+    print('Room: ' + payload);
+    final offer = offerSimpleModelFromJson(payload);
+    print(offer.priceOffer);
+    PersonOfferHorizontal message = PersonOfferHorizontal(
+      offer: Offer(
+        id: offer.id,
+        priceOffer: offer.priceOffer,
+        status: offer.status,
+        user: OfferUser(
+          id: offer.user.id,
+          username: offer.user.username,
+          profileImageUrl: offer.user.profileImageUrl,
+        ),
+      ),
+      auth: AuthServices(),
+      homework: widget.args,
+      //fix this
+      isOwner: auth.user.id == widget.args.homework.user.id,
+    );
+
+    if (mounted) {
+      // check whether the state object is in tree
+      setState(() {
+        _offer.insert(0, message);
+      });
+    }
+  }
+
+  void loadOffers() {
+    final offers = widget.args.offers.map((x) => PersonOfferHorizontal(
+          offer: x,
+          auth: AuthServices(),
+          homework: widget.args,
+          //fix this
+          isOwner: auth.user.id == widget.args.homework.user.id,
+        ));
+    setState(() {
+      _offer.insertAll(0, offers);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
-    final auth = Provider.of<AuthServices>(context, listen: false);
+    /* final auth = Provider.of<AuthServices>(context, listen: false); */
 
     OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
-    homeworksBloc.getOneHomework(args.homework.id);
-    final isOwner = auth.user.id == args.homework.user.id;
+    homeworksBloc.getOneHomework(widget.args.homework.id);
+    final isOwner = auth.user.id == widget.args.homework.user.id;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -28,7 +89,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _ImageBackgorundAndTimer(
-                      auth: auth, homework: args, isOwner: isOwner),
+                      auth: auth, homework: widget.args, isOwner: isOwner),
                   const SimpleText(
                     text: "Ofertas de los vendedores",
                     fontSize: 20,
@@ -53,16 +114,8 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
                         return Expanded(
                           child: ListView.builder(
                             /* scrollDirection: Axis.horizontal, */
-                            itemCount: snapshot.data!.offers.length,
-                            itemBuilder: (context, index) {
-                              return PersonOfferHorizontal(
-                                offer: snapshot.data!.offers[index],
-                                auth: auth,
-                                homework: args,
-                                isOwner: isOwner,
-                                /* active: index % 2 == 0, */
-                              );
-                            },
+                            itemCount: _offer.length,
+                            itemBuilder: (_, int index) => _offer[index],
                           ),
                         );
                       }

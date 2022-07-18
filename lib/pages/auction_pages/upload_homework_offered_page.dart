@@ -24,6 +24,8 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
               if (snapshot.hasData) {
                 final homework = snapshot.data!.homework;
                 print(json.encode(snapshot.data!.offers));
+
+                //TODO cambiar esto en la base de datos
                 final getIdOfferAcceptd = snapshot.data!.offers
                     .where((element) => element.status == "pending_to_accept")
                     .first

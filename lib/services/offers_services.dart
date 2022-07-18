@@ -16,7 +16,7 @@ class OffersServices {
         },
         await _storage.read(key: 'token'));
 
-    print(homeworkRequest!.body);
+    return homeworkRequest!.body;
   }
 
   Future enterPendingTrade(int idOffer) async {

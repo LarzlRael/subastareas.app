@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
 import '../pages/pages.dart';
@@ -14,7 +15,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'auctionPage': (context) => AuctionPage(
         args: ModalRoute.of(context)?.settings.arguments as HomeworkArguments,
       ),
-  'autionWithOfferPage': (_) => const AutionWithOfferPage(),
+  'autionWithOfferPage': (_) => AutionWithOfferPage(
+        args: ModalRoute.of(_)?.settings.arguments as OneHomeworkModel,
+      ),
   'makeOffer': (_) => const MakeOfferPage(),
   'listOpenHomeworks': (_) => const ListOpenHomeworksPage(),
   'showHomework': (_) => const ShowHomework(),

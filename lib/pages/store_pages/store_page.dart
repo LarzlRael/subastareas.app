@@ -14,7 +14,7 @@ class StorePage extends StatelessWidget {
             children: const [
               SimpleText(
                 text: 'ADQUIERE MONEDAS PARA SUBASTAREAS',
-                fontSize: 30,
+                fontSize: 25,
                 bottom: 30,
                 fontWeight: FontWeight.bold,
                 textAlign: TextAlign.center,
@@ -23,15 +23,16 @@ class StorePage extends StatelessWidget {
               SimpleText(
                 text: '-> Podras recompensar la ayuda de tus compañeros.',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 bottom: 5,
               ),
               SimpleText(
                 text:
-                    '-> Puedes asignar un monto para motivar la resolucion de una tarea',
+                    '-> Puedes asignar un monto para motivar la resolucion de una tarea.',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
               ),
+              SizedBox(height: 10),
               //todo consulta a la base de datos
               StoreCard(amount: 1, price: 4.87),
               StoreCard(amount: 1, price: 4.87),

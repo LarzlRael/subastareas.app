@@ -10,6 +10,13 @@ class MakeOfferPage extends StatefulWidget {
 class _MakeOfferPageState extends State<MakeOfferPage> {
   TextEditingController textController = TextEditingController();
   bool editing = false;
+  late SocketService socketService;
+  @override
+  void initState() {
+    socketService = Provider.of<SocketService>(context, listen: false);
+    super.initState();
+  }
+
   @override
   void dispose() {
     textController.dispose();
@@ -199,12 +206,14 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await blocHomework.makeOrEditOffer(
+                        final newOffer = await blocHomework.makeOrEditOffer(
                           verify,
                           idHomework,
                           int.parse(myController.text),
                           idOffer,
                         );
+                        //emitir evento para actualizar la lista de ofertas
+                        socketService.emit('makeOfferToServer', newOffer);
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(

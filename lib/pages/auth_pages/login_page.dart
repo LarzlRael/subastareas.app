@@ -8,6 +8,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthServices>(context);
     final filter = Provider.of<FilterProvider>(context);
+    final socketService = Provider.of<SocketService>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -93,6 +94,7 @@ class LoginPage extends StatelessWidget {
                             Navigator.pushReplacementNamed(
                                 context, 'bottomNavigation');
                             filter.setCurrentBottomTab = 0;
+                            socketService.connect();
                           } else {
                             showSimpleAlert(
                                 context, 'Credenciales incorrectas');

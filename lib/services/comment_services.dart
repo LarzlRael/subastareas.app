@@ -2,14 +2,14 @@ part of 'services.dart';
 
 class CommentServices {
   final _storage = const FlutterSecureStorage();
-  Future<bool> newComment(int idCommnent, String commentContent) async {
+  Future<bool> newComment(int idHomework, String commentContent) async {
     final comment = await Request.sendRequestWithToken(
         'POST',
-        'comments/newComment/$idCommnent',
+        'comments/newComment/$idHomework',
         {'content': commentContent},
         await _storage.read(key: 'token'));
-
-    return validateStatus(comment!.statusCode);
+    print(comment!.body);
+    return validateStatus(comment.statusCode);
   }
 
   Future<bool> editComment(int idCommnent, String commentContent) async {

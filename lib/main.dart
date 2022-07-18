@@ -7,6 +7,7 @@ import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
+        ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
       ],
       child: MaterialApp(

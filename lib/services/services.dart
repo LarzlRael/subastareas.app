@@ -16,6 +16,7 @@ import 'package:subastareaspp/utils/validation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 part 'request.dart';
 part 'offers_services.dart';
@@ -24,3 +25,4 @@ part 'auth_services.dart';
 part 'comment_services.dart';
 part 'google_services.dart';
 part 'push_notification_service.dart';
+part 'socket_service.dart';

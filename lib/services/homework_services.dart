@@ -19,7 +19,6 @@ class HomeworkServices {
       'homework/getonehomework/$id',
       null,
     );
-    print(homeworkRequest!.body);
     final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
     return finalData;
   }
