@@ -12,7 +12,8 @@ class AutionWithOfferPage extends StatefulWidget {
   State<AutionWithOfferPage> createState() => _AutionWithOfferPageState();
 }
 
-class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
+class _AutionWithOfferPageState extends State<AutionWithOfferPage>
+    with TickerProviderStateMixin {
   late List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
   late AuthServices auth;
@@ -22,12 +23,19 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
     socketService = Provider.of<SocketService>(context, listen: false);
     loadOffers();
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
-    socketService.socket.emit('joinOfferRoom', 'testingRoom');
+    socketService.socket.emit('joinOfferRoom', widget.args.homework.id);
+
     super.initState();
   }
 
-  void _escucharConection(dynamic payload) {
-    print(payload);
+  @override
+  void dispose() {
+    for (PersonOfferHorizontal message in _offer) {
+      message.animationController.dispose();
+    }
+
+    socketService.socket.off('makeOfferToClient');
+    super.dispose();
   }
 
   void _escucharMensaje(dynamic payload) {
@@ -49,14 +57,18 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
       homework: widget.args,
       //fix this
       isOwner: auth.user.id == widget.args.homework.user.id,
+      animationController: AnimationController(
+        vsync: this,
+        duration: Duration(milliseconds: 200),
+      )..forward(),
     );
 
-    if (mounted) {
+    setState(() {
+      _offer.insert(0, message);
+    });
+    /* if (mounted) {
       // check whether the state object is in tree
-      setState(() {
-        _offer.insert(0, message);
-      });
-    }
+    } */
   }
 
   void loadOffers() {
@@ -66,7 +78,12 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage> {
           homework: widget.args,
           //fix this
           isOwner: auth.user.id == widget.args.homework.user.id,
+          animationController: AnimationController(
+            vsync: this,
+            duration: Duration(milliseconds: 0),
+          )..forward(),
         ));
+
     setState(() {
       _offer.insertAll(0, offers);
     });

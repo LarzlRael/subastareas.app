@@ -7,6 +7,8 @@ enum ServerStatus {
 }
 
 class SocketService with ChangeNotifier {
+  final _storage = const FlutterSecureStorage();
+
   ServerStatus _serverStatus = ServerStatus.Connecting;
 
   late IO.Socket _socket;
@@ -30,6 +32,7 @@ class SocketService with ChangeNotifier {
             .enableForceNew()
             .setExtraHeaders({
               'foo': 'bar',
+              'Authorization': 'Bearer ${await _storage.read(key: 'token')}',
               /* 'x-token': token, */
             }) // optional
             .build());

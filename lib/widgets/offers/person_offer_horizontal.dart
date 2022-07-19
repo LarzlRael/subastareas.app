@@ -6,6 +6,7 @@ class PersonOfferHorizontal extends StatelessWidget {
   final OneHomeworkModel homework;
   final AuthServices auth;
   final bool isOwner;
+  final AnimationController animationController;
   const PersonOfferHorizontal({
     Key? key,
     required this.offer,
@@ -13,11 +14,19 @@ class PersonOfferHorizontal extends StatelessWidget {
     required this.auth,
     required this.homework,
     required this.isOwner,
+    required this.animationController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalOffer(context);
+    return FadeTransition(
+      opacity: this.animationController,
+      child: SizeTransition(
+        sizeFactor:
+            CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+        child: Container(child: HorizontalOffer(context)),
+      ),
+    );
   }
 
   InkWell HorizontalOffer(BuildContext context) {

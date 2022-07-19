@@ -2,7 +2,7 @@ part of 'services.dart';
 
 class OffersServices {
   final _storage = const FlutterSecureStorage();
-  Future makeOrEditOffer(
+  Future<OfferSimpleModel> makeOrEditOffer(
     bool edit,
     int idHomework,
     int priceOffer,
@@ -16,7 +16,7 @@ class OffersServices {
         },
         await _storage.read(key: 'token'));
 
-    return homeworkRequest!.body;
+    return offerSimpleModelFromJson(homeworkRequest!.body);
   }
 
   Future enterPendingTrade(int idOffer) async {

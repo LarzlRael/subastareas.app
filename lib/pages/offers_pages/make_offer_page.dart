@@ -213,7 +213,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                           idOffer,
                         );
                         //emitir evento para actualizar la lista de ofertas
-                        socketService.emit('makeOfferToServer', newOffer);
+                        socketService.emit('makeOfferToServer', {
+                          'room': idHomework,
+                          'offer': newOffer,
+                        });
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
