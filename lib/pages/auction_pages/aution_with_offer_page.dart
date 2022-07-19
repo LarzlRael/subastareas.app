@@ -123,11 +123,13 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                     children: [
                       Icon(Icons.remove_red_eye, color: Colors.grey),
                       SimpleText(
-                        text: '$_currentViewers',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        top: 15,
-                        bottom: 15,
+                        text: _currentViewers == 1
+                            ? 'Solo tú estas viendo esto'
+                            : 'Tú y ${_currentViewers - 1} estan viendo esto',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        top: 5,
+                        bottom: 5,
                       ),
                     ],
                   ),
