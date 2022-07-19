@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -52,8 +53,10 @@ part 'notifications/global_snack_bar.dart';
 part 'wallet/transaction_card.dart';
 part 'store/store_card.dart';
 part 'no_information/no_information.dart';
+
 part 'profile/profile_image_edit.dart';
 part 'profile/profile_card_with_stars.dart';
+part 'profile/profile_image.dart';
 
 part 'notifications/notifications_card.dart';
 

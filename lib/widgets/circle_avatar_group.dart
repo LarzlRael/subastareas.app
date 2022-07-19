@@ -1,8 +1,9 @@
 part of 'widgets.dart';
 
-class CircleAvatarGroup extends StatelessWidget {
+class CircleAvatarGroup extends StatefulWidget {
   final int elementsToShow;
   final OneHomeworkModel oneHomeworkModel;
+
   const CircleAvatarGroup({
     Key? key,
     required this.oneHomeworkModel,
@@ -10,19 +11,70 @@ class CircleAvatarGroup extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final sliceArray = oneHomeworkModel.offers.length > elementsToShow
-        ? oneHomeworkModel.offers.sublist(0, elementsToShow)
-        : oneHomeworkModel.offers;
+  State<CircleAvatarGroup> createState() => _CircleAvatarGroupState();
+}
 
+class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
+  late SocketService socketService;
+  late List<ProfileImage> _profileImages = [];
+  late List<Offer> sliceArray = [];
+  @override
+  void initState() {
+    socketService = Provider.of<SocketService>(context, listen: false);
+    sliceArray = widget.oneHomeworkModel.offers.length > widget.elementsToShow
+        ? widget.oneHomeworkModel.offers.sublist(0, widget.elementsToShow)
+        : widget.oneHomeworkModel.offers;
+    loadOffers();
+    socketService.socket
+        .emit('joinOfferRoom', widget.oneHomeworkModel.homework.id);
+    socketService.socket.on('makeOfferToClient', _escucharMensaje);
+    super.initState();
+  }
+
+  void _escucharMensaje(dynamic payload) {
+    final offer = offerSimpleModelFromJson(payload);
+
+    ProfileImage message = ProfileImage(
+      profileImage: offer.user.profileImageUrl,
+      userName: offer.user.username,
+      radius: 20,
+      index: _profileImages.length,
+    );
+
+    if (mounted) {
+      setState(() {
+        _profileImages.insert(0, message);
+      });
+      // check whether the state object is in tree
+    }
+  }
+
+  void loadOffers() {
+    final profileImages = sliceArray.map((x) => ProfileImage(
+          profileImage: x.user.profileImageUrl,
+          userName: x.user.username,
+          index: sliceArray.indexOf(x),
+          radius: 20,
+        ));
+
+    setState(() {
+      _profileImages.insertAll(0, profileImages);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'autionWithOfferPage',
-            arguments: oneHomeworkModel);
+        Navigator.pushNamed(
+          context,
+          'autionWithOfferPage',
+          arguments: widget.oneHomeworkModel,
+        );
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 15),
-        child: oneHomeworkModel.offers.isNotEmpty
+        child: _profileImages.isNotEmpty
             ? Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -35,21 +87,13 @@ class CircleAvatarGroup extends StatelessWidget {
                   Row(
                     children: [
                       Row(
-                        children: sliceArray
-                            .map((offer) => Container(
-                                  margin: const EdgeInsets.only(right: 5),
-                                  child: showProfileImage(
-                                    offer.user.profileImageUrl,
-                                    offer.user.username,
-                                    radius: 20,
-                                  ),
-                                ))
-                            .toList(),
+                        children: _profileImages.toList(),
                       ),
                       const SizedBox(
                         width: 5,
                       ),
-                      oneHomeworkModel.offers.length > elementsToShow
+                      widget.oneHomeworkModel.offers.length >
+                              widget.elementsToShow
                           ? _createCircleAvatarMore()
                           : Container(),
                     ],
@@ -62,7 +106,8 @@ class CircleAvatarGroup extends StatelessWidget {
   }
 
   _createCircleAvatarMore() {
-    final showNumber = oneHomeworkModel.offers.length - elementsToShow;
+    final showNumber =
+        widget.oneHomeworkModel.offers.length - widget.elementsToShow;
     return CircleAvatar(
       backgroundColor: Colors.grey,
       radius: 18,

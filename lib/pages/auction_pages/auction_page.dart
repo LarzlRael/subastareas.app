@@ -117,7 +117,7 @@ class _AuctionPageState extends State<AuctionPage> {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -195,22 +195,6 @@ class _AuctionPageState extends State<AuctionPage> {
             idhomework: oneHomeworkModel.homework.id,
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _imageCategory(int idHomeWork, String category) {
-    final size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height * 0.35,
-      width: size.width,
-      child: Hero(
-        tag: idHomeWork,
-        child: Image.asset(
-          'assets/category/${removeDiacritics(category)}.jpg',
-          fit: BoxFit.cover,
-          /* width: 280.0, */
-        ),
       ),
     );
   }
