@@ -10,6 +10,7 @@ class MakeOfferPage extends StatefulWidget {
 class _MakeOfferPageState extends State<MakeOfferPage> {
   TextEditingController textController = TextEditingController();
   bool editing = false;
+
   late SocketService socketService;
   @override
   void initState() {
@@ -114,7 +115,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 child: ButtonWithIcon(
                   verticalPadding: 15,
                   onPressed: () {
-                    showDataAlert(argumets.homework.id, verify,
+                    showOfferDialog(argumets.homework.id, verify,
                         amount: argumets.homework.offeredAmount,
                         //TODO corregir este bug
                         idOffer: /* argumets.offers
@@ -142,7 +143,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     );
   }
 
-  showDataAlert(
+  showOfferDialog(
     int idHomework,
     bool verify, {
     int amount = 0,
@@ -153,98 +154,118 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
       myController.text = amount.toString();
     }
     final blocHomework = OneHomeworkBloc();
+
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                20.0,
+        bool isLoading = false;
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    20.0,
+                  ),
+                ),
               ),
-            ),
-          ),
-          contentPadding: const EdgeInsets.only(
-            top: 10.0,
-          ),
-          title: const SimpleText(
-            text: "Hacer oferta",
-            fontSize: 24.0,
-            textAlign: TextAlign.center,
-            fontWeight: FontWeight.bold,
-          ),
-          content: SizedBox(
-            height: 300,
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Ingrese cantidad ",
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      keyboardType: TextInputType.number,
-                      controller: myController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Ingrese su oferta',
-                        labelText: 'Oferta',
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 60,
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        final newOffer = await blocHomework.makeOrEditOffer(
-                          verify,
-                          idHomework,
-                          int.parse(myController.text),
-                          idOffer,
-                        );
-                        //emitir evento para actualizar la lista de ofertas
-                        socketService.emit('makeOfferToServer', {
-                          'room': idHomework,
-                          'offer': newOffer,
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        // fixedSize: Size(250, 50),
-                      ),
-                      child: Text(
-                        !verify ? "Ofertar" : "Editar oferta",
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8.0),
-                    child: const SimpleText(text: 'Nota: '),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: SimpleText(
-                      text:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
-                          ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
+              contentPadding: const EdgeInsets.only(
+                top: 10.0,
               ),
-            ),
-          ),
+              title: const SimpleText(
+                text: "Hacer oferta",
+                fontSize: 24.0,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.bold,
+              ),
+              content: SizedBox(
+                height: 300,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Ingrese cantidad ",
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: myController,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Ingrese su oferta',
+                            labelText: 'Oferta',
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 60,
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: !isLoading
+                              ? () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  final newOffer =
+                                      await blocHomework.makeOrEditOffer(
+                                    verify,
+                                    idHomework,
+                                    int.parse(myController.text),
+                                    idOffer,
+                                  );
+
+                                  //emitir evento para actualizar la lista de ofertas
+                                  socketService.emit('makeOfferToServer', {
+                                    'room': idHomework,
+                                    'offer': newOffer,
+                                  });
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  Navigator.of(context).pop();
+                                }
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                            // fixedSize: Size(250, 50),
+                          ),
+                          child: isLoading
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white,
+                                )
+                              : Text(
+                                  !verify ? "Ofertar" : "Editar oferta",
+                                ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        child: const SimpleText(text: 'Nota: '),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: SimpleText(
+                          text:
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
+                              ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         );
       },
     );

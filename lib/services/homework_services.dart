@@ -83,7 +83,7 @@ class HomeworkServices {
     );
 
     print(homeworkRequest!.statusCode);
-    return (homeworkRequest!.statusCode);
+    return (homeworkRequest.statusCode);
     /* homeworkRequest!.body; */
   }
 

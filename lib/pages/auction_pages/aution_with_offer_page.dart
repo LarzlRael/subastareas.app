@@ -17,13 +17,16 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
   late List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
   late AuthServices auth;
+  int _currentViewers = 0;
   @override
   void initState() {
     auth = Provider.of<AuthServices>(context, listen: false);
     socketService = Provider.of<SocketService>(context, listen: false);
     loadOffers();
-    socketService.socket.on('makeOfferToClient', _escucharMensaje);
     socketService.socket.emit('joinOfferRoom', widget.args.homework.id);
+    socketService.socket.on('makeOfferToClient', _escucharMensaje);
+    socketService.socket.on('joinOfferRoom', (_listenerUserRoomCount));
+    socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
 
     super.initState();
   }
@@ -33,15 +36,24 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     for (PersonOfferHorizontal message in _offer) {
       message.animationController.dispose();
     }
-
+    socketService.socket.emit('leaveOfferRoom', widget.args.homework.id);
+    socketService.socket.off('leaveOfferRoom');
     socketService.socket.off('makeOfferToClient');
+
     super.dispose();
   }
 
+  void _listenerUserRoomCount(dynamic data) {
+    if (mounted) {
+      setState(() {
+        _currentViewers = data;
+      });
+    }
+  }
+
   void _escucharMensaje(dynamic payload) {
-    print('Room: ' + payload);
     final offer = offerSimpleModelFromJson(payload);
-    print(offer.priceOffer);
+
     PersonOfferHorizontal message = PersonOfferHorizontal(
       offer: Offer(
         id: offer.id,
@@ -107,6 +119,18 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                 children: [
                   _ImageBackgorundAndTimer(
                       auth: auth, homework: widget.args, isOwner: isOwner),
+                  Row(
+                    children: [
+                      Icon(Icons.remove_red_eye, color: Colors.grey),
+                      SimpleText(
+                        text: '$_currentViewers',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        top: 15,
+                        bottom: 15,
+                      ),
+                    ],
+                  ),
                   const SimpleText(
                     text: "Ofertas de los vendedores",
                     fontSize: 20,
@@ -120,7 +144,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                         AsyncSnapshot<OneHomeworkModel> snapshot) {
                       if (!snapshot.hasData) {
                         return const CircularProgressIndicator();
-                      } else if (snapshot.data!.offers.isEmpty) {
+                      } else if (_offer.isEmpty) {
                         return NoInformation(
                           message: 'No hay ofertas aun',
                           icon: Icons.search_off,
@@ -189,8 +213,12 @@ class AcceptOfferButton extends StatelessWidget {
                 text: 'Aceptar oferta',
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              SimpleText(text: offer.priceOffer.toString()),
+              SimpleText(
+                  text: offer.priceOffer.toString(),
+                  fontSize: 20,
+                  color: Colors.white),
             ],
           ),
           MaterialButton(
