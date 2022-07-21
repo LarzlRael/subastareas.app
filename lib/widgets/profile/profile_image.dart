@@ -5,14 +5,15 @@ class ProfileImage extends StatelessWidget {
   final String userName;
   final double radius;
   final int index;
-
-  const ProfileImage(
-      {Key? key,
-      required this.profileImage,
-      required this.userName,
-      this.radius = 30,
-      required this.index})
-      : super(key: key);
+  final int id;
+  const ProfileImage({
+    Key? key,
+    required this.profileImage,
+    required this.userName,
+    required this.index,
+    required this.id,
+    this.radius = 30,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FadeInLeft(

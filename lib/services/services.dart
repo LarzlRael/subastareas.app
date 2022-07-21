@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:mime_type/mime_type.dart';
+import 'package:provider/provider.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
     as Enviroments;
 import 'package:http_parser/http_parser.dart';
@@ -25,4 +26,5 @@ part 'auth_services.dart';
 part 'comment_services.dart';
 part 'google_services.dart';
 part 'push_notification_service.dart';
-part 'socket_service.dart';
+part 'sockets/socket_service.dart';
+part 'sockets/socket_utils.dart';

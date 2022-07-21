@@ -12,6 +12,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   bool editing = false;
 
   late SocketService socketService;
+  late Offer? getUserOffer;
+  late bool getFindUserOffer = false;
   @override
   void initState() {
     socketService = Provider.of<SocketService>(context, listen: false);
@@ -29,9 +31,15 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     final argumets =
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
-    final verify =
+    final verifyUserOfferted =
         argumets.offers.map((item) => item.user.id).contains(auth.user.id);
 
+    if (verifyUserOfferted) {
+      getUserOffer =
+          argumets.offers.firstWhere((item) => item.user.id == auth.user.id);
+      getFindUserOffer = true;
+    }
+    final blocHomework = OneHomeworkBloc();
     return Scaffold(
       appBar: AppBar(
         /* title: Text('Hacer oferta'), */
@@ -78,10 +86,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
               ), */
 
-              verify
+              verifyUserOfferted
                   ? SimpleText(
                       text:
-                          'Tu oferta es de ${argumets.offers.where((i) => i.user.id == auth.user.id).first.priceOffer}',
+                          'Tu oferta es de ${getUserOffer!.priceOffer} puntos',
                       top: 15,
                       bottom: 15,
                       fontSize: 19,
@@ -112,30 +120,77 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: ButtonWithIcon(
-                  verticalPadding: 15,
-                  onPressed: () {
-                    showOfferDialog(argumets.homework.id, verify,
-                        amount: argumets.homework.offeredAmount,
-                        //TODO corregir este bug
-                        idOffer: /* argumets.offers
-                                  .where((i) => i.user.id == auth.user.id)
-                                  .first
-                                  .id ==
-                              null
-                          ? 0
-                          : argumets.offers
-                              .where((i) => i.user.id == auth.user.id)
-                              .first
-                              .id ,*/
-                            0);
-                    /* Navigator.pop(context); */
-                  },
-                  label: verify ? 'Editar oferta' : 'Hacer oferta',
-                  icon: Icons.send,
-                  /* marginVertical: 10, */
-                ),
-              )
+                child: verifyUserOfferted
+                    ? verifyUserOfferted && getUserOffer!.edited
+                        ? Container()
+                        : ButtonWithIcon(
+                            verticalPadding: 15,
+                            onPressed: () {
+                              showOfferDialog(
+                                blocHomework,
+                                argumets.homework.id,
+                                verifyUserOfferted,
+                                amount: getUserOffer!.priceOffer,
+                                idOffer: getUserOffer!.id,
+                              );
+                              /* Navigator.pop(context); */
+                            },
+                            label: verifyUserOfferted
+                                ? 'Editar oferta'
+                                : 'Hacer oferta',
+                            icon: Icons.send,
+                            /* marginVertical: 10, */
+                          )
+                    : ButtonWithIcon(
+                        verticalPadding: 15,
+                        onPressed: () {
+                          showOfferDialog(
+                            blocHomework,
+                            argumets.homework.id,
+                            verifyUserOfferted,
+                            amount: argumets.homework.offeredAmount,
+                            idOffer: 0,
+                          );
+                          /* Navigator.pop(context); */
+                        },
+                        label: verifyUserOfferted
+                            ? 'Editar oferta'
+                            : 'Hacer oferta',
+                        icon: Icons.send,
+                        /* marginVertical: 10, */
+                      ),
+              ),
+              verifyUserOfferted && getUserOffer!.edited
+                  ? const SimpleText(
+                      text: 'Ya has editado tu oferta',
+                      top: 15,
+                      bottom: 15,
+                      fontSize: 19,
+                      fontWeight: FontWeight.w900,
+                    )
+                  : const SizedBox(
+                      height: 10,
+                    ),
+              verifyUserOfferted
+                  ? ButtonWithIcon(
+                      verticalPadding: 15,
+                      onPressed: () async {
+                        final deletedOffer = await blocHomework.deleteOffer(
+                            argumets.homework.id, getUserOffer!.id);
+                        socketService.emit('deleteOffer', {
+                          'room': argumets.homework.id,
+                          'offer': deletedOffer,
+                        });
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      label: 'Retirar oferta',
+                      backgroundColorButton: Colors.red,
+                      icon: Icons.delete,
+
+                      /* marginVertical: 10, */
+                    )
+                  : Container(),
             ],
           ),
         ),
@@ -144,21 +199,18 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   }
 
   showOfferDialog(
+    OneHomeworkBloc blocHomework,
     int idHomework,
     bool verify, {
     int amount = 0,
     int idOffer = 0,
   }) {
-    TextEditingController myController = TextEditingController();
-    if (verify) {
-      myController.text = amount.toString();
-    }
-    final blocHomework = OneHomeworkBloc();
-
     showDialog(
       context: context,
       builder: (context) {
         bool isLoading = false;
+        final formKey = GlobalKey<FormState>();
+        int emailField = 0;
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
@@ -195,13 +247,22 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                       ),
                       Container(
                         padding: const EdgeInsets.all(8.0),
-                        child: TextField(
-                          keyboardType: TextInputType.number,
-                          controller: myController,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Ingrese su oferta',
-                            labelText: 'Oferta',
+                        child: Form(
+                          key: formKey,
+                          child: TextFormField(
+                            autofocus: true,
+                            keyboardType: TextInputType.number,
+                            initialValue: verify ? amount.toString() : '',
+                            decoration: const InputDecoration(
+                                labelText: 'Ingrese su oferta'),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'La oferta es requerida';
+                              } else {
+                                return null;
+                              }
+                            },
+                            onSaved: (value) => emailField = int.parse(value!),
                           ),
                         ),
                       ),
@@ -212,18 +273,20 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         child: ElevatedButton(
                           onPressed: !isLoading
                               ? () async {
+                                  if (!formKey.currentState!.validate()) return;
+                                  formKey.currentState!.save();
                                   setState(() {
                                     isLoading = true;
                                   });
+
                                   final newOffer =
                                       await blocHomework.makeOrEditOffer(
                                     verify,
                                     idHomework,
-                                    int.parse(myController.text),
+                                    emailField,
                                     idOffer,
                                   );
-
-                                  //emitir evento para actualizar la lista de ofertas
+                                  //TODO emitir evento para actualizar la lista de ofertas
                                   socketService.emit('makeOfferToServer', {
                                     'room': idHomework,
                                     'offer': newOffer,
@@ -231,6 +294,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   setState(() {
                                     isLoading = false;
                                   });
+                                  Navigator.of(context).pop();
                                   Navigator.of(context).pop();
                                 }
                               : null,
@@ -255,8 +319,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         padding: EdgeInsets.all(8.0),
                         child: SimpleText(
                           text:
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt'
-                              ' ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+                              'Solo puedes editar tu oferta una vez, si quieres cambiarla, debes eliminar esta oferta y hacer una nueva oferta',
                           fontSize: 12,
                         ),
                       ),

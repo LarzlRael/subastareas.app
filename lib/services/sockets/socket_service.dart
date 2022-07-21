@@ -1,4 +1,4 @@
-part of 'services.dart';
+part of '../services.dart';
 
 enum ServerStatus {
   Online,

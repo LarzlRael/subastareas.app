@@ -80,12 +80,9 @@ class LoginPage extends StatelessWidget {
                       onPressed: () async {
                         final validationSuccess =
                             _formKey.currentState!.validate();
-                        print(_formKey.currentState!.value['username']);
-                        print(_formKey.currentState!.value['password']);
+
                         if (validationSuccess) {
                           _formKey.currentState!.save();
-                          /* Navigator.pushReplacementNamed(
-                                context, 'bottomNavigation'); */
                           final login = await authService.login(
                               _formKey.currentState!.value['username'],
                               _formKey.currentState!.value['password']);

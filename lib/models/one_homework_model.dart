@@ -158,17 +158,20 @@ class Offer {
     required this.priceOffer,
     required this.user,
     required this.status,
+    required this.edited,
   });
 
   int id;
   int priceOffer;
   OfferUser user;
   String status;
+  bool edited;
   factory Offer.fromJson(Map<String, dynamic> json) => Offer(
         id: json["id"],
         priceOffer: json["priceOffer"],
         user: OfferUser.fromJson(json["user"]),
         status: json["status"],
+        edited: json["edited"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -176,6 +179,7 @@ class Offer {
         "priceOffer": priceOffer,
         "user": user.toJson(),
         "status": status,
+        "edited": edited,
       };
 }
 

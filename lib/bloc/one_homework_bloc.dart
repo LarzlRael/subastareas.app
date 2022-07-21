@@ -51,7 +51,8 @@ class OneHomeworkBloc {
     await getOneHomework(idHomework);
   }
 
-  makeOrEditOffer(bool edit, int idHomework, int offer, int idOffer) async {
+  Future<OfferSimpleModel> makeOrEditOffer(
+      bool edit, int idHomework, int offer, int idOffer) async {
     final makeOrEditOffer =
         await offersServices.makeOrEditOffer(edit, idHomework, offer, idOffer);
     await getOneHomework(idHomework);
@@ -65,5 +66,11 @@ class OneHomeworkBloc {
   getHomeworksByCategory(List<String> category) async {
     _homeworksController.sink
         .add(await homeworkServices.getHomeworksByCategoryAndLevel(category));
+  }
+
+  Future<OfferSimpleModel> deleteOffer(int idHomework, int idOffer) async {
+    final offerDeleted = await offersServices.deleteOffer(idOffer);
+    await getOneHomework(idHomework);
+    return offerDeleted;
   }
 }

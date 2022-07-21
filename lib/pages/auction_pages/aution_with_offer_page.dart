@@ -27,6 +27,8 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
     socketService.socket.on('joinOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
+    socketService.socket.on('deleteOffer', _listeneOfferDeleted);
+    socketService.socket.on('editOffer', _listenerOfferEdited);
 
     super.initState();
   }
@@ -36,11 +38,56 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     for (PersonOfferHorizontal message in _offer) {
       message.animationController.dispose();
     }
-    socketService.socket.emit('leaveOfferRoom', widget.args.homework.id);
+    /* socketService.socket.emit('leaveOfferRoom', widget.args.homework.id);
     socketService.socket.off('leaveOfferRoom');
     socketService.socket.off('makeOfferToClient');
+    socketService.socket.off('deleteOffer');
+    socketService.socket.off('editOffer'); */
+    disconnectEvents(socketService, widget.args.homework.id);
 
     super.dispose();
+  }
+
+  void _listenerOfferEdited(dynamic payload) {
+    final offer = offerSimpleModelFromJson(payload);
+    final index = _offer.indexWhere((item) => item.id == offer.id);
+    PersonOfferHorizontal message = PersonOfferHorizontal(
+      offer: Offer(
+        id: offer.id,
+        priceOffer: offer.priceOffer,
+        status: offer.status,
+        edited: offer.edited,
+        user: OfferUser(
+          id: offer.user.id,
+          username: offer.user.username,
+          profileImageUrl: offer.user.profileImageUrl,
+        ),
+      ),
+      id: offer.id,
+      auth: AuthServices(),
+      homework: widget.args,
+      //fix this
+
+      isOwner: auth.user.id == widget.args.homework.user.id,
+      animationController: AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 200),
+      )..forward(),
+    );
+    if (mounted) {
+      setState(() {
+        _offer[index] = message;
+      });
+    }
+  }
+
+  void _listeneOfferDeleted(dynamic payload) {
+    final offer = offerSimpleModelFromJson(payload);
+    if (mounted) {
+      setState(() {
+        _offer.removeWhere((item) => item.id == offer.id);
+      });
+    }
   }
 
   void _listenerUserRoomCount(dynamic data) {
@@ -59,19 +106,22 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
         id: offer.id,
         priceOffer: offer.priceOffer,
         status: offer.status,
+        edited: offer.edited,
         user: OfferUser(
           id: offer.user.id,
           username: offer.user.username,
           profileImageUrl: offer.user.profileImageUrl,
         ),
       ),
+      id: offer.id,
       auth: AuthServices(),
       homework: widget.args,
       //fix this
+
       isOwner: auth.user.id == widget.args.homework.user.id,
       animationController: AnimationController(
         vsync: this,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
       )..forward(),
     );
 
@@ -88,6 +138,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
           offer: x,
           auth: AuthServices(),
           homework: widget.args,
+          id: x.id,
           //fix this
           isOwner: auth.user.id == widget.args.homework.user.id,
           animationController: AnimationController(
@@ -245,7 +296,6 @@ class AcceptOfferButton extends StatelessWidget {
 class _ButtonOffer extends StatelessWidget {
   final bool isLogged;
   final OneHomeworkModel homework;
-
   const _ButtonOffer({
     Key? key,
     required this.isLogged,
@@ -372,7 +422,6 @@ class _ImageBackgorundAndTimer extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  /* color: Colors.blue, */
                 ),
                 width: double.infinity,
                 height: 100,
@@ -381,10 +430,6 @@ class _ImageBackgorundAndTimer extends StatelessWidget {
                     fit: BoxFit.fill),
               ),
             ),
-            /* Container(
-                height: MediaQuery.of(context).size.height * .10,
-                color: Colors.green,
-              ) */
           ],
         ),
         !isOwner

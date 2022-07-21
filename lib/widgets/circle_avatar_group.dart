@@ -28,7 +28,23 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
     socketService.socket
         .emit('joinOfferRoom', widget.oneHomeworkModel.homework.id);
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
+    socketService.socket.on('deleteOffer', _listeneOfferDeleted);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    disconnectEvents(socketService, widget.oneHomeworkModel.homework.id);
+    super.dispose();
+  }
+
+  void _listeneOfferDeleted(dynamic payload) {
+    final offer = offerSimpleModelFromJson(payload);
+    if (mounted) {
+      setState(() {
+        _profileImages.removeWhere((item) => item.id == offer.id);
+      });
+    }
   }
 
   void _escucharMensaje(dynamic payload) {
@@ -37,6 +53,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
     ProfileImage message = ProfileImage(
       profileImage: offer.user.profileImageUrl,
       userName: offer.user.username,
+      id: offer.id,
       radius: 20,
       index: _profileImages.length,
     );
@@ -55,6 +72,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
           userName: x.user.username,
           index: sliceArray.indexOf(x),
           radius: 20,
+          id: x.id,
         ));
 
     setState(() {

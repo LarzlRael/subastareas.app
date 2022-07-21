@@ -37,7 +37,7 @@ class OffersServices {
         file,
         await _storage.read(key: 'token') ?? '');
 
-    print(homeworkRequest!.body);
+    print(homeworkRequest.body);
     return validateStatus(homeworkRequest.statusCode);
   }
 
@@ -49,5 +49,16 @@ class OffersServices {
       await _storage.read(key: 'token') ?? '',
     );
     return homeworksModelFromJson(uploadWithFile!.body);
+  }
+
+  Future<OfferSimpleModel> deleteOffer(int idOffer) async {
+    final deletedOffer = await Request.sendRequestWithToken(
+      'DELETE',
+      'offer/$idOffer',
+      {},
+      await _storage.read(key: 'token') ?? '',
+    );
+    print(deletedOffer!.body);
+    return offerSimpleModelFromJson(deletedOffer!.body);
   }
 }
