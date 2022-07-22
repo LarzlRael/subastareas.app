@@ -38,6 +38,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     for (PersonOfferHorizontal message in _offer) {
       message.animationController.dispose();
     }
+    //TODO ver si funciona
     /* socketService.socket.emit('leaveOfferRoom', widget.args.homework.id);
     socketService.socket.off('leaveOfferRoom');
     socketService.socket.off('makeOfferToClient');

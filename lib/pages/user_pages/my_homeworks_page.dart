@@ -7,61 +7,38 @@ class MyHomeworksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
     return Scaffold(
-      body: FutureBuilder(
-        future: homeworkServices.getHomeworksByUser(),
-        /* initialData: InitialData, */
-        builder: (BuildContext context,
-            AsyncSnapshot<List<HomeworksModel>> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data!.isEmpty) {
-              return NoInformation(
-                icon: Icons.assignment,
-                message: 'No tienes tareas Subidas',
-                showButton: true,
-                iconButton: Icons.abc,
-                onPressed: () {
-                  Navigator.pushNamed(context, 'uploadHomework');
-                },
-                buttonTitle: 'Subir Tarea',
-              );
-            }
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return HomeworkCard(
-                  isLogged: true,
-                  homework: snapshot.data![index],
-                  goTo: 'auctionPage',
-                  /* homework: snapshot.data[index], */
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
+      body: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 0,
+            automaticallyImplyLeading: false,
+            bottom: const TabBar(
+              tabs: [
+                Tab(
+                  icon: Icon(Ionicons.paper_plane_outline),
+                  text: "Tareas subidas",
+                ),
+                Tab(
+                  icon: Icon(Icons.directions_transit),
+                  text: "Tareas Pendientes",
+                ),
+                Tab(
+                  icon: Icon(Icons.directions_transit),
+                  text: "Tareas resueltas",
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              UploadedHomeworkUser(homeworkServices: homeworkServices),
+              PendingOferedPendingHomework(),
+              ResolvedHomeworkUser(homeworkServices: homeworkServices),
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  /* Widget showHomework(HomeworksModel homework) {
-    switch (homework.fileType) {
-      case 'only_text':
-        return Text(homework.category);
-
-      case 'application/pdf':
-        return HomeworkCard(
-          isLogged: true,
-          homework: homework,
-
-          /* homework: snapshot.data[index], */
-        );
-      default:
-        return Text(homework.category);
-    }
-  } */
 }

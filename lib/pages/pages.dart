@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
@@ -22,12 +22,9 @@ import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/data.dart';
-import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:subastareaspp/utils/text_util.dart';
-import 'package:subastareaspp/utils/time_utils.dart';
 import 'package:subastareaspp/utils/validation.dart';
 import 'package:subastareaspp/widgets/slideshows/slideshow.dart';
-
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
@@ -35,29 +32,42 @@ import 'package:http/http.dart' as http;
 
 import '../widgets/buttons/buttons.dart';
 
+part 'initialPresentation/welcome_page.dart';
+
 part 'auth_pages/login_page.dart';
 part 'auth_pages/register_page.dart';
 part 'auth_pages/forgot_password.dart';
+
 part 'auction_pages/auction_page.dart';
 part 'auction_pages/aution_with_offer_page.dart';
 part 'auction_pages/upload_homework_offered_page.dart';
+
 part 'home_pages/upload_homework_page.dart';
+
 part 'homeworks/list_open_homeworks_page.dart';
-part 'loading_page.dart';
-part 'offers_pages/make_offer_page.dart';
 part 'homeworks/show_homework.dart';
-part 'initialPresentation/welcome_page.dart';
+part 'homeworks/verify_homework_resolved.dart';
+
+part 'offers_pages/make_offer_page.dart';
+
 part 'home_pages/bottom_navigation.dart';
+part 'home_pages/categories_page.dart';
 
 part 'user_pages/my_offers.dart';
 part 'user_pages/my_homeworks_page.dart';
 part 'user_pages/wallet_page.dart';
-part 'home_pages/categories_page.dart';
 part 'user_pages/notification_page.dart';
 part 'user_pages/my_profile_page.dart';
 part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
 part 'user_pages/public_profile_page.dart';
-part 'filter/filter_page.dart';
-part 'store_pages/store_page.dart';
 part 'user_pages/pendings_homeworks_offers_acepts.dart';
+
+part 'filter/filter_page.dart';
+part 'loading_page.dart';
+
+part 'store_pages/store_page.dart';
+
+part 'user_pages/homeworks/pending_ofered_pending_homework.dart';
+part 'user_pages/homeworks/uploaded_homework_user.dart';
+part 'user_pages/homeworks/resolved_homework_user.dart';

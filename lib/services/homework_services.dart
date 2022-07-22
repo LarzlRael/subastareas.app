@@ -120,4 +120,15 @@ class HomeworkServices {
     print(uploadWithFile.body);
     print(uploadWithFile.statusCode);
   }
+
+  Future<List<TradeUserModel>> getHomeworksResolvedByUser() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'trade/gettradingbyuser',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    final finalData = tradeUserModelFromJson(homeworkRequest!.body);
+    return finalData;
+  }
 }

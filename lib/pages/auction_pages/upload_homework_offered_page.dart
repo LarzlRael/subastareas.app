@@ -23,11 +23,12 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
                 AsyncSnapshot<OneHomeworkModel> snapshot) {
               if (snapshot.hasData) {
                 final homework = snapshot.data!.homework;
-                print(json.encode(snapshot.data!.offers));
 
                 //TODO cambiar esto en la base de datos
                 final getIdOfferAcceptd = snapshot.data!.offers
-                    .where((element) => element.status == "pending_to_accept")
+                    .where((element) =>
+                        element.status == "pending_to_resolve" ||
+                        element.status == "pending_to_accept")
                     .first
                     .id;
                 print(getIdOfferAcceptd);
@@ -64,6 +65,7 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
                         /* 'category': homework.category, */
                         'resolutionTime': homework.resolutionTime,
                       }, */
+                      // TOOD notification after upload the file with the homework resolved
                       key: _formKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +118,7 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
                   ],
                 );
               } else {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
