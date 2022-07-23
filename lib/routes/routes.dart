@@ -31,4 +31,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'upload_homework_with_file': (_) => UploadHomeworkWithFile(),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
   'upload_homework_offered_page': (_) => UploadHomeworkOfferedPage(),
+  'verify_homework_resolved': (_) => VerifyHomeworkResolved(),
 };

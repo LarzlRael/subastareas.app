@@ -121,10 +121,10 @@ class HomeworkServices {
     print(uploadWithFile.statusCode);
   }
 
-  Future<List<TradeUserModel>> getHomeworksResolvedByUser() async {
+  Future<List<TradeUserModel>> getHomeworksResolvedByUser(String status) async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'trade/gettradingbyuser',
+      'trade/gettradingbyuser/$status',
       {},
       await _storage.read(key: 'token'),
     );

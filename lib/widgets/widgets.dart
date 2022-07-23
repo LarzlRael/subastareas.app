@@ -61,3 +61,4 @@ part 'profile/profile_image.dart';
 part 'notifications/notifications_card.dart';
 
 part 'forms/custom_file_field.dart';
+part 'homework/homework_pending_to_resolve.dart';

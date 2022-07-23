@@ -33,7 +33,7 @@ class MyHomeworksPage extends StatelessWidget {
           body: TabBarView(
             children: [
               UploadedHomeworkUser(homeworkServices: homeworkServices),
-              PendingOferedPendingHomework(),
+              PendingOferedPendingHomework(homeworkServices: homeworkServices),
               ResolvedHomeworkUser(homeworkServices: homeworkServices),
             ],
           ),
