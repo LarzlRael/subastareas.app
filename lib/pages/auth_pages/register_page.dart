@@ -61,7 +61,7 @@ class RegisterPage extends StatelessWidget {
                                 text: const TextSpan(
                                   children: [
                                     TextSpan(
-                                      text: 'Tengo mas de 18 años',
+                                      text: 'Tengo má s de 18 años',
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,

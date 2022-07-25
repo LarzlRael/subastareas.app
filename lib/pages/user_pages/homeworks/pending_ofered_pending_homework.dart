@@ -1,9 +1,9 @@
 part of '../../pages.dart';
 
 class PendingOferedPendingHomework extends StatelessWidget {
-  final HomeworkServices homeworkServices;
+  final TradeServices tradeServices;
 
-  const PendingOferedPendingHomework({Key? key, required this.homeworkServices})
+  const PendingOferedPendingHomework({Key? key, required this.tradeServices})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -14,21 +14,20 @@ class PendingOferedPendingHomework extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(8),
         child: FutureBuilder(
-          future:
-              homeworkServices.getHomeworksResolvedByUser('pending_to_accept'),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
+          future: tradeServices.getHomeworksResolvedByUser('pending_to_accept'),
+          builder: (BuildContext context,
+              AsyncSnapshot<List<TradeUserModel>> snapshot) {
             if (snapshot.hasData) {
               return ListView.builder(
-                itemCount: snapshot.data.length,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final tradeUserModel = snapshot.data[index];
                   return HomeworkPendingToResolve(
-                    tradeUserModel: tradeUserModel,
+                    tradeUserModel: snapshot.data![index],
                   );
                 },
               );
             } else {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }

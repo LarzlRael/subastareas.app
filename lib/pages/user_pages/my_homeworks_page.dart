@@ -6,6 +6,7 @@ class MyHomeworksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
+    final tradeServices = TradeServices();
     return Scaffold(
       body: DefaultTabController(
         length: 3,
@@ -33,8 +34,8 @@ class MyHomeworksPage extends StatelessWidget {
           body: TabBarView(
             children: [
               UploadedHomeworkUser(homeworkServices: homeworkServices),
-              PendingOferedPendingHomework(homeworkServices: homeworkServices),
-              ResolvedHomeworkUser(homeworkServices: homeworkServices),
+              PendingOferedPendingHomework(tradeServices: tradeServices),
+              ResolvedHomeworkUser(tradeServices: tradeServices),
             ],
           ),
         ),

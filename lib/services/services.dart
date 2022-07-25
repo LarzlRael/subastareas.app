@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -28,3 +29,4 @@ part 'google_services.dart';
 part 'push_notification_service.dart';
 part 'sockets/socket_service.dart';
 part 'sockets/socket_utils.dart';
+part 'trade_services.dart';
