@@ -1,9 +1,15 @@
 part of '../pages.dart';
 
-class LoginPage extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
-
+class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormBuilderState>();
+  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthServices>(context);
@@ -35,6 +41,7 @@ class LoginPage extends StatelessWidget {
                       bottom: 10,
                     ),
                     LoginButton(
+                      loading: _loading,
                       onPressed: () async {
                         //TODO redirect to main menu
                         final googleinfo =
@@ -74,31 +81,37 @@ class LoginPage extends StatelessWidget {
                 Column(
                   children: [
                     LoginButton(
-                      text: "Iniciar sesión",
-                      textColor: Colors.white,
-                      showIcon: false,
-                      onPressed: () async {
-                        final validationSuccess =
-                            _formKey.currentState!.validate();
+                        text: "Iniciar sesión",
+                        textColor: Colors.white,
+                        showIcon: false,
+                        loading: _loading,
+                        onPressed: () async {
+                          setState(() {
+                            _loading = true;
+                          });
+                          final validationSuccess =
+                              _formKey.currentState!.validate();
 
-                        if (validationSuccess) {
-                          _formKey.currentState!.save();
-                          final login = await authService.login(
-                              _formKey.currentState!.value['username'],
-                              _formKey.currentState!.value['password']);
+                          if (validationSuccess) {
+                            _formKey.currentState!.save();
+                            final login = await authService.login(
+                                _formKey.currentState!.value['username'],
+                                _formKey.currentState!.value['password']);
 
-                          if (login) {
-                            Navigator.pushReplacementNamed(
-                                context, 'bottomNavigation');
-                            filter.setCurrentBottomTab = 0;
-                            socketService.connect();
-                          } else {
-                            showSimpleAlert(
-                                context, 'Credenciales incorrectas');
+                            if (login) {
+                              Navigator.pushReplacementNamed(
+                                  context, 'bottomNavigation');
+                              filter.setCurrentBottomTab = 0;
+                              socketService.connect();
+                            } else {
+                              showSimpleAlert(
+                                  context, 'Credenciales incorrectas');
+                            }
+                            setState(() {
+                              _loading = false;
+                            });
                           }
-                        }
-                      },
-                    ),
+                        }),
                     const LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',

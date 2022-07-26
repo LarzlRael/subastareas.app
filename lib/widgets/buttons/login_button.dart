@@ -12,6 +12,7 @@ class LoginButton extends StatelessWidget {
   final double fontSize;
   final double paddingVertical;
   final double paddingHorizontal;
+  final bool loading;
   const LoginButton({
     Key? key,
     required this.onPressed,
@@ -25,6 +26,7 @@ class LoginButton extends StatelessWidget {
     this.fontSize = 17.0,
     this.paddingVertical = 15.0,
     this.paddingHorizontal = 40.0,
+    this.loading = false,
   }) : super(key: key);
 
   @override
@@ -59,11 +61,13 @@ class LoginButton extends StatelessWidget {
                 children: [
                   icon,
                   Expanded(
-                    child: Text(
-                      text,
-                      textAlign: TextAlign.center,
-                      style: textStyle,
-                    ),
+                    child: loading
+                        ? const CircularProgressIndicator()
+                        : Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: textStyle,
+                          ),
                   ),
                 ],
               )
@@ -75,7 +79,7 @@ class LoginButton extends StatelessWidget {
                   style: textStyle,
                 ),
               ),
-        onPressed: onPressed,
+        onPressed: loading ? null : onPressed,
       ),
     );
   }

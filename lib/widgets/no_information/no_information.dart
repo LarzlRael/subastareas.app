@@ -8,7 +8,7 @@ class NoInformation extends StatelessWidget {
   final VoidCallback? onPressed;
   final IconData iconButton;
 
-  NoInformation({
+  const NoInformation({
     Key? key,
     required this.icon,
     required this.message,

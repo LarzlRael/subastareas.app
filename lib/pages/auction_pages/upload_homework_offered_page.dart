@@ -1,9 +1,16 @@
 part of '../pages.dart';
 
-class UploadHomeworkOfferedPage extends StatelessWidget {
+class UploadHomeworkOfferedPage extends StatefulWidget {
   UploadHomeworkOfferedPage({Key? key}) : super(key: key);
-  final _oneHomeworkBloc = OneHomeworkBloc();
 
+  @override
+  State<UploadHomeworkOfferedPage> createState() =>
+      _UploadHomeworkOfferedPageState();
+}
+
+class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
+  final _oneHomeworkBloc = OneHomeworkBloc();
+  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormBuilderState>();
@@ -75,10 +82,14 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
                             name: 'file',
                           ),
                           LoginButton(
+                            loading: _loading,
                             text: "Subir tarea resuelta",
                             textColor: Colors.white,
                             showIcon: false,
                             onPressed: () async {
+                              setState(() {
+                                _loading = true;
+                              });
                               final validationSuccess =
                                   _formKey.currentState!.validate();
 
@@ -103,6 +114,9 @@ class UploadHomeworkOfferedPage extends StatelessWidget {
                                           .currentState!.value['file'][0].path,
                                     ),
                                     getIdOfferAcceptd);
+                                setState(() {
+                                  _loading = false;
+                                });
                               }
                             },
                           ),

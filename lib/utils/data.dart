@@ -105,11 +105,11 @@ List<MenuProfileOption> menuProfileOptions = [
     title: "Mis ofertas",
     page: MyOffers(),
   ),
-  const MenuProfileOption(
+  /* const MenuProfileOption(
     icon: Icon(Icons.task_alt),
     title: "Pendientes",
     page: PendingsHomeworksOffersAcepts(),
-  ),
+  ), */
   const MenuProfileOption(
     icon: Icon(Icons.question_answer),
     title: "Tus marcadores",

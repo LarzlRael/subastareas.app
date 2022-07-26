@@ -249,13 +249,18 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   }
 }
 
-class UploadHomeworkOnlyText extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
-
+class UploadHomeworkOnlyText extends StatefulWidget {
   UploadHomeworkOnlyText({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<UploadHomeworkOnlyText> createState() => _UploadHomeworkOnlyTextState();
+}
+
+class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
+  final _formKey = GlobalKey<FormBuilderState>();
+  bool _loading = false;
   Homework homework = Homework(
     id: 0,
     title: '',
@@ -275,6 +280,7 @@ class UploadHomeworkOnlyText extends StatelessWidget {
       username: '',
     ),
   );
+
   @override
   Widget build(BuildContext context) {
     final homeworkData = ModalRoute.of(context)?.settings.arguments;
@@ -341,10 +347,14 @@ class UploadHomeworkOnlyText extends StatelessWidget {
                 Column(
                   children: [
                     LoginButton(
+                      loading: _loading,
                       text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
                       textColor: Colors.white,
                       showIcon: false,
                       onPressed: () async {
+                        setState(() {
+                          _loading = true;
+                        });
                         final validationSuccess =
                             _formKey.currentState!.validate();
                         print(_formKey.currentState!.value['']);
@@ -371,6 +381,9 @@ class UploadHomeworkOnlyText extends StatelessWidget {
                           )) {
                             Navigator.pushNamed(context, 'my_homeworks_page');
                             _formKey.currentState!.reset();
+                            setState(() {
+                              _loading = true;
+                            });
                             GlobalSnackBar.show(
                                 context, 'Tarea subida correctamente',
                                 backgroundColor: Colors.green);

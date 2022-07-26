@@ -59,7 +59,7 @@ class WalletPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ButtonWithIcon(
-                          label: 'Depositar',
+                          label: 'Adquirir monedas',
                           icon: Icons.arrow_upward,
                           onPressed: () {
                             Navigator.pushNamed(context, 'store_page');

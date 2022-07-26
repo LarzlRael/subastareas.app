@@ -181,6 +181,12 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                           'room': argumets.homework.id,
                           'offer': deletedOffer,
                         });
+
+                        GlobalSnackBar.show(
+                          context,
+                          'Tu oferta ha sido retirada',
+                          backgroundColor: Colors.red[700]!.withOpacity(0.8),
+                        );
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
@@ -298,6 +304,14 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   setState(() {
                                     isLoading = false;
                                   });
+                                  GlobalSnackBar.show(
+                                      context,
+                                      idOffer == 0
+                                          ? 'Oferta realizada correctamente'
+                                          : 'Oferta editada correctamente',
+                                      backgroundColor: idOffer == 0
+                                          ? Colors.green
+                                          : Colors.yellow);
                                   Navigator.of(context).pop();
                                   Navigator.of(context).pop();
                                 }

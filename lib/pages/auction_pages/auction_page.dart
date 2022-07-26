@@ -173,7 +173,9 @@ class _AuctionPageState extends State<AuctionPage> {
             ],
           ),
           description(oneHomeworkModel.homework.description),
-          _buttonMakeOffer(oneHomeworkModel, isLogged),
+          oneHomeworkModel.homework.status == 'accepted_to_offer'
+              ? _buttonMakeOffer(oneHomeworkModel, isLogged)
+              : Container(),
           oneHomeworkModel.homework.fileUrl != null
               ? TextButton(
                   child: const Text('Ver Tarea '),
@@ -189,11 +191,13 @@ class _AuctionPageState extends State<AuctionPage> {
           CircleAvatarGroup(
             oneHomeworkModel: oneHomeworkModel,
           ),
-          CommentsWidget(
-            comments: oneHomeworkModel.comments,
-            isLogged: isLogged,
-            idhomework: oneHomeworkModel.homework.id,
-          ),
+          oneHomeworkModel.homework.status == 'accepted_to_offer'
+              ? CommentsWidget(
+                  comments: oneHomeworkModel.comments,
+                  isLogged: isLogged,
+                  idhomework: oneHomeworkModel.homework.id,
+                )
+              : Container(),
         ],
       ),
     );
