@@ -56,7 +56,7 @@ class FilterPage extends StatelessWidget {
                 homeworkServices.getHomeworksByCategoryAndLevel(
                     state.getListCategorySelected, state.getListLevelSelected); */
                         oneHomeworkBloc.getHomeworksByCategory(
-                          state.getListCategorySelected,
+                          state.getListLevelSelected,
                         );
                         Navigator.of(context).pop();
                       },
@@ -94,8 +94,7 @@ class _FilterItemState extends State<FilterItem> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<FilterProvider>(context, listen: false);
-    /* isSelected = provider..contains(widget.title); */
-    isSelected = provider.getListAllSelected.contains(widget.title);
+    isSelected = provider.getListLevelSelected.contains(widget.title);
     return CheckboxListTile(
       contentPadding: const EdgeInsets.all(5),
       shape: RoundedRectangleBorder(
@@ -111,7 +110,7 @@ class _FilterItemState extends State<FilterItem> {
           if (widget.type == 'level') {
             provider.setAddListLevelSelected = widget.title;
           } else {
-            provider.setAddListCategorySelected = widget.title;
+            provider.setAddListLevelSelected = widget.title;
           }
           isSelected = value!;
         });

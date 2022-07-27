@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 
 class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
-  final List<String> _listCategorySelected = [];
-  bool _showButtonAcept = false;
+
+  bool _showButtonAccept = false;
   int _currentBottomTab = 0;
 
   int get getCurrentBottomTab => _currentBottomTab;
@@ -12,16 +12,13 @@ class FilterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool get getShowButtonAcept => _showButtonAcept;
+  bool get getShowButtonAcept => _showButtonAccept;
   set setShowButtonAcept(bool value) {
-    _showButtonAcept = value;
+    _showButtonAccept = value;
     notifyListeners();
   }
 
   List<String> get getListLevelSelected => _listLevelSelected;
-
-  List<String> get getListAllSelected =>
-      [..._listCategorySelected, ..._listLevelSelected];
 
   set setAddListLevelSelected(String value) {
     if (_listLevelSelected.contains(value)) {
@@ -32,23 +29,11 @@ class FilterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> get getListCategorySelected => _listCategorySelected;
-  set setAddListCategorySelected(String value) {
-    if (_listCategorySelected.contains(value)) {
-      _listCategorySelected.remove(value);
-    } else {
-      _listCategorySelected.add(value);
-    }
-    notifyListeners();
-  }
-
   removeItemFromList(String value) {
     if (_listLevelSelected.contains(value)) {
       _listLevelSelected.remove(value);
     }
-    if (_listCategorySelected.contains(value)) {
-      _listCategorySelected.remove(value);
-    }
+
     notifyListeners();
   }
 }

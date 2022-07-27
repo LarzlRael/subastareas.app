@@ -44,11 +44,11 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
         child: Column(
           children: [
             ChipChoice(
-              elementsList: filter.getListAllSelected,
+              elementsList: filter.getListLevelSelected,
               onClickAction: (String value) {
                 filter.removeItemFromList(value);
                 homeworksBloc.getHomeworksByCategory(
-                  filter.getListCategorySelected,
+                  filter.getListLevelSelected,
                 );
               },
             ),
