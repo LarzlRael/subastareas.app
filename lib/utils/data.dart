@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:subastareaspp/services/services.dart';
@@ -60,8 +61,11 @@ final List<BottomNavigationBarItem> bottonItemsWithLogin = [
     icon: Icon(FontAwesomeIcons.comment),
     label: 'Preguntar',
   ),
-  const BottomNavigationBarItem(
-    icon: Icon(FontAwesomeIcons.user),
+  BottomNavigationBarItem(
+    icon: Badge(
+      child: Icon(FontAwesomeIcons.user),
+      badgeContent: null,
+    ),
     label: 'Perfil',
   ),
 ];

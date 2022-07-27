@@ -18,44 +18,14 @@ class BellIconNotification extends StatelessWidget {
                 .where((element) => element.notified == true)
                 .toList()
                 .length;
-            return Stack(
-              children: <Widget>[
-                iconNotification(context),
-                if (snapshot.data!.isNotEmpty)
-                  Positioned(
-                    right: 11,
-                    top: 11,
-                    child: notificationsNotRead > 0
-                        ? Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            constraints: const BoxConstraints(
-                              minWidth: 14,
-                              minHeight: 14,
-                            ),
-                            child: Text(
-                              notificationsNotRead > 9
-                                  ? '9+'
-                                  : notificationsNotRead.toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 8,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        : const SizedBox(width: 0, height: 0),
-                  )
-                else
-                  const SizedBox(
-                    width: 0,
-                    height: 0,
-                  )
-              ],
-            );
+            /* child: notificationsNotRead > 0 */
+            return Badge(
+                badgeContent: Text(
+                  '$notificationsNotRead',
+                  style: TextStyle(color: Colors.white),
+                ),
+                child: iconNotification(context));
+            ;
           } else {
             return iconNotification(context);
           }

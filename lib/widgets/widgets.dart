@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

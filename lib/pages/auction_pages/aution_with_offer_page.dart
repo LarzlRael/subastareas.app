@@ -185,21 +185,32 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                       ),
                     ],
                   ),
-                  const SimpleText(
-                    text: "Ofertas de los vendedores",
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    top: 15,
-                    bottom: 15,
+                  const Center(
+                    child: SimpleText(
+                      text: "Ofertas recibidas",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      top: 15,
+                      bottom: 15,
+                    ),
                   ),
+                  widget.args.homework.status == 'pending_to_resolve'
+                      ? const SimpleText(
+                          text:
+                              'Ya aceptas una oferta, espera a que el profesor te responda',
+                          fontSize: 15,
+                          top: 5,
+                          bottom: 5,
+                        )
+                      : Container(),
                   StreamBuilder(
                     stream: homeworksBloc.oneHomeworkStream,
                     builder: (BuildContext context,
                         AsyncSnapshot<OneHomeworkModel> snapshot) {
                       if (!snapshot.hasData) {
-                        return const CircularProgressIndicator();
+                        return const Center(child: CircularProgressIndicator());
                       } else if (_offer.isEmpty) {
-                        return NoInformation(
+                        return const NoInformation(
                           message: 'No hay ofertas aun',
                           icon: Icons.search_off,
                           showButton: false,
@@ -235,15 +246,24 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
   }
 }
 
-class AcceptOfferButton extends StatelessWidget {
+class AcceptOfferButton extends StatefulWidget {
   final Offer offer;
+
   const AcceptOfferButton({
     Key? key,
     required this.offer,
   }) : super(key: key);
 
   @override
+  State<AcceptOfferButton> createState() => _AcceptOfferButtonState();
+}
+
+class _AcceptOfferButtonState extends State<AcceptOfferButton> {
+  bool loading = false;
+  @override
   Widget build(BuildContext context) {
+    inspect(widget.offer);
+    final pendingToResolve = widget.offer.status == 'pending_to_resolve';
     final offersServices = OffersServices();
     return Container(
       padding: const EdgeInsets.all(20),
@@ -263,31 +283,60 @@ class AcceptOfferButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SimpleText(
-                text: 'Aceptar oferta',
+              SimpleText(
+                text: !pendingToResolve
+                    ? 'Aceptar oferta'
+                    : 'Ya aceptaste una oferta',
+                /* textAlign: TextAlign.center, */
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
-              SimpleText(
-                  text: offer.priceOffer.toString(),
-                  fontSize: 20,
-                  color: Colors.white),
+              !pendingToResolve
+                  ? SimpleText(
+                      text: widget.offer.priceOffer.toString(),
+                      fontSize: 20,
+                      color: Colors.white)
+                  : Container()
             ],
           ),
-          MaterialButton(
-            onPressed: () async {
-              await offersServices.enterPendingTrade(offer.id);
-              Navigator.of(context).pop();
-            },
-            height: 45,
-            minWidth: 150,
-            elevation: 0,
-            shape: const StadiumBorder(),
-            color: Colors.black,
-            child: const SimpleText(
-                text: 'Aceptar', color: Colors.white, fontSize: 22),
-          ),
+          pendingToResolve
+              ? Container()
+              : MaterialButton(
+                  onPressed: !loading
+                      ? () async {
+                          setState(() {
+                            loading = true;
+                          });
+                          await offersServices
+                              .enterPendingTrade(widget.offer.id);
+                          setState(() {
+                            loading = false;
+                          });
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                          GlobalSnackBar.show(
+                            context,
+                            'Acabas de aceptar la oferta, espere a que el otro usuario termine tu tarea',
+                            backgroundColor: Colors.green,
+                            /* icon: Icons.check, */
+                          );
+                        }
+                      : null,
+                  height: 45,
+                  minWidth: 150,
+                  elevation: 0,
+                  shape: const StadiumBorder(),
+                  color: !loading ? Colors.black : Colors.yellow,
+                  child: !loading
+                      ? SimpleText(
+                          text: 'Aceptar Oferta',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        )
+                      : CircularProgressIndicator(color: Colors.white),
+                ),
         ],
       ),
     );
