@@ -25,7 +25,9 @@ class VerifyHomeworkResolved extends StatelessWidget {
                 ), */
                 tradeUserModel.solvedHomeworkUrl != null
                     ? LoginButton(
-                        text: "Ver tarea resuelta",
+                        buttonChild: Text(
+                          "Ver tarea resuelta",
+                        ),
                         textColor: Colors.white,
                         backGroundColor: Colors.green,
                         showIcon: false,

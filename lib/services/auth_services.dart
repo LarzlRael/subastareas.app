@@ -4,7 +4,10 @@ class AuthServices with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   bool isLogged = false;
   final _storage = const FlutterSecureStorage();
+
+  //User model
   late UserModel _user;
+  bool _authenticating = false;
 
   UserModel get user {
     _user.name = _user.name;
@@ -13,8 +16,15 @@ class AuthServices with ChangeNotifier {
 
   setUsuario(UserModel value) => _user = value;
 
+//
+  bool get getAuthenticating => _authenticating;
+  set setAuthenticating(bool valor) {
+    _authenticating = valor;
+    notifyListeners();
+  }
+
   Future<bool> login(String email, String password) async {
-    /* this.autenticando = true; */
+    setAuthenticating = true;
 
     final data = {
       'username': email,
@@ -24,6 +34,8 @@ class AuthServices with ChangeNotifier {
 
     final resp = await Request.sendRequest('POST', 'auth/signin', data);
     /* print(resp!.body); */
+    setAuthenticating = false;
+
     if (validateStatus(resp!.statusCode)) {
       /* print(userModelFromJson(resp.body).accessToken); */
       setUsuario(userModelFromJson(resp.body));
@@ -41,7 +53,7 @@ class AuthServices with ChangeNotifier {
     String email,
     String password,
   ) async {
-    /* this.autenticando = true; */
+    setAuthenticating = true;
 
     final data = {
       'username': username,
@@ -50,6 +62,7 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp = await Request.sendRequest('POST', 'auth/signup', data);
+    setAuthenticating = false;
 
     /* print(resp!.body); */
     if (validateStatus(resp!.statusCode)) {
@@ -116,6 +129,7 @@ class AuthServices with ChangeNotifier {
         await _storage.read(key: 'token') ?? '');
 
     await renewToken();
+    notifyListeners();
     return resp.body;
   }
 }

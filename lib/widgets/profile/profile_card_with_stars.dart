@@ -43,10 +43,6 @@ class ProfileCardWithStars extends StatelessWidget {
                 editable: false,
                 auth: auth,
               ),
-              /*  const SizedBox(
-                height: 10,
-              ),
-              */
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 /* crossAxisAlignment: CrossAxisAlignment.center, */

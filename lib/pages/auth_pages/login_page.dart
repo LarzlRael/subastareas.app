@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormBuilderState>();
-  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthServices>(context);
@@ -41,14 +40,13 @@ class _LoginPageState extends State<LoginPage> {
                       bottom: 10,
                     ),
                     LoginButton(
-                      loading: _loading,
                       onPressed: () async {
                         //TODO redirect to main menu
                         final googleinfo =
                             await GoogleSignInServices.signiWithGoogle();
                       },
                       paddingVertical: 12,
-                      text: "Iniciar sesión con google",
+                      buttonChild: Text("Iniciar sesión con google"),
                       fontSize: 15,
                       backGroundColor: Colors.white,
                       icon: SvgPicture.asset(
@@ -80,38 +78,33 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Column(
                   children: [
-                    LoginButton(
-                        text: "Iniciar sesión",
-                        textColor: Colors.white,
-                        showIcon: false,
-                        loading: _loading,
-                        onPressed: () async {
-                          setState(() {
-                            _loading = true;
-                          });
-                          final validationSuccess =
-                              _formKey.currentState!.validate();
+                    authService.getAuthenticating
+                        ? const CircularProgressIndicator()
+                        : LoginButton(
+                            buttonChild: Text("Iniciar sesión"),
+                            textColor: Colors.white,
+                            showIcon: false,
+                            onPressed: () async {
+                              final validationSuccess =
+                                  _formKey.currentState!.validate();
 
-                          if (validationSuccess) {
-                            _formKey.currentState!.save();
-                            final login = await authService.login(
-                                _formKey.currentState!.value['username'],
-                                _formKey.currentState!.value['password']);
+                              if (validationSuccess) {
+                                _formKey.currentState!.save();
+                                final login = await authService.login(
+                                    _formKey.currentState!.value['username'],
+                                    _formKey.currentState!.value['password']);
 
-                            if (login) {
-                              Navigator.pushReplacementNamed(
-                                  context, 'bottomNavigation');
-                              filter.setCurrentBottomTab = 0;
-                              socketService.connect();
-                            } else {
-                              showSimpleAlert(
-                                  context, 'Credenciales incorrectas');
-                            }
-                            setState(() {
-                              _loading = false;
-                            });
-                          }
-                        }),
+                                if (login) {
+                                  Navigator.pushReplacementNamed(
+                                      context, 'bottomNavigation');
+                                  filter.setCurrentBottomTab = 0;
+                                  socketService.connect();
+                                } else {
+                                  showSimpleAlert(
+                                      context, 'Credenciales incorrectas');
+                                }
+                              }
+                            }),
                     const LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',

@@ -82,8 +82,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                             name: 'file',
                           ),
                           LoginButton(
-                            loading: _loading,
-                            text: "Subir tarea resuelta",
+                            buttonChild: Text("Subir tarea resuelta"),
                             textColor: Colors.white,
                             showIcon: false,
                             onPressed: () async {

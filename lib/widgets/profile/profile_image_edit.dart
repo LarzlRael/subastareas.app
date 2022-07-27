@@ -8,9 +8,9 @@ class ProfileImageEdit extends StatefulWidget {
   const ProfileImageEdit({
     Key? key,
     required this.username,
+    required this.auth,
     this.profileImage,
     this.editable = true,
-    required this.auth,
   }) : super(key: key);
 
   @override
@@ -35,7 +35,7 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
         /* color: Colors.blue, */
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
               alignment: Alignment.topLeft,

@@ -2,7 +2,7 @@ part of 'buttons.dart';
 
 class LoginButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final String text;
+  final Widget buttonChild;
   final Color backGroundColor;
   final Color textColor;
   final Widget icon;
@@ -12,11 +12,10 @@ class LoginButton extends StatelessWidget {
   final double fontSize;
   final double paddingVertical;
   final double paddingHorizontal;
-  final bool loading;
   const LoginButton({
     Key? key,
     required this.onPressed,
-    required this.text,
+    required this.buttonChild,
     this.backGroundColor = Colors.blue,
     this.textColor = Colors.black,
     this.icon = const Icon(Icons.person),
@@ -26,16 +25,10 @@ class LoginButton extends StatelessWidget {
     this.fontSize = 17.0,
     this.paddingVertical = 15.0,
     this.paddingHorizontal = 40.0,
-    this.loading = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
-      color: textColor,
-      fontSize: fontSize,
-      fontWeight: FontWeight.bold,
-    );
     return Container(
       margin: EdgeInsets.symmetric(
           vertical: marginVertical, horizontal: marginHorizontal),
@@ -61,26 +54,21 @@ class LoginButton extends StatelessWidget {
                 children: [
                   icon,
                   Expanded(
-                    child: loading
-                        ? const CircularProgressIndicator()
-                        : Text(
-                            text,
-                            textAlign: TextAlign.center,
-                            style: textStyle,
-                          ),
+                    child: buttonChild,
                   ),
                 ],
               )
             : SizedBox(
                 width: double.infinity,
-                child: Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: textStyle,
-                ),
+                child: buttonChild,
               ),
-        onPressed: loading ? null : onPressed,
+        onPressed: onPressed,
       ),
     );
   }
 }
+/* final textStyle = TextStyle(
+      color: textColor,
+      fontSize: fontSize,
+      fontWeight: FontWeight.bold,
+    ); */

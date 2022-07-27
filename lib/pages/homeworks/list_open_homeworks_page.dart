@@ -10,15 +10,7 @@ class ListOpenHomeworksPage extends StatefulWidget {
 class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   late int defaultChoiceIndex;
   OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
-  /* final List<String> _choicesList = [
-    'Matematica',
-    'Programación',
-    'Fisica',
-    'Quimica',
-    'Algebra',
-    'Trigonometria',
-    'Geometria',
-  ]; */
+
   @override
   void initState() {
     super.initState();
@@ -73,24 +65,24 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                   SimpleText(
                     text: 'Filtrar busqueda',
                     color: Colors.grey,
-                  )
+                  ),
                 ],
               ),
             ),
-
-            /* HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged), */
             StreamBuilder(
               stream: homeworksBloc.homeworksStream,
               builder: (BuildContext context,
                   AsyncSnapshot<List<HomeworksModel>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.isEmpty) {
-                    return NoInformation(
-                      message: 'No se encontraron resultados',
-                      icon: Icons.search_off,
-                      showButton: false,
-                      iconButton: Icons.abc,
+                    return Container(
+                      /* color: Colors.green, */
+                      child: const NoInformation(
+                        message: 'No se encontraron resultados',
+                        icon: Icons.search_off,
+                        showButton: false,
+                        iconButton: Icons.abc,
+                      ),
                     );
                   } else {
                     return ListView.builder(
@@ -116,6 +108,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 }
               },
             ),
+            /* HomeworkCard(isLogged: auth.isLogged),
+            HomeworkCard(isLogged: auth.isLogged), */
           ],
         ),
       ),

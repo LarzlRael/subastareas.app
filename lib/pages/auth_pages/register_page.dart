@@ -83,7 +83,9 @@ class RegisterPage extends StatelessWidget {
                 Column(
                   children: [
                     LoginButton(
-                      text: "Registrarse",
+                      buttonChild: Text(
+                        "Registrarse",
+                      ),
                       textColor: Colors.white,
                       showIcon: false,
                       onPressed: () async {

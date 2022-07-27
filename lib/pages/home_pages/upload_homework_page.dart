@@ -347,8 +347,9 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                 Column(
                   children: [
                     LoginButton(
-                      loading: _loading,
-                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                      buttonChild: Text(
+                        homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                      ),
                       textColor: Colors.white,
                       showIcon: false,
                       onPressed: () async {
@@ -497,7 +498,8 @@ class UploadHomeworkWithFile extends StatelessWidget {
                 Column(
                   children: [
                     LoginButton(
-                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                      buttonChild: Text(
+                          homework.id == 0 ? "Subir Tarea" : 'Editar Tarea'),
                       textColor: Colors.white,
                       showIcon: false,
                       onPressed: () async {
