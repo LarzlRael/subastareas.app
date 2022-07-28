@@ -29,4 +29,16 @@ class TradeServices {
     inspect(tradeRequest!.body);
     return tradeRequest!.body;
   }
+
+  Future<List<PlanesModel>> getPlanes() async {
+    final planesRequest = await Request.sendRequestWithToken(
+      'GET',
+      'planes/getPlanes',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    final finalData = planesModelFromJson(planesRequest!.body);
+    inspect(planesRequest!.body);
+    return finalData;
+  }
 }

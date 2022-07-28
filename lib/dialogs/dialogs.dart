@@ -108,7 +108,7 @@ showBottomMenuSheetAddOrEditComment(
                         onPressed: () async {
                           // usar servicio en este punto
                           if (!editable) {
-                            await homeworkbloc.newCommet(
+                            await homeworkbloc.newComment(
                               idComment,
                               controller.text,
                             );

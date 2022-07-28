@@ -35,7 +35,7 @@ class OneHomeworkBloc {
     await getOneHomework(idHomework);
   }
 
-  newCommet(int idHomework, String content) async {
+  newComment(int idHomework, String content) async {
     await commentService.newComment(
       idHomework,
       content,

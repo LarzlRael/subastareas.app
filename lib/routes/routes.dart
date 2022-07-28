@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:subastareaspp/models/models.dart';
+import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
 import '../pages/pages.dart';
@@ -27,9 +29,13 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'filter': (_) => const FilterPage(),
   'store_page': (_) => const StorePage(),
   'public_profile_page': (_) => const PublicProfilePage(),
-  'upload_homework_only_text': (_) => UploadHomeworkOnlyText(),
-  'upload_homework_with_file': (_) => UploadHomeworkWithFile(),
+  'upload_homework_only_text': (BuildContext context) => UploadHomeworkOnlyText(
+        authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
+      ),
+  'upload_homework_with_file': (BuildContext context) => UploadHomeworkWithFile(
+        authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
+      ),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
   'upload_homework_offered_page': (_) => UploadHomeworkOfferedPage(),
-  'verify_homework_resolved': (_) => VerifyHomeworkResolved(),
+  'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
 };

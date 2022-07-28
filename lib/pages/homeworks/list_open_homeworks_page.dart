@@ -28,7 +28,9 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
 
-    homeworksBloc.getHomeworks();
+    homeworksBloc.getHomeworksByCategory(
+      filter.getListLevelSelected,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Image.asset(

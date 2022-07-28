@@ -10,3 +10,4 @@ part 'user_model.dart';
 part 'notification_model.dart';
 part 'offer_simple_model.dart';
 part 'trade_user_model.dart';
+part 'planes_model.dart';

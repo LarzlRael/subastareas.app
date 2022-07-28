@@ -2,13 +2,11 @@ part of '../widgets.dart';
 
 class StoreCard extends StatelessWidget {
   final double height = 120;
-  final double amount;
-  final double price;
+  final PlanesModel planesModel;
 
   const StoreCard({
     Key? key,
-    required this.amount,
-    required this.price,
+    required this.planesModel,
   }) : super(key: key);
 
   @override
@@ -49,13 +47,13 @@ class StoreCard extends StatelessWidget {
                         children: [
                           SimpleText(
                             text:
-                                '$amount ${amount > 1 ? 'moneda' : 'monedas'}',
+                                '${planesModel.amount} ${planesModel.amount == 1 ? 'moneda' : 'monedas'}',
                             fontSize: 25,
                             fontWeight: FontWeight.bold,
                             bottom: 10,
                           ),
                           SimpleText(
-                            text: '$price bolivianos',
+                            text: '${planesModel.price} USD',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             bottom: 10,
@@ -80,18 +78,26 @@ class StoreCard extends StatelessWidget {
             child: SizedBox(
               height: 50.0,
               width: 150,
-              child: Card(
-                color: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-                elevation: 10.0,
-                child: const Center(
-                  child: SimpleText(
-                    text: 'Comprar',
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              child: Ink(
+                /* color: Colors.yellow, */
+                child: InkWell(
+                  onTap: () {
+                    print(planesModel.amount);
+                  },
+                  child: Card(
+                    color: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0),
+                    ),
+                    elevation: 10.0,
+                    child: const Center(
+                      child: SimpleText(
+                        text: 'Comprar',
+                        fontSize: 19,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -103,7 +109,7 @@ class StoreCard extends StatelessWidget {
   }
 }
 
-class StoreCard2 extends StatelessWidget {
+/* class StoreCard2 extends StatelessWidget {
   final double height = 150;
   final double amount;
   final double price;
@@ -203,3 +209,4 @@ class StoreCard2 extends StatelessWidget {
     );
   }
 }
+ */
