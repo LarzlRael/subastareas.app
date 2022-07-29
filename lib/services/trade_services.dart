@@ -10,7 +10,6 @@ class TradeServices {
       {},
       await _storage.read(key: 'token'),
     );
-    inspect(homeworkRequest!.body);
     final finalData = tradeUserModelFromJson(homeworkRequest!.body);
     return finalData;
   }
@@ -25,8 +24,6 @@ class TradeServices {
       await _storage.read(key: 'token'),
     );
 
-    /* print(tradeRequest); */
-    inspect(tradeRequest!.body);
     return tradeRequest!.body;
   }
 
@@ -38,7 +35,6 @@ class TradeServices {
       await _storage.read(key: 'token'),
     );
     final finalData = planesModelFromJson(planesRequest!.body);
-    inspect(planesRequest!.body);
     return finalData;
   }
 }

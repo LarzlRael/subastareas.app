@@ -93,16 +93,6 @@ class CardProfile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          /*   CircleAvatar(
-            radius: 50,
-            child: showProfileImage(
-              auth.usuario.profileImageUrl,
-              auth.usuario.username,
-            ),
-          ), */
-          /* showProfileImage(auth.usuario.profileImageUrl,
-              auth.usuario.username, 50), 
-              */
           ProfileImageEdit(
             username: auth.user.username,
             profileImage: auth.user.profileImageUrl,

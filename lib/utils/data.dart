@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
@@ -80,10 +81,12 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   ),
 ];
 
-final homeworServices = HomeworkServices();
+final homeworkServices = HomeworkServices();
 List<MenuProfileOption> menuProfileOptions = [
   const MenuProfileOption(
-    icon: Icon(Icons.wallet_giftcard_rounded),
+    icon: Icon(
+      Ionicons.wallet,
+    ),
     title: "Billetera",
     page: WalletPage(),
   ),
@@ -91,7 +94,7 @@ List<MenuProfileOption> menuProfileOptions = [
     icon: BellIconNotification(),
     title: "Notificaciones",
     page: NotificationPage(),
-    callback: () => homeworServices.clearNotifications(),
+    callback: () => homeworkServices.clearNotifications(),
   ),
   const MenuProfileOption(
     icon: Icon(Icons.message_rounded),

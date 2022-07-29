@@ -134,7 +134,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                   children: [
                     SimpleText(
                       text:
-                          'Tu salario actual es de: ${widget.authService.user.wallet.balance}',
+                          'Tu saldo actual es de: ${widget.authService.user.wallet.balance}',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       top: 10,
@@ -298,7 +298,7 @@ class UploadHomeworkWithFile extends StatelessWidget {
                   children: [
                     SimpleText(
                       text:
-                          'Tu salario actual es de: ${authService.user.wallet.balance}',
+                          'Tu saldo actual es de: ${authService.user.wallet.balance}',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       top: 10,
