@@ -7,11 +7,6 @@ part of './models.dart';
 // To parse this JSON data, do
 //
 //     final planesModel = planesModelFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final planesModel = planesModelFromJson(jsonString);
-
 List<PlanesModel> planesModelFromJson(String str) => List<PlanesModel>.from(
     json.decode(str).map((x) => PlanesModel.fromJson(x)));
 
@@ -21,23 +16,31 @@ String planesModelToJson(List<PlanesModel> data) =>
 class PlanesModel {
   PlanesModel({
     required this.planeName,
-    required this.price,
+    required this.priceUsd,
     required this.amount,
+    required this.priceBob,
+    required this.nameBobPrice,
   });
 
   String planeName;
-  String price;
+  double priceUsd;
   int amount;
+  double priceBob;
+  String nameBobPrice;
 
   factory PlanesModel.fromJson(Map<String, dynamic> json) => PlanesModel(
         planeName: json["planeName"],
-        price: json["price"],
+        priceUsd: json["priceUsd"].toDouble(),
         amount: json["amount"],
+        priceBob: json["priceBob"].toDouble(),
+        nameBobPrice: json["nameBobPrice"],
       );
 
   Map<String, dynamic> toJson() => {
         "planeName": planeName,
-        "price": price,
+        "priceUsd": priceUsd,
         "amount": amount,
+        "priceBob": priceBob,
+        "nameBobPrice": nameBobPrice,
       };
 }

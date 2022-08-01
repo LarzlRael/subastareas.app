@@ -53,7 +53,8 @@ class StoreCard extends StatelessWidget {
                             bottom: 10,
                           ),
                           SimpleText(
-                            text: '${planesModel.price} USD',
+                            text:
+                                '${planesModel.priceBob} ${planesModel.nameBobPrice}',
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             bottom: 10,
