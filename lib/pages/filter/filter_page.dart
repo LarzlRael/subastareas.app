@@ -11,17 +11,8 @@ class FilterPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 60),
-
-          /* Text("Nivel"),
-              FilterItem(title: 'Pre universitario', type: 'level'),
-              FilterItem(title: 'Universitario', type: 'level'),
-              Text("Asignatura"),
-              FilterItem(title: 'matematica', type: 'category'),
-              FilterItem(title: 'fisica', type: 'category'),
-              FilterItem(title: 'quimica', type: 'category'),
-              FilterItem(title: 'algebra', type: 'category'),
-              FilterItem(title: 'programacion', type: 'category'), */
+          padding:
+              const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 5),
           child: FutureBuilder(
             future: homeworkServices.getSubjectAndLevels(),
             builder:
@@ -36,6 +27,7 @@ class FilterPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
                           itemCount: snapshot.data!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return FilterItem(

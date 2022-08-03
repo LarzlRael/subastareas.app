@@ -55,7 +55,7 @@ part 'home_pages/categories_page.dart';
 
 part 'user_pages/my_offers.dart';
 part 'user_pages/my_homeworks_page.dart';
-part 'user_pages/wallet_page.dart';
+
 part 'user_pages/notification_page.dart';
 part 'user_pages/my_profile_page.dart';
 part 'user_pages/profile_page.dart';
@@ -71,3 +71,7 @@ part 'store_pages/store_page.dart';
 part 'user_pages/homeworks/pending_ofered_pending_homework.dart';
 part 'user_pages/homeworks/uploaded_homework_user.dart';
 part 'user_pages/homeworks/resolved_homework_user.dart';
+
+part 'wallet/wallet_page.dart';
+part 'wallet/withdraw_page.dart';
+part 'wallet/withdraw_method_selected_page.dart';

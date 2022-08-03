@@ -41,6 +41,7 @@ class StorePage extends StatelessWidget {
                   if (snapshot.hasData) {
                     return Expanded(
                       child: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {

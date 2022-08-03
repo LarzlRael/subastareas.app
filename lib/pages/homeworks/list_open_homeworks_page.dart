@@ -54,21 +54,26 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 );
               },
             ),
-            GestureDetector(
-              onTap: () {
-                showFilterBottomMenuShet(context);
-              },
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.filter_list,
-                    color: Colors.grey,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                child: GestureDetector(
+                  onTap: () {
+                    showFilterBottomMenuShet(context);
+                  },
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.filter_list,
+                        color: Colors.grey,
+                      ),
+                      SimpleText(
+                        text: 'Filtrar busqueda',
+                        color: Colors.grey,
+                      ),
+                    ],
                   ),
-                  SimpleText(
-                    text: 'Filtrar busqueda',
-                    color: Colors.grey,
-                  ),
-                ],
+                ),
               ),
             ),
             StreamBuilder(
