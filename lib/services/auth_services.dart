@@ -1,5 +1,16 @@
 part of 'services.dart';
 
+class LoginResponse {
+  String message;
+  int statusCode;
+  bool correctCredentials;
+  LoginResponse({
+    required this.message,
+    required this.statusCode,
+    required this.correctCredentials,
+  });
+}
+
 class AuthServices with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   bool isLogged = false;
@@ -14,7 +25,7 @@ class AuthServices with ChangeNotifier {
     return _user;
   }
 
-  setUsuario(UserModel value) => _user = value;
+  setUser(UserModel value) => _user = value;
 
 //
   bool get getAuthenticating => _authenticating;
@@ -23,7 +34,7 @@ class AuthServices with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<LoginResponse> login(String email, String password) async {
     setAuthenticating = true;
 
     final data = {
@@ -32,19 +43,26 @@ class AuthServices with ChangeNotifier {
       'idDevice': await messaging.getToken() ?? ''
     };
 
-    final resp = await Request.sendRequest('POST', 'auth/signin', data);
-    /* print(resp!.body); */
+    final resp = await Request.sendRequest('POST', 'auth/signIn', data);
     setAuthenticating = false;
 
     if (validateStatus(resp!.statusCode)) {
-      /* print(userModelFromJson(resp.body).accessToken); */
-      setUsuario(userModelFromJson(resp.body));
+      setUser(userModelFromJson(resp.body));
       await _saveIdAnToken(user.id.toString(), user.accessToken);
       isLogged = true;
       notifyListeners();
-      return true;
+      return LoginResponse(
+        message: 'login_ok',
+        statusCode: resp.statusCode,
+        correctCredentials: validateStatus(resp.statusCode),
+      );
     } else {
-      return false;
+      final error = errorModelFromJson(resp.body);
+      return LoginResponse(
+        message: error.message,
+        statusCode: resp.statusCode,
+        correctCredentials: validateStatus(resp.statusCode),
+      );
     }
   }
 
@@ -61,13 +79,10 @@ class AuthServices with ChangeNotifier {
       'email': email,
     };
 
-    final resp = await Request.sendRequest('POST', 'auth/signup', data);
+    final resp = await Request.sendRequest('POST', 'auth/signUp', data);
     setAuthenticating = false;
 
-    /* print(resp!.body); */
     if (validateStatus(resp!.statusCode)) {
-      /* setUsuario(userModelFromJson(resp.body));
-      await _saveIdAnToken(usuario.id.toString(), usuario.accessToken); */
       isLogged = true;
       notifyListeners();
       return true;
@@ -79,13 +94,12 @@ class AuthServices with ChangeNotifier {
   Future<bool> logout() async {
     await Request.sendRequestWithToken(
         'GET',
-        'auth/signout/${await messaging.getToken()}',
+        'auth/signOut/${await messaging.getToken()}',
         {},
         await _storage.read(key: 'token'));
 
     await clearIdAndToken();
     isLogged = false;
-    /* setUsuario(null); */
     notifyListeners();
     return true;
   }
@@ -98,14 +112,14 @@ class AuthServices with ChangeNotifier {
   Future<bool> renewToken() async {
     final resp = await Request.sendRequestWithToken(
       'GET',
-      'auth/renewtoken',
+      'auth/renewToken',
       {},
       await _storage.read(key: 'token'),
     );
 
     if (resp?.statusCode == 200) {
       isLogged = true;
-      setUsuario(userModelFromJson(resp!.body));
+      setUser(userModelFromJson(resp!.body));
       await _saveIdAnToken(user.id.toString(), user.accessToken);
       return true;
     } else {

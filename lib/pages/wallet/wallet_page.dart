@@ -10,10 +10,11 @@ class WalletPage extends StatelessWidget {
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          /* padding: const EdgeInsets.symmetric(horizontal: 20), */
           child: Column(
             children: [
               Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 color: Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -72,7 +73,13 @@ class WalletPage extends StatelessWidget {
                           child: ButtonWithIcon(
                             label: 'Retirar',
                             onPressed: () {
-                              Navigator.pushNamed(context, 'withdraw_page');
+                              if (auth.user.wallet.balance > 0) {
+                                Navigator.pushNamed(context, 'withdraw_page');
+                              } else {
+                                GlobalSnackBar.show(
+                                    context, 'Tienes 0 de monedas',
+                                    backgroundColor: Colors.red);
+                              }
                             },
                             icon: Icons.arrow_downward,
                           ),

@@ -19,9 +19,10 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const SimpleText(
-          text: 'Subir nueva tarea',
+          text: 'SUBIR NUEVA TAREA',
           color: Colors.black,
           fontSize: 20,
+          fontWeight: FontWeight.w500,
         ),
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -61,8 +62,8 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
             children: [
               UploadHomeworkOnlyText(authService: authServices),
               UploadHomeworkWithFile(authService: authServices),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_transit),
+              const Icon(Icons.directions_transit),
+              const Icon(Icons.directions_transit),
             ],
           ),
         ),
@@ -197,10 +198,10 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                         });
                         final validationSuccess =
                             _formKey.currentState!.validate();
-                        print(_formKey.currentState!.value['']);
+                        /*  print(_formKey.currentState!.value['']);
                         print(_formKey.currentState!.value['offered_amount']);
                         print(_formKey.currentState!.value['category']);
-                        print(_formKey.currentState!.value['resolutionTime']);
+                        print(_formKey.currentState!.value['resolutionTime']); */
                         if (validationSuccess) {
                           _formKey.currentState!.save();
                           /* print(_formKey.currentState!.value); */

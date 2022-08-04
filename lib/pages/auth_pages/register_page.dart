@@ -91,8 +91,8 @@ class RegisterPage extends StatelessWidget {
                       onPressed: () async {
                         final validationSuccess =
                             _formKey.currentState!.validate();
-                        print(_formKey.currentState!.value['username']);
-                        print(_formKey.currentState!.value['password']);
+                        /* print(_formKey.currentState!.value['username']); */
+                        /* print(_formKey.currentState!.value['password']); */
                         if (validationSuccess) {
                           _formKey.currentState!.save();
                           final login = await authService.register(

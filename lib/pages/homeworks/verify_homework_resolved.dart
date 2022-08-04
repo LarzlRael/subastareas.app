@@ -7,7 +7,7 @@ class VerifyHomeworkResolved extends StatelessWidget {
   Widget build(BuildContext context) {
     final tradeUserModel =
         ModalRoute.of(context)!.settings.arguments as TradeUserModel;
-    final tradeServices = TradeServices();
+    /* final tradeServices = TradeServices(); */
     return Scaffold(
       body: SafeArea(
         child: Container(

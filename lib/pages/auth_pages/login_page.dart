@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -94,11 +94,15 @@ class _LoginPageState extends State<LoginPage> {
                                     _formKey.currentState!.value['username'],
                                     _formKey.currentState!.value['password']);
 
-                                if (login) {
+                                if (login.message == "login_ok") {
                                   Navigator.pushReplacementNamed(
                                       context, 'bottomNavigation');
                                   filter.setCurrentBottomTab = 0;
                                   socketService.connect();
+                                } else if (login.message ==
+                                    "verify_your_email") {
+                                  Navigator.pushReplacementNamed(
+                                      context, 'verify_email_page');
                                 } else {
                                   showSimpleAlert(
                                       context, 'Credenciales incorrectas');

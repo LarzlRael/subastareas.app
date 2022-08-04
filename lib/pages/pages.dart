@@ -37,6 +37,7 @@ part 'initialPresentation/welcome_page.dart';
 part 'auth_pages/login_page.dart';
 part 'auth_pages/register_page.dart';
 part 'auth_pages/forgot_password.dart';
+part 'auth_pages/verify_email_page.dart';
 
 part 'auction_pages/auction_page.dart';
 part 'auction_pages/aution_with_offer_page.dart';

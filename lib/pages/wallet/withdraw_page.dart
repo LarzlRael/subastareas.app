@@ -32,11 +32,11 @@ class WithdrawPage extends StatelessWidget {
         child: Column(
           children: [
             balanceInformation(user),
-            const SizedBox(height: 20),
             const SimpleText(
               text: 'Seleccione un metodo de retirada',
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
+              fontSize: 20,
+              top: 55,
+              fontWeight: FontWeight.w500,
             ),
             Expanded(
               child: GridView.count(

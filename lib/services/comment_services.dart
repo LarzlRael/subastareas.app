@@ -8,8 +8,8 @@ class CommentServices {
         'comments/newComment/$idHomework',
         {'content': commentContent},
         await _storage.read(key: 'token'));
-    print(comment!.body);
-    return validateStatus(comment.statusCode);
+
+    return validateStatus(comment!.statusCode);
   }
 
   Future<bool> editComment(int idCommnent, String commentContent) async {

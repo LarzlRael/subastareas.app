@@ -7,7 +7,6 @@ class ResolvedHomeworkUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final getOffers = tradeServices.getHomeworksResolvedByUser('accepted');
-    /* print('getOffers: $getOffers'); */
     inspect(getOffers);
     return Scaffold(
       body: FutureBuilder(

@@ -15,7 +15,7 @@ class NotificationPage extends StatelessWidget {
             AsyncSnapshot<List<NotificationModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
-              Center(
+              const Center(
                 child: NoInformation(
                   icon: Icons.notifications_off,
                   message: "No tienes notificaciones",

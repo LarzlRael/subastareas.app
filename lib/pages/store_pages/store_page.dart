@@ -33,7 +33,7 @@ class StorePage extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 5),
               FutureBuilder(
                 future: tradeServices.getPlanes(),
                 builder: (BuildContext context,

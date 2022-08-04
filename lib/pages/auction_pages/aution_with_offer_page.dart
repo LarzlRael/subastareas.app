@@ -171,20 +171,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                 children: [
                   _ImageBackgorundAndTimer(
                       auth: auth, homework: widget.args, isOwner: isOwner),
-                  Row(
-                    children: [
-                      Icon(Icons.remove_red_eye, color: Colors.grey),
-                      SimpleText(
-                        text: _currentViewers == 1
-                            ? 'Solo tú estas viendo esto'
-                            : 'Tú y ${_currentViewers - 1} estan viendo esto',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                        top: 5,
-                        bottom: 5,
-                      ),
-                    ],
-                  ),
+                  auth.isLogged ? currentHomeworkViewers() : Container(),
                   const Center(
                     child: SimpleText(
                       text: "Ofertas recibidas",
@@ -242,6 +229,23 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
           ],
         ),
       ),
+    );
+  }
+
+  Row currentHomeworkViewers() {
+    return Row(
+      children: [
+        Icon(Icons.remove_red_eye, color: Colors.grey),
+        SimpleText(
+          text: _currentViewers == 1
+              ? 'Solo tú estas viendo esto'
+              : 'Tú y ${_currentViewers - 1} estan viendo esto',
+          fontSize: 15,
+          fontWeight: FontWeight.w500,
+          top: 5,
+          bottom: 5,
+        ),
+      ],
     );
   }
 }

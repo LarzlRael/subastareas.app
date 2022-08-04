@@ -82,8 +82,7 @@ class HomeworkServices {
       await _storage.read(key: 'token'),
     );
 
-    print(homeworkRequest!.statusCode);
-    return (homeworkRequest.statusCode);
+    return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
   }
 
@@ -117,7 +116,5 @@ class HomeworkServices {
       file,
       await _storage.read(key: 'token') ?? '',
     );
-    print(uploadWithFile.body);
-    print(uploadWithFile.statusCode);
   }
 }
