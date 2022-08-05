@@ -22,6 +22,7 @@ import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/data.dart';
+import 'package:subastareaspp/utils/shared_preferences.dart';
 import 'package:subastareaspp/utils/text_util.dart';
 import 'package:subastareaspp/utils/validation.dart';
 import 'package:subastareaspp/widgets/slideshows/slideshow.dart';
@@ -36,7 +37,7 @@ part 'initialPresentation/welcome_page.dart';
 
 part 'auth_pages/login_page.dart';
 part 'auth_pages/register_page.dart';
-part 'auth_pages/forgot_password.dart';
+part 'auth_pages/forgot_password_page.dart';
 part 'auth_pages/verify_email_page.dart';
 
 part 'auction_pages/auction_page.dart';

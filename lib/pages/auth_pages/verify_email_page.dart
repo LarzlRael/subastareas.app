@@ -10,18 +10,20 @@ class VerifyEmailPage extends StatefulWidget {
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   late AuthServices authService;
   late SocketService socketService;
-  late UserModel user;
+  late UserPreferences preferences;
+  late MailServices mailServices;
+  @override
+  void initState() {
+    authService = Provider.of<AuthServices>(context, listen: false);
+    socketService = Provider.of<SocketService>(context, listen: false);
+    mailServices = MailServices();
+    preferences = UserPreferences();
+    mailServices.requestEmailVerification(preferences.loginEmail);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    authService = Provider.of<AuthServices>(context, listen: false);
-    //TODO
-    socketService = Provider.of<SocketService>(context, listen: false);
-    user = authService.user;
-    /* mailServices = MailServices(); */
-
-    /* mailServices.sendEmailVerification(authService.usuario.email); */
-
     return Scaffold(
       body: Center(
         child: Container(
@@ -42,16 +44,14 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 fontWeight: FontWeight.bold,
                 bottom: 10,
               ),
-
-              /* Text(
-                '${usuario.email}',
+              SimpleText(
+                text: preferences.loginEmail,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              ), */
-
+              ),
               const SimpleText(
                 top: 10,
                 text:
-                    'Por favor complete su verificacion de identidad de correo electronico, acabamos de enviarle un email a su cuenta ',
+                    'Por favor complete su verificación de identidad de correo electronico, acabamos de enviarle un email a su cuenta ',
                 bottom: 20,
               ),
               GestureDetector(
@@ -108,12 +108,13 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     );
   }
 
-  /* sendEmailVerication(BuildContext context) {
-    this.mailServices.sendEmailVerification(authService.usuario.email);
-    showSnackBarNotification(
-        color: Colors.green,
-        message: 'Correo electronico enviado, verifique su email',
-        context: context);
+  sendEmailVerification(BuildContext context) {
+    mailServices.requestEmailVerification(preferences.loginEmail);
+    GlobalSnackBar.show(
+      context,
+      'Correo electronico enviado, verifique su email',
+      backgroundColor: Colors.green,
+    );
     /* Navigator.pop(context); */
-  } */
+  }
 }

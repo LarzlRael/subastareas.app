@@ -30,3 +30,4 @@ part 'push_notification_service.dart';
 part 'sockets/socket_service.dart';
 part 'sockets/socket_utils.dart';
 part 'trade_services.dart';
+part 'mail_services.dart';

@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
     final authService = Provider.of<AuthServices>(context);
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
+    final preferences = UserPreferences();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -93,14 +94,15 @@ class _LoginPageState extends State<LoginPage> {
                                 final login = await authService.login(
                                     _formKey.currentState!.value['username'],
                                     _formKey.currentState!.value['password']);
-
-                                if (login.message == "login_ok") {
+                                final response = login.message.split(' ')[0];
+                                if (response == "login_ok") {
                                   Navigator.pushReplacementNamed(
                                       context, 'bottomNavigation');
                                   filter.setCurrentBottomTab = 0;
                                   socketService.connect();
-                                } else if (login.message ==
-                                    "verify_your_email") {
+                                } else if (response == "verify_your_email") {
+                                  preferences.loginEmail =
+                                      login.message.split(' ')[1];
                                   Navigator.pushReplacementNamed(
                                       context, 'verify_email_page');
                                 } else {
@@ -124,3 +126,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+// split string by space

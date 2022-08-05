@@ -1,35 +1,35 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreferences {
-  //no one this propertyes it is used
+  //no one this properties it is used
 
-  static final UserPreferences _instancia = UserPreferences._internal();
+  static final UserPreferences _instance = UserPreferences._internal();
 
   factory UserPreferences() {
-    return _instancia;
+    return _instance;
   }
 
   UserPreferences._internal();
 
-  late SharedPreferences _prefs;
+  late SharedPreferences _preferences;
 
-  initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
+  initPreferences() async {
+    _preferences = await SharedPreferences.getInstance();
   }
 
   String get loginEmail {
-    return _prefs.getString('loginEmail') ?? '';
+    return _preferences.getString('loginEmail') ?? '';
   }
 
   set loginEmail(String value) {
-    _prefs.setString('loginEmail', value);
+    _preferences.setString('loginEmail', value);
   }
 
   bool get showInitialSlider {
-    return _prefs.getBool('showInitialSlider') ?? true;
+    return _preferences.getBool('showInitialSlider') ?? true;
   }
 
   set setShowInitialSlider(bool value) {
-    _prefs.setBool('showInitialSlider', value);
+    _preferences.setBool('showInitialSlider', value);
   }
 }

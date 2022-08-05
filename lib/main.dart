@@ -31,7 +31,8 @@ void main() async {
   await FlutterDownloader.initialize(
       debug: true // optional: set false to disable printing logs to console
       ); */
-
+  final preferences = UserPreferences();
+  await preferences.initPreferences();
   runApp(const MyApp());
 }
 

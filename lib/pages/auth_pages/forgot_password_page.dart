@@ -11,6 +11,7 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   final formKey = GlobalKey<FormState>();
+  final mailServices = MailServices();
   String emailField = '';
   @override
   Widget build(BuildContext context) {
@@ -40,9 +41,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   top: 20,
                   bottom: 20,
                   text:
-                      'Vamos a enviar un correo electronico para recuperar su contraseña, por favor siga los pasos .',
+                      'Vamos a enviar un correo electronico para recuperar su contraseña, por favor siga los pasos.',
                   color: Colors.black87,
                   fontSize: 15,
+                  textAlign: TextAlign.center,
                 ),
                 Form(
                   key: formKey,
@@ -53,7 +55,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         const InputDecoration(labelText: 'Correo electronico'),
                     validator: (value) {
                       if (validateEmail(value!)) {
-                        return 'Ingrese un correo electronico valido';
+                        return 'Ingrese un correo electronico válido';
                       } else {
                         return null;
                       }
@@ -65,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 GestureDetector(
                   onTap: () {
                     //TODO send email verification, create service
-                    /* _submit(); */
+                    _submit();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -100,23 +102,20 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  /* void _submit() async {
+  void _submit() async {
     if (!formKey.currentState!.validate()) return;
 
     formKey.currentState!.save();
     /* print(this.emailField); */
-    final resp = await this.mailServices.forgotPassword(this.emailField);
+    final resp = await mailServices.requestPasswordChange(emailField);
     if (resp) {
-      showSnackBarNotification(
-          context: context,
-          message: 'Correo enviado, revise su bandeja de entrada',
-          color: Colors.green);
+      GlobalSnackBar.show(
+          context, 'Correo enviado, revise su bandeja de entrada',
+          backgroundColor: Colors.green);
       Navigator.pop(context);
     } else {
-      showSnackBarNotification(
-          context: context,
-          message: 'Hubo un error al comprobar su email',
-          color: Colors.red);
+      GlobalSnackBar.show(context, 'Hubo un error al comprobar su email',
+          backgroundColor: Colors.red);
     }
-  } */
+  }
 }
