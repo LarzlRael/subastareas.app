@@ -34,12 +34,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
               Expanded(
                 child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
-                  itemCount: menuProfileOptions.length,
+                  itemCount: menuProfileOptions(auth).length,
                   itemBuilder: (
                     BuildContext context,
                     int index,
                   ) {
-                    return menuProfileOptions[index];
+                    return menuProfileOptions(auth)[index];
                   },
                 ),
               ),

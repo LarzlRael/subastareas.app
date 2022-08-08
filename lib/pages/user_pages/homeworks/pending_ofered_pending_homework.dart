@@ -19,7 +19,7 @@ class PendingOferedPendingHomework extends StatelessWidget {
               AsyncSnapshot<List<TradeUserModel>> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.isEmpty) {
-                return NoInformation(
+                return const NoInformation(
                   message: 'No tienes ninguna tarea pendiente',
                   showButton: false,
                   icon: Icons.assignment_late,

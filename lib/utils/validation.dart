@@ -23,3 +23,7 @@ void navigatorProtected(
     Navigator.pushReplacementNamed(context, 'welcome');
   }
 }
+
+bool isAdmin(List<String> roles) {
+  return roles.contains('admin');
+}

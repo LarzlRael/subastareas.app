@@ -59,7 +59,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
               child: SizedBox(
                 child: GestureDetector(
                   onTap: () {
-                    showFilterBottomMenuShet(context);
+                    showFilterBottomMenuSheet(context);
                   },
                   child: Row(
                     children: const [
@@ -124,7 +124,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   }
 }
 
-showFilterBottomMenuShet(BuildContext context) {
+showFilterBottomMenuSheet(BuildContext context) {
   showModalBottomSheet(
     isScrollControlled: true,
     context: context,

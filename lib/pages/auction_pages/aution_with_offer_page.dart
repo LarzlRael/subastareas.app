@@ -144,7 +144,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
           isOwner: auth.user.id == widget.args.homework.user.id,
           animationController: AnimationController(
             vsync: this,
-            duration: Duration(milliseconds: 0),
+            duration: const Duration(milliseconds: 0),
           )..forward(),
         ));
 

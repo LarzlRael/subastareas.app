@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
                       onPressed: () async {
                         //TODO redirect to main menu
                         final googleinfo =
-                            await GoogleSignInServices.signiWithGoogle();
+                            await GoogleSignInServices.signInWithGoogle();
                       },
                       paddingVertical: 12,
                       buttonChild: Text("Iniciar sesión con google"),
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                     authService.getAuthenticating
                         ? const CircularProgressIndicator()
                         : LoginButton(
-                            buttonChild: Text("Iniciar sesión"),
+                            buttonChild: const Text("Iniciar sesión"),
                             textColor: Colors.white,
                             showIcon: false,
                             onPressed: () async {

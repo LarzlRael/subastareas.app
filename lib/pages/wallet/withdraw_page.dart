@@ -53,7 +53,7 @@ class WithdrawPage extends StatelessWidget {
                         logoWidget: Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            color: Color(0xff00377B),
+                            color: const Color(0xff00377B),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: Image.asset(
