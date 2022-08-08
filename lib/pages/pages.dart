@@ -4,14 +4,11 @@ import 'dart:io';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_countdown_timer/index.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
+
+import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:form_builder_file_picker/form_builder_file_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';

@@ -23,6 +23,12 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   }
 
   @override
+  void dispose() {
+    preferences.loginEmail = '';
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(

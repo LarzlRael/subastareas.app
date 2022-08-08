@@ -78,28 +78,16 @@ class UserModel {
 
 class Wallet {
   Wallet({
-    required this.id,
     required this.balance,
-    required this.createdAt,
-    required this.updatedAt,
   });
 
-  int id;
   int balance;
-  DateTime createdAt;
-  DateTime updatedAt;
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-        id: json["id"],
         balance: json["balance"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "balance": balance,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
       };
 }

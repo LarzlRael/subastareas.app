@@ -59,6 +59,6 @@ class OffersServices {
       await _storage.read(key: 'token') ?? '',
     );
     print(deletedOffer!.body);
-    return offerSimpleModelFromJson(deletedOffer!.body);
+    return offerSimpleModelFromJson(deletedOffer.body);
   }
 }

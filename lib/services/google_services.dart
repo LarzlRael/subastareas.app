@@ -9,7 +9,7 @@ class GoogleSignInServices {
     ],
   );
 
-  static Future<String> signiWithGoogle() async {
+  static Future<String> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? account = await _googleSignIn.signIn();
 
