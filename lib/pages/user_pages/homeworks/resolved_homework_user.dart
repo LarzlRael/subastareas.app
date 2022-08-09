@@ -6,16 +6,14 @@ class ResolvedHomeworkUser extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final getOffers = tradeServices.getHomeworksResolvedByUser('accepted');
-    inspect(getOffers);
     return Scaffold(
       body: FutureBuilder(
-        future: tradeServices.getHomeworksResolvedByUser('accepted'),
+        future: tradeServices.getHomeworksResolved('accepted'),
         builder: (BuildContext context,
             AsyncSnapshot<List<TradeUserModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
-              return NoInformation(
+              return const NoInformation(
                 message: 'No tienes ninguna tarea resuelta',
                 showButton: false,
                 icon: Icons.assignment_late,

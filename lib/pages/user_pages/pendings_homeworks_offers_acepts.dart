@@ -14,7 +14,7 @@ class PendingsHomeworksOffersAcepts extends StatelessWidget {
             AsyncSnapshot<List<HomeworksModel>> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
-              return NoInformation(
+              return const NoInformation(
                 message: 'No tienes ninguna tarea pendiente',
                 showButton: false,
                 icon: Icons.assignment_late,
