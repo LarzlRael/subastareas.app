@@ -1,9 +1,9 @@
 part of '../../pages.dart';
 
-class PendingOferedPendingHomework extends StatelessWidget {
+class PendingOfferedPendingHomework extends StatelessWidget {
   final TradeServices tradeServices;
 
-  const PendingOferedPendingHomework({Key? key, required this.tradeServices})
+  const PendingOfferedPendingHomework({Key? key, required this.tradeServices})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class PendingOferedPendingHomework extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(8),
         child: FutureBuilder(
-          future: tradeServices.getHomeworksResolvedByUser('pending_to_accept'),
+          future: tradeServices.getHomeworksResolvedByUser('pending_to_trade'),
           builder: (BuildContext context,
               AsyncSnapshot<List<TradeUserModel>> snapshot) {
             if (snapshot.hasData) {

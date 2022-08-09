@@ -71,6 +71,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         decoration: BoxDecoration(
@@ -83,9 +84,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           color: Colors.blue,
                         ),
                       ),
+                      const SizedBox(
+                        width: 5,
+                      ),
                       const SimpleText(
-                        top: 20,
-                        bottom: 20,
                         text: 'Enviar email de recuperación',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

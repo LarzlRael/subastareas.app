@@ -13,7 +13,7 @@ class MailServices {
     return validateStatus(requestPasswordChange!.statusCode);
   }
 
-  Future requestEmailVerification(String email) async {
+  Future<bool> requestEmailVerification(String email) async {
     final requestEmailVerification = await Request.sendRequest(
       'GET',
       'auth/sendEmailVerification/$email',
