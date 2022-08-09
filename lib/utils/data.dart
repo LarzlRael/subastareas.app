@@ -115,11 +115,16 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       page: MyOffers(),
     ),
     const MenuProfileOption(
+      icon: Icon(Icons.task),
+      title: "Tareas pendientes",
+      page: PendingHomeworksOffersAccepts(),
+    ),
+    /* const MenuProfileOption(
       icon: Icon(Icons.question_answer),
       title: "Tus marcadores",
       page: WalletPage(),
       showTrailing: true,
-    ),
+    ), */
     isAdmin(authService.user.userRols)
         ? const MenuProfileOption(
             icon: Icon(Icons.admin_panel_settings),

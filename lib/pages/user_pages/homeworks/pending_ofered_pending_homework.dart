@@ -7,14 +7,11 @@ class PendingOfferedPendingHomework extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    /* final getOffers =
-         homeworkServices.getHomeworksResolvedByUser('pending_to_trade'); */
-
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(8),
         child: FutureBuilder(
-          future: tradeServices.getHomeworksResolvedByUser('pending_to_trade'),
+          future: tradeServices.getHomeworksResolved('pending_to_accept'),
           builder: (BuildContext context,
               AsyncSnapshot<List<TradeUserModel>> snapshot) {
             if (snapshot.hasData) {

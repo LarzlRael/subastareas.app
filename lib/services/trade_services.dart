@@ -3,10 +3,10 @@ part of 'services.dart';
 class TradeServices {
   final _storage = const FlutterSecureStorage();
 
-  Future<List<TradeUserModel>> getHomeworksResolvedByUser(String status) async {
+  Future<List<TradeUserModel>> getHomeworksPendingToResolve() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'trade/getTradePendingToTrade/$status',
+      'trade/getTradePendingToTrade/',
       {},
       await _storage.read(key: 'token'),
     );
@@ -25,17 +25,15 @@ class TradeServices {
     return finalData;
   }
 
-  Future acceptOrDeclineTrade(int idOffer, int idTrade, bool accepted) async {
+  Future<bool> acceptOrDeclineTrade(int idOffer, bool accepted) async {
     final tradeRequest = await Request.sendRequestWithToken(
       'GET',
-      accepted
-          ? 'trade/acceptTrade/$idOffer/$idTrade'
-          : 'trade/declinetrade/$idOffer/$idTrade',
+      accepted ? 'trade/acceptTrade/$idOffer' : 'trade/declineTrade/$idOffer',
       {},
       await _storage.read(key: 'token'),
     );
 
-    return tradeRequest!.body;
+    return validateStatus(tradeRequest?.statusCode);
   }
 
   Future<List<PlanesModel>> getPlanes() async {

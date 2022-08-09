@@ -17,11 +17,13 @@ class TradeUserModel {
     required this.title,
     required this.resolutionTime,
     required this.description,
+    required this.offerId,
   });
 
   String? solvedHomeworkUrl;
   int tradeId;
   int homeworkId;
+  int offerId;
   String status;
   String title;
   DateTime resolutionTime;
@@ -32,6 +34,7 @@ class TradeUserModel {
             ? null
             : json["solvedHomeworkUrl"],
         tradeId: json["tradeId"],
+        offerId: json["offerId"],
         homeworkId: json["homeworkId"],
         status: json["status"],
         title: json["title"],
@@ -48,5 +51,6 @@ class TradeUserModel {
         "title": title,
         "resolutionTime": resolutionTime.toIso8601String(),
         "description": description == null ? null : description,
+        "offerId": offerId,
       };
 }

@@ -29,7 +29,7 @@ class OffersServices {
     print(homeworkRequest!.body);
   }
 
-  Future uploadHomeworkResolvedFile(File file, int idOfferAcceptd) async {
+  Future<bool> uploadHomeworkResolvedFile(File file, int idOfferAcceptd) async {
     final homeworkRequest = await Request.sendRequestWithFile(
         'PUT',
         'trade/uploadResolvedHomework/$idOfferAcceptd',

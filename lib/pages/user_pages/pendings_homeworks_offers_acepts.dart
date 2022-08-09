@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
-class PendingsHomeworksOffersAcepts extends StatelessWidget {
-  const PendingsHomeworksOffersAcepts({Key? key}) : super(key: key);
+class PendingHomeworksOffersAccepts extends StatelessWidget {
+  const PendingHomeworksOffersAccepts({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -32,13 +32,13 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                 final homework = snapshot.data!.homework;
 
                 //TODO cambiar esto en la base de datos
-                final getIdOfferAcceptd = snapshot.data!.offers
+                final getIdOfferAccepted = snapshot.data!.offers
                     .where((element) =>
                         element.status == "pending_to_resolve" ||
                         element.status == "pending_to_accept")
                     .first
                     .id;
-                print(getIdOfferAcceptd);
+                print(getIdOfferAccepted);
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -78,47 +78,60 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          CustomFileField(
+                          const CustomFileField(
                             name: 'file',
                           ),
-                          LoginButton(
-                            buttonChild: Text("Subir tarea resuelta"),
-                            textColor: Colors.white,
-                            showIcon: false,
-                            onPressed: () async {
-                              setState(() {
-                                _loading = true;
-                              });
-                              final validationSuccess =
-                                  _formKey.currentState!.validate();
+                          _loading
+                              ? const Center(child: CircularProgressIndicator())
+                              : FillButton(
+                                  text: "Subir tarea resuelta",
+                                  textColor: Colors.white,
+                                  /* backgroundColor: Colors.green, */
+                                  borderRadius: 30,
+                                  onPressed: () async {
+                                    setState(() {
+                                      _loading = true;
+                                    });
+                                    final validationSuccess =
+                                        _formKey.currentState!.validate();
 
-                              if (validationSuccess) {
-                                _formKey.currentState!.save();
-                                /* print(_formKey.currentState!.value); */
-                                /* final Map<String, String> data = {
-                                  'title':
-                                      _formKey.currentState!.value['title'],
-                                  'offered_amount': _formKey
-                                      .currentState!.value['offered_amount'],
-                                  'category':
-                                      _formKey.currentState!.value['category'],
-                                  'resolutionTime': _formKey
-                                      .currentState!.value['resolutionTime']
-                                      .toString(),
-                                }; */
+                                    if (validationSuccess) {
+                                      _formKey.currentState!.save();
 
-                                await offersServices.uploadHomeworkResolvedFile(
-                                    File(
-                                      _formKey
-                                          .currentState!.value['file'][0].path,
-                                    ),
-                                    getIdOfferAcceptd);
-                                setState(() {
-                                  _loading = false;
-                                });
-                              }
-                            },
-                          ),
+                                      final response = await offersServices
+                                          .uploadHomeworkResolvedFile(
+                                              File(
+                                                _formKey.currentState!
+                                                    .value['file'][0].path,
+                                              ),
+                                              getIdOfferAccepted);
+                                      setState(() {
+                                        _loading = false;
+                                      });
+                                      if (response) {
+                                        Navigator.pop(context);
+                                        GlobalSnackBar.show(
+                                          context,
+                                          "Tarea resuelta subida correctamente",
+                                          backgroundColor: Colors.green,
+                                        );
+                                      } else {
+                                        setState(() {
+                                          _loading = false;
+                                        });
+                                        GlobalSnackBar.show(
+                                          context,
+                                          "Error al subir la tarea resuelta",
+                                          backgroundColor: Colors.red,
+                                        );
+                                      }
+                                    } else {
+                                      setState(() {
+                                        _loading = false;
+                                      });
+                                    }
+                                  },
+                                ),
                           /* RaisedButton(
                         onPressed: () async {
                           await authService.logout();
