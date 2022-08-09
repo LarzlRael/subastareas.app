@@ -61,34 +61,34 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 bottom: 20,
               ),
               GestureDetector(
-                /* onTap: () {
-                  sendEmailVerication(context);
-                }, */
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(200),
-                        color: Colors.white,
+                  onTap: () {
+                    sendEmailVerification(context);
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(200),
+                          color: Colors.white,
+                        ),
+                        child: const Icon(
+                          Ionicons.chevron_forward_circle,
+                          size: 35,
+                          color: Colors.blue,
+                        ),
                       ),
-                      child: const Icon(
-                        Ionicons.chevron_forward_circle,
-                        size: 35,
-                        color: Colors.blue,
+                      const SizedBox(
+                        width: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const SimpleText(
-                        top: 10,
+                      const SimpleText(
                         text: 'Reenviar e-mail de verificación',
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ],
-                ),
-              ),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  )),
               const SizedBox(
                 height: 15,
               ),
@@ -114,13 +114,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     );
   }
 
-  sendEmailVerification(BuildContext context) {
-    mailServices.requestEmailVerification(preferences.loginEmail);
-    GlobalSnackBar.show(
-      context,
-      'Correo electronico enviado, verifique su email',
-      backgroundColor: Colors.green,
-    );
-    /* Navigator.pop(context); */
+  sendEmailVerification(BuildContext context) async {
+    final isSended =
+        await mailServices.requestEmailVerification(preferences.loginEmail);
+    if (isSended) {
+      GlobalSnackBar.show(
+        context,
+        'Correo electronico enviado, verifique su email',
+        backgroundColor: Colors.green,
+      );
+    } else {
+      GlobalSnackBar.show(
+        context,
+        'Hubo un error al enviar el correo electronico',
+        backgroundColor: Colors.red,
+      );
+    }
+    Navigator.pop(context);
   }
 }
