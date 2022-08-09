@@ -6,7 +6,7 @@ class TradeServices {
   Future<List<TradeUserModel>> getHomeworksResolvedByUser(String status) async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'trade/gettradingbyuser/$status',
+      'trade/getTradePendingToTrade/$status',
       {},
       await _storage.read(key: 'token'),
     );
@@ -18,7 +18,7 @@ class TradeServices {
     final tradeRequest = await Request.sendRequestWithToken(
       'GET',
       accepted
-          ? 'trade/acceptrade/$idOffer/$idTrade'
+          ? 'trade/acceptTrade/$idOffer/$idTrade'
           : 'trade/declinetrade/$idOffer/$idTrade',
       {},
       await _storage.read(key: 'token'),
