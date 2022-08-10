@@ -6,6 +6,7 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context);
+    final transactionServices = TransactionServices();
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -96,10 +97,35 @@ class WalletPage extends StatelessWidget {
                   ],
                 ),
               ),
+              FutureBuilder(
+                future: transactionServices.getUserHistoryTransaction(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<UserTransactionModel>> snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: Text('No hay transacciones'),
+                      );
+                    }
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return TransactionCard(
+                            transaction: snapshot.data![index],
+                          );
+                        },
+                      ),
+                    );
+                  } else {
+                    return const CircularCenter();
+                  }
+                },
+              ),
+/*               const TransactionCard(),
               const TransactionCard(),
               const TransactionCard(),
-              const TransactionCard(),
-              const TransactionCard(),
+              const TransactionCard(), */
             ],
           ),
         ),

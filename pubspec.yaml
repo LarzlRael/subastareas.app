@@ -30,35 +30,53 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #viewers
   flutter_svg: ^1.0.3
+  pdf_viewer_plugin: ^2.0.1
+  #shared_preferences
   flutter_secure_storage: ^5.0.2
   shared_preferences: ^2.0.13
-  ionicons: ^0.1.2
-  http: ^0.13.4
+
+  #forms
   flutter_form_builder: ^7.1.1
   form_builder_validators: ^8.1.1
-  firebase_messaging: ^11.4.1
-  mime_type: ^1.0.0
-  pdf_viewer_plugin: ^2.0.1
-  path_provider: ^2.0.10
   form_builder_file_picker: ^2.1.0
   datetime_picker_formfield: ^2.0.0
+
   file_picker: ^4.5.1
+  mime_type: ^1.0.0
+
+  path_provider: ^2.0.10
   flutter_countdown_timer: ^4.1.0
+  #icons
+  ionicons: ^0.1.2
   cupertino_icons: ^1.0.2
+  font_awesome_flutter: ^10.1.0
+  #state management
   provider: ^6.0.2
+  #socketIo and HTTP request
+  socket_io_client: ^2.0.0
+  http: ^0.13.4
+
   flutter_native_splash: ^2.1.6
   flutter_downloader: ^1.7.4
-  font_awesome_flutter: ^10.1.0
+  #google services
   google_sign_in: ^5.2.4
-  page_transition: ^2.0.5
+
+  #notifications
   flutter_local_notifications: ^9.5.3+1
+  firebase_messaging: ^11.4.1
   firebase_core: ^1.17.1
+
+  #time controller
+  simple_moment: ^1.1.1
   timeago: ^3.2.2
   http_interceptor: ^1.0.1
   image_picker: ^0.8.5+3
-  socket_io_client: ^2.0.0
+
+  #animations
   animate_do: ^2.1.0
+  page_transition: ^2.0.5
   badges: ^2.0.3
 
 flutter_native_splash:

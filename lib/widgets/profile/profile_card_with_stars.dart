@@ -38,9 +38,6 @@ class ProfileCardWithStars extends StatelessWidget {
                   auth.usuario.username, 50), 
                   */
               ProfileImageEdit(
-                username: auth.user.username,
-                profileImage: auth.user.profileImageUrl,
-                editable: false,
                 auth: auth,
               ),
               Column(

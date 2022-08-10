@@ -195,7 +195,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                     builder: (BuildContext context,
                         AsyncSnapshot<OneHomeworkModel> snapshot) {
                       if (!snapshot.hasData) {
-                        return const Center(child: CircularProgressIndicator());
+                        return const CircularCenter();
                       } else if (_offer.isEmpty) {
                         return const NoInformation(
                           message: 'No hay ofertas aun',

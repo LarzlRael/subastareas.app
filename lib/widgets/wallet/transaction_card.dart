@@ -1,8 +1,9 @@
 part of '../widgets.dart';
 
 class TransactionCard extends StatelessWidget {
-  const TransactionCard({Key? key}) : super(key: key);
-
+  const TransactionCard({Key? key, required this.transaction})
+      : super(key: key);
+  final UserTransactionModel transaction;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -17,9 +18,11 @@ class TransactionCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Icon(
-              FontAwesomeIcons.circleArrowUp,
+              transaction.amount > 0
+                  ? FontAwesomeIcons.circleArrowUp
+                  : FontAwesomeIcons.circleArrowDown,
               size: 25,
-              color: Colors.blue,
+              color: transaction.amount > 0 ? Colors.green : Colors.red,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,28 +30,32 @@ class TransactionCard extends StatelessWidget {
                 Row(
                   children: [
                     SimpleText(
-                      text: '27/02/2022',
+                      text: convertTime(
+                        transaction.createdAt,
+                        format: 'dd/MM/yyyy',
+                      ),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       right: 6,
                     ),
-                    SimpleText(
+                    /*  SimpleText(
                       text: '22:48',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                    ),
+                    ), */
                   ],
                 ),
                 Row(
                   children: [
                     SimpleText(
-                      text: '9000',
+                      text: '${transaction.amount}',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: transaction.amount < 0 ? Colors.red : Colors.green,
                       right: 5,
                     ),
                     SimpleText(
-                      text: 'Depositado',
+                      text: transaction.transactionType,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

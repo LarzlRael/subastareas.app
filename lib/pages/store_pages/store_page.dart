@@ -52,7 +52,7 @@ class StorePage extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return const CircularCenter();
                   }
                 },
               ),

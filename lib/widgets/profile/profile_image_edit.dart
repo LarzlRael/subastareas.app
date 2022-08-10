@@ -1,15 +1,11 @@
 part of '../widgets.dart';
 
 class ProfileImageEdit extends StatefulWidget {
-  final String username;
-  final String? profileImage;
   final bool editable;
   final AuthServices auth;
   const ProfileImageEdit({
     Key? key,
-    required this.username,
     required this.auth,
-    this.profileImage,
     this.editable = true,
   }) : super(key: key);
 
@@ -59,21 +55,31 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
                           : null,
                     ),
                     radius: 38.0,
-                    backgroundImage:
-                        widget.profileImage == null && _image == null
-                            ? const NetworkImage(
-                                'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-                              )
-                            : _image == null
-                                ? NetworkImage(widget.profileImage!)
-                                : Image.file(_image!).image,
+                    backgroundImage: widget.auth.user.profileImageUrl == null &&
+                            _image == null
+                        ? const NetworkImage(
+                            'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+                          )
+                        : _image == null
+                            ? NetworkImage(widget.auth.user.profileImageUrl!)
+                            : Image.file(_image!).image,
                   ),
                 ),
               ),
             ),
             SimpleText(
               top: 5,
-              text: widget.username,
+              text: widget.auth.user.username,
+              color: Colors.white,
+            ),
+            SimpleText(
+              top: 5,
+              text: widget.auth.user.lastName,
+              color: Colors.white,
+            ),
+            SimpleText(
+              top: 5,
+              text: widget.auth.user.nickName,
               color: Colors.white,
             ),
           ],

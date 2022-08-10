@@ -94,8 +94,6 @@ class CardProfile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ProfileImageEdit(
-            username: auth.user.username,
-            profileImage: auth.user.profileImageUrl,
             auth: auth,
           ),
           /*  const SizedBox(
