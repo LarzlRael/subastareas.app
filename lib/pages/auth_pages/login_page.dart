@@ -81,10 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     authService.getAuthenticating
                         ? const CircularProgressIndicator()
-                        : LoginButton(
-                            buttonChild: const Text("Iniciar sesión"),
+                        : FillButton(
+                            text: "Iniciar sesión",
                             textColor: Colors.white,
-                            showIcon: false,
+                            borderRadius: 50,
                             onPressed: () async {
                               final validationSuccess =
                                   _formKey.currentState!.validate();

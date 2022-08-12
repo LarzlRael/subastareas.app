@@ -135,7 +135,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                   children: [
                     SimpleText(
                       text:
-                          'Tu saldo actual es de: ${widget.authService.user.wallet.balance}',
+                          'Tu saldo actual es de: ${widget.authService.user.wallet.balanceTotal}',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       top: 10,
@@ -154,7 +154,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                       validator: FormBuilderValidators.compose([
                         FormBuilderValidators.required(),
                         FormBuilderValidators.max(
-                            widget.authService.user.wallet.balance),
+                            widget.authService.user.wallet.balanceTotal),
                         FormBuilderValidators.min(1),
                       ]),
                     ),
@@ -165,13 +165,13 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                     ), */
                     /* text: 'Tiempo de resolucion : ',
                             name: 'resolutionTime', */
-                    CustomDatePicker(
+                    const CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
                       placeholder: 'Tiempo de resolucion : ',
                       keyboardType: TextInputType.datetime,
                     ),
-                    CustomFormbuilderFetchDropdown(
+                    const CustomFormbuilderFetchDropdown(
                       formFieldName: 'category',
                       placeholder: 'Seleccione una categoria',
                       title: 'Categoria :',
@@ -184,56 +184,60 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                       ), */
                   ],
                 ),
-                Column(
-                  children: [
-                    LoginButton(
-                      buttonChild: Text(
-                        homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
-                      ),
-                      textColor: Colors.white,
-                      showIcon: false,
-                      onPressed: () async {
-                        setState(() {
-                          _loading = true;
-                        });
-                        final validationSuccess =
-                            _formKey.currentState!.validate();
-                        /*  print(_formKey.currentState!.value['']);
-                        print(_formKey.currentState!.value['offered_amount']);
-                        print(_formKey.currentState!.value['category']);
-                        print(_formKey.currentState!.value['resolutionTime']); */
-                        if (validationSuccess) {
-                          _formKey.currentState!.save();
-                          /* print(_formKey.currentState!.value); */
-                          final data = {
-                            'title': _formKey.currentState!.value['title'],
-                            'offered_amount':
-                                _formKey.currentState!.value['offered_amount'],
-                            'category':
-                                _formKey.currentState!.value['category'],
-                            'resolutionTime': _formKey
-                                .currentState!.value['resolutionTime']
-                                .toString(),
-                          };
+                !_loading
+                    ? FillButton(
+                        text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                        borderRadius: 20,
+                        textColor: Colors.white,
+                        onPressed: () async {
+                          setState(() {
+                            _loading = true;
+                          });
+                          final validationSuccess =
+                              _formKey.currentState!.validate();
 
-                          if (await homeworksService.uploadHomeworOnlyText(
-                            data,
-                            homework.id,
-                          )) {
-                            Navigator.pushNamed(context, 'my_homeworks_page');
-                            _formKey.currentState!.reset();
+                          if (validationSuccess) {
+                            _formKey.currentState!.save();
+
+                            final data = {
+                              'title': _formKey.currentState!.value['title'],
+                              'offered_amount': _formKey
+                                  .currentState!.value['offered_amount'],
+                              'category':
+                                  _formKey.currentState!.value['category'],
+                              'resolutionTime': _formKey
+                                  .currentState!.value['resolutionTime']
+                                  .toString(),
+                            };
                             setState(() {
                               _loading = true;
                             });
-                            GlobalSnackBar.show(
-                                context, 'Tarea subida correctamente',
-                                backgroundColor: Colors.green);
+                            final uploadHomework =
+                                await homeworksService.uploadHomeworkOnlyText(
+                              data,
+                              homework.id,
+                            );
+                            if (uploadHomework) {
+                              Navigator.pushNamed(context, 'my_homeworks_page');
+                              _formKey.currentState!.reset();
+                              setState(() {
+                                _loading = false;
+                              });
+                              GlobalSnackBar.show(
+                                  context, 'Tarea subida correctamente',
+                                  backgroundColor: Colors.green);
+                            } else {
+                              setState(() {
+                                _loading = false;
+                              });
+                              GlobalSnackBar.show(
+                                  context, 'Error al subir tarea',
+                                  backgroundColor: Colors.red);
+                            }
                           }
-                        }
-                      },
-                    ),
-                  ],
-                )
+                        },
+                      )
+                    : const Center(child: CircularProgressIndicator())
               ],
             ),
           ),
@@ -243,13 +247,19 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
   }
 }
 
-class UploadHomeworkWithFile extends StatelessWidget {
-  final _formKey = GlobalKey<FormBuilderState>();
+class UploadHomeworkWithFile extends StatefulWidget {
   final AuthServices authService;
-  UploadHomeworkWithFile({
+  const UploadHomeworkWithFile({
     Key? key,
     required this.authService,
   }) : super(key: key);
+
+  @override
+  State<UploadHomeworkWithFile> createState() => _UploadHomeworkWithFileState();
+}
+
+class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
+  final _formKey = GlobalKey<FormBuilderState>();
 
   Homework homework = Homework(
     id: 0,
@@ -270,6 +280,7 @@ class UploadHomeworkWithFile extends StatelessWidget {
       username: '',
     ),
   );
+
   @override
   Widget build(BuildContext context) {
     final homeworkData = ModalRoute.of(context)?.settings.arguments;
@@ -299,21 +310,21 @@ class UploadHomeworkWithFile extends StatelessWidget {
                   children: [
                     SimpleText(
                       text:
-                          'Tu saldo actual es de: ${authService.user.wallet.balance}',
+                          'Tu saldo actual es de: ${widget.authService.user.wallet.balanceTotal}',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       top: 10,
                       bottom: 10,
                     ),
-                    CustomFileField(
+                    const CustomFileField(
                       name: 'file',
                     ),
-                    CustomFormbuilderTextArea(
+                    const CustomFormbuilderTextArea(
                       name: 'title',
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
                     ),
-                    CustomRowFormbuilderTextField(
+                    const CustomRowFormbuilderTextField(
                         name: 'offered_amount',
                         placeholder: 'Presupuesto ',
                         keyboardType: TextInputType.number,
@@ -325,32 +336,25 @@ class UploadHomeworkWithFile extends StatelessWidget {
                     ), */
                     /* text: 'Tiempo de resolucion : ',
                             name: 'resolutionTime', */
-                    CustomDatePicker(
+                    const CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
                       placeholder: 'Tiempo de resolucion : ',
                       keyboardType: TextInputType.datetime,
                     ),
-                    CustomFormbuilderFetchDropdown(
+                    const CustomFormbuilderFetchDropdown(
                       formFieldName: 'category',
                       placeholder: 'Seleccione una categoria',
                       title: 'Categoria :',
                     ),
-                    /* RaisedButton(
-                        onPressed: () async {
-                          await authService.logout();
-                        },
-                        child: Text('Cerrar sesion'),
-                      ), */
                   ],
                 ),
                 Column(
                   children: [
-                    LoginButton(
-                      buttonChild: Text(
-                          homework.id == 0 ? "Subir Tarea" : 'Editar Tarea'),
+                    FillButton(
+                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                      borderRadius: 20,
                       textColor: Colors.white,
-                      showIcon: false,
                       onPressed: () async {
                         final validationSuccess =
                             _formKey.currentState!.validate();

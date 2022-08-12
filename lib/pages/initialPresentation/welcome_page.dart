@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, 'login');
                 },
-                text: 'Iniciar sesion',
+                text: 'Iniciar sesión',
                 textColor: Colors.white,
                 backgroundColor: Colors.amber,
               ),

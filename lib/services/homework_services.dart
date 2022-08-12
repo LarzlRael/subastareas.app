@@ -95,12 +95,12 @@ class HomeworkServices {
     );
   }
 
-  Future<bool> uploadHomeworOnlyText(body, int idHomework) async {
+  Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
     final homeworkRequest = await Request.sendRequestWithToken(
       idHomework == 0 ? 'POST' : 'PUT',
       idHomework == 0
           ? 'homework/create'
-          : 'homework/updatehomework/$idHomework',
+          : 'homework/updateHomework/$idHomework',
       body,
       await _storage.read(key: 'token'),
     );

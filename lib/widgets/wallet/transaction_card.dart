@@ -7,11 +7,11 @@ class TransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
-      margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
@@ -63,7 +63,7 @@ class TransactionCard extends StatelessWidget {
                 ),
               ],
             ),
-            Icon(
+            const Icon(
               Icons.check_circle_outline,
               size: 30,
               color: Colors.green,

@@ -82,12 +82,10 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    LoginButton(
-                      buttonChild: Text(
-                        "Registrarse",
-                      ),
+                    FillButton(
+                      text: 'Registrarse',
                       textColor: Colors.white,
-                      showIcon: false,
+                      borderRadius: 50,
                       onPressed: () async {
                         final validationSuccess =
                             _formKey.currentState!.validate();

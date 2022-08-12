@@ -1,21 +1,30 @@
 part of '../pages.dart';
 
-class WithdrawMethodSelectedPage extends StatelessWidget {
+class WithdrawMethodSelectedPage extends StatefulWidget {
   const WithdrawMethodSelectedPage({Key? key}) : super(key: key);
 
+  @override
+  State<WithdrawMethodSelectedPage> createState() =>
+      _WithdrawMethodSelectedPageState();
+}
+
+class _WithdrawMethodSelectedPageState
+    extends State<WithdrawMethodSelectedPage> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthServices>(context, listen: false).user;
     final args = ModalRoute.of(context)!.settings.arguments as MethodArguments;
-    final formKey = GlobalKey<FormState>();
+    final transactionServices = TransactionServices();
 
+    final _formKey = GlobalKey<FormBuilderState>();
+    bool _loading = false;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Saldo'),
+        title: const Text('Saldo total'),
         actions: [
           Center(
             child: SimpleText(
-              text: user.wallet.balance.toString(),
+              text: "${user.wallet.balanceTotal}",
               right: 10,
               style: const TextStyle(
                 fontSize: 20,
@@ -48,29 +57,80 @@ class WithdrawMethodSelectedPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 RetirableInformation(user: user),
-                Form(
-                  key: formKey,
-                  child: TextFormField(
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    /* initialValue: 0, */
-                    decoration: InputDecoration(
-                        labelText:
-                            'Retirar cantidad 0 - ${user.wallet.balance}'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Este campo es requerido, para poder retirar';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSaved: (value) => print(value),
+                FormBuilder(
+                  initialValue: const {
+                    'balanceToWithDrawable': "0",
+                  },
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        children: [
+                          CustomRowFormbuilderTextField(
+                            name: 'balanceToWithDrawable',
+                            placeholder: 'Presupuesto ',
+                            keyboardType: TextInputType.number,
+                            suffixIcon: FontAwesomeIcons.coins,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.max(
+                                  user.wallet.balanceWithDrawable),
+                              FormBuilderValidators.min(1),
+                            ]),
+                          ),
+                        ],
+                      ),
+                      !_loading
+                          ? FillButton(
+                              text: "Retirar",
+                              borderRadius: 20,
+                              textColor: Colors.white,
+                              onPressed: () async {
+                                setState(() {
+                                  _loading = true;
+                                });
+                                final validationSuccess =
+                                    _formKey.currentState!.validate();
+
+                                if (validationSuccess) {
+                                  _formKey.currentState!.save();
+
+                                  setState(() {
+                                    _loading = true;
+                                  });
+                                  print(_formKey.currentState!
+                                      .value['balanceToWithDrawable']);
+                                  final withdrawMoneyTransaction =
+                                      await transactionServices
+                                          .withdrawMoneyTransaction(int.parse(
+                                              _formKey.currentState!.value[
+                                                  'balanceToWithDrawable']));
+                                  if (withdrawMoneyTransaction) {
+                                    Navigator.pushNamed(
+                                        context, 'my_homeworks_page');
+                                    _formKey.currentState!.reset();
+                                    setState(() {
+                                      _loading = false;
+                                    });
+                                    GlobalSnackBar.show(
+                                        context, 'Tarea subida correctamente',
+                                        backgroundColor: Colors.green);
+                                  } else {
+                                    setState(() {
+                                      _loading = false;
+                                    });
+                                    GlobalSnackBar.show(
+                                        context, 'Error al subir tarea',
+                                        backgroundColor: Colors.red);
+                                  }
+                                }
+                              },
+                            )
+                          : const Center(child: CircularProgressIndicator())
+                    ],
                   ),
-                ),
-                FillButton(
-                  borderRadius: 1,
-                  text: "Retirar",
-                  onPressed: () async {},
                 ),
                 const SizedBox(height: 25),
                 const Padding(

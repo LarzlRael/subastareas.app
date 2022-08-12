@@ -42,7 +42,7 @@ class WalletPage extends StatelessWidget {
                               height: 30,
                             ),
                             SimpleText(
-                              text: auth.user.wallet.balance.toString(),
+                              text: auth.user.wallet.balanceTotal.toString(),
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
                             ),
@@ -74,7 +74,7 @@ class WalletPage extends StatelessWidget {
                           child: ButtonWithIcon(
                             label: 'Retirar',
                             onPressed: () {
-                              if (auth.user.wallet.balance > 0) {
+                              if (auth.user.wallet.balanceWithDrawable > 0) {
                                 Navigator.pushNamed(context, 'withdraw_page');
                               } else {
                                 GlobalSnackBar.show(

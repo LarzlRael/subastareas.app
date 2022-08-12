@@ -15,7 +15,7 @@ class WithdrawPage extends StatelessWidget {
         actions: [
           Center(
             child: SimpleText(
-              text: user.wallet.balance.toString(),
+              text: "${user.wallet.balanceTotal}",
               right: 10,
               style: const TextStyle(
                 fontSize: 20,
@@ -33,7 +33,7 @@ class WithdrawPage extends StatelessWidget {
           children: [
             balanceInformation(user),
             const SimpleText(
-              text: 'Seleccione un metodo de retirada',
+              text: 'Seleccione un metodo de retiro',
               fontSize: 20,
               top: 55,
               fontWeight: FontWeight.w500,
@@ -138,7 +138,7 @@ class RetirableInformation extends StatelessWidget {
           ],
         ),
         SimpleText(
-          text: user.wallet.balance.toString(),
+          text: "${user.wallet.balanceWithDrawable}",
           style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,

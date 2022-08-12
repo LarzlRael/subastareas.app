@@ -13,4 +13,14 @@ class TransactionServices {
     final finalData = userTransactionModelFromJson(homeworkRequest!.body);
     return finalData;
   }
+
+  Future<bool> withdrawMoneyTransaction(int balance) async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'transaction/withdrawMoneyTransaction/$balance',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    return validateStatus(homeworkRequest!.statusCode);
+  }
 }

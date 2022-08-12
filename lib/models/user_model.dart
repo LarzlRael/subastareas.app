@@ -78,16 +78,20 @@ class UserModel {
 
 class Wallet {
   Wallet({
-    required this.balance,
+    required this.balanceTotal,
+    required this.balanceWithDrawable,
   });
 
-  int balance;
+  int balanceTotal;
+  int balanceWithDrawable;
 
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-        balance: json["balance"],
+        balanceTotal: json["balanceTotal"],
+        balanceWithDrawable: json["balanceWithDrawable"],
       );
 
   Map<String, dynamic> toJson() => {
-        "balance": balance,
+        "balanceTotal": balanceTotal,
+        "balanceWithDrawable": balanceWithDrawable,
       };
 }
