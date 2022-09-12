@@ -97,7 +97,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               )
                             ],
                           )
-                        : CircularProgressIndicator(),
+                        : const CircularProgressIndicator(),
                 tradeUserModel.status == 'accepted'
                     ? const SimpleText(
                         text:

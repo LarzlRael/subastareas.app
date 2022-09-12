@@ -1,13 +1,13 @@
 part of 'services.dart';
 
 class Request {
-  String uri = '${Enviroments.serverHttpUrl}/';
+  String uri = '${Environment.serverHttpUrl}/';
   static Future<http.Response?> sendRequest(
       String method, String url, Map<String, String>? body) async {
     final headers = {
       'Content-Type': 'application/json',
     };
-    Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
+    Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
       case "GET":
@@ -32,7 +32,7 @@ class Request {
       'Authorization': 'Bearer $token',
     };
 
-    final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
       case "GET":
@@ -58,7 +58,7 @@ class Request {
     String token,
   ) async {
     late http.Response res;
-    final Uri uri = Uri.parse('${Enviroments.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
     final mimeType = mime(file.path)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',

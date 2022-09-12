@@ -11,7 +11,7 @@ void showSimpleAlert(BuildContext context, String message) {
         title: const Text('Informacion incorrecta'),
         content: Text(message),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
               child: Text('Ok'), onPressed: () => Navigator.pop(context)),
         ],
       );

@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
 class UploadHomeworkOfferedPage extends StatefulWidget {
-  UploadHomeworkOfferedPage({Key? key}) : super(key: key);
+  const UploadHomeworkOfferedPage({Key? key}) : super(key: key);
 
   @override
   State<UploadHomeworkOfferedPage> createState() =>

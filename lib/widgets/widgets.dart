@@ -21,7 +21,6 @@ import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/text_util.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:subastareaspp/widgets/text/text.dart';
-import 'package:simple_moment/simple_moment.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import '../routes/routes_page.dart';
 import '../utils/time_utils.dart';

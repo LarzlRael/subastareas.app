@@ -22,10 +22,9 @@ class BellIconNotification extends StatelessWidget {
             return Badge(
                 badgeContent: Text(
                   '$notificationsNotRead',
-                  style: TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                 ),
                 child: iconNotification(context));
-            ;
           } else {
             return iconNotification(context);
           }

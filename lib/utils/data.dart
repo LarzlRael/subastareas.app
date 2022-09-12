@@ -65,7 +65,7 @@ final List<BottomNavigationBarItem> bottonItemsWithLogin = [
   ),
   BottomNavigationBarItem(
     icon: Badge(
-      child: Icon(FontAwesomeIcons.user),
+      child: const Icon(FontAwesomeIcons.user),
       badgeContent: null,
     ),
     label: 'Perfil',
@@ -93,9 +93,9 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       page: WalletPage(),
     ),
     MenuProfileOption(
-      icon: BellIconNotification(),
+      icon: const BellIconNotification(),
       title: "Notificaciones",
-      page: NotificationPage(),
+      page: const NotificationPage(),
       callback: () => homeworkServices.clearNotifications(),
     ),
     const MenuProfileOption(

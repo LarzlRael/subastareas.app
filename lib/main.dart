@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  final prefs = UserPreferences();
+  final userPreferences = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
