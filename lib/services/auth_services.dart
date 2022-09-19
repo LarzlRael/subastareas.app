@@ -99,6 +99,8 @@ class AuthServices with ChangeNotifier {
         await _storage.read(key: 'token'));
 
     await clearIdAndToken();
+    await _googleSignIn.signOut();
+
     isLogged = false;
     notifyListeners();
     return true;
@@ -117,9 +119,9 @@ class AuthServices with ChangeNotifier {
       await _storage.read(key: 'token'),
     );
 
-    if (resp?.statusCode == 200) {
+    if (validateStatus(resp!.statusCode)) {
       isLogged = true;
-      setUser(userModelFromJson(resp!.body));
+      setUser(userModelFromJson(resp.body));
       await _saveIdAnToken(user.id.toString(), user.accessToken);
       return true;
     } else {
@@ -145,5 +147,56 @@ class AuthServices with ChangeNotifier {
     await renewToken();
     notifyListeners();
     return resp.body;
+  }
+
+  static final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+    ],
+  );
+
+  Future<LoginResponse> signInWithGoogle() async {
+    final GoogleSignInAccount? account = await _googleSignIn.signIn();
+
+    final googleKey = await account!.authentication;
+
+    final signInWithGoogleEndPoint = Uri(
+      scheme: 'https',
+      host: Environment.googleHttpsDomain,
+      path: '/auth/googleAuth',
+    );
+    final resp = await http.post(
+      signInWithGoogleEndPoint,
+      body: {
+        'googleToken': googleKey.idToken,
+        'f': await messaging.getToken() ?? ''
+      },
+    );
+    if (validateStatus(resp.statusCode)) {
+      setUser(userModelFromJson(resp.body));
+      await _saveIdAnToken(user.id.toString(), user.accessToken);
+      return LoginResponse(
+        message: 'login_ok',
+        statusCode: resp.statusCode,
+        correctCredentials: validateStatus(resp.statusCode),
+      );
+    } else {
+      final error = errorModelFromJson(resp.body);
+      return LoginResponse(
+        message: error.message,
+        statusCode: resp.statusCode,
+        correctCredentials: validateStatus(resp.statusCode),
+      );
+    }
+  }
+
+  Future<GoogleSignInAccount?> signOut() async {
+    try {
+      final GoogleSignInAccount? account = await _googleSignIn.signOut();
+      return account;
+    } catch (e) {
+      print('Error en google SignOut');
+      return null;
+    }
   }
 }

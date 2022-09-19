@@ -15,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final preferences = UserPreferences();
-    final googleServices = GoogleSignInServices();
+    /* final googleServices = GoogleSignInServices(); */
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -44,10 +44,8 @@ class _LoginPageState extends State<LoginPage> {
                     LoginButton(
                       onPressed: () async {
                         //TODO redirect to main menu
-                        final googleInfo =
-                            await googleServices.signInWithGoogle();
-                        if (googleInfo) {
-                          authService.renewToken();
+                        final googleInfo = await authService.signInWithGoogle();
+                        if (googleInfo.correctCredentials) {
                           Navigator.pushReplacementNamed(
                               context, 'bottomNavigation');
                         }
@@ -135,5 +133,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-// split string by space
