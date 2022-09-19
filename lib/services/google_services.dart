@@ -2,44 +2,37 @@ part of 'services.dart';
 
 class GoogleSignInServices {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-
+  final _storage = const FlutterSecureStorage();
   static final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
     ],
   );
 
-  static Future<String> signInWithGoogle() async {
+  Future<bool> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? account = await _googleSignIn.signIn();
 
       final googleKey = await account!.authentication;
 
-      print('token de google : ');
-      print(googleKey.idToken);
-      return googleKey.idToken!;
-      // TODO idTOken form google
-      /*  final Uri signInWithGoogleEndPont = Uri(
+      final signInWithGoogleEndPont = Uri(
         scheme: 'https',
-        host: 'walletneobackend.herokuapp.com',
-        path: 'auth/googleAuth',
+        host: Environment.googleHttpsDomain,
+        path: '/auth/googleAuth',
       );
       final session = await http.post(
         signInWithGoogleEndPont,
         body: {
           'googleToken': googleKey.idToken,
-          'idDevice': await messaging.getToken() ?? ''
-
         },
       );
 
-      print('==== Backend ====');
-      print(session.body); */
-
-      /* return session.body; */
+      final user = userModelFromJson(session.body);
+      await _storage.write(key: 'token', value: user.accessToken);
+      return true;
     } catch (e) {
       print(e);
-      return 'Error en google SignIn';
+      return false;
     }
   }
 

@@ -15,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final preferences = UserPreferences();
+    final googleServices = GoogleSignInServices();
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,11 +44,19 @@ class _LoginPageState extends State<LoginPage> {
                     LoginButton(
                       onPressed: () async {
                         //TODO redirect to main menu
-                        final googleinfo =
-                            await GoogleSignInServices.signInWithGoogle();
+                        final googleInfo =
+                            await googleServices.signInWithGoogle();
+                        if (googleInfo) {
+                          authService.renewToken();
+                          Navigator.pushReplacementNamed(
+                              context, 'bottomNavigation');
+                        }
                       },
                       paddingVertical: 12,
-                      buttonChild: Text("Iniciar sesión con google"),
+                      buttonChild: const SimpleText(
+                        text: "Iniciar sesión con google",
+                        color: Colors.black,
+                      ),
                       fontSize: 15,
                       backGroundColor: Colors.white,
                       icon: SvgPicture.asset(

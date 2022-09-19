@@ -35,3 +35,7 @@ String convertTime(DateTime date, {String format = 'dd/MM/yyyy HH:mm'}) {
   Moment rawDate = Moment.fromDate(date);
   return rawDate.format("dd-MM-yyyy HH:mm");
 } */
+
+String getUrlResource(String url) {
+  return url.replaceAll('http://', '').replaceAll('https://', '');
+}
