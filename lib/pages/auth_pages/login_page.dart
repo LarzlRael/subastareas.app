@@ -15,7 +15,13 @@ class _LoginPageState extends State<LoginPage> {
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final preferences = UserPreferences();
-    /* final googleServices = GoogleSignInServices(); */
+
+    void loginOk() {
+      Navigator.pushReplacementNamed(context, 'bottomNavigation');
+      filter.setCurrentBottomTab = 0;
+      socketService.connect();
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,8 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                         //TODO redirect to main menu
                         final googleInfo = await authService.signInWithGoogle();
                         if (googleInfo.correctCredentials) {
-                          Navigator.pushReplacementNamed(
-                              context, 'bottomNavigation');
+                          loginOk();
                         }
                       },
                       paddingVertical: 12,
@@ -103,10 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                                     _formKey.currentState!.value['password']);
                                 final response = login.message.split(' ')[0];
                                 if (response == "login_ok") {
-                                  Navigator.pushReplacementNamed(
-                                      context, 'bottomNavigation');
-                                  filter.setCurrentBottomTab = 0;
-                                  socketService.connect();
+                                  loginOk();
                                 } else if (response == "verify_your_email") {
                                   preferences.loginEmail =
                                       login.message.split(' ')[1];

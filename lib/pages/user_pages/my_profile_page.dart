@@ -61,7 +61,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   Future closeSession() async {
     await auth.logout();
-    GoogleSignInServices.signOut();
+    auth.googleSignOut();
     Navigator.pushReplacement(
       context,
       PageTransition(

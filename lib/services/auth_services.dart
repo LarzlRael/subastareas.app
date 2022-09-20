@@ -190,7 +190,7 @@ class AuthServices with ChangeNotifier {
     }
   }
 
-  Future<GoogleSignInAccount?> signOut() async {
+  Future<GoogleSignInAccount?> googleSignOut() async {
     try {
       final GoogleSignInAccount? account = await _googleSignIn.signOut();
       return account;
