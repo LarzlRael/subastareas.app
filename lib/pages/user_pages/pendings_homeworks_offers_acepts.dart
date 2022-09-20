@@ -32,7 +32,7 @@ class PendingHomeworksOffersAccepts extends StatelessWidget {
               },
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

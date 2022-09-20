@@ -39,7 +39,7 @@ class _ShowHomeworkState extends State<ShowHomework> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Esta es mi tarea ayuda plox'),
+        title: const Text('Esta es mi tarea ayuda plox'),
       ),
       body: Center(
         child: Column(
@@ -75,7 +75,7 @@ class _ShowHomeworkState extends State<ShowHomework> {
                 //TODO dowloader function here
                 Navigator.pushNamed(context, '/homeworks');
               },
-              child: Icon(Icons.download),
+              child: const Icon(Icons.download),
             )
           : null,
     );

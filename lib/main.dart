@@ -26,8 +26,7 @@ void main() async {
   );
 
   print('User granted permission: ${settings.authorizationStatus}');
-  final prefs = UserPreferences();
-  await prefs.initPrefs();
+  
   await FlutterDownloader.initialize(
       debug: true // optional: set false to disable printing logs to console
       ); */

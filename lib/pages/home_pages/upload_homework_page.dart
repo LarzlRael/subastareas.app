@@ -141,7 +141,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                       top: 10,
                       bottom: 10,
                     ),
-                    CustomFormbuilderTextArea(
+                    const CustomFormBuilderTextArea(
                       name: 'title',
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
@@ -315,7 +315,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                     const CustomFileField(
                       name: 'file',
                     ),
-                    const CustomFormbuilderTextArea(
+                    const CustomFormBuilderTextArea(
                       name: 'title',
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,

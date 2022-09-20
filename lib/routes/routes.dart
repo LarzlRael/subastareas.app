@@ -37,7 +37,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
       ),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
-  'upload_homework_offered_page': (_) => UploadHomeworkOfferedPage(),
+  'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(),
   'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
   'withdraw_page': (_) => const WithdrawPage(),
   'withdraw_method_selected_page': (_) => const WithdrawMethodSelectedPage(),

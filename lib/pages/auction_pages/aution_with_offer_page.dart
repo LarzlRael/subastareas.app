@@ -333,13 +333,13 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                   shape: const StadiumBorder(),
                   color: !loading ? Colors.black : Colors.yellow,
                   child: !loading
-                      ? SimpleText(
+                      ? const SimpleText(
                           text: 'Aceptar Oferta',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         )
-                      : CircularProgressIndicator(color: Colors.white),
+                      : const CircularProgressIndicator(color: Colors.white),
                 ),
         ],
       ),

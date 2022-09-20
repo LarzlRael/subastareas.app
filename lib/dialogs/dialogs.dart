@@ -12,7 +12,7 @@ void showSimpleAlert(BuildContext context, String message) {
         content: Text(message),
         actions: <Widget>[
           TextButton(
-              child: Text('Ok'), onPressed: () => Navigator.pop(context)),
+              child: const Text('Ok'), onPressed: () => Navigator.pop(context)),
         ],
       );
     },

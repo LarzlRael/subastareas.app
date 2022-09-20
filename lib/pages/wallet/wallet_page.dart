@@ -25,8 +25,8 @@ class WalletPage extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
-                      top: 30,
-                      bottom: 30,
+                      top: 25,
+                      bottom: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,10 +122,6 @@ class WalletPage extends StatelessWidget {
                   }
                 },
               ),
-/*               const TransactionCard(),
-              const TransactionCard(),
-              const TransactionCard(),
-              const TransactionCard(), */
             ],
           ),
         ),

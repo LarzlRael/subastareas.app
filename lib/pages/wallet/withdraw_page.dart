@@ -87,6 +87,7 @@ class WithdrawPage extends StatelessWidget {
 
   Row balanceInformation(UserModel user) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         RetirableInformation(user: user),
         const InformationWalletStatus(

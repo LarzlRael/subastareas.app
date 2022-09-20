@@ -1,12 +1,12 @@
 part of '../widgets.dart';
 
-class CustomFormbuilderTextArea extends StatelessWidget {
+class CustomFormBuilderTextArea extends StatelessWidget {
   final String name;
   final IconData icon;
   final String title;
   final bool passwordField;
   final TextInputType keyboardType;
-  const CustomFormbuilderTextArea({
+  const CustomFormBuilderTextArea({
     Key? key,
     required this.name,
     required this.icon,

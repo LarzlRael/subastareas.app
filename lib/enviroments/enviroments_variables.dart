@@ -1,5 +1,6 @@
 import 'package:subastareaspp/utils/text_util.dart';
 
-const baseURL = 'https://subastareas2.herokuapp.com';
-const serverHttpUrl = 'https://subastareas2.herokuapp.com';
+/* const baseURL = 'https://subastareas2.herokuapp.com'; */
+const baseURL = 'http://192.168.0.103:3000';
+const serverHttpUrl = baseURL;
 final googleHttpsDomain = getUrlResource(baseURL);
