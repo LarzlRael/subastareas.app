@@ -158,11 +158,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                         FormBuilderValidators.min(1),
                       ]),
                     ),
-                    /* CustomRowFormbuilderTextField(
-                      name: 'username',
-                      icon: FontAwesomeIcons.at,
-                      placeholder: 'Plazo : ',
-                    ), */
+
                     /* text: 'Tiempo de resolucion : ',
                             name: 'resolutionTime', */
                     const CustomDatePicker(
@@ -171,7 +167,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                       placeholder: 'Tiempo de resolucion : ',
                       keyboardType: TextInputType.datetime,
                     ),
-                    const CustomFormbuilderFetchDropdown(
+                    const CustomFormBuilderFetchDropdown(
                       formFieldName: 'category',
                       placeholder: 'Seleccione una categoria',
                       title: 'Categoria :',
@@ -342,7 +338,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       placeholder: 'Tiempo de resolucion : ',
                       keyboardType: TextInputType.datetime,
                     ),
-                    const CustomFormbuilderFetchDropdown(
+                    const CustomFormBuilderFetchDropdown(
                       formFieldName: 'category',
                       placeholder: 'Seleccione una categoria',
                       title: 'Categoria :',

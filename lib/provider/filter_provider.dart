@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:subastareaspp/utils/shared_preferences.dart';
 
 class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
-
+  final sharedPreferences = UserPreferences();
   bool _showButtonAccept = false;
   int _currentBottomTab = 0;
 
@@ -12,8 +13,8 @@ class FilterProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  bool get getShowButtonAcept => _showButtonAccept;
-  set setShowButtonAcept(bool value) {
+  bool get getShowButtonAccept => _showButtonAccept;
+  set setShowButtonAccept(bool value) {
     _showButtonAccept = value;
     notifyListeners();
   }

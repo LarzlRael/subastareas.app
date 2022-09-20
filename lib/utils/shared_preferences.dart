@@ -32,4 +32,12 @@ class UserPreferences {
   set setShowInitialSlider(bool value) {
     _preferences.setBool('showInitialSlider', value);
   }
+
+  List<String> get getSubjectsList {
+    return _preferences.getStringList('subjectsList') ?? [];
+  }
+
+  set setSubjectsList(List<String> listSubjects) {
+    _preferences.setStringList('subjectsList', listSubjects);
+  }
 }

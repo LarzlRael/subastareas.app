@@ -54,7 +54,7 @@ class HomeworkServices {
   Future<List<String>> getSubjectAndLevels() async {
     final homeworkRequest = await Request.sendRequest(
       'GET',
-      'homework/getsubjectslist',
+      'homework/getSubjectsList',
       {},
     );
     final finalData = subjectsFromJson(homeworkRequest!.body);
