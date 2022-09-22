@@ -19,7 +19,7 @@ class DescriptionText extends StatelessWidget {
             limit: 150,
           )
         : SimpleText(
-            color: Colors.grey,
+            lightThemeColor: Colors.grey,
             fontSize: 16,
             lineHeight: 1.8,
             text: desc,

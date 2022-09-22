@@ -98,7 +98,7 @@ class StoreCard extends StatelessWidget {
                         text: 'Comprar',
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        lightThemeColor: Colors.white,
                       ),
                     ),
                   ),

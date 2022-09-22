@@ -38,11 +38,11 @@ class PersonOfferCard extends StatelessWidget {
                 bottom: 10,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
-                color: active ? Colors.white : Colors.black,
+                lightThemeColor: active ? Colors.white : Colors.black,
               ),
               SimpleText(
                 text: offerPrice.toString(),
-                color: Colors.grey,
+                lightThemeColor: Colors.grey,
                 fontSize: 13,
                 /* color: active ? Colors.white : Colors.black, */
               ),

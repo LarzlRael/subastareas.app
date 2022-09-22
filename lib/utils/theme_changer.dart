@@ -2,7 +2,7 @@ part of 'utils.dart';
 
 class ThemeChanger with ChangeNotifier {
   final preferences = UserPreferences();
-  bool darkTheme = false;
+  bool isDarkTheme = false;
   late ThemeData _currentTheme;
 
   get getCurrentTheme => _currentTheme;
@@ -10,23 +10,23 @@ class ThemeChanger with ChangeNotifier {
     switch (theme) {
       case 1:
         _currentTheme = ThemeData.light();
-        darkTheme = false;
+        isDarkTheme = false;
         break;
       case 2:
         _currentTheme = ThemeData.dark();
-        darkTheme = true;
+        isDarkTheme = true;
         break;
       default:
         _currentTheme = ThemeData.light();
-        darkTheme = false;
+        isDarkTheme = false;
     }
     notifyListeners();
   }
 
-  bool get getDarkTheme => darkTheme;
+  bool get getDarkTheme => isDarkTheme;
   set setDarkTheme(bool value) {
-    darkTheme = value;
-    if (darkTheme) {
+    isDarkTheme = value;
+    if (isDarkTheme) {
       _currentTheme = ThemeData.dark();
     } else {
       _currentTheme = ThemeData.light();

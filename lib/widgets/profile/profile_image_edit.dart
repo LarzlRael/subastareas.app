@@ -70,19 +70,19 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
             SimpleText(
               top: 5,
               text: widget.auth.user.username,
-              color: Colors.white,
+              lightThemeColor: Colors.white,
             ),
             SimpleText(
               top: 5,
               text: widget.auth.user.lastName,
-              color: Colors.white,
+              lightThemeColor: Colors.white,
             ),
             SimpleText(
               top: 5,
               text: widget.auth.user.nickName != null
                   ? widget.auth.user.nickName!
                   : widget.auth.user.username,
-              color: Colors.white,
+              lightThemeColor: Colors.white,
             ),
           ],
         ),

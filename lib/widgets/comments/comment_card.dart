@@ -54,7 +54,7 @@ class _CommentCardState extends State<CommentCard>
                             onPressed: () {},
                             child: const SimpleText(
                               text: 'Editado',
-                              color: Colors.grey,
+                              lightThemeColor: Colors.grey,
                             ),
                           )
                         ],
@@ -66,7 +66,8 @@ class _CommentCardState extends State<CommentCard>
           auth.isLogged
               ? IconButton(
                   onPressed: () {
-                    showBottomMenuShet(auth, widget.comment, widget.idHomework);
+                    showBottomMenuSheet(
+                        auth, widget.comment, widget.idHomework);
                   },
                   icon: const Icon(
                     Icons.more_vert,
@@ -90,18 +91,18 @@ class _CommentCardState extends State<CommentCard>
         const SizedBox(width: 15),
         SimpleText(
           text: timeago.format(widget.comment.createdAt, locale: 'es'),
-          color: Colors.grey,
+          lightThemeColor: Colors.grey,
         ),
       ],
     );
   }
 
-  showBottomMenuShet(AuthServices auth, Comment commnet, int idHomework) {
-    final homeworkbloc = OneHomeworkBloc();
+  showBottomMenuSheet(AuthServices auth, Comment comment, int idHomework) {
+    final homeworkBloc = OneHomeworkBloc();
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return auth.user.id == commnet.user.id
+        return auth.user.id == comment.user.id
             ? Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -130,7 +131,7 @@ class _CommentCardState extends State<CommentCard>
                         'Eliminar comentario',
                         '¿Estás seguro de eliminar este comentario?',
                         () =>
-                            homeworkbloc.deleteComment(commnet.id, idHomework),
+                            homeworkBloc.deleteComment(comment.id, idHomework),
                       );
                     },
                   ),

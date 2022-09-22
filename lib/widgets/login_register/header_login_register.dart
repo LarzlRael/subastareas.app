@@ -13,7 +13,7 @@ class HeaderLoginRegister extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.symmetric(vertical: 35),
-          child: Image.asset('assets/logo_with_letters.png'),
+          child: AppBarTitle(),
         ),
         SimpleText(
           text: headerTitle,

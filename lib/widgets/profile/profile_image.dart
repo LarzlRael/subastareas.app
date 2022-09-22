@@ -28,7 +28,7 @@ class ProfileImage extends StatelessWidget {
               : SimpleText(
                   text: convertName(userName),
                   fontSize: radius * 0.65,
-                  color: Colors.white,
+                  lightThemeColor: Colors.white,
                 ),
           backgroundImage:
               profileImage == null ? null : NetworkImage(profileImage!),

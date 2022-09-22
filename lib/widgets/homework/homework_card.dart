@@ -61,7 +61,8 @@ class HomeworkCard extends StatelessWidget {
                     fontSize: 18,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black54,
+                    lightThemeColor: Colors.black54,
+                    darkThemeColor: Colors.white54,
                   ),
                   SimpleText(
                     top: 5,
@@ -70,7 +71,7 @@ class HomeworkCard extends StatelessWidget {
                     fontSize: 16,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black45,
+                    lightThemeColor: Colors.black45,
                     darkThemeColor: Colors.white54,
                   ),
                   Row(
@@ -85,7 +86,7 @@ class HomeworkCard extends StatelessWidget {
                       SimpleText(
                         text:
                             '${getDateDiff(homework.resolutionTime).inHours < 0 ? 0 : getDateDiff(homework.resolutionTime).inHours} horas restantes',
-                        color: Colors.red,
+                        lightThemeColor: Colors.red,
                         fontWeight: FontWeight.w700,
                       ),
                     ],
@@ -99,7 +100,7 @@ class HomeworkCard extends StatelessWidget {
               children: [
                 SimpleText(
                   text: '\$ ${homework.offeredAmount}',
-                  color: Colors.lightGreen,
+                  lightThemeColor: Colors.lightGreen,
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
@@ -109,7 +110,8 @@ class HomeworkCard extends StatelessWidget {
                 homework.offers!.isNotEmpty
                     ? SimpleText(
                         text: '${homework.offers!.length} ofertas',
-                        color: Colors.grey,
+                        lightThemeColor: Colors.grey,
+                        darkThemeColor: Colors.white54,
                         fontSize: 16,
                       )
                     : Container(),

@@ -71,7 +71,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 bottom: 25,
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                lightThemeColor: Colors.black87,
                 text: argumets.homework.user.username,
                 /* color: Colors.grey, */
               ),

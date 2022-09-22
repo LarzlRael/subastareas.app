@@ -51,7 +51,8 @@ class TransactionCard extends StatelessWidget {
                       text: '${transaction.amount}',
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: transaction.amount < 0 ? Colors.red : Colors.green,
+                      lightThemeColor:
+                          transaction.amount < 0 ? Colors.red : Colors.green,
                       right: 5,
                     ),
                     SimpleText(

@@ -66,7 +66,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                       ),
                       SimpleText(
                         text: 'Filtrar busqueda',
-                        color: Colors.grey,
+                        lightThemeColor: Colors.grey,
                       ),
                     ],
                   ),
@@ -117,32 +117,6 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class AppBarTitle extends StatelessWidget {
-  const AppBarTitle({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          'assets/icon.png',
-          height: 35,
-        ),
-        const SimpleText(
-          left: 10,
-          text: 'SUBASTAREAS',
-          color: Colors.black,
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-      ],
     );
   }
 }

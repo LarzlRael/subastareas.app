@@ -52,7 +52,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                     ),
                     const SimpleText(
                       text: 'Agregar un comentario ...',
-                      color: Colors.grey,
+                      lightThemeColor: Colors.grey,
                     ),
                   ],
                 ),

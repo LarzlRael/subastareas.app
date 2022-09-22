@@ -294,13 +294,13 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                 /* textAlign: TextAlign.center, */
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                lightThemeColor: Colors.white,
               ),
               !pendingToResolve
                   ? SimpleText(
                       text: widget.offer.priceOffer.toString(),
                       fontSize: 20,
-                      color: Colors.white)
+                      lightThemeColor: Colors.white)
                   : Container()
             ],
           ),
@@ -337,7 +337,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                           text: 'Aceptar Oferta',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          lightThemeColor: Colors.white,
                         )
                       : const CircularProgressIndicator(color: Colors.white),
                 ),
@@ -413,7 +413,7 @@ class _ButtonOffer extends StatelessWidget {
                           fontSize: 15,
                           text: "Hacer una oferta",
                           fontWeight: FontWeight.w400,
-                          color: Colors.white,
+                          lightThemeColor: Colors.white,
                         ),
                       ),
                     ]),

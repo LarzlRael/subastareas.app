@@ -5,6 +5,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: false);
+    final themeChanger = Provider.of<ThemeChanger>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -57,7 +58,7 @@ class SettingsPage extends StatelessWidget {
                         /* auth.logout(); */
                       },
                     ),
-                    ListTile(
+                    /* ListTile(
                       leading: const Icon(Icons.person_add_alt),
                       title: const Text('Tema oscuro'),
                       trailing: Switch(
@@ -65,7 +66,14 @@ class SettingsPage extends StatelessWidget {
                         onChanged: (value) {},
                       ),
                       onTap: () {
-                        /* auth.logout(); */
+                      },
+                    ), */
+                    GenericListTile(
+                      icon: Icons.person_add_alt,
+                      title: 'Tema oscuro',
+                      initialValue: themeChanger.isDarkTheme,
+                      onChanged: (value) {
+                        themeChanger.setDarkTheme = value;
                       },
                     ),
                     ListTile(

@@ -26,7 +26,7 @@ class LabelLoginRegister extends StatelessWidget {
             top: 5,
             bottom: 5,
             text: 'Olvide mi contraseña',
-            color: Colors.indigo,
+            lightThemeColor: Colors.indigo,
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
@@ -40,13 +40,13 @@ class LabelLoginRegister extends StatelessWidget {
             children: [
               SimpleText(
                 text: title,
-                color: Colors.indigo,
+                lightThemeColor: Colors.indigo,
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),
               SimpleText(
                 text: subtitle,
-                color: Colors.indigo,
+                lightThemeColor: Colors.indigo,
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),

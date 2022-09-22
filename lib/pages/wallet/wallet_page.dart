@@ -24,7 +24,7 @@ class WalletPage extends StatelessWidget {
                       text: 'BILLETERA',
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      lightThemeColor: Colors.black87,
                       top: 25,
                       bottom: 10,
                     ),

@@ -19,7 +19,7 @@ class StorePage extends StatelessWidget {
                 bottom: 30,
                 fontWeight: FontWeight.bold,
                 textAlign: TextAlign.center,
-                color: Colors.black87,
+                lightThemeColor: Colors.black87,
               ),
               const SimpleText(
                 text: '\u2022 Podrás recompensar la ayuda de tus compañeros.',

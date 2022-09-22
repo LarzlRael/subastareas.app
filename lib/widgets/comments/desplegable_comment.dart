@@ -40,7 +40,7 @@ class _DesplegableCommentState extends State<DesplegableComment> {
                 overflow: TextOverflow.fade,
                 style: const TextStyle(
                   fontSize: 15,
-                  color: Colors.black54,
+                  /* color: Colors.black54, */
                   height: 1.3,
                 ),
               ),

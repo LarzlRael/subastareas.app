@@ -17,10 +17,11 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
     final authServices = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        /* backgroundColor: Colors.black, */
         title: const SimpleText(
           text: 'SUBIR NUEVA TAREA',
-          color: Colors.black,
+          lightThemeColor: Colors.black,
+          darkThemeColor: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.w500,
         ),
@@ -33,7 +34,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 5,
-            backgroundColor: Colors.white,
+            /* backgroundColor: Colors.white, */
             toolbarHeight: 20,
             automaticallyImplyLeading: false,
             bottom: TabBar(

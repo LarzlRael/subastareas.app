@@ -16,11 +16,12 @@ class WelcomePage extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 32),
-                child: Image.asset(
+                /* child: Image.asset(
                   'assets/logo_with_letters.png',
                   fit: BoxFit.contain,
                   width: 250,
-                ),
+                ), */
+                child: const AppBarTitle(),
               ),
               const Expanded(
                 child: Slideshow(
@@ -68,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                       text: const SimpleText(
                         text: 'No ahora',
                         fontSize: 16,
-                        color: Colors.indigo,
+                        lightThemeColor: Colors.indigo,
                         top: 10,
                         bottom: 10,
                       ),

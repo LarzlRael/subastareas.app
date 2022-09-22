@@ -31,24 +31,24 @@ class RegisterPage extends StatelessWidget {
                         key: _formKey,
                         child: Column(
                           children: [
-                            const CustomFormbuilderTextField(
+                            const CustomFormBuilderTextField(
                               name: 'username',
                               icon: Icons.person,
                               placeholder: 'Nombre de usuario',
                             ),
-                            const CustomFormbuilderTextField(
+                            const CustomFormBuilderTextField(
                               name: 'email',
                               keyboardType: TextInputType.emailAddress,
                               icon: FontAwesomeIcons.at,
                               placeholder: 'Correo electrónico',
                             ),
-                            const CustomFormbuilderTextField(
+                            const CustomFormBuilderTextField(
                               name: 'password',
                               icon: FontAwesomeIcons.lock,
                               placeholder: 'Contraseña',
                               passwordField: true,
                             ),
-                            const CustomFormbuilderTextField(
+                            const CustomFormBuilderTextField(
                               name: 'password',
                               icon: FontAwesomeIcons.lock,
                               placeholder: 'Repetir contraseña',

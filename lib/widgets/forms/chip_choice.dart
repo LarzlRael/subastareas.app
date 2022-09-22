@@ -80,7 +80,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
             text: item,
             fontSize: 15,
             /* fontWeight: FontWeight.bold, */
-            color: Colors.black,
+            lightThemeColor: Colors.black,
           ),
           selected: selectedChoices.contains(item),
           onSelected: (selected) {

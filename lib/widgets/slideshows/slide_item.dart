@@ -21,7 +21,8 @@ class SlideItem extends StatelessWidget {
         SimpleText(
           text: title,
           fontSize: 20,
-          color: Colors.black,
+          /* color: Colors.black,
+          darkThemeColor: Colors.white, */
           bottom: 10,
           top: 10,
           fontWeight: FontWeight.bold,
@@ -30,7 +31,8 @@ class SlideItem extends StatelessWidget {
         SimpleText(
           text: subtitle,
           fontSize: 16,
-          color: Colors.black,
+          /* color: Colors.black,
+          darkThemeColor: Colors.white, */
           textAlign: TextAlign.center,
           left: 20,
           right: 20,

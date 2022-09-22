@@ -87,7 +87,7 @@ class _AuctionPageState extends State<AuctionPage> {
                         centerTitle: true,
                         title: SimpleText(
                           text: 'Tarea de ${snapshot.data!.homework.category} ',
-                          color: Colors.white,
+                          lightThemeColor: Colors.white,
                           fontSize: 16,
                         ),
                       )),
@@ -210,7 +210,7 @@ class _AuctionPageState extends State<AuctionPage> {
         SimpleText(
           text: title,
           fontSize: 16,
-          color: Colors.grey,
+          lightThemeColor: Colors.grey,
           bottom: 10,
         ),
         content,
@@ -244,12 +244,12 @@ class _AuctionPageState extends State<AuctionPage> {
                 const SimpleText(
                   text: 'Ofertar',
                   fontSize: 15,
-                  color: Colors.white,
+                  lightThemeColor: Colors.white,
                 ),
                 SimpleText(
                   text: '${oneHomeworkModel.homework.offeredAmount} bs',
                   fontSize: 20,
-                  color: Colors.white,
+                  lightThemeColor: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ],
@@ -283,7 +283,7 @@ class _AuctionPageState extends State<AuctionPage> {
           text: 'Descripción',
           top: 20,
           bottom: 10,
-          color: Colors.black,
+          lightThemeColor: Colors.black,
           fontSize: 18,
         ),
         DescriptionText(

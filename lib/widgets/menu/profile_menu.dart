@@ -25,7 +25,7 @@ class MenuProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = !closeSession ? Colors.black87 : Colors.white;
+    /* final color = !closeSession ? Colors.black87 : Colors.white; */
     final auth = Provider.of<AuthServices>(context);
     final filterProvider = Provider.of<FilterProvider>(context);
     final socketProvider = Provider.of<SocketService>(context);
@@ -35,7 +35,7 @@ class MenuProfileOption extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        color: closeSession ? Colors.red : Colors.white,
+        /* color: closeSession ? Colors.red : Colors.white, */
         elevation: 3,
         child: ListTile(
           onTap: () async {
@@ -60,7 +60,7 @@ class MenuProfileOption extends StatelessWidget {
           trailing: showTrailingIcon
               ? Icon(
                   showTrailing ? Icons.lock_clock : Icons.chevron_right,
-                  color: color,
+                  /* color: color, */
                 )
               : null,
           /* leading: Badge(
@@ -78,7 +78,8 @@ class MenuProfileOption extends StatelessWidget {
             text: title,
             fontSize: 15,
             fontWeight: FontWeight.bold,
-            color: color,
+            setUniqueColor: false,
+            lightThemeColor: Colors.black87,
           ),
         ),
       ),

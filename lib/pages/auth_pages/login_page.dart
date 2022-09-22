@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SimpleText(
                       text: 'o',
                       fontSize: 20,
-                      color: Colors.grey,
+                      lightThemeColor: Colors.grey,
                       top: 10,
                       bottom: 10,
                     ),
@@ -58,7 +58,8 @@ class _LoginPageState extends State<LoginPage> {
                       paddingVertical: 12,
                       buttonChild: const SimpleText(
                         text: "Iniciar sesión con google",
-                        color: Colors.black,
+                        lightThemeColor: Colors.black,
+                        setUniqueColor: true,
                       ),
                       fontSize: 15,
                       backGroundColor: Colors.white,
@@ -73,12 +74,12 @@ class _LoginPageState extends State<LoginPage> {
                       key: _formKey,
                       child: Column(
                         children: const [
-                          CustomFormbuilderTextField(
+                          CustomFormBuilderTextField(
                             name: 'username',
                             icon: FontAwesomeIcons.at,
                             placeholder: 'Nombre de usuario o email',
                           ),
-                          CustomFormbuilderTextField(
+                          CustomFormBuilderTextField(
                             name: 'password',
                             icon: FontAwesomeIcons.lock,
                             placeholder: 'Contraseña',

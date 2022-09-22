@@ -102,12 +102,12 @@ class NotificationsCard extends StatelessWidget {
               const SimpleText(
                 text: '045 favorites',
                 fontSize: 12,
-                color: Colors.black,
+                lightThemeColor: Colors.black,
               ),
               SimpleText(
                 text: timeago.format(notification.createdAt, locale: 'es'),
                 fontSize: 12,
-                color: Colors.black,
+                lightThemeColor: Colors.black,
               ),
             ],
           ),

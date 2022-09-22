@@ -46,6 +46,7 @@ part 'forms/custom_formbuilder_text_area.dart';
 part 'forms/custom_formbuilder_fetch_dropdown.dart';
 part 'login_register/label_login_register.dart';
 part 'login_register/header_login_register.dart';
+part 'login_register/app_bar_title.dart';
 part 'slideshows/slide_item.dart';
 part 'menu/profile_menu.dart';
 part 'filter/list_filter.dart';
@@ -65,3 +66,5 @@ part 'homework/homework_pending_to_resolve.dart';
 
 /* Loading */
 part 'loadings/circular_center.dart';
+
+part 'list_tiles/generic_list_tile.dart';
