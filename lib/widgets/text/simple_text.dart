@@ -5,6 +5,7 @@ class SimpleText extends StatelessWidget {
   final FontWeight? fontWeight;
   final double? fontSize;
   final Color? color;
+  final Color? darkThemeColor;
   final TextStyle? style;
   final double? top;
   final double? bottom;
@@ -25,10 +26,13 @@ class SimpleText extends StatelessWidget {
     this.style,
     this.textAlign,
     this.lineHeight,
+    this.darkThemeColor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    final themeDark = brightness == Brightness.dark;
     return Padding(
       padding: EdgeInsets.only(
           top: top ?? 0,
@@ -40,11 +44,21 @@ class SimpleText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.start,
         style: style ??
             TextStyle(
-              height: lineHeight,
-              fontWeight: fontWeight ?? FontWeight.normal,
-              fontSize: fontSize ?? 14,
-              color: color ?? Colors.black,
-            ),
+                height: lineHeight,
+                fontWeight: fontWeight ?? FontWeight.normal,
+                fontSize: fontSize ?? 14,
+                /* color: color ?? Colors.black, */
+                /*  color: color != null
+                  ? isDarkMode
+                      ? Colors.black
+                      : Colors.white
+                  : color, */
+                /* color: isDarkMode
+                  ? darkThemeColor ?? Colors.white
+                  : color ?? Colors.black, */
+                color: !themeDark
+                    ? color ?? Colors.black
+                    : darkThemeColor ?? Colors.white),
       ),
     );
   }

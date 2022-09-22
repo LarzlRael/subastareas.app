@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:subastareaspp/utils/shared_preferences.dart';
+import 'package:subastareaspp/utils/utils.dart';
 
 class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];

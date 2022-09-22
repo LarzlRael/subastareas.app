@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:simple_moment/simple_moment.dart';
+import 'package:subastareaspp/pages/pages.dart';
+import 'package:subastareaspp/services/services.dart';
+import 'package:subastareaspp/widgets/buttons/buttons.dart';
+import 'package:subastareaspp/widgets/widgets.dart';
+import 'dart:typed_data';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
+part 'theme_changer.dart';
+part 'validation.dart';
+part 'text_util.dart';
+part 'data.dart';
+part 'extensions.dart';
+part 'shared_preferences.dart';
+part 'download_file.dart';
+part 'time_utils.dart';

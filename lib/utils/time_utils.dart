@@ -1,3 +1,5 @@
+part of 'utils.dart';
+
 Duration getDateDiff(DateTime dt1) {
   /*  */
   DateTime dt2 = DateTime.now();

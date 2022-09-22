@@ -11,8 +11,8 @@ import 'package:subastareaspp/models/homework_only_text.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
     as Environment;
-import 'package:subastareaspp/utils/text_util.dart';
-import 'package:subastareaspp/utils/validation.dart';
+import 'package:subastareaspp/utils/utils.dart';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -1,12 +1,4 @@
-import 'package:badges/badges.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:subastareaspp/services/services.dart';
-import 'package:subastareaspp/utils/validation.dart';
-import 'package:subastareaspp/widgets/buttons/buttons.dart';
-import 'package:subastareaspp/widgets/widgets.dart';
-import 'package:subastareaspp/pages/pages.dart';
+part of 'utils.dart';
 
 List<Widget> categoryList = [
   CircleButton(
@@ -118,6 +110,11 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       icon: Icon(Icons.task),
       title: "Tareas pendientes",
       page: PendingHomeworksOffersAccepts(),
+    ),
+    const MenuProfileOption(
+      icon: Icon(Icons.settings),
+      title: "Configuracion",
+      page: SettingsPage(),
     ),
     /* const MenuProfileOption(
       icon: Icon(Icons.question_answer),

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'utils.dart';
 
 bool validateStatus(int? state) {
   const status = [200, 201, 202, 203, 204];

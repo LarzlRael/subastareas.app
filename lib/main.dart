@@ -5,8 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/services/services.dart';
-import 'package:subastareaspp/utils/shared_preferences.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:subastareaspp/utils/utils.dart';
 
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -32,7 +31,12 @@ void main() async {
       ); */
   final preferences = UserPreferences();
   await preferences.initPreferences();
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeChanger(2),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -43,7 +47,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   void initState() {
@@ -69,6 +73,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).getCurrentTheme;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
@@ -77,14 +82,13 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         title: 'Subastareas',
-        scaffoldMessengerKey: _messangerKey,
+        scaffoldMessengerKey: _messengerKey,
         navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        /* theme: darkTheme, */
         routes: appRoutes,
         initialRoute: 'loading',
+        theme: appTheme,
         localizationsDelegates: const [
           FormBuilderLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -105,7 +109,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   showSnackBar(String type, String message) {
-    _messangerKey.currentState?.showSnackBar(
+    _messengerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text(message),
         backgroundColor: type == "comment" ? Colors.green : Colors.blue,

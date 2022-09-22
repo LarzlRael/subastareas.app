@@ -33,12 +33,9 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'assets/logo_with_letters.png',
-          height: 30,
-        ),
+        title: const AppBarTitle(),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        /* backgroundColor: isDarkMode(context) ? Colors.black : Colors.white, */
         elevation: 0,
         automaticallyImplyLeading: false,
       ),
@@ -120,6 +117,32 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppBarTitle extends StatelessWidget {
+  const AppBarTitle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assets/icon.png',
+          height: 35,
+        ),
+        const SimpleText(
+          left: 10,
+          text: 'SUBASTAREAS',
+          color: Colors.black,
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ],
     );
   }
 }

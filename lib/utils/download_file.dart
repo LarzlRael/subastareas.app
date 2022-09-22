@@ -1,8 +1,4 @@
-import 'dart:typed_data';
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
+part of 'utils.dart';
 
 downloadFile(String url, String filename) async {
   try {

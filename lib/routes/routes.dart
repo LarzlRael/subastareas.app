@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/widgets.dart';

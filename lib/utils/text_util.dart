@@ -1,4 +1,4 @@
-import 'package:simple_moment/simple_moment.dart';
+part of 'utils.dart';
 
 String convertName(String name) {
   String newName = name.trim();

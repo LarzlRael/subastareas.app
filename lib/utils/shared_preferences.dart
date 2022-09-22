@@ -1,4 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
+part of 'utils.dart';
 
 class UserPreferences {
   //no one this properties it is used
@@ -39,5 +39,13 @@ class UserPreferences {
 
   set setSubjectsList(List<String> listSubjects) {
     _preferences.setStringList('subjectsList', listSubjects);
+  }
+
+  int get getThemeStatus {
+    return _preferences.getInt('themeStatus') ?? 0;
+  }
+
+  set setThemeStatus(int themeStatus) {
+    _preferences.setInt('themeStatus', themeStatus);
   }
 }

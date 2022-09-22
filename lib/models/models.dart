@@ -1,6 +1,5 @@
 import 'dart:convert';
-import "package:subastareaspp/utils/extensions.dart";
-import 'package:subastareaspp/utils/text_util.dart';
+import 'package:subastareaspp/utils/utils.dart';
 
 part 'error_model.dart';
 part 'homeworks_model.dart';

@@ -71,6 +71,7 @@ class HomeworkCard extends StatelessWidget {
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
                     color: Colors.black45,
+                    darkThemeColor: Colors.white54,
                   ),
                   Row(
                     children: [

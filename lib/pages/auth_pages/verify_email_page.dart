@@ -52,7 +52,8 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               ),
               SimpleText(
                 text: preferences.loginEmail,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
               const SimpleText(
                 top: 10,
