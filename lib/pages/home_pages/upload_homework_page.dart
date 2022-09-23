@@ -19,7 +19,8 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme.getDarkTheme ? Colors.black38 : Colors.grey[100],
+        backgroundColor:
+            theme.getDarkTheme ? Colors.transparent : Colors.grey[100],
         title: const SimpleText(
           text: 'SUBIR NUEVA TAREA',
           lightThemeColor: Colors.black87,
@@ -37,7 +38,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
           appBar: AppBar(
             elevation: 5,
             backgroundColor:
-                theme.getDarkTheme ? Colors.black38 : Colors.grey[100],
+                theme.getDarkTheme ? Colors.transparent : Colors.grey[100],
             toolbarHeight: 20,
             automaticallyImplyLeading: false,
             bottom: TabBar(
@@ -77,7 +78,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
 
 class UploadHomeworkOnlyText extends StatefulWidget {
   final AuthServices authService;
-  UploadHomeworkOnlyText({
+  const UploadHomeworkOnlyText({
     Key? key,
     required this.authService,
   }) : super(key: key);

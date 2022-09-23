@@ -36,7 +36,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
       appBar: AppBar(
         title: const AppBarTitle(),
         centerTitle: true,
-        backgroundColor: theme.isDarkTheme ? Colors.black54 : Colors.white,
+        backgroundColor: theme.isDarkTheme ? Colors.transparent : Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),

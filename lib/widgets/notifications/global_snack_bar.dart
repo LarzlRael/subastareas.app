@@ -2,7 +2,6 @@ part of '../widgets.dart';
 
 class GlobalSnackBar {
   final String message;
-
   const GlobalSnackBar({
     required this.message,
   });

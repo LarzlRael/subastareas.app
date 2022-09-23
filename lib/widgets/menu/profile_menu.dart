@@ -35,7 +35,7 @@ class MenuProfileOption extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        /* color: closeSession ? Colors.red : Colors.white, */
+        color: closeSession ? Colors.red : null,
         elevation: 3,
         child: ListTile(
           onTap: () async {
