@@ -14,7 +14,7 @@ class DescriptionText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return despegable
-        ? DesplegableComment(
+        ? DropdownComment(
             commentContent: desc,
             limit: 150,
           )

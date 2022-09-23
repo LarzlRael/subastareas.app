@@ -1,20 +1,20 @@
 part of '../widgets.dart';
 
-class DesplegableComment extends StatefulWidget {
+class DropdownComment extends StatefulWidget {
   final String commentContent;
   bool isExpanded;
   final int limit;
-  DesplegableComment({
+  DropdownComment({
     Key? key,
     required this.commentContent,
     this.isExpanded = false,
     this.limit = 75,
   }) : super(key: key);
   @override
-  State<DesplegableComment> createState() => _DesplegableCommentState();
+  State<DropdownComment> createState() => _DropdownCommentState();
 }
 
-class _DesplegableCommentState extends State<DesplegableComment> {
+class _DropdownCommentState extends State<DropdownComment> {
   @override
   Widget build(BuildContext context) {
     return Column(
