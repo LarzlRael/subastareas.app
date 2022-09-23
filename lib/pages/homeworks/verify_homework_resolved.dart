@@ -15,6 +15,9 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
         ModalRoute.of(context)!.settings.arguments as TradeUserModel;
     final tradeServices = TradeServices();
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(16),

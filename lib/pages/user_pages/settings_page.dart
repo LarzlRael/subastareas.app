@@ -79,14 +79,10 @@ class SettingsPage extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.lock),
                       title: const Text('Cambiar contraseña'),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios),
-                        onPressed: () {
-                          /* Navigator.pushNamed(context, 'changePasswordPage'); */
-                        },
-                      ),
+                      trailing: Icon(Icons.chevron_right),
                       onTap: () {
-                        /* auth.logout(); */
+                        /* Navigator.pushNamed(context, 'forgot_password'); */
+                        /* TODO create page to change password from here */
                       },
                     ),
                   ],

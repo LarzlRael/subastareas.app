@@ -68,3 +68,6 @@ part 'homework/homework_pending_to_resolve.dart';
 part 'loadings/circular_center.dart';
 
 part 'list_tiles/generic_list_tile.dart';
+
+/* Common */
+part 'common/app_bar_with_back_icon.dart';

@@ -18,10 +18,12 @@ class HomeworkPendingToResolve extends StatelessWidget {
         );
       },
       child: Container(
-        color: Colors.red,
+        /* color: Colors.red, */
+        margin: const EdgeInsets.only(bottom: 20),
         width: double.infinity,
         height: 140,
         child: Card(
+          elevation: 5,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

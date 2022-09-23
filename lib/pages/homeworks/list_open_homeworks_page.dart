@@ -27,6 +27,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
+    final theme = Provider.of<ThemeChanger>(context, listen: true);
 
     homeworksBloc.getHomeworksByCategory(
       filter.getListLevelSelected,
@@ -35,7 +36,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
       appBar: AppBar(
         title: const AppBarTitle(),
         centerTitle: true,
-        /* backgroundColor: isDarkMode(context) ? Colors.black : Colors.white, */
+        backgroundColor: theme.isDarkTheme ? Colors.black54 : Colors.white,
         elevation: 0,
         automaticallyImplyLeading: false,
       ),

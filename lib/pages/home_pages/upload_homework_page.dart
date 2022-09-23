@@ -15,12 +15,14 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   @override
   Widget build(BuildContext context) {
     final authServices = Provider.of<AuthServices>(context, listen: true);
+    final theme = Provider.of<ThemeChanger>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
-        /* backgroundColor: Colors.black, */
+        backgroundColor: theme.getDarkTheme ? Colors.black38 : Colors.grey[100],
         title: const SimpleText(
           text: 'SUBIR NUEVA TAREA',
-          lightThemeColor: Colors.black,
+          lightThemeColor: Colors.black87,
           darkThemeColor: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.w500,
@@ -34,12 +36,12 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 5,
-            /* backgroundColor: Colors.white, */
+            backgroundColor:
+                theme.getDarkTheme ? Colors.black38 : Colors.grey[100],
             toolbarHeight: 20,
             automaticallyImplyLeading: false,
             bottom: TabBar(
               /* indicatorColor: Colors.blue, */
-
               padding: const EdgeInsets.only(bottom: 20),
               tabs: [
                 Tab(

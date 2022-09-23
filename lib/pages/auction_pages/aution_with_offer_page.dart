@@ -172,19 +172,10 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                   _ImageBackgorundAndTimer(
                       auth: auth, homework: widget.args, isOwner: isOwner),
                   auth.isLogged ? currentHomeworkViewers() : Container(),
-                  const Center(
-                    child: SimpleText(
-                      text: "Ofertas recibidas",
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      top: 15,
-                      bottom: 15,
-                    ),
-                  ),
                   widget.args.homework.status == 'pending_to_resolve'
                       ? const SimpleText(
                           text:
-                              'Ya aceptas una oferta, espera a que el profesor te responda',
+                              'Ya aceptaste una oferta, espera a que el profesor te responda',
                           fontSize: 15,
                           top: 5,
                           bottom: 5,
@@ -204,12 +195,25 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                           iconButton: Icons.add,
                         );
                       } else {
-                        return Expanded(
-                          child: ListView.builder(
-                            /* scrollDirection: Axis.horizontal, */
-                            itemCount: _offer.length,
-                            itemBuilder: (_, int index) => _offer[index],
-                          ),
+                        return Column(
+                          children: [
+                            const Center(
+                              child: SimpleText(
+                                text: "Ofertas recibidas",
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                top: 15,
+                                bottom: 15,
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                /* scrollDirection: Axis.horizontal, */
+                                itemCount: _offer.length,
+                                itemBuilder: (_, int index) => _offer[index],
+                              ),
+                            ),
+                          ],
                         );
                       }
                     },
@@ -232,20 +236,24 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     );
   }
 
-  Row currentHomeworkViewers() {
-    return Row(
-      children: [
-        Icon(Icons.remove_red_eye, color: Colors.grey),
-        SimpleText(
-          text: _currentViewers == 1
-              ? 'Solo tú estas viendo esto'
-              : 'Tú y ${_currentViewers - 1} estan viendo esto',
-          fontSize: 15,
-          fontWeight: FontWeight.w500,
-          top: 5,
-          bottom: 5,
-        ),
-      ],
+  Widget currentHomeworkViewers() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          Icon(Icons.remove_red_eye, color: Colors.grey),
+          const SizedBox(width: 5),
+          SimpleText(
+            text: _currentViewers == 1
+                ? 'Solo tú estas viendo esto'
+                : 'Tú y ${_currentViewers - 1} estan viendo esto',
+            fontSize: 15,
+            fontWeight: FontWeight.w500,
+            top: 5,
+            bottom: 5,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -334,7 +342,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                   color: !loading ? Colors.black : Colors.yellow,
                   child: !loading
                       ? const SimpleText(
-                          text: 'Aceptar Oferta',
+                          text: 'Aceptar oferta',
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           lightThemeColor: Colors.white,

@@ -28,30 +28,31 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
 
   @override
   Widget build(BuildContext context) {
-    final argumets =
+    final arguments =
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
-    final verifyUserOfferted =
-        argumets.offers.map((item) => item.user.id).contains(auth.user.id);
+    final theme = Provider.of<ThemeChanger>(context, listen: false);
+    final verifyUserOffered =
+        arguments.offers.map((item) => item.user.id).contains(auth.user.id);
 
-    if (verifyUserOfferted) {
+    if (verifyUserOffered) {
       getUserOffer =
-          argumets.offers.firstWhere((item) => item.user.id == auth.user.id);
+          arguments.offers.firstWhere((item) => item.user.id == auth.user.id);
       getFindUserOffer = true;
     }
     final blocHomework = OneHomeworkBloc();
     return Scaffold(
       appBar: AppBar(
         /* title: Text('Hacer oferta'), */
-        backgroundColor: Colors.white,
+        backgroundColor: theme.isDarkTheme ? Colors.black : Colors.white,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.chevron_left,
-            color: Colors.black,
+            color: theme.isDarkTheme ? Colors.white : Colors.black54,
             size: 30,
           ),
         ),
@@ -62,8 +63,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           child: Column(
             children: [
               showProfileImage(
-                argumets.homework.user.profileImageUrl,
-                argumets.homework.user.username,
+                arguments.homework.user.profileImageUrl,
+                arguments.homework.user.username,
                 radius: 75,
               ),
               SimpleText(
@@ -72,12 +73,12 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 lightThemeColor: Colors.black87,
-                text: argumets.homework.user.username,
+                text: arguments.homework.user.username,
                 /* color: Colors.grey, */
               ),
-              argumets.homework.description != null
+              arguments.homework.description != null
                   ? DescriptionText(
-                      desc: argumets.homework.description!,
+                      desc: arguments.homework.description!,
                       textAlign: TextAlign.center,
                       despegable: false,
                     )
@@ -86,7 +87,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
               ), */
 
-              verifyUserOfferted
+              verifyUserOffered
                   ? SimpleText(
                       text:
                           'Tu oferta es de ${getUserOffer!.priceOffer} puntos',
@@ -106,10 +107,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 fontWeight: FontWeight.w900,
               ),
               Container(
-                color: Colors.grey[200],
+                /* color: Colors.grey[200], */
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: SimpleText(
-                  text: '${argumets.homework.offeredAmount}',
+                  text: '${arguments.homework.offeredAmount}',
                   textAlign: TextAlign.center,
                   fontSize: 30,
                   fontWeight: FontWeight.w900,
@@ -120,25 +121,25 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: verifyUserOfferted
-                    ? verifyUserOfferted && getUserOffer!.edited
+                child: verifyUserOffered
+                    ? verifyUserOffered && getUserOffer!.edited
                         ? Container()
                         : ButtonWithIcon(
                             verticalPadding: 15,
                             onPressed: () {
                               showOfferDialog(
                                 blocHomework,
-                                argumets.homework.id,
-                                verifyUserOfferted,
+                                arguments.homework.id,
+                                verifyUserOffered,
                                 amount: getUserOffer!.priceOffer,
                                 idOffer: getUserOffer!.id,
                               );
                               /* Navigator.pop(context); */
                             },
-                            label: verifyUserOfferted
+                            label: verifyUserOffered
                                 ? 'Editar oferta'
                                 : 'Hacer oferta',
-                            icon: Icons.send,
+                            icon: !verifyUserOffered ? Icons.send : Icons.edit,
                             /* marginVertical: 10, */
                           )
                     : ButtonWithIcon(
@@ -146,21 +147,21 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         onPressed: () {
                           showOfferDialog(
                             blocHomework,
-                            argumets.homework.id,
-                            verifyUserOfferted,
-                            amount: argumets.homework.offeredAmount,
+                            arguments.homework.id,
+                            verifyUserOffered,
+                            amount: arguments.homework.offeredAmount,
                             idOffer: 0,
                           );
                           /* Navigator.pop(context); */
                         },
-                        label: verifyUserOfferted
+                        label: verifyUserOffered
                             ? 'Editar oferta'
                             : 'Hacer oferta',
                         icon: Icons.send,
                         /* marginVertical: 10, */
                       ),
               ),
-              verifyUserOfferted && getUserOffer!.edited
+              verifyUserOffered && getUserOffer!.edited
                   ? const SimpleText(
                       text: 'Ya has editado tu oferta',
                       top: 15,
@@ -171,14 +172,14 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   : const SizedBox(
                       height: 10,
                     ),
-              verifyUserOfferted
+              verifyUserOffered
                   ? ButtonWithIcon(
                       verticalPadding: 15,
                       onPressed: () async {
                         final deletedOffer = await blocHomework.deleteOffer(
-                            argumets.homework.id, getUserOffer!.id);
+                            arguments.homework.id, getUserOffer!.id);
                         socketService.emit('deleteOffer', {
-                          'room': argumets.homework.id,
+                          'room': arguments.homework.id,
                           'offer': deletedOffer,
                         });
 
