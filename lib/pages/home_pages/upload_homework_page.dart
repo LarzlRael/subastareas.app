@@ -90,6 +90,7 @@ class UploadHomeworkOnlyText extends StatefulWidget {
 class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool _loading = false;
+
   Homework homework = Homework(
     id: 0,
     title: '',
@@ -150,7 +151,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
                     ),
-                    CustomRowFormbuilderTextField(
+                    CustomRowFormBuilderTextField(
                       name: 'offered_amount',
                       placeholder: 'Presupuesto ',
                       keyboardType: TextInputType.number,
@@ -168,7 +169,7 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                     const CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
-                      placeholder: 'Tiempo de resolucion : ',
+                      placeholder: 'Tiempo de resolución : ',
                       keyboardType: TextInputType.datetime,
                     ),
                     const CustomFormBuilderFetchDropdown(
@@ -260,6 +261,8 @@ class UploadHomeworkWithFile extends StatefulWidget {
 
 class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
   final _formKey = GlobalKey<FormBuilderState>();
+  bool _isLoading = false;
+  bool _isWithFile = false;
 
   Homework homework = Homework(
     id: 0,
@@ -316,15 +319,32 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       top: 10,
                       bottom: 10,
                     ),
-                    const CustomFileField(
-                      name: 'file',
+                    GenericListTile(
+                      icon: Icons.file_open,
+                      title: 'Subir tarea con archivo',
+                      initialValue: _isWithFile,
+                      onChanged: (value) {
+                        setState(() {
+                          _isWithFile = value;
+                        });
+                      },
                     ),
+                    _isWithFile
+                        ? const CustomFileField(
+                            name: 'file',
+                            /* title: 'Subir archivo',
+                            icon: Icons.file_upload, */
+                          )
+                        : const SizedBox(),
+                    /* const CustomFileField(
+                      name: 'file',
+                    ), */
                     const CustomFormBuilderTextArea(
                       name: 'title',
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
                     ),
-                    const CustomRowFormbuilderTextField(
+                    const CustomRowFormBuilderTextField(
                         name: 'offered_amount',
                         placeholder: 'Presupuesto ',
                         keyboardType: TextInputType.number,
@@ -339,7 +359,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                     const CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
-                      placeholder: 'Tiempo de resolucion : ',
+                      placeholder: 'Tiempo de resolución : ',
                       keyboardType: TextInputType.datetime,
                     ),
                     const CustomFormBuilderFetchDropdown(
@@ -351,38 +371,54 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                 ),
                 Column(
                   children: [
-                    FillButton(
-                      text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
-                      borderRadius: 20,
-                      textColor: Colors.white,
-                      onPressed: () async {
-                        final validationSuccess =
-                            _formKey.currentState!.validate();
-                        print(_formKey.currentState!.value['title']);
-                        print(_formKey.currentState!.value['offered_amount']);
-                        print(_formKey.currentState!.value['category']);
-                        print(_formKey.currentState!.value['resolutionTime']);
-                        if (validationSuccess) {
-                          _formKey.currentState!.save();
-                          /* print(_formKey.currentState!.value); */
-                          final Map<String, String> data = {
-                            'title': _formKey.currentState!.value['title'],
-                            'offered_amount':
-                                _formKey.currentState!.value['offered_amount'],
-                            'category':
-                                _formKey.currentState!.value['category'],
-                            'resolutionTime': _formKey
-                                .currentState!.value['resolutionTime']
-                                .toString(),
-                          };
+                    !_isLoading
+                        ? FillButton(
+                            text: homework.id == 0
+                                ? "Subir Tarea"
+                                : "Editar Tarea",
+                            borderRadius: 20,
+                            textColor: Colors.white,
+                            onPressed: () async {
+                              final validationSuccess =
+                                  _formKey.currentState!.validate();
 
-                          await homeworksService.uploadHomeworkWithFile(
-                              data,
-                              File(_formKey
-                                  .currentState!.value['file'][0].path));
-                        }
-                      },
-                    ),
+                              if (validationSuccess) {
+                                final Map<String, String> data = {
+                                  'title':
+                                      _formKey.currentState!.value['title'],
+                                  'offered_amount': _formKey
+                                      .currentState!.value['offered_amount'],
+                                  'category':
+                                      _formKey.currentState!.value['category'],
+                                  'resolutionTime': _formKey
+                                      .currentState!.value['resolutionTime']
+                                      .toString(),
+                                };
+                                if (_isWithFile) {
+                                  _formKey.currentState!.save();
+                                  /* print(_formKey.currentState!.value); */
+                                  final uploadHomework = await homeworksService
+                                      .uploadHomeworkWithFile(
+                                    data,
+                                    File(_formKey
+                                        .currentState!.value['file'][0].path),
+                                  );
+                                  _successUploaded(uploadHomework);
+                                } else {
+                                  _formKey.currentState!.save();
+                                  setState(() {
+                                    _isLoading = true;
+                                  });
+                                  final uploadHomework = await homeworksService
+                                      .uploadHomeworkOnlyText(
+                                    data,
+                                    homework.id,
+                                  );
+                                  _successUploaded(uploadHomework);
+                                }
+                              }
+                            })
+                        : const Center(child: CircularProgressIndicator()),
                   ],
                 )
               ],
@@ -391,5 +427,23 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
         ),
       ),
     );
+  }
+
+  void _successUploaded(bool uploadHomework) {
+    if (uploadHomework) {
+      Navigator.pushNamed(context, 'my_homeworks_page');
+      _formKey.currentState!.reset();
+      setState(() {
+        _isLoading = false;
+      });
+      GlobalSnackBar.show(context, 'Tarea subida correctamente',
+          backgroundColor: Colors.green);
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+      GlobalSnackBar.show(context, 'Error al subir tarea',
+          backgroundColor: Colors.red);
+    }
   }
 }

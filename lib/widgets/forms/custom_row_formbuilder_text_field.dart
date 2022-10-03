@@ -1,12 +1,12 @@
 part of '../widgets.dart';
 
-class CustomRowFormbuilderTextField extends StatelessWidget {
+class CustomRowFormBuilderTextField extends StatelessWidget {
   final String name;
   final String placeholder;
   final TextInputType keyboardType;
   final IconData suffixIcon;
   final String? Function(String?)? validator;
-  const CustomRowFormbuilderTextField({
+  const CustomRowFormBuilderTextField({
     Key? key,
     required this.name,
     required this.placeholder,

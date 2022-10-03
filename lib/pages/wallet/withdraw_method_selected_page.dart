@@ -68,7 +68,7 @@ class _WithdrawMethodSelectedPageState
                     children: [
                       Column(
                         children: [
-                          CustomRowFormbuilderTextField(
+                          CustomRowFormBuilderTextField(
                             name: 'balanceToWithDrawable',
                             placeholder: 'Presupuesto ',
                             keyboardType: TextInputType.number,
