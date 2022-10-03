@@ -67,7 +67,7 @@ showBottomMenuSheetAddOrEditComment(
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      final homeworkbloc = OneHomeworkBloc();
+      final homeworkBloc = OneHomeworkBloc();
       return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
         return Padding(
@@ -108,7 +108,7 @@ showBottomMenuSheetAddOrEditComment(
                         onPressed: () async {
                           // usar servicio en este punto
                           if (!editable) {
-                            await homeworkbloc.newComment(
+                            await homeworkBloc.newComment(
                               idComment,
                               controller.text,
                             );
@@ -116,7 +116,7 @@ showBottomMenuSheetAddOrEditComment(
                             GlobalSnackBar.show(context, 'Comentario enviado');
                             controller.clear();
                           } else {
-                            await homeworkbloc.editComment(
+                            await homeworkBloc.editComment(
                               idComment,
                               idHomework!,
                               controller.text,

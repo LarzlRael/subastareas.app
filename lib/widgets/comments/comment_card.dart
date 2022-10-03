@@ -86,8 +86,8 @@ class _CommentCardState extends State<CommentCard>
         !circle
             ? SimpleText(
                 text: widget.comment.user.username,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
               )
             : Container(
                 decoration: BoxDecoration(
@@ -101,7 +101,7 @@ class _CommentCardState extends State<CommentCard>
                   ),
                   child: SimpleText(
                     text: widget.comment.user.username,
-                    fontSize: 15,
+                    fontSize: 13,
                     fontWeight: FontWeight.w400,
                     lightThemeColor: Colors.white,
                     setUniqueColor: true,
@@ -110,7 +110,7 @@ class _CommentCardState extends State<CommentCard>
               ),
         const SizedBox(width: 15),
         SimpleText(
-          text: timeago.format(widget.comment.createdAt, locale: 'es'),
+          text: timeAgo.format(widget.comment.createdAt, locale: 'es'),
           lightThemeColor: Colors.grey,
         ),
       ],

@@ -19,7 +19,7 @@ import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
-import 'package:timeago/timeago.dart' as timeago;
+import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import '../routes/routes_page.dart';

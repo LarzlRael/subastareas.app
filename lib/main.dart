@@ -33,7 +33,7 @@ void main() async {
   await preferences.initPreferences();
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ThemeChanger(2),
+      create: (_) => ThemeChanger(preferences.getThemeStatus),
       child: const MyApp(),
     ),
   );

@@ -36,7 +36,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            elevation: 5,
+            elevation: 0,
             backgroundColor:
                 theme.getDarkTheme ? Colors.transparent : Colors.grey[100],
             toolbarHeight: 20,

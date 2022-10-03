@@ -105,7 +105,7 @@ class NotificationsCard extends StatelessWidget {
                 lightThemeColor: Colors.black,
               ),
               SimpleText(
-                text: timeago.format(notification.createdAt, locale: 'es'),
+                text: timeAgo.format(notification.createdAt, locale: 'es'),
                 fontSize: 12,
                 lightThemeColor: Colors.black,
               ),

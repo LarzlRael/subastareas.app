@@ -189,7 +189,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
                         return const CircularCenter();
                       } else if (_offer.isEmpty) {
                         return const NoInformation(
-                          message: 'No hay ofertas aun',
+                          message: 'No hay ofertas aún',
                           icon: Icons.search_off,
                           showButton: false,
                           iconButton: Icons.add,
@@ -241,12 +241,12 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
       margin: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
-          Icon(Icons.remove_red_eye, color: Colors.grey),
+          const Icon(Icons.remove_red_eye, color: Colors.grey),
           const SizedBox(width: 5),
           SimpleText(
             text: _currentViewers == 1
                 ? 'Solo tú estas viendo esto'
-                : 'Tú y ${_currentViewers - 1} estan viendo esto',
+                : 'Tú y ${_currentViewers - 1} personas más, están viendo esto',
             fontSize: 15,
             fontWeight: FontWeight.w500,
             top: 5,

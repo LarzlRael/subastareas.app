@@ -130,7 +130,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
           )
         : Container(),
     const MenuProfileOption(
-      icon: Icon(Icons.exit_to_app),
+      icon: Icon(Icons.exit_to_app, color: Colors.white),
       title: "Cerrar sesión",
       page: WalletPage(),
       showTrailingIcon: false,

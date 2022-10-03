@@ -14,7 +14,7 @@ class GlobalSnackBar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         behavior: SnackBarBehavior.floating,
-        content: Text(message),
+        content: SimpleText(text: message),
         backgroundColor: backgroundColor,
       ),
     );

@@ -63,11 +63,6 @@ class MenuProfileOption extends StatelessWidget {
                   /* color: color, */
                 )
               : null,
-          /* leading: Badge(
-            child: icon,
-            badgeContent: null,
-          ),
-           */
           leading: badge
               ? Badge(
                   child: icon,
@@ -79,7 +74,7 @@ class MenuProfileOption extends StatelessWidget {
             fontSize: 15,
             fontWeight: FontWeight.bold,
             setUniqueColor: false,
-            lightThemeColor: Colors.black87,
+            lightThemeColor: closeSession ? Colors.white : Colors.black87,
           ),
         ),
       ),
