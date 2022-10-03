@@ -8,6 +8,10 @@ class PendingHomeworksOffersAccepts extends StatelessWidget {
     final offerServices = OffersServices();
 
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+        title: 'Tareas pendientes',
+      ),
       body: FutureBuilder(
         future: offerServices.getUsersHomeworksPending(),
         builder: (BuildContext context,

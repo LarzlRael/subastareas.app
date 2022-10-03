@@ -1,21 +1,24 @@
 part of '../pages.dart';
 
 class ShowHomework extends StatefulWidget {
-  const ShowHomework({Key? key}) : super(key: key);
+  const ShowHomework({
+    Key? key,
+    required this.homework,
+  }) : super(key: key);
+  final Homework homework;
 
   @override
   _ShowHomeworkState createState() => _ShowHomeworkState();
 }
 
 class _ShowHomeworkState extends State<ShowHomework> {
+  late String sampleUrl;
   @override
   void initState() {
     loadPdf();
     super.initState();
+    sampleUrl = widget.homework.fileUrl!;
   }
-
-  final sampleUrl =
-      'https://res.cloudinary.com/negocioexitoso-online/image/upload/v1654532296/HOMEWORK/hzpdelmqxczejhetpaas.pdf';
 
   String? pdfFlePath;
 
@@ -38,37 +41,15 @@ class _ShowHomeworkState extends State<ShowHomework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Esta es mi tarea ayuda plox'),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            /* ElevatedButton(
-              child: Text("Descargar pdf"),
-              onPressed: () async {
-                final taskId = await FlutterDownloader.enqueue(
-                  url: sampleUrl,
-                  savedDir:
-                      'the path of directory where you want to save downloaded files',
-                  showNotification:
-                      true, // show download progress in status bar (for Android)
-                  openFileFromNotification:
-                      true, // click on notification to open downloaded file (for Android)
-                );
-              },
-            ), */
-            if (pdfFlePath != null)
-              Expanded(
-                child: PdfView(path: pdfFlePath!),
-              )
-            else
-              const Center(
-                child: CircularProgressIndicator(),
-              ),
-          ],
-        ),
-      ),
+      appBar:
+          AppBarWithBackIcon(appBar: AppBar(), title: widget.homework.title),
+      body: widget.homework.fileType == 'pdf'
+          ? PdfType(
+              pdfFlePath: pdfFlePath!,
+            )
+          : widget.homework.fileType.contains('image')
+              ? ImageType(imagePath: widget.homework.fileUrl)
+              : const Text('Error al cargar el archivo'),
       floatingActionButton: pdfFlePath != null
           ? FloatingActionButton(
               onPressed: () {
@@ -78,6 +59,77 @@ class _ShowHomeworkState extends State<ShowHomework> {
               child: const Icon(Icons.download),
             )
           : null,
+    );
+  }
+}
+
+class PdfType extends StatelessWidget {
+  const PdfType({
+    Key? key,
+    required this.pdfFlePath,
+  }) : super(key: key);
+
+  final String? pdfFlePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          /* ElevatedButton(
+            child: Text("Descargar pdf"),
+            onPressed: () async {
+              final taskId = await FlutterDownloader.enqueue(
+                url: sampleUrl,
+                savedDir:
+                    'the path of directory where you want to save downloaded files',
+                showNotification:
+                    true, // show download progress in status bar (for Android)
+                openFileFromNotification:
+                    true, // click on notification to open downloaded file (for Android)
+              );
+            },
+          ), */
+          if (pdfFlePath != null)
+            Expanded(
+              child: PdfView(path: pdfFlePath!),
+            )
+          else
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class ImageType extends StatelessWidget {
+  const ImageType({
+    Key? key,
+    required this.imagePath,
+  }) : super(key: key);
+
+  final String? imagePath;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: <Widget>[
+          if (imagePath != null)
+            Expanded(
+              child: Image.network(
+                imagePath!,
+                fit: BoxFit.fitWidth,
+              ),
+            )
+          else
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+        ],
+      ),
     );
   }
 }

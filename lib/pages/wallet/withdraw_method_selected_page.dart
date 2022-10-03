@@ -85,7 +85,7 @@ class _WithdrawMethodSelectedPageState
                       !_loading
                           ? FillButton(
                               text: "Retirar",
-                              borderRadius: 20,
+                              borderRadius: 50,
                               textColor: Colors.white,
                               onPressed: () async {
                                 setState(() {

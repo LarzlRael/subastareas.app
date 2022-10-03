@@ -21,7 +21,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
       ),
   'makeOffer': (_) => const MakeOfferPage(),
   'listOpenHomeworks': (_) => const ListOpenHomeworksPage(),
-  'showHomework': (_) => const ShowHomework(),
+  'showHomework': (_) => ShowHomework(
+        homework: ModalRoute.of(_)?.settings.arguments as Homework,
+      ),
   'profile': (_) => const ProfilePage(),
   'forgot_password': (_) => const ForgotPassword(),
   'verify_email_page': (_) => const VerifyEmailPage(),

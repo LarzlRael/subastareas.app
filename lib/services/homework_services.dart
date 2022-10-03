@@ -110,8 +110,8 @@ class HomeworkServices {
 
   Future uploadHomeworkWithFile(Map<String, String> body, File file) async {
     final uploadWithFile = await Request.sendRequestWithFile(
-      'homework/create',
       'POST',
+      'homework/create',
       body,
       file,
       await _storage.read(key: 'token') ?? '',

@@ -7,6 +7,10 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final tradeServices = TradeServices();
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+        title: 'Tienda',
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.only(left: 10, right: 10, top: 10),

@@ -6,9 +6,12 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context);
+    final theme = Provider.of<ThemeChanger>(context);
     final transactionServices = TransactionServices();
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: theme.isDarkTheme
+          ? Theme.of(context).scaffoldBackgroundColor
+          : Colors.grey[300],
       body: SafeArea(
         child: Container(
           /* padding: const EdgeInsets.symmetric(horizontal: 20), */
@@ -16,7 +19,9 @@ class WalletPage extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                color: Colors.white,
+                color: theme.isDarkTheme
+                    ? Theme.of(context).scaffoldBackgroundColor
+                    : Colors.white,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -34,7 +39,7 @@ class WalletPage extends StatelessWidget {
                         const Icon(
                           Ionicons.wallet,
                           size: 150,
-                          color: Colors.black87,
+                          /* color: Colors.black87, */
                         ),
                         Column(
                           children: [

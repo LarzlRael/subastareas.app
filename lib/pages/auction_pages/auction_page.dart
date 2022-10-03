@@ -183,7 +183,7 @@ class _AuctionPageState extends State<AuctionPage> {
                     Navigator.pushNamed(
                       context,
                       'showHomework',
-                      arguments: oneHomeworkModel.homework.fileUrl,
+                      arguments: oneHomeworkModel.homework,
                     );
                   },
                 )

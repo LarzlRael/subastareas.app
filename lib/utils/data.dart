@@ -113,7 +113,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
     ),
     const MenuProfileOption(
       icon: Icon(Icons.settings),
-      title: "Configuracion",
+      title: "Configuraciones",
       page: SettingsPage(),
     ),
     /* const MenuProfileOption(
