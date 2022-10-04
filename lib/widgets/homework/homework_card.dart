@@ -45,9 +45,12 @@ class HomeworkCard extends StatelessWidget {
               height: size.height * 0.15,
               child: Hero(
                 tag: homework.id,
-                child: Image.asset(
-                  'assets/category/${removeDiacritics(homework.category)}.jpg',
-                  fit: BoxFit.cover,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.asset(
+                    'assets/category/${removeDiacritics(homework.category)}.jpg',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
@@ -57,7 +60,7 @@ class HomeworkCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SimpleText(
-                    text: homework.title,
+                    text: homework.title.toCapitalized(),
                     fontSize: 18,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,

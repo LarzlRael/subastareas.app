@@ -109,7 +109,16 @@ class WalletPage extends StatelessWidget {
                   if (snapshot.hasData) {
                     if (snapshot.data!.isEmpty) {
                       return const Center(
-                        child: Text('No hay transacciones'),
+/* icon
+message
+showButton
+iconButton */
+                        child: NoInformation(
+                          icon: Icons.hourglass_empty,
+                          message: 'No tienes transacciones',
+                          showButton: false,
+                          iconButton: Icons.arrow_forward_ios,
+                        ),
                       );
                     }
                     return Expanded(

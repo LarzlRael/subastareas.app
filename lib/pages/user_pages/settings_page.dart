@@ -22,7 +22,7 @@ class SettingsPage extends StatelessWidget {
             ),
           )
         ],
-        title: const Text('Configuración'),
+        title: const Text('Configuraciones'),
         centerTitle: true,
         /* backgroundColor: isDarkMode(context) ? Colors.black : Colors.white, */
         elevation: 0,

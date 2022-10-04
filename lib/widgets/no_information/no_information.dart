@@ -13,9 +13,9 @@ class NoInformation extends StatelessWidget {
     required this.icon,
     required this.message,
     required this.showButton,
+    required this.iconButton,
     this.buttonTitle,
     this.onPressed,
-    required this.iconButton,
   }) : super(key: key);
 
   @override

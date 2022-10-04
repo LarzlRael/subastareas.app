@@ -108,13 +108,15 @@ class HomeworkServices {
     return validateStatus(homeworkRequest!.statusCode);
   }
 
-  Future uploadHomeworkWithFile(Map<String, String> body, File file) async {
-    final uploadWithFile = await Request.sendRequestWithFile(
+  Future<bool> uploadHomeworkWithFile(
+      Map<String, String> body, File file) async {
+    final homeworkUploadWithFile = await Request.sendRequestWithFile(
       'POST',
       'homework/create',
       body,
       file,
       await _storage.read(key: 'token') ?? '',
     );
+    return validateStatus(homeworkUploadWithFile.statusCode);
   }
 }

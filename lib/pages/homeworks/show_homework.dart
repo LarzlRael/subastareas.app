@@ -41,8 +41,8 @@ class _ShowHomeworkState extends State<ShowHomework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBarWithBackIcon(appBar: AppBar(), title: widget.homework.title),
+      appBar: AppBarWithBackIcon(
+          appBar: AppBar(), title: widget.homework.title.toCapitalized()),
       body: widget.homework.fileType == 'pdf'
           ? PdfType(
               pdfFlePath: pdfFlePath!,
@@ -119,11 +119,14 @@ class ImageType extends StatelessWidget {
         children: <Widget>[
           if (imagePath != null)
             Expanded(
-              child: Image.network(
+                child: /* Image.network(
                 imagePath!,
                 fit: BoxFit.fitWidth,
-              ),
-            )
+              ), */
+                    FadeInImage.assetNetwork(
+              placeholder: 'assets/icon.png',
+              image: imagePath!,
+            ))
           else
             const Center(
               child: CircularProgressIndicator(),
