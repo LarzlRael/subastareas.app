@@ -86,7 +86,7 @@ class _CommentCardState extends State<CommentCard>
   Row _nameAndTimeAgo(bool circle) {
     return Row(
       children: [
-        !circle
+        circle
             ? SimpleText(
                 text: widget.comment.user.username,
                 fontSize: 13,

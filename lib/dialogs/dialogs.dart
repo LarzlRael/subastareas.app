@@ -62,6 +62,7 @@ showBottomMenuSheetAddOrEditComment(
   }
 
   bool _showSendIcon = false;
+  bool _loading = false;
 
   showModalBottomSheet(
     context: context,
@@ -106,28 +107,49 @@ showBottomMenuSheetAddOrEditComment(
                 _showSendIcon
                     ? IconButton(
                         onPressed: () async {
-                          // usar servicio en este punto
+                          setState(() {
+                            _loading = true;
+                          });
                           if (!editable) {
                             await homeworkBloc.newComment(
                               idComment,
                               controller.text,
                             );
                             Navigator.pop(context);
-                            GlobalSnackBar.show(context, 'Comentario enviado');
+                            setState(() {
+                              _loading = false;
+                            });
+                            GlobalSnackBar.show(
+                              context,
+                              'Comentario enviado',
+                              backgroundColor: Colors.green,
+                            );
                             controller.clear();
                           } else {
+                            setState(() {
+                              _loading = true;
+                            });
                             await homeworkBloc.editComment(
                               idComment,
                               idHomework!,
                               controller.text,
                             );
+                            setState(() {
+                              _loading = false;
+                            });
                             Navigator.pop(context);
-                            GlobalSnackBar.show(context, 'Comentario editado');
+                            GlobalSnackBar.show(
+                              context,
+                              'Comentario editado',
+                              backgroundColor: Colors.green,
+                            );
+
                             controller.clear();
                           }
-                          /* widget.reloadHomework(); */
                         },
-                        icon: const Icon(Icons.send),
+                        icon: _loading
+                            ? const CircularProgressIndicator()
+                            : const Icon(Icons.send),
                       )
                     : const SizedBox(),
               ],
