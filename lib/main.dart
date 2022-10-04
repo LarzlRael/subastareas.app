@@ -108,12 +108,12 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  showSnackBar(String type, String message) {
+  /* showSnackBar(String type, String message) {
     _messengerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text(message),
         backgroundColor: type == "comment" ? Colors.green : Colors.blue,
       ),
     );
-  }
+  } */
 }

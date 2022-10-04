@@ -43,7 +43,7 @@ class _CommentCardState extends State<CommentCard>
               children: [
                 _nameAndTimeAgo(auth.user.id == widget.comment.user.id),
                 DropdownComment(
-                  commentContent: widget.comment.content,
+                  commentContent: widget.comment.content.toCapitalized(),
                   isExpanded: widget.isExpanded,
                   limit: 75,
                 ),
@@ -67,7 +67,10 @@ class _CommentCardState extends State<CommentCard>
               ? IconButton(
                   onPressed: () {
                     showBottomMenuSheet(
-                        auth, widget.comment, widget.idHomework);
+                      auth,
+                      widget.comment,
+                      widget.idHomework,
+                    );
                   },
                   icon: const Icon(
                     Icons.more_vert,

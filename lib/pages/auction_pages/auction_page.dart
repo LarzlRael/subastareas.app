@@ -51,20 +51,24 @@ class _AuctionPageState extends State<AuctionPage> {
                         isBearer
                             ? IconButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    snapshot.data!.homework.fileType ==
-                                            'only_text'
-                                        ? 'upload_homework_only_text'
-                                        : 'upload_homework_with_file',
-                                    arguments: snapshot.data!.homework,
-                                    /* PageTransition(
+                                  snapshot.data!.offers.isEmpty
+                                      ? Navigator.pushNamed(
+                                          context,
+                                          snapshot.data!.homework.fileType ==
+                                                  'only_text'
+                                              ? 'upload_homework_only_text'
+                                              : 'upload_homework_with_file',
+                                          arguments: snapshot.data!.homework,
+                                          /* PageTransition(
                                       type: PageTransitionType
                                           .leftToRightWithFade,
                                       child: UploadHomeworkOnlyText(),
                                       settings: snapshot.data!.homework,
                                     ), */
-                                  );
+                                        )
+                                      : GlobalSnackBar.show(context,
+                                          "No puedes editar tu tarea porque ya tiene ofertas",
+                                          backgroundColor: Colors.red);
                                 },
                                 icon: const Icon(
                                   Icons.edit,
@@ -133,7 +137,7 @@ class _AuctionPageState extends State<AuctionPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SimpleText(
-            text: oneHomeworkModel.homework.title,
+            text: oneHomeworkModel.homework.title.toCapitalized(),
             fontWeight: FontWeight.w500,
             bottom: 15,
             fontSize: 22,
@@ -152,7 +156,8 @@ class _AuctionPageState extends State<AuctionPage> {
                         width: 7,
                       ),
                       SimpleText(
-                        text: oneHomeworkModel.homework.user.username,
+                        text: oneHomeworkModel.homework.user.username
+                            .toCapitalized(),
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                       ),
@@ -287,7 +292,7 @@ class _AuctionPageState extends State<AuctionPage> {
           fontSize: 18,
         ),
         DescriptionText(
-          despegable: false,
+          dropDown: false,
           desc: desc,
         ),
       ],

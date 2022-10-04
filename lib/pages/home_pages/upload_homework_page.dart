@@ -383,18 +383,22 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   _formKey.currentState!.validate();
 
                               if (validationSuccess) {
-                                final Map<String, String> data = {
-                                  'title':
-                                      _formKey.currentState!.value['title'],
-                                  'offered_amount': _formKey
-                                      .currentState!.value['offered_amount'],
-                                  'category':
-                                      _formKey.currentState!.value['category'],
-                                  'resolutionTime': _formKey
-                                      .currentState!.value['resolutionTime']
-                                      .toString(),
-                                };
+                                _formKey.currentState!.save();
+                                debugPrint(
+                                    _formKey.currentState!.value.toString());
+
                                 if (_isWithFile) {
+                                  final Map<String, String> data = {
+                                    'title':
+                                        _formKey.currentState!.value['title'],
+                                    'offered_amount': _formKey
+                                        .currentState!.value['offered_amount'],
+                                    'category': _formKey
+                                        .currentState!.value['category'],
+                                    'resolutionTime': _formKey
+                                        .currentState!.value['resolutionTime']
+                                        .toString(),
+                                  };
                                   _formKey.currentState!.save();
                                   /* print(_formKey.currentState!.value); */
                                   final uploadHomework = await homeworksService
@@ -405,6 +409,17 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   );
                                   _successUploaded(uploadHomework);
                                 } else {
+                                  final Map<String, String> data = {
+                                    'title':
+                                        _formKey.currentState!.value['title'],
+                                    'offered_amount': _formKey
+                                        .currentState!.value['offered_amount'],
+                                    'category': _formKey
+                                        .currentState!.value['category'],
+                                    'resolutionTime': _formKey
+                                        .currentState!.value['resolutionTime']
+                                        .toString(),
+                                  };
                                   _formKey.currentState!.save();
                                   setState(() {
                                     _isLoading = true;

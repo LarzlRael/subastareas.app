@@ -80,7 +80,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   ? DescriptionText(
                       desc: arguments.homework.description!,
                       textAlign: TextAlign.center,
-                      despegable: false,
+                      dropDown: false,
                     )
                   : Container(),
               /* TimerCounter(

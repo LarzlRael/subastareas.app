@@ -3,17 +3,17 @@ part of '../widgets.dart';
 class DescriptionText extends StatelessWidget {
   final String desc;
   final TextAlign? textAlign;
-  final bool despegable;
+  final bool dropDown;
   const DescriptionText({
     Key? key,
     required this.desc,
-    this.despegable = true,
+    this.dropDown = true,
     this.textAlign,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return despegable
+    return dropDown
         ? DropdownComment(
             commentContent: desc,
             limit: 150,

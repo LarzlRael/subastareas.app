@@ -6,6 +6,7 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: false);
     final themeChanger = Provider.of<ThemeChanger>(context, listen: true);
+    final preferences = UserPreferences();
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -40,7 +41,7 @@ class SettingsPage extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   radius: 65.0,
                 ),
               ),
@@ -74,6 +75,7 @@ class SettingsPage extends StatelessWidget {
                       initialValue: themeChanger.isDarkTheme,
                       onChanged: (value) {
                         themeChanger.setDarkTheme = value;
+                        preferences.setThemeStatus = value ? 1 : 0;
                       },
                     ),
                     ListTile(
