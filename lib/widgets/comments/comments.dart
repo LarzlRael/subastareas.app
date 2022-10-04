@@ -3,12 +3,12 @@ part of '../widgets.dart';
 class CommentsWidget extends StatefulWidget {
   final bool isLogged;
   final List<Comment> comments;
-  final int idhomework;
+  final int idHomework;
   const CommentsWidget({
     Key? key,
     required this.isLogged,
     required this.comments,
-    required this.idhomework,
+    required this.idHomework,
   }) : super(key: key);
 
   @override
@@ -37,7 +37,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
                   showBottomMenuSheetAddOrEditComment(
                     context,
                     auth,
-                    widget.idhomework,
+                    widget.idHomework,
                   );
                 },
                 child: Row(
@@ -65,7 +65,7 @@ class _CommentsWidgetState extends State<CommentsWidget> {
           itemBuilder: (context, index) {
             return CommentCard(
               comment: reverseComments[index],
-              idHomework: widget.idhomework,
+              idHomework: widget.idHomework,
             );
           },
         ),

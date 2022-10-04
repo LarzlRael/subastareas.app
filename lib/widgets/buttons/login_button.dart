@@ -12,6 +12,7 @@ class LoginButton extends StatelessWidget {
   final double fontSize;
   final double paddingVertical;
   final double paddingHorizontal;
+  final double spaceBetweenIconAndText;
   const LoginButton({
     Key? key,
     required this.onPressed,
@@ -25,6 +26,7 @@ class LoginButton extends StatelessWidget {
     this.fontSize = 17.0,
     this.paddingVertical = 15.0,
     this.paddingHorizontal = 40.0,
+    this.spaceBetweenIconAndText = 10.0,
   }) : super(key: key);
 
   @override
@@ -67,8 +69,3 @@ class LoginButton extends StatelessWidget {
     );
   }
 }
-/* final textStyle = TextStyle(
-      color: textColor,
-      fontSize: fontSize,
-      fontWeight: FontWeight.bold,
-    ); */

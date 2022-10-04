@@ -9,6 +9,9 @@ class WalletPage extends StatelessWidget {
     final theme = Provider.of<ThemeChanger>(context);
     final transactionServices = TransactionServices();
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       backgroundColor: theme.isDarkTheme
           ? Theme.of(context).scaffoldBackgroundColor
           : Colors.grey[300],

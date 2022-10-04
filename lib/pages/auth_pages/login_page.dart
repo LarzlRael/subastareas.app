@@ -15,6 +15,7 @@ class _LoginPageState extends State<LoginPage> {
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final preferences = UserPreferences();
+    final theme = Provider.of<ThemeChanger>(context);
 
     void loginOk() {
       Navigator.pushReplacementNamed(context, 'bottomNavigation');
@@ -56,13 +57,16 @@ class _LoginPageState extends State<LoginPage> {
                         }
                       },
                       paddingVertical: 12,
-                      buttonChild: const SimpleText(
-                        text: "Iniciar sesión con google",
-                        lightThemeColor: Colors.black,
-                        setUniqueColor: true,
+                      buttonChild: const Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: SimpleText(
+                          text: "Iniciar sesión con google",
+                          fontSize: 15,
+                        ),
                       ),
                       fontSize: 15,
-                      backGroundColor: Colors.white,
+                      backGroundColor:
+                          theme.isDarkTheme ? Colors.black38 : Colors.white,
                       icon: SvgPicture.asset(
                         'assets/svg/google_icon.svg',
                         width: 25,

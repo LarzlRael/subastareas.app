@@ -1,20 +1,20 @@
 part of '../pages.dart';
 
-class AutionWithOfferPage extends StatefulWidget {
+class AuctionWithOfferPage extends StatefulWidget {
   OneHomeworkModel args;
 
-  AutionWithOfferPage({
+  AuctionWithOfferPage({
     required this.args,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<AutionWithOfferPage> createState() => _AutionWithOfferPageState();
+  State<AuctionWithOfferPage> createState() => _AuctionWithOfferPageState();
 }
 
-class _AutionWithOfferPageState extends State<AutionWithOfferPage>
+class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     with TickerProviderStateMixin {
-  late List<PersonOfferHorizontal> _offer = [];
+  late final List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
   late AuthServices auth;
   int _currentViewers = 0;
@@ -27,7 +27,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
     socketService.socket.on('joinOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
-    socketService.socket.on('deleteOffer', _listeneOfferDeleted);
+    socketService.socket.on('deleteOffer', _listenOfferDeleted);
     socketService.socket.on('editOffer', _listenerOfferEdited);
 
     super.initState();
@@ -82,7 +82,7 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     }
   }
 
-  void _listeneOfferDeleted(dynamic payload) {
+  void _listenOfferDeleted(dynamic payload) {
     final offer = offerSimpleModelFromJson(payload);
     if (mounted) {
       setState(() {
@@ -161,6 +161,9 @@ class _AutionWithOfferPageState extends State<AutionWithOfferPage>
     homeworksBloc.getOneHomework(widget.args.homework.id);
     final isOwner = auth.user.id == widget.args.homework.user.id;
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: SafeArea(
         child: Stack(
           children: [

@@ -35,7 +35,7 @@ part 'auth_pages/forgot_password_page.dart';
 part 'auth_pages/verify_email_page.dart';
 
 part 'auction_pages/auction_page.dart';
-part 'auction_pages/aution_with_offer_page.dart';
+part 'auction_pages/auction_with_offer_page.dart';
 part 'auction_pages/upload_homework_offered_page.dart';
 
 part 'home_pages/upload_homework_page.dart';

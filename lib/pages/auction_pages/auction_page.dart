@@ -26,6 +26,9 @@ class _AuctionPageState extends State<AuctionPage> {
       isBearer = widget.args.idUser == auth.user.id;
     }
     return Scaffold(
+      /* appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ), */
       body: StreamBuilder(
         stream: _oneHomeworkBloc.oneHomeworkStream,
         builder:
@@ -200,7 +203,7 @@ class _AuctionPageState extends State<AuctionPage> {
               ? CommentsWidget(
                   comments: oneHomeworkModel.comments,
                   isLogged: isLogged,
-                  idhomework: oneHomeworkModel.homework.id,
+                  idHomework: oneHomeworkModel.homework.id,
                 )
               : Container(),
         ],
