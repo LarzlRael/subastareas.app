@@ -2,7 +2,7 @@ part of 'buttons.dart';
 
 class FillButton extends StatelessWidget {
   final VoidCallback? onPressed;
-  final String text;
+  final String label;
   final Color backgroundColor;
   final Color textColor;
 
@@ -13,7 +13,7 @@ class FillButton extends StatelessWidget {
   const FillButton({
     Key? key,
     required this.onPressed,
-    required this.text,
+    required this.label,
     this.backgroundColor = Colors.blue,
     this.textColor = Colors.white,
     this.marginVertical = 5,
@@ -66,7 +66,7 @@ class FillButton extends StatelessWidget {
           ),
         ), */
         child: Text(
-          text,
+          label,
           textAlign: TextAlign.center,
           style: textStyle,
         ),

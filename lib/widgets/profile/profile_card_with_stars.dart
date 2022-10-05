@@ -4,11 +4,11 @@ class ProfileCardWithStars extends StatelessWidget {
   final Color backgroundColor;
   const ProfileCardWithStars({
     Key? key,
-    required this.auth,
+    required this.publicProfile,
     this.backgroundColor = Colors.black45,
   }) : super(key: key);
 
-  final AuthServices auth;
+  final PublicProfile publicProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,8 @@ class ProfileCardWithStars extends StatelessWidget {
               /* showProfileImage(auth.usuario.profileImageUrl,
                   auth.usuario.username, 50), 
                   */
-              ProfileImageEdit(
-                auth: auth,
+              ProfileCircleInformation(
+                publicProfile: publicProfile,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,

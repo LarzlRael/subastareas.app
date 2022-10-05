@@ -52,7 +52,7 @@ class WelcomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushNamed(context, 'login');
                 },
-                text: 'Iniciar sesión',
+                label: 'Iniciar sesión',
                 textColor: Colors.white,
                 backgroundColor: Colors.amber,
               ),
@@ -61,7 +61,7 @@ class WelcomePage extends StatelessWidget {
                   Navigator.pushNamed(context, 'register');
                 },
                 ghostButton: true,
-                text: 'Registrarse',
+                label: 'Registrarse',
                 backgroundColor: Colors.blue,
               ),
               showNotNow

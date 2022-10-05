@@ -83,7 +83,7 @@ class RegisterPage extends StatelessWidget {
                 Column(
                   children: [
                     FillButton(
-                      text: 'Registrarse',
+                      label: 'Registrarse',
                       textColor: Colors.white,
                       borderRadius: 50,
                       onPressed: () async {

@@ -41,8 +41,10 @@ class SettingsPage extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: const CircleAvatar(
-                  radius: 65.0,
+                child: showProfileImage(
+                  auth.user.profileImageUrl,
+                  auth.user.username,
+                  radius: 75,
                 ),
               ),
               Expanded(
@@ -50,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                   children: [
                     ListTile(
                       leading: const Icon(Icons.person),
-                      title: const Text('Notificationes'),
+                      title: const Text('Notificaciones'),
                       trailing: Switch(
                         value: true,
                         onChanged: (value) {},

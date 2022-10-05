@@ -84,7 +84,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                           _loading
                               ? const Center(child: CircularProgressIndicator())
                               : FillButton(
-                                  text: "Subir tarea resuelta",
+                                  label: "Subir tarea resuelta",
                                   textColor: Colors.white,
                                   /* backgroundColor: Colors.green, */
                                   borderRadius: 30,

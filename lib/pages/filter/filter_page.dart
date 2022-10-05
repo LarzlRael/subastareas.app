@@ -78,7 +78,7 @@ class FutureGetSubjectList extends StatelessWidget {
                     }),
               ),
               FillButton(
-                text: 'Filtrar',
+                label: 'Filtrar',
                 borderRadius: 100,
                 onPressed: () {
                   oneHomeworkBloc.getHomeworksByCategory(
@@ -138,7 +138,7 @@ class LocalGetSubjectList extends StatelessWidget {
               }),
         ),
         FillButton(
-          text: 'Filtrar',
+          label: 'Filtrar',
           borderRadius: 100,
           onPressed: () {
             oneHomeworkBloc.getHomeworksByCategory(

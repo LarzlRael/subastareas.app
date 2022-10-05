@@ -187,7 +187,8 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                 ),
                 !_loading
                     ? FillButton(
-                        text: homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
+                        label:
+                            homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
                         borderRadius: 20,
                         textColor: Colors.white,
                         onPressed: () async {
@@ -373,7 +374,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                   children: [
                     !_isLoading
                         ? FillButton(
-                            text: homework.id == 0
+                            label: homework.id == 0
                                 ? "Subir Tarea"
                                 : "Editar Tarea",
                             borderRadius: 20,

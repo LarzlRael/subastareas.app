@@ -10,8 +10,8 @@ class PersonOfferHorizontal extends StatelessWidget {
   final int id;
   const PersonOfferHorizontal({
     Key? key,
-    required this.offer,
     this.active = false,
+    required this.offer,
     required this.auth,
     required this.homework,
     required this.isOwner,
@@ -35,7 +35,7 @@ class PersonOfferHorizontal extends StatelessWidget {
     return InkWell(
       onLongPress: () {
         if (isOwner) {
-          showFilterBottomMenuShett(
+          showFilterBottomMenuSheet(
             context,
             AcceptOfferButton(offer: offer),
           );
@@ -47,6 +47,7 @@ class PersonOfferHorizontal extends StatelessWidget {
         Navigator.pushNamed(
           context,
           'public_profile_page',
+          arguments: homework.homework.user.id,
         );
       },
       child: Ink(
@@ -98,7 +99,7 @@ class HorizontalOfferRow extends StatelessWidget {
   }
 }
 
-showFilterBottomMenuShett(BuildContext context, Widget content) {
+showFilterBottomMenuSheet(BuildContext context, Widget content) {
   showModalBottomSheet(
     /* isScrollControlled: true, */
     context: context,

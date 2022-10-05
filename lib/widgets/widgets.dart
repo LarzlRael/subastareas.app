@@ -58,6 +58,7 @@ part 'no_information/no_information.dart';
 part 'profile/profile_image_edit.dart';
 part 'profile/profile_card_with_stars.dart';
 part 'profile/profile_image.dart';
+part 'profile/profile_circle_information.dart';
 
 part 'notifications/notifications_card.dart';
 

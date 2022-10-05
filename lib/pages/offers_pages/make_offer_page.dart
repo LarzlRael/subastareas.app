@@ -43,7 +43,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     final blocHomework = OneHomeworkBloc();
     return Scaffold(
       appBar: AppBar(
-        /* title: Text('Hacer oferta'), */
         backgroundColor: theme.isDarkTheme ? Colors.black : Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -129,7 +128,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                             onPressed: () {
                               showOfferDialog(
                                 blocHomework,
-                                arguments.homework.id,
+                                arguments.homework,
+                                auth.user,
                                 verifyUserOffered,
                                 amount: getUserOffer!.priceOffer,
                                 idOffer: getUserOffer!.id,
@@ -147,7 +147,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         onPressed: () {
                           showOfferDialog(
                             blocHomework,
-                            arguments.homework.id,
+                            arguments.homework,
+                            auth.user,
                             verifyUserOffered,
                             amount: arguments.homework.offeredAmount,
                             idOffer: 0,
@@ -173,8 +174,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                       height: 10,
                     ),
               verifyUserOffered
-                  ? ButtonWithIcon(
-                      verticalPadding: 15,
+                  ? FillButton(
+                      marginVertical: 15,
                       onPressed: () async {
                         final deletedOffer = await blocHomework.deleteOffer(
                             arguments.homework.id, getUserOffer!.id);
@@ -192,8 +193,12 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         Navigator.pop(context);
                       },
                       label: 'Retirar oferta',
-                      backgroundColorButton: Colors.red,
-                      icon: Icons.delete,
+                      ghostButton: true,
+                      backgroundColor: Colors.red[700]!.withOpacity(0.8),
+                      borderRadius: 100,
+
+                      /* backgroundColorButton: Colors.red,
+                      icon: Icons.delete, */
 
                       /* marginVertical: 10, */
                     )
@@ -207,7 +212,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
 
   showOfferDialog(
     OneHomeworkBloc blocHomework,
-    int idHomework,
+    Homework homework,
+    UserModel userModel,
     bool verify, {
     int amount = 0,
     int idOffer = 0,
@@ -231,8 +237,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
               contentPadding: const EdgeInsets.only(
                 top: 10.0,
               ),
-              title: const SimpleText(
-                text: "Hacer oferta",
+              title: SimpleText(
+                text: !verify ? "Hacer oferta" : "Editar oferta",
                 fontSize: 24.0,
                 textAlign: TextAlign.center,
                 fontWeight: FontWeight.bold,
@@ -246,11 +252,29 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Ingrese cantidad ",
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Ingrese cantidad ",
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SimpleText(
+                                text:
+                                    "Puntos requeridos: ${homework.offeredAmount}",
+                                fontSize: 12,
+                                bottom: 5,
+                              ),
+                              SimpleText(
+                                text:
+                                    "Puntos disponibles: ${userModel.wallet.balanceTotal}",
+                                fontSize: 12,
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                       Container(
                         padding: const EdgeInsets.all(8.0),
@@ -261,11 +285,16 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                             keyboardType: TextInputType.number,
                             initialValue: verify ? amount.toString() : '',
                             decoration: const InputDecoration(
-                                labelText: 'Ingrese su oferta'),
+                              labelText: 'Ingrese su oferta',
+                            ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'La oferta es requerida';
                               } else {
+                                if (userModel.wallet.balanceTotal <
+                                    homework.offeredAmount) {
+                                  return 'No tienes puntos suficientes';
+                                }
                                 return null;
                               }
                             },
@@ -289,7 +318,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   final newOffer =
                                       await blocHomework.makeOrEditOffer(
                                     verify,
-                                    idHomework,
+                                    homework.id,
                                     emailField,
                                     idOffer,
                                   );
@@ -299,7 +328,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                           ? 'makeOfferToServer'
                                           : 'editOffer',
                                       {
-                                        'room': idHomework,
+                                        'room': homework.id,
                                         'offer': newOffer,
                                       });
                                   setState(() {
@@ -335,7 +364,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         child: const SimpleText(text: 'Nota: '),
                       ),
                       const Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(7.0),
                         child: SimpleText(
                           text:
                               'Solo puedes editar tu oferta una vez, si quieres cambiarla, debes eliminar esta oferta y hacer una nueva oferta',

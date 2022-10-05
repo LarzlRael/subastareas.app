@@ -36,7 +36,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                 ), */
                 tradeUserModel.solvedHomeworkUrl != null
                     ? FillButton(
-                        text: 'Ver tarea resuelta',
+                        label: 'Ver tarea resuelta',
                         backgroundColor: Colors.green,
                         borderRadius: 30,
                         textColor: Colors.white,
@@ -62,7 +62,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               Expanded(
                                 child: FillButton(
                                   borderRadius: 5,
-                                  text: "Rechazar",
+                                  label: "Rechazar",
                                   ghostButton: true,
                                   onPressed: () async {
                                     await tradeServices.acceptOrDeclineTrade(
@@ -74,7 +74,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               Expanded(
                                 child: FillButton(
                                   borderRadius: 5,
-                                  text: "Aceptar",
+                                  label: "Aceptar",
                                   onPressed: () async {
                                     setState(() {
                                       loading = true;

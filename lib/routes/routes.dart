@@ -30,7 +30,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'notifications': (_) => const NotificationPage(),
   'filter': (_) => const FilterPage(),
   'store_page': (_) => const StorePage(),
-  'public_profile_page': (_) => const PublicProfilePage(),
+  'public_profile_page': (BuildContext context) => PublicProfilePage(
+        userId: ModalRoute.of(context)?.settings.arguments as int,
+      ),
   'upload_homework_only_text': (BuildContext context) => UploadHomeworkOnlyText(
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
       ),
@@ -38,7 +40,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
       ),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
-  'change_password': (_) => ChangePassword(),
+  'change_password': (_) => const ChangePassword(),
   'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(),
   'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
   'withdraw_page': (_) => const WithdrawPage(),

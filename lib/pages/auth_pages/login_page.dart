@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                     authService.getAuthenticating
                         ? const CircularProgressIndicator()
                         : FillButton(
-                            text: "Iniciar sesión",
+                            label: "Iniciar sesión",
                             textColor: Colors.white,
                             borderRadius: 50,
                             onPressed: () async {

@@ -198,25 +198,12 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                           iconButton: Icons.add,
                         );
                       } else {
-                        return Column(
-                          children: [
-                            const Center(
-                              child: SimpleText(
-                                text: "Ofertas recibidas",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                top: 15,
-                                bottom: 15,
-                              ),
-                            ),
-                            Expanded(
-                              child: ListView.builder(
-                                /* scrollDirection: Axis.horizontal, */
-                                itemCount: _offer.length,
-                                itemBuilder: (_, int index) => _offer[index],
-                              ),
-                            ),
-                          ],
+                        return Expanded(
+                          child: ListView.builder(
+                            /* scrollDirection: Axis.horizontal, */
+                            itemCount: _offer.length,
+                            itemBuilder: (_, int index) => _offer[index],
+                          ),
                         );
                       }
                     },
@@ -224,15 +211,6 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                 ],
               ),
             ),
-            /* filterProvider.getShowButtonAcept
-                ? Positioned(
-                    bottom: 0,
-                    left: 0,
-                    child: AcceptOfferButton(
-                      amount: args.homework.priceOffer.toString(),
-                    ),
-                  )
-                : Container(), */
           ],
         ),
       ),

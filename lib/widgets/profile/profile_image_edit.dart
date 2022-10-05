@@ -91,10 +91,10 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
   }
 
   void _selectGalleryPhoto() async {
-    _procesarImagen(ImageSource.gallery);
+    _procesingPicture(ImageSource.gallery);
   }
 
-  _procesarImagen(ImageSource origen) async {
+  _procesingPicture(ImageSource origen) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: origen,

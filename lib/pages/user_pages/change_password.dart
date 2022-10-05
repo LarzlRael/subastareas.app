@@ -47,9 +47,9 @@ class _ChangePasswordState extends State<ChangePassword> {
               const SimpleText(
                 text: 'Tu nueva contraseña debe ser diferente a las anteriores',
                 textAlign: TextAlign.center,
-                fontSize: 16,
+                fontSize: 14,
                 top: 10,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w500,
               ),
               // two inputs
               FormBuilder(
@@ -71,7 +71,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                         passwordField: true,
                       ),
                       FillButton(
-                        text: "Cambiar contraseña",
+                        label: "Cambiar contraseña",
                         textColor: Colors.white,
                         borderRadius: 50,
                         onPressed: () async {
