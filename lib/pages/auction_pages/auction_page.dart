@@ -266,7 +266,7 @@ class _AuctionPageState extends State<AuctionPage> {
               onPressed: () {
                 /* Navigator.pushNamed(context, 'makeOffer'); */
                 if (isBearer) {
-                  navigatorProtected(context, isLogged, 'autionWithOfferPage',
+                  navigatorProtected(context, isLogged, 'auctionWithOfferPage',
                       oneHomeworkModel);
                 } else {
                   navigatorProtected(

@@ -66,6 +66,20 @@ class AuthServices with ChangeNotifier {
     }
   }
 
+  Future changePassword(String password, String changePassword) async {
+    setAuthenticating = true;
+
+    final data = {
+      'password': password,
+      'changePassword': changePassword,
+    };
+
+    final resp = await Request.sendRequest('POST', 'auth/changePassword', data);
+    setAuthenticating = false;
+
+    return validateStatus(resp!.statusCode);
+  }
+
   Future<bool> register(
     String username,
     String email,

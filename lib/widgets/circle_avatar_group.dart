@@ -86,7 +86,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
       onTap: () {
         Navigator.pushNamed(
           context,
-          'autionWithOfferPage',
+          'auctionWithOfferPage',
           arguments: widget.oneHomeworkModel,
         );
       },

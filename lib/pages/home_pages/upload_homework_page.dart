@@ -45,10 +45,10 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
               /* indicatorColor: Colors.blue, */
               padding: const EdgeInsets.only(bottom: 20),
               tabs: [
-                /*  Tab(
+                Tab(
                   icon: Icon(FontAwesomeIcons.keyboard,
                       size: sizeTabIcon, color: colorTab),
-                ), */
+                ),
                 Tab(
                   icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
                 ),
@@ -64,7 +64,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
           ),
           body: TabBarView(
             children: [
-              /* UploadHomeworkOnlyText(authService: authServices), */
+              UploadHomeworkOnlyText(authService: authServices),
               UploadHomeworkWithFile(authService: authServices),
               const Icon(Icons.directions_transit),
               const Icon(Icons.directions_transit),

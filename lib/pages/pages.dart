@@ -58,6 +58,7 @@ part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
 part 'user_pages/public_profile_page.dart';
 part 'user_pages/pendings_homeworks_offers_acepts.dart';
+part 'user_pages/change_password.dart';
 
 part 'filter/filter_page.dart';
 part 'loading_page.dart';

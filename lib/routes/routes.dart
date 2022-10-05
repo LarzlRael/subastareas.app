@@ -16,7 +16,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'auctionPage': (context) => AuctionPage(
         args: ModalRoute.of(context)?.settings.arguments as HomeworkArguments,
       ),
-  'autionWithOfferPage': (_) => AuctionWithOfferPage(
+  'auctionWithOfferPage': (_) => AuctionWithOfferPage(
         args: ModalRoute.of(_)?.settings.arguments as OneHomeworkModel,
       ),
   'makeOffer': (_) => const MakeOfferPage(),
@@ -38,6 +38,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
       ),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
+  'change_password': (_) => ChangePassword(),
   'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(),
   'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
   'withdraw_page': (_) => const WithdrawPage(),

@@ -83,8 +83,7 @@ class SettingsPage extends StatelessWidget {
                       title: const Text('Cambiar contraseña'),
                       trailing: Icon(Icons.chevron_right),
                       onTap: () {
-                        /* Navigator.pushNamed(context, 'forgot_password'); */
-                        /* TODO create page to change password from here */
+                        Navigator.pushNamed(context, 'change_password');
                       },
                     ),
                   ],
