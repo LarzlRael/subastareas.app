@@ -57,15 +57,16 @@ part 'user_pages/my_profile_page.dart';
 part 'user_pages/profile_page.dart';
 part 'user_pages/settings_page.dart';
 part 'user_pages/public_profile_page.dart';
-part 'user_pages/pendings_homeworks_offers_acepts.dart';
+part 'user_pages/pending_homeworks_offers_accepts.dart';
 part 'user_pages/change_password.dart';
 
 part 'filter/filter_page.dart';
 part 'loading_page.dart';
+part 'loading_page_parameters.dart';
 
 part 'store_pages/store_page.dart';
 
-part 'user_pages/homeworks/pending_ofered_pending_homework.dart';
+part 'user_pages/homeworks/pending_offered_pending_homework.dart';
 part 'user_pages/homeworks/uploaded_homework_user.dart';
 part 'user_pages/homeworks/resolved_homework_user.dart';
 

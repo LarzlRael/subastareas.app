@@ -380,7 +380,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       keyboardType: TextInputType.datetime,
                       validator: FormBuilderValidators.compose([
                         (selectedDateTime) {
-                          debugPrint(selectedDateTime.toString());
                           if (selectedDateTime == null) {
                             return 'Selecciona una fecha';
                           }

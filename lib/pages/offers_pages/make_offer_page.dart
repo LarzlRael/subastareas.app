@@ -28,16 +28,16 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
 
   @override
   Widget build(BuildContext context) {
-    final arguments =
+    final oneHomework =
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
     final theme = Provider.of<ThemeChanger>(context, listen: false);
     final verifyUserOffered =
-        arguments.offers.map((item) => item.user.id).contains(auth.user.id);
+        oneHomework.offers.map((item) => item.user.id).contains(auth.user.id);
 
     if (verifyUserOffered) {
       getUserOffer =
-          arguments.offers.firstWhere((item) => item.user.id == auth.user.id);
+          oneHomework.offers.firstWhere((item) => item.user.id == auth.user.id);
       getFindUserOffer = true;
     }
     final blocHomework = OneHomeworkBloc();
@@ -62,8 +62,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           child: Column(
             children: [
               showProfileImage(
-                arguments.homework.user.profileImageUrl,
-                arguments.homework.user.username,
+                oneHomework.homework.user.profileImageUrl,
+                oneHomework.homework.user.username,
                 radius: 75,
               ),
               SimpleText(
@@ -72,20 +72,21 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
                 lightThemeColor: Colors.black87,
-                text: arguments.homework.user.username,
+                text: oneHomework.homework.user.username,
                 /* color: Colors.grey, */
               ),
-              arguments.homework.description != null
+              oneHomework.homework.description != null
                   ? DescriptionText(
-                      desc: arguments.homework.description!,
+                      desc: oneHomework.homework.description!,
                       textAlign: TextAlign.center,
                       dropDown: false,
                     )
                   : Container(),
-              /* TimerCounter(
-                endTime: DateTime.now().millisecondsSinceEpoch + 2000 * 30,
-              ), */
-
+              TimerCounter(
+                endTime: DateTime.now().millisecondsSinceEpoch +
+                    getDateDiff(oneHomework.homework.resolutionTime)
+                        .inMilliseconds,
+              ),
               verifyUserOffered
                   ? SimpleText(
                       text:
@@ -109,7 +110,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 /* color: Colors.grey[200], */
                 width: MediaQuery.of(context).size.width * 0.7,
                 child: SimpleText(
-                  text: '${arguments.homework.offeredAmount}',
+                  text: '${oneHomework.homework.offeredAmount}',
                   textAlign: TextAlign.center,
                   fontSize: 30,
                   fontWeight: FontWeight.w900,
@@ -128,7 +129,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                             onPressed: () {
                               showOfferDialog(
                                 blocHomework,
-                                arguments.homework,
+                                oneHomework.homework,
                                 auth.user,
                                 verifyUserOffered,
                                 amount: getUserOffer!.priceOffer,
@@ -147,10 +148,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         onPressed: () {
                           showOfferDialog(
                             blocHomework,
-                            arguments.homework,
+                            oneHomework.homework,
                             auth.user,
                             verifyUserOffered,
-                            amount: arguments.homework.offeredAmount,
+                            amount: oneHomework.homework.offeredAmount,
                             idOffer: 0,
                           );
                           /* Navigator.pop(context); */
@@ -178,9 +179,9 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                       marginVertical: 15,
                       onPressed: () async {
                         final deletedOffer = await blocHomework.deleteOffer(
-                            arguments.homework.id, getUserOffer!.id);
+                            oneHomework.homework.id, getUserOffer!.id);
                         socketService.emit('deleteOffer', {
-                          'room': arguments.homework.id,
+                          'room': oneHomework.homework.id,
                           'offer': deletedOffer,
                         });
 

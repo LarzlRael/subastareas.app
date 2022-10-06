@@ -21,3 +21,4 @@ part 'extensions.dart';
 part 'shared_preferences.dart';
 part 'download_file.dart';
 part 'time_utils.dart';
+part 'redirection.dart';

@@ -376,17 +376,17 @@ class _ButtonOffer extends StatelessWidget {
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          SimpleText(
+                        children: [
+                          const SimpleText(
                             text: 'Afro Weed',
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          /* TimerCounter(
+                          TimerCounter(
                             endTime: DateTime.now().millisecondsSinceEpoch +
                                 getDateDiff(homework.homework.resolutionTime)
                                     .inMilliseconds,
-                          ) */
+                          )
                         ],
                       ),
                       ElevatedButton(

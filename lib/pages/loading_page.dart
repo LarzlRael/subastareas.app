@@ -1,62 +1,32 @@
 part of 'pages.dart';
 
 class LoadingPage extends StatelessWidget {
-  const LoadingPage({Key? key}) : super(key: key);
-
+  LoadingPage({Key? key}) : super(key: key);
+  late AuthServices authServices;
+  late SocketService socketService;
   @override
   Widget build(BuildContext context) {
+    authServices = Provider.of<AuthServices>(context, listen: false);
+    socketService = Provider.of<SocketService>(context, listen: false);
     return Scaffold(
       body: FutureBuilder(
         future: checkLoginState(context),
-        builder: (context, snapshot) {
-          return Center(
-            child: FittedBox(
-              child: Container(
-                padding: const EdgeInsets.all(25),
-                decoration: BoxDecoration(
-                  color: Colors.black45,
-                  border: Border.all(),
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                ),
-                child: Column(
-                  children: const [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 10),
-                    Text('Cargando ...', style: TextStyle(color: Colors.grey)),
-                  ],
-                ),
-              ),
-            ),
-          );
+        builder: (_, __) {
+          return const SquareLoading();
         },
       ),
     );
   }
 
   Future checkLoginState(BuildContext context) async {
-    final authService = Provider.of<AuthServices>(context, listen: false);
-    final autenticado = await authService.renewToken();
-    final socketService = Provider.of<SocketService>(context, listen: false);
+    final isAuthenticated = await authServices.renewToken();
     /* final socketService = Provider.of<AuthServices>(context, listen: false); */
 
-    if (autenticado) {
+    if (isAuthenticated) {
       /* socketService.connect(); */
-      socketService.connect();
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const BottomNavigation(),
-          transitionDuration: const Duration(milliseconds: 0),
-        ),
-      );
+      goToPage(context, const BottomNavigation());
     } else {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (_, __, ___) => const WelcomePage(),
-          transitionDuration: const Duration(milliseconds: 0),
-        ),
-      );
+      goToPage(context, const WelcomePage());
     }
   }
 }

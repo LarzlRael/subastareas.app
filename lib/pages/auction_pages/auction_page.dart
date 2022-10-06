@@ -167,17 +167,14 @@ class _AuctionPageState extends State<AuctionPage> {
                     ],
                   )),
               _infoContainer(
-                'Acaba en ',
-                /* TimerCounter(
-                  endTime: DateTime.now().millisecondsSinceEpoch +
-                      diff.inMilliseconds,
-                  testStyle: const TextStyle(
-                    fontWeight: FontWeight.w900,
-                    fontSize: 18,
+                  'Acaba en ',
+                  TimerCounter(
+                    endTime: DateTime.now().millisecondsSinceEpoch +
+                        getDateDiff(oneHomeworkModel.homework.resolutionTime)
+                            .inMilliseconds,
+                  )
+                  /* Container(), */
                   ),
-                ), */
-                Container(),
-              ),
             ],
           ),
           description(oneHomeworkModel.homework.description),
