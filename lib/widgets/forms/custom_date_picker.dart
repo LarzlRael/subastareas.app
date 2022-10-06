@@ -55,12 +55,14 @@ class CustomDatePicker extends StatelessWidget {
   final String placeholder;
   final TextInputType keyboardType;
   final IconData suffixIcon;
+  final String? Function(DateTime?)? validator;
   const CustomDatePicker({
     Key? key,
     required this.name,
     required this.placeholder,
     required this.suffixIcon,
     this.keyboardType = TextInputType.text,
+    this.validator,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -71,19 +73,8 @@ class CustomDatePicker extends StatelessWidget {
         /* format: format, */
         name: 'resolutionTime',
         // time validation
-        validator: (DateTime? selectedDateTime) {
-          if (selectedDateTime != null) {
-            // If the DateTime difference is negative,
-            // this indicates that the selected DateTime is in the past
-            if (selectedDateTime.difference(DateTime.now()).isNegative) {
-              return null;
-            } else {
-              debugPrint('Selected DateTime is in the future');
-            }
-          } else {
-            return 'Selecciona una fecha';
-          }
-        },
+        validator: validator,
+
         decoration: const InputDecoration(
           suffixIcon: Icon(FontAwesomeIcons.clock),
           border: InputBorder.none,

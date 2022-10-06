@@ -166,11 +166,25 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
 
                     /* text: 'Tiempo de resolucion : ',
                             name: 'resolutionTime', */
-                    const CustomDatePicker(
+                    CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
                       placeholder: 'Tiempo de resolución : ',
                       keyboardType: TextInputType.datetime,
+                      validator: FormBuilderValidators.compose([
+                        (selectedDateTime) {
+                          debugPrint(selectedDateTime.toString());
+                          if (selectedDateTime == null) {
+                            return 'Selecciona una fecha';
+                          }
+                          if (!selectedDateTime
+                              .difference(DateTime.now())
+                              .isNegative) {
+                            return 'Selected DateTime is in the future';
+                          }
+                          return null;
+                        }
+                      ]),
                     ),
                     const CustomFormBuilderFetchDropdown(
                       formFieldName: 'category',
@@ -345,23 +359,39 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       title: 'Escribe tu pregunta',
                       icon: Icons.person,
                     ),
-                    const CustomRowFormBuilderTextField(
-                        name: 'offered_amount',
-                        placeholder: 'Presupuesto ',
-                        keyboardType: TextInputType.number,
-                        suffixIcon: FontAwesomeIcons.coins),
-                    /* CustomRowFormbuilderTextField(
-                      name: 'username',
-                      icon: FontAwesomeIcons.at,
-                      placeholder: 'Plazo : ',
-                    ), */
-                    /* text: 'Tiempo de resolucion : ',
-                            name: 'resolutionTime', */
-                    const CustomDatePicker(
+                    CustomRowFormBuilderTextField(
+                      name: 'offered_amount',
+                      placeholder: 'Presupuesto ',
+                      keyboardType: TextInputType.number,
+                      suffixIcon: FontAwesomeIcons.coins,
+                      validator: FormBuilderValidators.compose(
+                        [
+                          FormBuilderValidators.required(),
+                          FormBuilderValidators.max(
+                              widget.authService.user.wallet.balanceTotal),
+                          FormBuilderValidators.min(1),
+                        ],
+                      ),
+                    ),
+                    CustomDatePicker(
                       name: 'resolutionTime',
                       suffixIcon: FontAwesomeIcons.calendarDays,
                       placeholder: 'Tiempo de resolución : ',
                       keyboardType: TextInputType.datetime,
+                      validator: FormBuilderValidators.compose([
+                        (selectedDateTime) {
+                          debugPrint(selectedDateTime.toString());
+                          if (selectedDateTime == null) {
+                            return 'Selecciona una fecha';
+                          }
+                          if (selectedDateTime
+                              .difference(DateTime.now())
+                              .isNegative) {
+                            return 'Selected DateTime is in the future';
+                          }
+                          return null;
+                        }
+                      ]),
                     ),
                     const CustomFormBuilderFetchDropdown(
                       formFieldName: 'category',
