@@ -107,8 +107,12 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     );
                   }
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
                   );
                 }
               },

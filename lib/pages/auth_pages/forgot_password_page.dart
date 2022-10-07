@@ -16,6 +16,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),

@@ -119,12 +119,9 @@ class ImageType extends StatelessWidget {
         children: <Widget>[
           if (imagePath != null)
             Expanded(
-                child: /* Image.network(
-                imagePath!,
-                fit: BoxFit.fitWidth,
-              ), */
-                    FadeInImage.assetNetwork(
+                child: FadeInImage.assetNetwork(
               placeholder: 'assets/icon.png',
+              fit: BoxFit.contain,
               image: imagePath!,
             ))
           else

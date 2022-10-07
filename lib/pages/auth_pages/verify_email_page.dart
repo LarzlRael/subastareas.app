@@ -31,6 +31,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(20),
@@ -97,7 +100,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                 onTap: () async {
                   /* await this.authService.isLoggenIn(); */
                   if (authService.isLogged) {
-                    Navigator.pushReplacementNamed(context, 'home');
+                    Navigator.pushReplacementNamed(context, 'loading');
                   } else {
                     GlobalSnackBar.show(
                       context,

@@ -128,9 +128,8 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
               initialValue: {
                 'title': homework.title,
                 'offered_amount': homework.offeredAmount.toString(),
-                /* 'category': homework.category, */
                 'resolutionTime': homework.resolutionTime,
-                'category': homework.category,
+                /* 'category': homework.category, */
               },
               key: _formKey,
               child: Column(
