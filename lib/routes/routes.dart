@@ -37,7 +37,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
       ),
   'upload_homework_with_file': (BuildContext context) => UploadHomeworkWithFile(
-        authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
+        homework: ModalRoute.of(context)?.settings.arguments as Homework,
       ),
   'my_homeworks_page': (_) => const MyHomeworksPage(),
   'change_password': (_) => const ChangePassword(),

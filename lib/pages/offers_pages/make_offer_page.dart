@@ -82,10 +82,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                       dropDown: false,
                     )
                   : Container(),
-              TimerCounter(
-                endTime: DateTime.now().millisecondsSinceEpoch +
-                    getDateDiff(oneHomework.homework.resolutionTime)
-                        .inMilliseconds,
+              Timer(
+                endTime: oneHomework.homework.resolutionTime,
               ),
               verifyUserOffered
                   ? SimpleText(

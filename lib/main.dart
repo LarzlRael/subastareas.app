@@ -89,31 +89,9 @@ class _MyAppState extends State<MyApp> {
         routes: appRoutes,
         initialRoute: 'loading',
         theme: appTheme,
-        localizationsDelegates: const [
-          FormBuilderLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en', ''),
-          Locale('es', ''),
-          Locale('fr', ''),
-          Locale('ja', ''),
-          Locale('pt', ''),
-        ],
+        localizationsDelegates: formBuildersDelegates,
+        supportedLocales: supportedLocales,
       ),
     );
   }
-
-  /* showSnackBar(String type, String message) {
-    _messengerKey.currentState?.showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: type == "comment" ? Colors.green : Colors.blue,
-      ),
-    );
-  } */
 }

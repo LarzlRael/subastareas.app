@@ -57,10 +57,7 @@ class _AuctionPageState extends State<AuctionPage> {
                                   snapshot.data!.offers.isEmpty
                                       ? Navigator.pushNamed(
                                           context,
-                                          snapshot.data!.homework.fileType ==
-                                                  'only_text'
-                                              ? 'upload_homework_only_text'
-                                              : 'upload_homework_with_file',
+                                          'upload_homework_with_file',
                                           arguments: snapshot.data!.homework,
                                           /* PageTransition(
                                       type: PageTransitionType
@@ -87,7 +84,9 @@ class _AuctionPageState extends State<AuctionPage> {
                       expandedHeight: 200,
                       flexibleSpace: FlexibleSpaceBar(
                         background: Image.asset(
-                          'assets/category/${removeDiacritics(snapshot.data!.homework.category)}.jpg',
+                          'assets/category/${removeDiacritics(
+                            snapshot.data!.homework.category,
+                          )}.jpg',
                           fit: BoxFit.cover,
                           /* width: 280.0, */
                         ),
@@ -167,14 +166,11 @@ class _AuctionPageState extends State<AuctionPage> {
                     ],
                   )),
               _infoContainer(
-                  'Acaba en ',
-                  TimerCounter(
-                    endTime: DateTime.now().millisecondsSinceEpoch +
-                        getDateDiff(oneHomeworkModel.homework.resolutionTime)
-                            .inMilliseconds,
-                  )
-                  /* Container(), */
-                  ),
+                'Acaba en ',
+                Timer(
+                  endTime: oneHomeworkModel.homework.resolutionTime,
+                ),
+              ),
             ],
           ),
           description(oneHomeworkModel.homework.description),

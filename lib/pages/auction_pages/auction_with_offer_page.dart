@@ -382,11 +382,14 @@ class _ButtonOffer extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          TimerCounter(
+                          /* TimerCounter(
                             endTime: DateTime.now().millisecondsSinceEpoch +
                                 getDateDiff(homework.homework.resolutionTime)
                                     .inMilliseconds,
-                          )
+                          ), */
+                          Timer(
+                            endTime: homework.homework.resolutionTime,
+                          ),
                         ],
                       ),
                       ElevatedButton(
