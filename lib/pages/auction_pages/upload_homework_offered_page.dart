@@ -132,12 +132,6 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                                     }
                                   },
                                 ),
-                          /* RaisedButton(
-                        onPressed: () async {
-                          await authService.logout();
-                        },
-                        child: Text('Cerrar sesion'),
-                      ), */
                         ],
                       ),
                     ),

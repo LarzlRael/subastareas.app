@@ -25,7 +25,6 @@ class MenuProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* final color = !closeSession ? Colors.black87 : Colors.white; */
     final auth = Provider.of<AuthServices>(context);
     final filterProvider = Provider.of<FilterProvider>(context);
     final socketProvider = Provider.of<SocketService>(context);
@@ -40,9 +39,10 @@ class MenuProfileOption extends StatelessWidget {
         child: ListTile(
           onTap: () async {
             if (closeSession) {
-              auth.logout();
+              await auth.logout();
               filterProvider.setCurrentBottomTab = 0;
               socketProvider.disconnect();
+              Navigator.pushNamed(context, 'loading');
             } else {
               if (!showTrailing) {
                 Navigator.push(

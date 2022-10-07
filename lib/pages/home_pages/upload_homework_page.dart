@@ -192,12 +192,6 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                         placeholder: 'Seleccione una categoria',
                         title: 'Categoria :',
                       ),
-                      /* RaisedButton(
-                          onPressed: () async {
-                            await authService.logout();
-                          },
-                          child: Text('Cerrar sesion'),
-                        ), */
                     ],
                   ),
                   !_loading

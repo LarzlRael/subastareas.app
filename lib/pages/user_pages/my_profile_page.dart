@@ -43,15 +43,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   },
                 ),
               ),
-              /* MenuProfileOption(
-                icon: Icons.question_answer,
-                title: "Cerrar sesión",
-                page: WalletPage(),
-                onPressed: () async {
-                  await auth.logout();
-                  GoogleSignInServices.signOut();
-                },
-              ), */
             ],
           ),
         ),

@@ -23,9 +23,10 @@ class DrawerMenu extends StatelessWidget {
                 child: showProfileImage(profileImage, userName)),
           ),
           Expanded(
-              child: _ListOptions(
-            onPressedLogout: onPressedLogout,
-          )),
+            child: _ListOptions(
+              onPressedLogout: onPressedLogout,
+            ),
+          ),
           SafeArea(
             bottom: true,
             top: false,
@@ -33,13 +34,17 @@ class DrawerMenu extends StatelessWidget {
             right: false,
             child: GestureDetector(
               onTap: () => {
-                Navigator.pushReplacementNamed(context, 'welcome'),
                 onPressedLogout(),
+                Navigator.pushReplacementNamed(context, 'loading'),
               },
               child: const ListTile(
                 leading: Icon(Icons.add_to_home_screen, color: Colors.red),
-                title:
-                    Text('Cerrar sesión', style: TextStyle(color: Colors.red)),
+                title: Text(
+                  'Cerrar sesión',
+                  style: TextStyle(
+                    color: Colors.red,
+                  ),
+                ),
               ),
             ),
           ),

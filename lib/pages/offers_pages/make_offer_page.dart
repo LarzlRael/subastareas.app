@@ -57,152 +57,170 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
         ),
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              showProfileImage(
-                oneHomework.homework.user.profileImageUrl,
-                oneHomework.homework.user.username,
-                radius: 75,
-              ),
-              SimpleText(
-                top: 25,
-                bottom: 25,
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                lightThemeColor: Colors.black87,
-                text: oneHomework.homework.user.username,
-                /* color: Colors.grey, */
-              ),
-              oneHomework.homework.description != null
-                  ? DescriptionText(
-                      desc: oneHomework.homework.description!,
-                      textAlign: TextAlign.center,
-                      dropDown: false,
-                    )
-                  : Container(),
-              Timer(
-                endTime: oneHomework.homework.resolutionTime,
-              ),
-              verifyUserOffered
-                  ? SimpleText(
-                      text:
-                          'Tu oferta es de ${getUserOffer!.priceOffer} puntos',
-                      top: 15,
-                      bottom: 15,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w900,
-                    )
-                  : const SizedBox(
-                      height: 10,
-                    ),
-              const SimpleText(
-                text: 'Precio',
-                top: 15,
-                bottom: 15,
-                fontSize: 19,
-                fontWeight: FontWeight.w900,
-              ),
-              Container(
-                /* color: Colors.grey[200], */
-                width: MediaQuery.of(context).size.width * 0.7,
-                child: SimpleText(
-                  text: '${oneHomework.homework.offeredAmount}',
-                  textAlign: TextAlign.center,
-                  fontSize: 30,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                showProfileImage(
+                  oneHomework.homework.user.profileImageUrl,
+                  oneHomework.homework.user.username,
+                  radius: 75,
+                ),
+                SimpleText(
+                  top: 25,
+                  bottom: 25,
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  lightThemeColor: Colors.black87,
+                  text: oneHomework.homework.user.username,
+                  /* color: Colors.grey, */
+                ),
+                SimpleText(
+                  top: 5,
+                  bottom: 25,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  lightThemeColor: Colors.black87,
+                  text: oneHomework.homework.title.toCapitalized(),
+                  /* color: Colors.grey, */
+                ),
+                oneHomework.homework.description != null
+                    ? DescriptionText(
+                        desc: oneHomework.homework.description!,
+                        textAlign: TextAlign.center,
+                        dropDown: false,
+                      )
+                    : Container(),
+                const SimpleText(
+                  text: "Tiempo restante",
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  bottom: 5,
+                ),
+                Timer(
+                  endTime: oneHomework.homework.resolutionTime,
+                ),
+                verifyUserOffered
+                    ? SimpleText(
+                        text:
+                            'Tu oferta es de ${getUserOffer!.priceOffer} puntos',
+                        top: 15,
+                        bottom: 15,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w900,
+                      )
+                    : const SizedBox(
+                        height: 10,
+                      ),
+                const SimpleText(
+                  text: 'Precio',
+                  top: 15,
+                  bottom: 15,
+                  fontSize: 19,
                   fontWeight: FontWeight.w900,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: verifyUserOffered
-                    ? verifyUserOffered && getUserOffer!.edited
-                        ? Container()
-                        : ButtonWithIcon(
-                            verticalPadding: 15,
-                            onPressed: () {
-                              showOfferDialog(
-                                blocHomework,
-                                oneHomework.homework,
-                                auth.user,
-                                verifyUserOffered,
-                                amount: getUserOffer!.priceOffer,
-                                idOffer: getUserOffer!.id,
-                              );
-                              /* Navigator.pop(context); */
-                            },
-                            label: verifyUserOffered
-                                ? 'Editar oferta'
-                                : 'Hacer oferta',
-                            icon: !verifyUserOffered ? Icons.send : Icons.edit,
-                            /* marginVertical: 10, */
-                          )
-                    : ButtonWithIcon(
-                        verticalPadding: 15,
-                        onPressed: () {
-                          showOfferDialog(
-                            blocHomework,
-                            oneHomework.homework,
-                            auth.user,
-                            verifyUserOffered,
-                            amount: oneHomework.homework.offeredAmount,
-                            idOffer: 0,
-                          );
-                          /* Navigator.pop(context); */
-                        },
-                        label: verifyUserOffered
-                            ? 'Editar oferta'
-                            : 'Hacer oferta',
-                        icon: Icons.send,
-                        /* marginVertical: 10, */
+                Container(
+                  /* color: Colors.grey[200], */
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: SimpleText(
+                    text: '${oneHomework.homework.offeredAmount}',
+                    textAlign: TextAlign.center,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: verifyUserOffered
+                      ? verifyUserOffered && getUserOffer!.edited
+                          ? Container()
+                          : ButtonWithIcon(
+                              verticalPadding: 15,
+                              onPressed: () {
+                                showOfferDialog(
+                                  blocHomework,
+                                  oneHomework.homework,
+                                  auth.user,
+                                  verifyUserOffered,
+                                  amount: getUserOffer!.priceOffer,
+                                  idOffer: getUserOffer!.id,
+                                );
+                                /* Navigator.pop(context); */
+                              },
+                              label: verifyUserOffered
+                                  ? 'Editar oferta'
+                                  : 'Hacer oferta',
+                              icon:
+                                  !verifyUserOffered ? Icons.send : Icons.edit,
+                              /* marginVertical: 10, */
+                            )
+                      : ButtonWithIcon(
+                          verticalPadding: 15,
+                          onPressed: () {
+                            showOfferDialog(
+                              blocHomework,
+                              oneHomework.homework,
+                              auth.user,
+                              verifyUserOffered,
+                              amount: oneHomework.homework.offeredAmount,
+                              idOffer: 0,
+                            );
+                            /* Navigator.pop(context); */
+                          },
+                          label: verifyUserOffered
+                              ? 'Editar oferta'
+                              : 'Hacer oferta',
+                          icon: Icons.send,
+                          /* marginVertical: 10, */
+                        ),
+                ),
+                verifyUserOffered && getUserOffer!.edited
+                    ? const SimpleText(
+                        text: 'Ya has editado tu oferta',
+                        top: 15,
+                        bottom: 15,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w900,
+                      )
+                    : const SizedBox(
+                        height: 10,
                       ),
-              ),
-              verifyUserOffered && getUserOffer!.edited
-                  ? const SimpleText(
-                      text: 'Ya has editado tu oferta',
-                      top: 15,
-                      bottom: 15,
-                      fontSize: 19,
-                      fontWeight: FontWeight.w900,
-                    )
-                  : const SizedBox(
-                      height: 10,
-                    ),
-              verifyUserOffered
-                  ? FillButton(
-                      marginVertical: 15,
-                      onPressed: () async {
-                        final deletedOffer = await blocHomework.deleteOffer(
-                            oneHomework.homework.id, getUserOffer!.id);
-                        socketService.emit('deleteOffer', {
-                          'room': oneHomework.homework.id,
-                          'offer': deletedOffer,
-                        });
+                verifyUserOffered
+                    ? FillButton(
+                        marginVertical: 15,
+                        onPressed: () async {
+                          final deletedOffer = await blocHomework.deleteOffer(
+                              oneHomework.homework.id, getUserOffer!.id);
+                          socketService.emit('deleteOffer', {
+                            'room': oneHomework.homework.id,
+                            'offer': deletedOffer,
+                          });
 
-                        GlobalSnackBar.show(
-                          context,
-                          'Tu oferta ha sido retirada',
-                          backgroundColor: Colors.red[700]!.withOpacity(0.8),
-                        );
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      },
-                      label: 'Retirar oferta',
-                      ghostButton: true,
-                      backgroundColor: Colors.red[700]!.withOpacity(0.8),
-                      borderRadius: 100,
+                          GlobalSnackBar.show(
+                            context,
+                            'Tu oferta ha sido retirada',
+                            backgroundColor: Colors.red[700]!.withOpacity(0.8),
+                          );
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                        label: 'Retirar oferta',
+                        ghostButton: true,
+                        backgroundColor: Colors.red[700]!.withOpacity(0.8),
+                        borderRadius: 100,
 
-                      /* backgroundColorButton: Colors.red,
-                      icon: Icons.delete, */
+                        /* backgroundColorButton: Colors.red,
+                        icon: Icons.delete, */
 
-                      /* marginVertical: 10, */
-                    )
-                  : Container(),
-            ],
+                        /* marginVertical: 10, */
+                      )
+                    : Container(),
+              ],
+            ),
           ),
         ),
       ),
