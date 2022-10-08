@@ -1,5 +1,9 @@
 part of 'models.dart';
 
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
+
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
@@ -19,23 +23,25 @@ class UserModel {
     required this.createdAt,
     required this.updatedAt,
     required this.wallet,
+    required this.userProfile,
     required this.userRols,
     required this.accessToken,
   });
 
   int id;
   String username;
-  dynamic name;
-  dynamic lastName;
+  String name;
+  String lastName;
   String email;
-  dynamic nickName;
+  String nickName;
   dynamic phone;
-  String? profileImageUrl;
+  dynamic profileImageUrl;
   bool google;
   bool verify;
   DateTime createdAt;
   DateTime updatedAt;
   Wallet wallet;
+  UserProfile userProfile;
   List<String> userRols;
   String accessToken;
 
@@ -53,6 +59,7 @@ class UserModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         wallet: Wallet.fromJson(json["wallet"]),
+        userProfile: UserProfile.fromJson(json["userProfile"]),
         userRols: List<String>.from(json["userRols"].map((x) => x)),
         accessToken: json["accessToken"],
       );
@@ -71,8 +78,37 @@ class UserModel {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "wallet": wallet.toJson(),
+        "userProfile": userProfile.toJson(),
         "userRols": List<dynamic>.from(userRols.map((x) => x)),
         "accessToken": accessToken,
+      };
+}
+
+class UserProfile {
+  UserProfile({
+    required this.id,
+    required this.receiveNotifications,
+    required this.isDarkTheme,
+    required this.bio,
+  });
+
+  int id;
+  bool receiveNotifications;
+  bool isDarkTheme;
+  dynamic bio;
+
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+        id: json["id"],
+        receiveNotifications: json["receiveNotifications"],
+        isDarkTheme: json["isDarkTheme"],
+        bio: json["bio"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "receiveNotifications": receiveNotifications,
+        "isDarkTheme": isDarkTheme,
+        "bio": bio,
       };
 }
 

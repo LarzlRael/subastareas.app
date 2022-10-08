@@ -8,7 +8,9 @@ class NotificationPage extends StatelessWidget {
     homeworkServices.getUserNotifications();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Notificaciones")),
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: FutureBuilder(
         future: homeworkServices.getUserNotifications(),
         builder: (BuildContext context,

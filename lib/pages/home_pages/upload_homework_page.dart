@@ -143,7 +143,6 @@ class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
                             'Tu saldo actual es de: ${widget.authService.user.wallet.balanceTotal}',
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        top: 10,
                         bottom: 10,
                       ),
                       const CustomFormBuilderTextArea(
@@ -308,7 +307,9 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
         physics: const BouncingScrollPhysics(),
         child: Container(
           height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+          ),
           child: FormBuilder(
             initialValue: {
               'title': homework.title,
@@ -328,7 +329,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                           'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      top: 10,
                       bottom: 10,
                     ),
                     GenericListTile(
@@ -395,6 +395,9 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       title: 'Categoria :',
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Column(
                   children: [

@@ -31,6 +31,7 @@ void main() async {
       ); */
   final preferences = UserPreferences();
   await preferences.initPreferences();
+  print(preferences.getThemeStatus);
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeChanger(preferences.getThemeStatus),
@@ -48,7 +49,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _messengerKey = GlobalKey<ScaffoldMessengerState>();
-
   @override
   void initState() {
     super.initState();
@@ -68,8 +68,6 @@ class _MyAppState extends State<MyApp> {
       /* showSnackBar(message); */
     });
   }
-
-  final userPreferences = UserPreferences();
 
   @override
   Widget build(BuildContext context) {

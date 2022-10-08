@@ -77,7 +77,7 @@ class SettingsPage extends StatelessWidget {
                       initialValue: themeChanger.isDarkTheme,
                       onChanged: (value) {
                         themeChanger.setDarkTheme = value;
-                        preferences.setThemeStatus = value ? 1 : 0;
+                        preferences.setThemeStatus = value ? 2 : 1;
                       },
                     ),
                     ListTile(

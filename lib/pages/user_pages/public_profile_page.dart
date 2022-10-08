@@ -11,8 +11,8 @@ class PublicProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeChanger>(context);
     const textStyle = TextStyle(
-      fontSize: 23,
-      fontWeight: FontWeight.bold,
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
     );
     final userService = UserServices();
     return Scaffold(
@@ -27,14 +27,16 @@ class PublicProfilePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: FutureBuilder(
             future: userService.getPublicProfile(userId),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
+            builder:
+                (BuildContext context, AsyncSnapshot<PublicProfile> snapshot) {
               if (snapshot.hasData) {
+                final publicProfile = snapshot.data!;
                 return Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   child: Column(
-                    /* crossAxisAlignment: CrossAxisAlignment.center, */
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ProfileCardWithStars(
                         publicProfile: snapshot.data!,
@@ -56,53 +58,82 @@ class PublicProfilePage extends StatelessWidget {
                                 text: 'Trayectoria en subastareas',
                                 style: textStyle,
                               ),
-                              const SizedBox(height: 25),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: const [
-                                  Icon(Icons.breakfast_dining),
-                                  SimpleText(
-                                      text: 'Trabajos resueltos: ',
-                                      style: textStyle),
-                                  SimpleText(text: '0', style: textStyle),
-                                ],
-                              )
+                              const SizedBox(height: 20),
+                              profileInformation(
+                                  textStyle,
+                                  Icons.home,
+                                  "Trabajos realizados: ",
+                                  publicProfile.solvedHomeworks.toString()),
+                              profileInformation(
+                                  textStyle,
+                                  Icons.home_mini,
+                                  "Reputación: ",
+                                  publicProfile.reputation.toString()),
                             ],
                           ),
                         ),
                       ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        elevation: 5,
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(25),
-                          child: Column(
-                            children: const [
-                              SimpleText(
-                                text: 'Biografia',
-                                style: textStyle,
+                      publicProfile.bio == "null" || publicProfile.bio == null
+                          ? Container()
+                          : Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
                               ),
-                              SizedBox(height: 15),
-                            ],
-                          ),
-                        ),
-                      ),
+                              elevation: 5,
+                              child: Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.all(25),
+                                child: Column(
+                                  children: const [
+                                    SimpleText(
+                                      text: 'Biografia',
+                                      style: textStyle,
+                                    ),
+                                    SizedBox(height: 15),
+                                  ],
+                                ),
+                              ),
+                            )
                     ],
                   ),
                 );
               } else {
-                return Container(
+                return SizedBox(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height * 0.8,
-                    child: const Center(child: CircularProgressIndicator()));
+                    child: const Center(child: SquareLoading()));
               }
             },
           ),
         ),
+      ),
+    );
+  }
+
+  Widget profileInformation(
+    TextStyle textStyle,
+    IconData icon,
+    String text,
+    String informationToDisplay,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Icon(icon),
+              const SizedBox(width: 5),
+              SimpleText(
+                text: text,
+                style: textStyle,
+              ),
+            ],
+          ),
+          SimpleText(text: informationToDisplay, style: textStyle),
+        ],
       ),
     );
   }

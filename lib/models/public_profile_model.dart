@@ -1,11 +1,4 @@
 part of 'models.dart';
-// To parse this JSON data, do
-//
-//     final publicProfile = publicProfileFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final publicProfile = publicProfileFromJson(jsonString);
 
 PublicProfile publicProfileFromJson(String str) =>
     PublicProfile.fromJson(json.decode(str));
@@ -18,7 +11,10 @@ class PublicProfile {
     required this.name,
     required this.lastName,
     required this.nickName,
-    required this.profileImageUrl,
+    required this.solvedHomeworks,
+    required this.reputation,
+    this.profileImageUrl,
+    this.bio,
   });
 
   int id;
@@ -26,6 +22,9 @@ class PublicProfile {
   String lastName;
   String nickName;
   dynamic profileImageUrl;
+  dynamic bio;
+  int solvedHomeworks;
+  int reputation;
 
   factory PublicProfile.fromJson(Map<String, dynamic> json) => PublicProfile(
         id: json["id"],
@@ -33,6 +32,9 @@ class PublicProfile {
         lastName: json["lastName"],
         nickName: json["nickName"],
         profileImageUrl: json["profileImageUrl"],
+        bio: json["bio"],
+        solvedHomeworks: json["solvedHomeworks"],
+        reputation: json["reputation"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,5 +43,8 @@ class PublicProfile {
         "lastName": lastName,
         "nickName": nickName,
         "profileImageUrl": profileImageUrl,
+        "bio": bio,
+        "solvedHomeworks": solvedHomeworks,
+        "reputation": reputation,
       };
 }
