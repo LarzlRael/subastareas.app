@@ -33,37 +33,36 @@ class MyOffers extends StatelessWidget {
                 /* initialData: InitialData, */
                 builder: (BuildContext context,
                     AsyncSnapshot<List<HomeworksModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.isEmpty) {
-                      return NoInformation(
-                        icon: Icons.assignment,
-                        message: 'No tienes ofertas realizadas',
-                        showButton: true,
-                        iconButton: Icons.abc,
-                        onPressed: () {
-                          Navigator.pushNamed(context, 'bottomNavigation');
-                        },
-                        buttonTitle: 'Subir Tarea',
-                      );
-                    }
-                    return ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return HomeworkCard(
-                          isLogged: true,
-                          homework: snapshot.data![index],
-                          goTo: 'auctionPage',
-                          /* homework: snapshot.data[index], */
-                        );
-                      },
-                    );
-                  } else {
+                  if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
+                  if (snapshot.data!.isEmpty) {
+                    return NoInformation(
+                      icon: Icons.assignment,
+                      message: 'No tienes ofertas realizadas',
+                      showButton: true,
+                      iconButton: Icons.abc,
+                      onPressed: () {
+                        Navigator.pushNamed(context, 'bottomNavigation');
+                      },
+                      buttonTitle: 'Subir Tarea',
+                    );
+                  }
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return HomeworkCard(
+                        isLogged: true,
+                        homework: snapshot.data![index],
+                        goTo: 'auctionPage',
+                        /* homework: snapshot.data[index], */
+                      );
+                    },
+                  );
                 },
               ),
               const Icon(Icons.directions_transit),

@@ -86,32 +86,30 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                         iconButton: Icons.abc,
                       ),
                     );
-                  } else {
-                    return ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return HomeworkCard(
-                          isLogged:
-                              auth.isLogged == null ? false : auth.isLogged,
-                          homework: snapshot.data![index],
-                          goTo: 'auctionPage',
-                          /* homework: snapshot.data[index], */
-                        );
-                      },
-                    );
                   }
-                } else {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
                 }
+
+                return SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.75,
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+                return ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return HomeworkCard(
+                      isLogged: auth.isLogged == null ? false : auth.isLogged,
+                      homework: snapshot.data![index],
+                      goTo: 'auctionPage',
+                      /* homework: snapshot.data[index], */
+                    );
+                  },
+                );
               },
             ),
             /* HomeworkCard(isLogged: auth.isLogged),
