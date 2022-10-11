@@ -21,7 +21,7 @@ class WelcomePage extends StatelessWidget {
                   fit: BoxFit.contain,
                   width: 250,
                 ), */
-                child: const AppBarTitle(),
+                child: OnlyImageAndTitle(),
               ),
               const Expanded(
                 child: Slideshow(

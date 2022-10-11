@@ -14,6 +14,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
+      appBar: AppBarTitle(
+        title: 'PERFIL',
+        fontSize: 20,
+        appBar: AppBar(),
+      ),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),

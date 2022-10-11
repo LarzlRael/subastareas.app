@@ -33,12 +33,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
       filter.getListLevelSelected,
     );
     return Scaffold(
-      appBar: AppBar(
-        title: const AppBarTitle(),
-        centerTitle: true,
-        backgroundColor: theme.isDarkTheme ? Colors.transparent : Colors.white,
-        elevation: 0,
-        automaticallyImplyLeading: false,
+      appBar: AppBarTitle(
+        appBar: AppBar(),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -17,19 +17,10 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
     final authServices = Provider.of<AuthServices>(context, listen: true);
     final theme = Provider.of<ThemeChanger>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor:
-            theme.getDarkTheme ? Colors.transparent : Colors.grey[100],
-        title: const SimpleText(
-          text: 'SUBIR NUEVA TAREA',
-          lightThemeColor: Colors.black87,
-          darkThemeColor: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-        centerTitle: true,
+      appBar: AppBarTitle(
+        title: 'SUBIR NUEVA TAREA',
+        fontSize: 20,
+        appBar: AppBar(),
       ),
       body: DefaultTabController(
         length: tabsOptions.length,
