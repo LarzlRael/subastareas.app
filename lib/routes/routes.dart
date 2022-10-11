@@ -33,9 +33,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'public_profile_page': (BuildContext context) => PublicProfilePage(
         userId: ModalRoute.of(context)?.settings.arguments as int,
       ),
-  'upload_homework_only_text': (BuildContext context) => UploadHomeworkOnlyText(
+  /* 'upload_homework_only_text': (BuildContext context) => UploadHomeworkOnlyText(
         authService: ModalRoute.of(context)?.settings.arguments as AuthServices,
-      ),
+      ), */
   'upload_homework_with_file': (BuildContext context) => UploadHomeworkWithFile(
         homework: ModalRoute.of(context)?.settings.arguments as Homework,
       ),

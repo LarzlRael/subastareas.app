@@ -116,17 +116,14 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       title: "Configuraciones",
       page: SettingsPage(),
     ),
-    /* const MenuProfileOption(
-      icon: Icon(Icons.question_answer),
-      title: "Tus marcadores",
-      page: WalletPage(),
-      showTrailing: true,
-    ), */
     isAdmin(authService.user.userRols)
         ? const MenuProfileOption(
-            icon: Icon(Icons.admin_panel_settings),
-            title: "Adminstracion",
-            page: SettingsPage(),
+            icon: Icon(
+              Icons.admin_panel_settings,
+              color: Colors.green,
+            ),
+            title: "Administracion",
+            page: SelectOption(),
           )
         : Container(),
     const MenuProfileOption(
@@ -138,25 +135,18 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
     ),
   ];
   return menuProfileOptions;
-  /* if (authService.user.userRols.contains('admin')) {
-    return [
-      const MenuProfileOption(
-        icon: Icon(Icons.admin_panel_settings),
-        title: "Adminstracion",
-        page: SettingsPage(),
-      ),
-      ...menuProfileOptions,
-    ];
-  } else {
-    return menuProfileOptions;
-  } */
 }
 
-/* final List<CategoryFilter> listCategories = [
-  CategoryFilter('Secundaria', 'level'),
-  CategoryFilter('Pre universitario', 'level'),
-  CategoryFilter('Universitario', 'level'),
-  CategoryFilter('matematica', 'category'),
-  CategoryFilter('fisica', 'category'),
-  CategoryFilter('quimica', 'category'),
-]; */
+const sizeTabIcon = 35.0;
+const colorTab = Colors.grey;
+List<Widget> tabsOptions = const [
+  Tab(
+    icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
+  ),
+  Tab(
+    icon: Icon(Icons.mic, size: sizeTabIcon, color: colorTab),
+  ),
+  Tab(
+    icon: Icon(Icons.video_label_rounded, size: sizeTabIcon, color: colorTab),
+  ),
+];

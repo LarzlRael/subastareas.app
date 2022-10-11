@@ -32,7 +32,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         centerTitle: true,
       ),
       body: DefaultTabController(
-        length: 4,
+        length: tabsOptions.length,
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -43,214 +43,15 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
             bottom: TabBar(
               /* indicatorColor: Colors.blue, */
               padding: const EdgeInsets.only(bottom: 20),
-              tabs: [
-                Tab(
-                  icon: Icon(FontAwesomeIcons.keyboard,
-                      size: sizeTabIcon, color: colorTab),
-                ),
-                Tab(
-                  icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
-                ),
-                Tab(
-                  icon: Icon(Icons.mic, size: sizeTabIcon, color: colorTab),
-                ),
-                Tab(
-                  icon: Icon(Icons.video_label_rounded,
-                      size: sizeTabIcon, color: colorTab),
-                ),
-              ],
+              tabs: tabsOptions,
             ),
           ),
-          body: TabBarView(
+          body: const TabBarView(
             children: [
-              UploadHomeworkOnlyText(authService: authServices),
               UploadHomeworkWithFile(homework: null),
-              const Icon(Icons.directions_transit),
-              const Icon(Icons.directions_transit),
+              Icon(Icons.directions_transit),
+              Icon(Icons.directions_transit),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class UploadHomeworkOnlyText extends StatefulWidget {
-  final AuthServices authService;
-  const UploadHomeworkOnlyText({
-    Key? key,
-    required this.authService,
-  }) : super(key: key);
-
-  @override
-  State<UploadHomeworkOnlyText> createState() => _UploadHomeworkOnlyTextState();
-}
-
-class _UploadHomeworkOnlyTextState extends State<UploadHomeworkOnlyText> {
-  final _formKey = GlobalKey<FormBuilderState>();
-  bool _loading = false;
-
-  Homework homework = Homework(
-    id: 0,
-    title: '',
-    description: '',
-    offeredAmount: 0,
-    fileUrl: null,
-    fileType: '',
-    resolutionTime: DateTime.now(),
-    category: '',
-    observation: '',
-    status: '',
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-    user: CommentUser(
-      id: 0,
-      profileImageUrl: '',
-      username: '',
-    ),
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    final homeworkData = ModalRoute.of(context)?.settings.arguments;
-    final homeworksService = HomeworkServices();
-    if (homeworkData != null) {
-      homework = homeworkData as Homework;
-    }
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            padding: const EdgeInsets.all(20),
-            child: FormBuilder(
-              initialValue: {
-                'title': homework.title,
-                'offered_amount': homework.offeredAmount.toString(),
-                'resolutionTime': homework.resolutionTime,
-                /* 'category': homework.category, */
-              },
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Column(
-                    children: [
-                      SimpleText(
-                        text:
-                            'Tu saldo actual es de: ${widget.authService.user.wallet.balanceTotal}',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        bottom: 10,
-                      ),
-                      const CustomFormBuilderTextArea(
-                        name: 'title',
-                        title: 'Escribe tu pregunta',
-                        icon: Icons.person,
-                      ),
-                      CustomRowFormBuilderTextField(
-                        name: 'offered_amount',
-                        placeholder: 'Presupuesto ',
-                        keyboardType: TextInputType.number,
-                        suffixIcon: FontAwesomeIcons.coins,
-                        validator: FormBuilderValidators.compose([
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.max(
-                              widget.authService.user.wallet.balanceTotal),
-                          FormBuilderValidators.min(1),
-                        ]),
-                      ),
-
-                      /* text: 'Tiempo de resolucion : ',
-                              name: 'resolutionTime', */
-                      CustomDatePicker(
-                        name: 'resolutionTime',
-                        suffixIcon: FontAwesomeIcons.calendarDays,
-                        placeholder: 'Tiempo de resolución : ',
-                        keyboardType: TextInputType.datetime,
-                        validator: FormBuilderValidators.compose([
-                          (selectedDateTime) {
-                            debugPrint(selectedDateTime.toString());
-                            if (selectedDateTime == null) {
-                              return 'Selecciona una fecha';
-                            }
-                            if (!selectedDateTime
-                                .difference(DateTime.now())
-                                .isNegative) {
-                              return 'Selected DateTime is in the future';
-                            }
-                            return null;
-                          }
-                        ]),
-                      ),
-                      const CustomFormBuilderFetchDropdown(
-                        formFieldName: 'category',
-                        placeholder: 'Seleccione una categoria',
-                        title: 'Categoria :',
-                      ),
-                    ],
-                  ),
-                  !_loading
-                      ? FillButton(
-                          label:
-                              homework.id == 0 ? "Subir Tarea" : 'Editar Tarea',
-                          borderRadius: 20,
-                          textColor: Colors.white,
-                          onPressed: () async {
-                            setState(() {
-                              _loading = true;
-                            });
-                            final validationSuccess =
-                                _formKey.currentState!.validate();
-
-                            if (validationSuccess) {
-                              _formKey.currentState!.save();
-
-                              final data = {
-                                'title': _formKey.currentState!.value['title'],
-                                'offered_amount': _formKey
-                                    .currentState!.value['offered_amount'],
-                                'category':
-                                    _formKey.currentState!.value['category'],
-                                'resolutionTime': _formKey
-                                    .currentState!.value['resolutionTime']
-                                    .toString(),
-                              };
-                              setState(() {
-                                _loading = true;
-                              });
-                              final uploadHomework =
-                                  await homeworksService.uploadHomeworkOnlyText(
-                                data,
-                                homework.id,
-                              );
-                              if (uploadHomework) {
-                                Navigator.pushNamed(
-                                    context, 'my_homeworks_page');
-                                _formKey.currentState!.reset();
-                                setState(() {
-                                  _loading = false;
-                                });
-                                GlobalSnackBar.show(
-                                    context, 'Tarea subida correctamente',
-                                    backgroundColor: Colors.green);
-                              } else {
-                                setState(() {
-                                  _loading = false;
-                                });
-                                GlobalSnackBar.show(
-                                    context, 'Error al subir tarea',
-                                    backgroundColor: Colors.red);
-                              }
-                            }
-                          },
-                        )
-                      : const Center(child: CircularProgressIndicator())
-                ],
-              ),
-            ),
           ),
         ),
       ),

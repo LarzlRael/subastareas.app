@@ -73,3 +73,5 @@ part 'user_pages/homeworks/resolved_homework_user.dart';
 part 'wallet/wallet_page.dart';
 part 'wallet/withdraw_page.dart';
 part 'wallet/withdraw_method_selected_page.dart';
+
+part 'admin/select_option.dart';
