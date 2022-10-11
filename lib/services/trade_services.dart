@@ -46,4 +46,16 @@ class TradeServices {
     final finalData = planesModelFromJson(planesRequest!.body);
     return finalData;
   }
+
+  Future<bool> shopCoins(int idPlan, String planName) async {
+    /* buyCoins/:idPlan/:planName */
+    final planesRequest = await Request.sendRequestWithToken(
+      'GET',
+      'shopping/buyCoins/$idPlan/$planName',
+      {},
+      await _storage.read(key: 'token'),
+    );
+
+    return validateStatus(planesRequest?.statusCode);
+  }
 }

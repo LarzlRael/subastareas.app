@@ -8,6 +8,9 @@ class MyHomeworksPage extends StatelessWidget {
     final homeworkServices = HomeworkServices();
     final tradeServices = TradeServices();
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: DefaultTabController(
         length: 3,
         child: Scaffold(

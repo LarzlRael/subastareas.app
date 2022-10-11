@@ -80,7 +80,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                   AsyncSnapshot<List<HomeworksModel>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.isEmpty) {
-                    return Container(
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.7,
                       /* color: Colors.green, */
                       child: const NoInformation(
                         message: 'No se encontraron resultados',

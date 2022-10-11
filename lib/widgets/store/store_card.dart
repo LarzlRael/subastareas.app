@@ -3,10 +3,11 @@ part of '../widgets.dart';
 class StoreCard extends StatelessWidget {
   final double height = 120;
   final PlanesModel planesModel;
-
+  final VoidCallback onPressed;
   const StoreCard({
     Key? key,
     required this.planesModel,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -86,6 +87,7 @@ class StoreCard extends StatelessWidget {
                     print(planesModel.amount);
                     //TODO
                     //page to buy the plan
+                    onPressed();
                   },
                   child: Card(
                     color: Colors.green,

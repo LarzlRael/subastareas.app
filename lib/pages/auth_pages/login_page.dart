@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
     void loginOk() {
       Navigator.pushReplacementNamed(context, 'bottomNavigation');
+      theme.setDarkTheme = authService.user.userProfile.isDarkTheme;
       filter.setCurrentBottomTab = 0;
       socketService.connect();
     }

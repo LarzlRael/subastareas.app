@@ -1,12 +1,5 @@
-// To parse this JSON data, do
-//
-//     final priceDollarToday = priceDollarTodayFromJson(jsonString);
-
 part of './models.dart';
 
-// To parse this JSON data, do
-//
-//     final planesModel = planesModelFromJson(jsonString);
 List<PlanesModel> planesModelFromJson(String str) => List<PlanesModel>.from(
     json.decode(str).map((x) => PlanesModel.fromJson(x)));
 
@@ -20,6 +13,7 @@ class PlanesModel {
     required this.amount,
     required this.priceBob,
     required this.nameBobPrice,
+    required this.planId,
   });
 
   String planeName;
@@ -27,6 +21,7 @@ class PlanesModel {
   int amount;
   double priceBob;
   String nameBobPrice;
+  int planId;
 
   factory PlanesModel.fromJson(Map<String, dynamic> json) => PlanesModel(
         planeName: json["planeName"],
@@ -34,6 +29,7 @@ class PlanesModel {
         amount: json["amount"],
         priceBob: json["priceBob"].toDouble(),
         nameBobPrice: json["nameBobPrice"],
+        planId: json["planId"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,5 +38,6 @@ class PlanesModel {
         "amount": amount,
         "priceBob": priceBob,
         "nameBobPrice": nameBobPrice,
+        "planId": planId,
       };
 }

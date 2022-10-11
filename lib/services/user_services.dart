@@ -13,4 +13,15 @@ class UserServices {
 
     return publicProfileFromJson(resp!.body);
   }
+
+  Future<bool> changeTheme(int idProfileUser, int newThemeStatus) async {
+    final resp = await Request.sendRequestWithToken(
+      'GET',
+      'userProfile/changeTheme/$idProfileUser/$newThemeStatus',
+      {},
+      await _storage.read(key: 'token'),
+    );
+
+    return validateStatus(resp!.statusCode);
+  }
 }

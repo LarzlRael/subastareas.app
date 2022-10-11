@@ -5,6 +5,7 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: false);
+    final userServices = UserServices();
     final themeChanger = Provider.of<ThemeChanger>(context, listen: true);
     final preferences = UserPreferences();
     return Scaffold(
@@ -54,8 +55,11 @@ class SettingsPage extends StatelessWidget {
                       leading: const Icon(Icons.person),
                       title: const Text('Notificaciones'),
                       trailing: Switch(
-                        value: true,
-                        onChanged: (value) {},
+                        value: themeChanger.getNotifications,
+                        onChanged: (value) {
+                          themeChanger.setNotifications = value;
+                          /* preferences.notifications = value; */
+                        },
                       ),
                       onTap: () {
                         /* auth.logout(); */
@@ -75,15 +79,20 @@ class SettingsPage extends StatelessWidget {
                       icon: Icons.person_add_alt,
                       title: 'Tema oscuro',
                       initialValue: themeChanger.isDarkTheme,
-                      onChanged: (value) {
+                      onChanged: (value) async {
                         themeChanger.setDarkTheme = value;
-                        preferences.setThemeStatus = value ? 2 : 1;
+                        preferences.setThemeStatus = value ? 0 : 1;
+                        final boolxd = await userServices.changeTheme(
+                          auth.user.userProfile.id,
+                          value ? 0 : 1,
+                        );
+                        print(boolxd);
                       },
                     ),
                     ListTile(
                       leading: const Icon(Icons.lock),
                       title: const Text('Cambiar contraseña'),
-                      trailing: Icon(Icons.chevron_right),
+                      trailing: const Icon(Icons.chevron_right),
                       onTap: () {
                         Navigator.pushNamed(context, 'change_password');
                       },

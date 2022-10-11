@@ -43,6 +43,7 @@ class StorePage extends StatelessWidget {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<PlanesModel>> snapshot) {
                   if (snapshot.hasData) {
+                    final planes = snapshot.data;
                     return Expanded(
                       child: ListView.builder(
                         physics: const BouncingScrollPhysics(),
@@ -50,7 +51,12 @@ class StorePage extends StatelessWidget {
                         itemCount: snapshot.data!.length,
                         itemBuilder: (BuildContext context, int index) {
                           return StoreCard(
-                            planesModel: snapshot.data![index],
+                            planesModel: planes![index],
+                            onPressed: () async {
+                              await tradeServices.shopCoins(
+                                  planes[index].planId,
+                                  planes[index].planeName);
+                            },
                           );
                         },
                       ),
