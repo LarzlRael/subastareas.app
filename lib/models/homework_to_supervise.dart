@@ -22,6 +22,7 @@ class HomeworkToSupervise {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
+    required this.user,
   });
 
   int id;
@@ -37,6 +38,7 @@ class HomeworkToSupervise {
   String status;
   DateTime createdAt;
   DateTime updatedAt;
+  User user;
 
   factory HomeworkToSupervise.fromJson(Map<String, dynamic> json) =>
       HomeworkToSupervise(
@@ -53,6 +55,7 @@ class HomeworkToSupervise {
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        user: User.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,31 @@ class HomeworkToSupervise {
         "status": status,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "user": user.toJson(),
+      };
+}
+
+class UserOwnerToSupervise {
+  UserOwnerToSupervise({
+    required this.id,
+    required this.username,
+    required this.profileImageUrl,
+  });
+
+  int id;
+  String username;
+  String profileImageUrl;
+
+  factory UserOwnerToSupervise.fromJson(Map<String, dynamic> json) =>
+      UserOwnerToSupervise(
+        id: json["id"],
+        username: json["username"],
+        profileImageUrl: json["profileImageUrl"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "username": username,
+        "profileImageUrl": profileImageUrl,
       };
 }

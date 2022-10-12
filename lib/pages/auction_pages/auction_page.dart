@@ -111,7 +111,8 @@ class _AuctionPageState extends State<AuctionPage> {
                             children: [
                               Column(
                                 children: [
-                                  _cardAuction(snapshot.data!, auth.isLogged)
+                                  _cardAuction(
+                                      snapshot.data!, auth.isLogged, false)
                                 ],
                               ),
                             ],
@@ -130,7 +131,10 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged) {
+  Widget _cardAuction(
+      OneHomeworkModel oneHomeworkModel, bool isLogged, bool loading) {
+    final _formKey = GlobalKey<FormBuilderState>();
+    final supervisorServices = SuperviseServices();
     return Container(
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -190,6 +194,100 @@ class _AuctionPageState extends State<AuctionPage> {
           CircleAvatarGroup(
             oneHomeworkModel: oneHomeworkModel,
           ),
+          oneHomeworkModel.homework.status == 'pending_to_accept' &&
+                  isAdmin(auth.user.userRols)
+              ? Column(
+                  children: [
+                    oneHomeworkModel.homework.observation != null
+                        ? Container(
+                            padding: const EdgeInsets.all(10),
+                            child: SimpleText(
+                              text: oneHomeworkModel.homework.observation!,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Container(),
+                    FormBuilder(
+                      key: _formKey,
+                      child: Column(
+                        children: const [
+                          CustomFormBuilderTextArea(
+                            name: 'observation',
+                            icon: FontAwesomeIcons.notesMedical,
+                            title: 'Observación',
+                          ),
+                        ],
+                      ),
+                    ),
+                    /* _formKey.currentState!.save();
+                        await supervisorServices.superviseHomework(
+                          _formKey.currentState!.value['observation'],
+                          'rejected',
+                          oneHomeworkModel.homework.id,
+                        ); */
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FillButton(
+                            borderRadius: 5,
+                            label: "Rechazar",
+                            ghostButton: true,
+                            onPressed: () async {
+                              _formKey.currentState!.save();
+                              final accepted =
+                                  await supervisorServices.superviseHomework(
+                                _formKey.currentState!.value['observation'],
+                                'rejected',
+                                oneHomeworkModel.homework.id,
+                              );
+                              if (accepted) {
+                                Navigator.pop(context);
+                                GlobalSnackBar.show(context, "Tarea Calificada",
+                                    backgroundColor: Colors.green);
+                              } else {
+                                GlobalSnackBar.show(context, "Hubo un error",
+                                    backgroundColor: Colors.red);
+                              }
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: FillButton(
+                            borderRadius: 5,
+                            label: "Aceptar",
+                            onPressed: () async {
+                              _formKey.currentState!.save();
+                              setState(() {
+                                loading = true;
+                              });
+                              final accepted =
+                                  await supervisorServices.superviseHomework(
+                                _formKey.currentState!.value['observation'],
+                                'accepted_to_offer',
+                                oneHomeworkModel.homework.id,
+                              );
+                              setState(() {
+                                loading = false;
+                              });
+                              if (accepted) {
+                                Navigator.pop(context);
+                                GlobalSnackBar.show(
+                                    context, "Tarea aceptada y confirmada",
+                                    backgroundColor: Colors.green);
+                              } else {
+                                GlobalSnackBar.show(context, "Hubo un error",
+                                    backgroundColor: Colors.red);
+                              }
+                            },
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                )
+              : Container(),
           oneHomeworkModel.homework.status == 'accepted_to_offer'
               ? CommentsWidget(
                   comments: oneHomeworkModel.comments,

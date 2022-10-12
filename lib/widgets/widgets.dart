@@ -19,12 +19,15 @@ import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
+import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:timeago/timeago.dart' as timeAgo;
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import '../routes/routes_page.dart';
 
 part 'buttons/button_icon.dart';
+part 'buttons/button_confirm.dart';
+
 part 'text/description_text.dart';
 part 'offers/person_offer_card.dart';
 part 'offers/person_offer_horizontal.dart';

@@ -13,4 +13,19 @@ class SuperviseServices {
     final finalData = homeworkToSuperviseFromJson(homeworkRequest!.body);
     return finalData;
   }
+
+  Future<bool> superviseHomework(
+      String observation, String status, int idHomework) async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'POST',
+      'supervisor/superviseHomework/',
+      {
+        'observation': observation,
+        'status': status,
+        'idHomework': idHomework,
+      },
+      await _storage.read(key: 'token'),
+    );
+    return validateStatus(homeworkRequest!.statusCode);
+  }
 }

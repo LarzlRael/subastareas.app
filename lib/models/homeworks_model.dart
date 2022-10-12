@@ -23,8 +23,8 @@ class HomeworksModel {
     required this.status,
     required this.createdAt,
     required this.updatedAt,
-    this.offers,
     required this.user,
+    this.offers,
   });
 
   int id;

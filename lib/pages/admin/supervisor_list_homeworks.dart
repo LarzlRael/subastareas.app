@@ -8,7 +8,7 @@ class SupervisorListHomeworks extends StatelessWidget {
     final superviseServices = SuperviseServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(appBar: AppBar()),
-      body: Container(
+      body: SizedBox(
         child: Column(
           children: [
             Expanded(
@@ -25,9 +25,7 @@ class SupervisorListHomeworks extends StatelessWidget {
                     itemCount: snapshot.data.length,
                     itemBuilder: (BuildContext context, int index) {
                       return HomeworkToSuperviseCard(
-                        userName: "SOLO",
-                        createdAt: snapshot.data[index].createdAt,
-                        title: snapshot.data[index].title,
+                        homeworkToSupervise: snapshot.data[index],
                       );
                     },
                   );
