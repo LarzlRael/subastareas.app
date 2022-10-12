@@ -73,3 +73,8 @@ part 'loadings/square_loading.dart';
 part 'list_tiles/generic_list_tile.dart';
 /* Common */
 part 'common/app_bar_with_back_icon.dart';
+
+/* ListViews */
+/* part 'listView/future_list_view_with_loading.dart'; */
+part 'card/homework_to_supervise_card.dart';
+part 'card/name_and_time_ago.dart';

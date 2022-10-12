@@ -31,3 +31,4 @@ part 'sockets/socket_utils.dart';
 part 'trade_services.dart';
 part 'mail_services.dart';
 part 'transaction_service.dart';
+part 'supervise_services.dart';

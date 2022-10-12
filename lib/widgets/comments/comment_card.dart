@@ -41,7 +41,11 @@ class _CommentCardState extends State<CommentCard>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _nameAndTimeAgo(auth.user.id == widget.comment.user.id),
+                NameAndTimeAgo(
+                  circle: false,
+                  userName: widget.comment.user.username,
+                  createdAt: widget.comment.createdAt,
+                ),
                 DropdownComment(
                   commentContent: widget.comment.content.toCapitalized(),
                   isExpanded: widget.isExpanded,
@@ -80,43 +84,6 @@ class _CommentCardState extends State<CommentCard>
               : Container(),
         ],
       ),
-    );
-  }
-
-  Row _nameAndTimeAgo(bool circle) {
-    return Row(
-      children: [
-        circle
-            ? SimpleText(
-                text: widget.comment.user.username,
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              )
-            : Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey[700],
-                  borderRadius: BorderRadius.circular(300),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 3,
-                  ),
-                  child: SimpleText(
-                    text: widget.comment.user.username,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w400,
-                    lightThemeColor: Colors.white,
-                    setUniqueColor: true,
-                  ),
-                ),
-              ),
-        const SizedBox(width: 15),
-        SimpleText(
-          text: timeAgo.format(widget.comment.createdAt, locale: 'es'),
-          lightThemeColor: Colors.grey,
-        ),
-      ],
     );
   }
 

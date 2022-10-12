@@ -20,10 +20,7 @@ class CircleButton extends StatelessWidget {
       filter: ImageFilter.blur(sigmaX: 0.2, sigmaY: 0.2),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(
-            context,
-            'login',
-          );
+          onPressed();
         },
         child: Container(
           height: 180.0,

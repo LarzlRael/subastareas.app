@@ -26,11 +26,11 @@ class _DropdownCommentState extends State<DropdownComment> {
             constraints: widget.isExpanded
                 ? const BoxConstraints()
                 : const BoxConstraints(maxHeight: 45.0),
-            /*     child: Text(
-                      widget.text,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ), */
+            /*child: Text(
+                widget.text,
+                softWrap: true,
+                overflow: TextOverflow.fade,
+            ), */
             child: Padding(
               padding: const EdgeInsets.only(top: 5),
               child: Text(

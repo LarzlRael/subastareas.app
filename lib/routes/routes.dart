@@ -7,7 +7,7 @@ import '../pages/pages.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
   /* Register and login  */
-  'login': (_) => LoginPage(),
+  'login': (_) => const LoginPage(),
   'register': (_) => RegisterPage(),
   'bottomNavigation': (_) => const BottomNavigation(),
   'loading': (_) => LoadingPage(),
@@ -45,4 +45,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
   'withdraw_page': (_) => const WithdrawPage(),
   'withdraw_method_selected_page': (_) => const WithdrawMethodSelectedPage(),
+  'supervisor_list_homeworks': (_) => SupervisorListHomeworks(),
 };

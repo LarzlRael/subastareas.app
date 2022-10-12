@@ -1,39 +1,16 @@
 part of 'utils.dart';
 
-List<Widget> categoryList = [
-  CircleButton(
-      color: Colors.blue,
-      icon: Icons.food_bank,
-      text: 'Matematica',
-      onPressed: () {}),
-  CircleButton(
-      color: Colors.blue,
-      icon: Icons.food_bank,
-      text: 'Matematica',
-      onPressed: () {}),
-  CircleButton(
-      color: Colors.blue,
-      icon: Icons.food_bank,
-      text: 'Matematica',
-      onPressed: () {}),
-  CircleButton(
-      color: Colors.blue,
-      icon: Icons.food_bank,
-      text: 'Matematica',
-      onPressed: () {}),
-  CircleButton(
-    color: Colors.purpleAccent,
-    icon: Icons.directions_bike,
-    text: 'Programación',
-    onPressed: () {},
-  ),
-  CircleButton(
-    color: Colors.purpleAccent,
-    icon: Icons.directions_bike,
-    text: 'Programación',
-    onPressed: () {},
-  ),
-];
+List<Widget> adminOptions(BuildContext context) {
+  return [
+    CircleButton(
+        color: Colors.blue,
+        icon: Icons.food_bank,
+        text: 'Supervisar tarea',
+        onPressed: () {
+          Navigator.pushNamed(context, 'supervisor_list_homeworks');
+        }),
+  ];
+}
 
 final List<Widget> bottomItemsWithoutLogin = <Widget>[
   const ListOpenHomeworksPage(),
@@ -137,16 +114,18 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
   return menuProfileOptions;
 }
 
-const sizeTabIcon = 35.0;
-const colorTab = Colors.grey;
-List<Widget> tabsOptions = const [
-  Tab(
-    icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
-  ),
-  Tab(
-    icon: Icon(Icons.mic, size: sizeTabIcon, color: colorTab),
-  ),
-  Tab(
-    icon: Icon(Icons.video_label_rounded, size: sizeTabIcon, color: colorTab),
-  ),
-];
+List<Widget> tabsOptions() {
+  const sizeTabIcon = 35.0;
+  const colorTab = Colors.grey;
+  return const [
+    Tab(
+      icon: Icon(Icons.image, size: sizeTabIcon, color: colorTab),
+    ),
+    Tab(
+      icon: Icon(Icons.mic, size: sizeTabIcon, color: colorTab),
+    ),
+    Tab(
+      icon: Icon(Icons.video_label_rounded, size: sizeTabIcon, color: colorTab),
+    ),
+  ];
+}

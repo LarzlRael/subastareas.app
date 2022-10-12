@@ -66,10 +66,6 @@ class StoreCard extends StatelessWidget {
                   ),
                 ),
               ),
-              /* Container(
-                height: MediaQuery.of(context).size.height * .10,
-                color: Colors.green,
-              ) */
             ],
           ),
 

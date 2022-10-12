@@ -24,7 +24,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               /* shrinkWrap: true, */
               /* physics: NeverScrollableScrollPhysics(), */
               crossAxisCount: 2,
-              children: categoryList.map((category) {
+              children: adminOptions(context).map((category) {
                 return (category);
               }).toList()),
         ),

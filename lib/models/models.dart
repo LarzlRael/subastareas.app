@@ -12,3 +12,4 @@ part 'trade_user_model.dart';
 part 'planes_model.dart';
 part 'user_transaction_model.dart';
 part 'public_profile_model.dart';
+part 'homework_to_supervise.dart';

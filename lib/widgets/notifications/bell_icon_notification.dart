@@ -7,7 +7,6 @@ class BellIconNotification extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
     return Container(
-      /* color: Colors.blue, */
       padding: const EdgeInsets.all(0.0),
       child: FutureBuilder(
         future: homeworkServices.getUserNotifications(),

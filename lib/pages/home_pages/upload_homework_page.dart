@@ -23,7 +23,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         appBar: AppBar(),
       ),
       body: DefaultTabController(
-        length: tabsOptions.length,
+        length: tabsOptions().length,
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -34,7 +34,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
             bottom: TabBar(
               /* indicatorColor: Colors.blue, */
               padding: const EdgeInsets.only(bottom: 20),
-              tabs: tabsOptions,
+              tabs: tabsOptions(),
             ),
           ),
           body: const TabBarView(

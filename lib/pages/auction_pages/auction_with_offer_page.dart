@@ -172,7 +172,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _ImageBackgorundAndTimer(
+                  _ImageBackgroundAndTimer(
                       auth: auth, homework: widget.args, isOwner: isOwner),
                   auth.isLogged ? currentHomeworkViewers() : Container(),
                   widget.args.homework.status == 'pending_to_resolve'
@@ -422,11 +422,11 @@ class _ButtonOffer extends StatelessWidget {
     
   } */
 
-class _ImageBackgorundAndTimer extends StatelessWidget {
+class _ImageBackgroundAndTimer extends StatelessWidget {
   final AuthServices auth;
   final OneHomeworkModel homework;
   final bool isOwner;
-  const _ImageBackgorundAndTimer(
+  const _ImageBackgroundAndTimer(
       {Key? key,
       required this.auth,
       required this.homework,

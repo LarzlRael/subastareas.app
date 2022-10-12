@@ -7,8 +7,27 @@ class SelectOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithBackIcon(appBar: AppBar()),
-      body: const Center(
-        child: Text('Select Operation'),
+      body: Column(
+        children: [
+          const SimpleText(
+            text: 'Selecciona una opción',
+            fontSize: 25,
+            bottom: 30,
+            fontWeight: FontWeight.bold,
+            textAlign: TextAlign.center,
+            lightThemeColor: Colors.black87,
+          ),
+          Expanded(
+            child: GridView.count(
+              /* shrinkWrap: true, */
+              /* physics: NeverScrollableScrollPhysics(), */
+              crossAxisCount: 2,
+              children: adminOptions(context).map((l) {
+                return l;
+              }).toList(),
+            ),
+          ),
+        ],
       ),
     );
   }
