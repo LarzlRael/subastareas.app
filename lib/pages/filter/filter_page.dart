@@ -51,49 +51,48 @@ class FutureGetSubjectList extends StatelessWidget {
     return FutureBuilder(
       future: homeworkServices.getSubjectAndLevels(),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-        if (snapshot.hasData) {
-          return Column(
-            children: [
-              const SimpleText(
-                text: "Asignatura",
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              Expanded(
-                child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      sharedPreferences.setSubjectsList = snapshot.data!;
-                      return FilterItem(
-                        title: snapshot.data![index],
-                        type: 'level',
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider(
-                        height: 1,
-                        color: Colors.blue,
-                      );
-                    }),
-              ),
-              FillButton(
-                label: 'Filtrar',
-                borderRadius: 100,
-                onPressed: () {
-                  oneHomeworkBloc.getHomeworksByCategory(
-                    state.getListLevelSelected,
-                  );
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        } else {
+        if (!snapshot.hasData) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
+        return Column(
+          children: [
+            const SimpleText(
+              text: "Asignatura",
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+            Expanded(
+              child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    sharedPreferences.setSubjectsList = snapshot.data!;
+                    return FilterItem(
+                      title: snapshot.data![index],
+                      type: 'level',
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return const Divider(
+                      height: 1,
+                      color: Colors.blue,
+                    );
+                  }),
+            ),
+            FillButton(
+              label: 'Filtrar',
+              borderRadius: 100,
+              onPressed: () {
+                oneHomeworkBloc.getHomeworksByCategory(
+                  state.getListLevelSelected,
+                );
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
       },
     );
   }

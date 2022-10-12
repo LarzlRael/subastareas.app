@@ -13,21 +13,21 @@ class BellIconNotification extends StatelessWidget {
         future: homeworkServices.getUserNotifications(),
         builder: (BuildContext context,
             AsyncSnapshot<List<NotificationModel>> snapshot) {
-          if (snapshot.hasData) {
-            final notificationsNotRead = snapshot.data!
-                .where((element) => element.notified == true)
-                .toList()
-                .length;
-            /* child: notificationsNotRead > 0 */
-            return Badge(
-                badgeContent: Text(
-                  '$notificationsNotRead',
-                  style: const TextStyle(color: Colors.white),
-                ),
-                child: iconNotification(context));
-          } else {
+          if (!snapshot.hasData) {
             return iconNotification(context);
           }
+          final notificationsNotRead = snapshot.data!
+              .where((element) => element.notified == true)
+              .toList()
+              .length;
+          /* child: notificationsNotRead > 0 */
+          return Badge(
+            badgeContent: Text(
+              '$notificationsNotRead',
+              style: const TextStyle(color: Colors.white),
+            ),
+            child: iconNotification(context),
+          );
         },
       ),
     );

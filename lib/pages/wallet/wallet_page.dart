@@ -109,34 +109,29 @@ class WalletPage extends StatelessWidget {
                 future: transactionServices.getUserHistoryTransaction(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<UserTransactionModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data!.isEmpty) {
-                      return const Center(
-/* icon
-message
-showButton
-iconButton */
-                        child: NoInformation(
-                          icon: Icons.hourglass_empty,
-                          message: 'No tienes transacciones',
-                          showButton: false,
-                          iconButton: Icons.arrow_forward_ios,
-                        ),
-                      );
-                    }
-                    return Expanded(
-                      child: ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return TransactionCard(
-                            transaction: snapshot.data![index],
-                          );
-                        },
-                      ),
-                    );
-                  } else {
+                  if (!snapshot.hasData) {
                     return const CircularCenter();
                   }
+                  if (snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: NoInformation(
+                        icon: Icons.hourglass_empty,
+                        message: 'No tienes transacciones',
+                        showButton: false,
+                        iconButton: Icons.arrow_forward_ios,
+                      ),
+                    );
+                  }
+                  return Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return TransactionCard(
+                          transaction: snapshot.data![index],
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ],

@@ -33,100 +33,98 @@ class _AuctionPageState extends State<AuctionPage> {
         stream: _oneHomeworkBloc.oneHomeworkStream,
         builder:
             (BuildContext context, AsyncSnapshot<OneHomeworkModel> snapshot) {
-          if (snapshot.hasData) {
-            return Container(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverAppBar(
-                      elevation: 5,
-                      centerTitle: true,
-                      leading: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.chevron_left,
-                          color: Colors.white,
-                          size: 25,
-                        ),
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                    elevation: 5,
+                    centerTitle: true,
+                    leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(
+                        Icons.chevron_left,
+                        color: Colors.white,
+                        size: 25,
                       ),
-                      actions: <Widget>[
-                        isBearer
-                            ? IconButton(
-                                onPressed: () {
-                                  snapshot.data!.offers.isEmpty
-                                      ? Navigator.pushNamed(
-                                          context,
-                                          'upload_homework_with_file',
-                                          arguments: snapshot.data!.homework,
-                                          /* PageTransition(
+                    ),
+                    actions: <Widget>[
+                      isBearer
+                          ? IconButton(
+                              onPressed: () {
+                                snapshot.data!.offers.isEmpty
+                                    ? Navigator.pushNamed(
+                                        context,
+                                        'upload_homework_with_file',
+                                        arguments: snapshot.data!.homework,
+                                        /* PageTransition(
                                       type: PageTransitionType
                                           .leftToRightWithFade,
                                       child: UploadHomeworkOnlyText(),
                                       settings: snapshot.data!.homework,
                                     ), */
-                                        )
-                                      : GlobalSnackBar.show(context,
-                                          "No puedes editar tu tarea porque ya tiene ofertas",
-                                          backgroundColor: Colors.red);
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  color: Colors.white,
-                                  size: 25,
-                                ),
-                              )
-                            : Container(),
-                      ],
-                      floating: true,
-                      pinned: true,
-                      snap: false,
-                      expandedHeight: 200,
-                      flexibleSpace: FlexibleSpaceBar(
-                        background: Image.asset(
-                          'assets/category/${removeDiacritics(
-                            snapshot.data!.homework.category,
-                          )}.jpg',
-                          fit: BoxFit.cover,
-                          /* width: 280.0, */
-                        ),
-                        centerTitle: true,
-                        title: SimpleText(
-                          text: 'Tarea de ${snapshot.data!.homework.category} ',
-                          lightThemeColor: Colors.white,
-                          fontSize: 16,
-                        ),
-                      )),
-                  SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        SafeArea(
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    _cardAuction(snapshot.data!, auth.isLogged)
-                                  ],
-                                ),
-                              ],
-                            ),
-
-                            /* _buttonMakeOffer(), */
+                                      )
+                                    : GlobalSnackBar.show(context,
+                                        "No puedes editar tu tarea porque ya tiene ofertas",
+                                        backgroundColor: Colors.red);
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                            )
+                          : Container(),
+                    ],
+                    floating: true,
+                    pinned: true,
+                    snap: false,
+                    expandedHeight: 200,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: Image.asset(
+                        'assets/category/${removeDiacritics(
+                          snapshot.data!.homework.category,
+                        )}.jpg',
+                        fit: BoxFit.cover,
+                        /* width: 280.0, */
+                      ),
+                      centerTitle: true,
+                      title: SimpleText(
+                        text: 'Tarea de ${snapshot.data!.homework.category} ',
+                        lightThemeColor: Colors.white,
+                        fontSize: 16,
+                      ),
+                    )),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      SafeArea(
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  _cardAuction(snapshot.data!, auth.isLogged)
+                                ],
+                              ),
+                            ],
                           ),
+                          /* _buttonMakeOffer(), */
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+                ),
+              ],
+            ),
+          );
         },
       ),
     );

@@ -42,28 +42,26 @@ class StorePage extends StatelessWidget {
                 future: tradeServices.getPlanes(),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<PlanesModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    final planes = snapshot.data;
-                    return Expanded(
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return StoreCard(
-                            planesModel: planes![index],
-                            onPressed: () async {
-                              await tradeServices.shopCoins(
-                                  planes[index].planId,
-                                  planes[index].planeName);
-                            },
-                          );
-                        },
-                      ),
-                    );
-                  } else {
+                  if (!snapshot.hasData) {
                     return const CircularCenter();
                   }
+                  final planes = snapshot.data;
+                  return Expanded(
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return StoreCard(
+                          planesModel: planes![index],
+                          onPressed: () async {
+                            await tradeServices.shopCoins(
+                                planes[index].planId, planes[index].planeName);
+                          },
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             ],

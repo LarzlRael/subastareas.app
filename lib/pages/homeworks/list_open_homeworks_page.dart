@@ -74,28 +74,28 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
               stream: homeworksBloc.homeworksStream,
               builder: (BuildContext context,
                   AsyncSnapshot<List<HomeworksModel>> snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data!.isEmpty) {
-                    return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.7,
-                      /* color: Colors.green, */
-                      child: const NoInformation(
-                        message: 'No se encontraron resultados',
-                        icon: Icons.search_off,
-                        showButton: false,
-                        iconButton: Icons.abc,
-                      ),
-                    );
-                  }
+                if (!snapshot.hasData) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.75,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.7,
+                    /* color: Colors.green, */
+                    child: const NoInformation(
+                      message: 'No se encontraron resultados',
+                      icon: Icons.search_off,
+                      showButton: false,
+                      iconButton: Icons.abc,
+                    ),
+                  );
                 }
 
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.75,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
                 return ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -112,8 +112,6 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 );
               },
             ),
-            /* HomeworkCard(isLogged: auth.isLogged),
-            HomeworkCard(isLogged: auth.isLogged), */
           ],
         ),
       ),
