@@ -60,7 +60,10 @@ class HomeworkCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SimpleText(
-                    text: homework.title.toCapitalized(),
+                    text: homework.title.length > 60
+                        ? homework.title.toCapitalized().substring(0, 60) +
+                            ' ...'
+                        : homework.title.toCapitalized(),
                     fontSize: 18,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,

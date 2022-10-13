@@ -112,7 +112,11 @@ class _AuctionPageState extends State<AuctionPage> {
                               Column(
                                 children: [
                                   _cardAuction(
-                                      snapshot.data!, auth.isLogged, false)
+                                    snapshot.data!,
+                                    auth.isLogged,
+                                    false,
+                                    isBearer,
+                                  )
                                 ],
                               ),
                             ],
@@ -131,8 +135,8 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget _cardAuction(
-      OneHomeworkModel oneHomeworkModel, bool isLogged, bool loading) {
+  Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged,
+      bool loading, bool isBearer) {
     final _formKey = GlobalKey<FormBuilderState>();
     final supervisorServices = SuperviseServices();
     return Container(
@@ -146,6 +150,17 @@ class _AuctionPageState extends State<AuctionPage> {
             bottom: 15,
             fontSize: 22,
           ),
+          isBearer
+              ? homeworkStatus(
+                  oneHomeworkModel.homework.status,
+                  isBearer,
+                  oneHomeworkModel.homework.observation,
+                )
+              : Container(
+                  /*   child: Text(
+                    oneHomeworkModel.homework.status,
+                  ), */
+                  ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -388,6 +403,53 @@ class _AuctionPageState extends State<AuctionPage> {
           desc: desc,
         ),
       ],
+    );
+  }
+
+  Widget homeworkStatus(String status, bool isBearer, String? observation) {
+    switch (status) {
+      case "accepted_to_offer":
+        return statusMessage('Aceptada', Icons.check_circle);
+      case "rejected":
+        return Column(
+          children: [
+            statusMessage('Rechazada', Icons.cancel, color: Colors.red),
+            observation != null
+                ? SimpleText(
+                    text: 'Observación: $observation',
+                    lightThemeColor: Colors.red,
+                    fontSize: 16,
+                    bottom: 10,
+                  )
+                : Container(),
+          ],
+        );
+      case "pending_to_accept":
+        return statusMessage('En proceso de aprobación', Icons.lock_clock,
+            color: Colors.orange);
+    }
+    return Container();
+  }
+
+  Widget statusMessage(String message, IconData icon,
+      {Color color = Colors.green}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 5),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: color,
+          ),
+          const SizedBox(width: 5),
+          SimpleText(
+            text: message,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            lightThemeColor: color,
+          ),
+        ],
+      ),
     );
   }
 }
