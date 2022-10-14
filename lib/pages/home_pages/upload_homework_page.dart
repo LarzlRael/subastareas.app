@@ -65,7 +65,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
   final _formKey = GlobalKey<FormBuilderState>();
   bool _isLoading = false;
   bool _isWithFile = false;
-
+  late bool isNewHomework;
   Homework homework = Homework(
     id: 0,
     title: '',
@@ -94,15 +94,24 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     if (homeworkData != null) {
       homework = homeworkData as Homework;
     }
+    isNewHomework = homework.id == 0;
     return Scaffold(
+      appBar: isNewHomework
+          ? null
+          : AppBarWithBackIcon(
+              appBar: AppBar(),
+            ),
       body: SafeArea(
         child: uploadHomework(context, authService, homeworksService),
       ),
     );
   }
 
-  Widget uploadHomework(BuildContext context, AuthServices authService,
-      HomeworkServices homeworksService) {
+  Widget uploadHomework(
+    BuildContext context,
+    AuthServices authService,
+    HomeworkServices homeworksService,
+  ) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
@@ -203,8 +212,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                 children: [
                   !_isLoading
                       ? FillButton(
-                          label:
-                              homework.id == 0 ? "Subir Tarea" : "Editar Tarea",
+                          label: isNewHomework ? "Subir Tarea" : "Editar Tarea",
                           borderRadius: 20,
                           textColor: Colors.white,
                           onPressed: () async {

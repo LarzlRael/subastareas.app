@@ -77,7 +77,7 @@ class _AuctionPageState extends State<AuctionPage> {
                                             backgroundColor: Colors.red);
                                   },
                                   icon: const Icon(
-                                    Icons.delete,
+                                    Icons.edit,
                                     color: Colors.white,
                                     size: 25,
                                   ),
@@ -100,7 +100,7 @@ class _AuctionPageState extends State<AuctionPage> {
                                             backgroundColor: Colors.red);
                                   },
                                   icon: const Icon(
-                                    Icons.edit,
+                                    Icons.delete,
                                     color: Colors.white,
                                     size: 25,
                                   ),
