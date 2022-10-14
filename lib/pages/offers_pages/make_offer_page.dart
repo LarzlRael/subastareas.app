@@ -120,7 +120,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   fontSize: 19,
                   fontWeight: FontWeight.w900,
                 ),
-                Container(
+                SizedBox(
                   /* color: Colors.grey[200], */
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: SimpleText(
@@ -272,7 +272,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Ingrese cantidad ",
                           ),
                           Column(

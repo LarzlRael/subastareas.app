@@ -45,7 +45,6 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     socketService.socket.off('deleteOffer');
     socketService.socket.off('editOffer'); */
     disconnectEvents(socketService, widget.args.homework.id);
-
     super.dispose();
   }
 
@@ -163,6 +162,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
+        title: widget.args.homework.title,
       ),
       body: SafeArea(
         child: Stack(
@@ -192,7 +192,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                         return const CircularCenter();
                       } else if (_offer.isEmpty) {
                         return const NoInformation(
-                          message: 'No hay ofertas aún',
+                          message: 'Aún no hay ofertas ',
                           icon: Icons.search_off,
                           showButton: false,
                           iconButton: Icons.add,
@@ -471,9 +471,10 @@ class _ImageBackgroundAndTimer extends StatelessWidget {
                 ),
                 width: double.infinity,
                 height: 100,
-                child: Image.network(
-                    'https://concepto.de/wp-content/uploads/2018/08/f%C3%ADsica-e1534938838719.jpg',
-                    fit: BoxFit.fill),
+                child: Image.asset(
+                  'assets/category/${removeDiacritics(homework.homework.category)}.jpg',
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
           ],

@@ -27,7 +27,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
-    final theme = Provider.of<ThemeChanger>(context, listen: true);
+    /* final theme = Provider.of<ThemeChanger>(context, listen: true); */
 
     homeworksBloc.getHomeworksByCategory(
       filter.getListLevelSelected,

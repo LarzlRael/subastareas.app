@@ -14,7 +14,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   final colorTab = Colors.grey;
   @override
   Widget build(BuildContext context) {
-    final authServices = Provider.of<AuthServices>(context, listen: true);
+    /* final authServices = Provider.of<AuthServices>(context, listen: true); */
     final theme = Provider.of<ThemeChanger>(context, listen: true);
     return Scaffold(
       appBar: AppBarTitle(
@@ -95,185 +95,192 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
       homework = homeworkData as Homework;
     }
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-          ),
-          child: FormBuilder(
-            initialValue: {
-              'title': homework.title,
-              'offered_amount': homework.offeredAmount.toString(),
-              /* 'category': homework.category, */
-              'resolutionTime': homework.resolutionTime,
-            },
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    SimpleText(
-                      text:
-                          'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      bottom: 10,
-                    ),
-                    GenericListTile(
-                      icon: Icons.file_open,
-                      title: 'Subir tarea con archivo',
-                      initialValue: _isWithFile,
-                      onChanged: (value) {
-                        setState(() {
-                          _isWithFile = value;
-                        });
-                      },
-                    ),
-                    _isWithFile
-                        ? const CustomFileField(
-                            name: 'file',
-                            /* title: 'Subir archivo',
+      body: SafeArea(
+        child: uploadHomework(context, authService, homeworksService),
+      ),
+    );
+  }
+
+  Widget uploadHomework(BuildContext context, AuthServices authService,
+      HomeworkServices homeworksService) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+        ),
+        child: FormBuilder(
+          initialValue: {
+            'title': homework.title,
+            'offered_amount': homework.offeredAmount.toString(),
+            /* 'category': homework.category, */
+            'resolutionTime': homework.resolutionTime,
+          },
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  SimpleText(
+                    text:
+                        'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    bottom: 10,
+                  ),
+                  GenericListTile(
+                    icon: Icons.file_open,
+                    title: 'Subir tarea con archivo',
+                    initialValue: _isWithFile,
+                    onChanged: (value) {
+                      setState(() {
+                        _isWithFile = value;
+                      });
+                    },
+                  ),
+                  _isWithFile
+                      ? const CustomFileField(
+                          name: 'file',
+                          /* title: 'Subir archivo',
                             icon: Icons.file_upload, */
-                          )
-                        : const SizedBox(),
-                    /* const CustomFileField(
+                        )
+                      : const SizedBox(),
+                  /* const CustomFileField(
                       name: 'file',
                     ), */
-                    const CustomFormBuilderTextArea(
-                      name: 'title',
-                      title: 'Escribe tu pregunta',
-                      icon: Icons.person,
+                  const CustomFormBuilderTextArea(
+                    name: 'title',
+                    title: 'Escribe tu pregunta',
+                    icon: Icons.person,
+                  ),
+                  CustomRowFormBuilderTextField(
+                    name: 'offered_amount',
+                    placeholder: 'Presupuesto ',
+                    keyboardType: TextInputType.number,
+                    suffixIcon: FontAwesomeIcons.coins,
+                    validator: FormBuilderValidators.compose(
+                      [
+                        FormBuilderValidators.required(),
+                        FormBuilderValidators.max(
+                            authService.user.wallet.balanceTotal),
+                        FormBuilderValidators.min(1),
+                      ],
                     ),
-                    CustomRowFormBuilderTextField(
-                      name: 'offered_amount',
-                      placeholder: 'Presupuesto ',
-                      keyboardType: TextInputType.number,
-                      suffixIcon: FontAwesomeIcons.coins,
-                      validator: FormBuilderValidators.compose(
-                        [
-                          FormBuilderValidators.required(),
-                          FormBuilderValidators.max(
-                              authService.user.wallet.balanceTotal),
-                          FormBuilderValidators.min(1),
-                        ],
-                      ),
-                    ),
-                    CustomDatePicker(
-                      name: 'resolutionTime',
-                      suffixIcon: FontAwesomeIcons.calendarDays,
-                      placeholder: 'Tiempo de resolución : ',
-                      keyboardType: TextInputType.datetime,
-                      validator: FormBuilderValidators.compose([
-                        (selectedDateTime) {
-                          if (selectedDateTime == null) {
-                            return 'Selecciona una fecha';
-                          }
-                          if (selectedDateTime
-                              .difference(DateTime.now())
-                              .isNegative) {
-                            return 'Selected DateTime is in the future';
-                          }
-                          return null;
+                  ),
+                  CustomDatePicker(
+                    name: 'resolutionTime',
+                    suffixIcon: FontAwesomeIcons.calendarDays,
+                    placeholder: 'Tiempo de resolución : ',
+                    keyboardType: TextInputType.datetime,
+                    validator: FormBuilderValidators.compose([
+                      (selectedDateTime) {
+                        if (selectedDateTime == null) {
+                          return 'Selecciona una fecha';
                         }
-                      ]),
-                    ),
-                    const CustomFormBuilderFetchDropdown(
-                      formFieldName: 'category',
-                      placeholder: 'Seleccione una categoria',
-                      title: 'Categoria :',
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  children: [
-                    !_isLoading
-                        ? FillButton(
-                            label: homework.id == 0
-                                ? "Subir Tarea"
-                                : "Editar Tarea",
-                            borderRadius: 20,
-                            textColor: Colors.white,
-                            onPressed: () async {
-                              final validationSuccess =
-                                  _formKey.currentState!.validate();
+                        if (selectedDateTime
+                            .difference(DateTime.now())
+                            .isNegative) {
+                          return 'Selected DateTime is in the future';
+                        }
+                        return null;
+                      }
+                    ]),
+                  ),
+                  const CustomFormBuilderFetchDropdown(
+                    formFieldName: 'category',
+                    placeholder: 'Seleccione una categoria',
+                    title: 'Categoria :',
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                children: [
+                  !_isLoading
+                      ? FillButton(
+                          label:
+                              homework.id == 0 ? "Subir Tarea" : "Editar Tarea",
+                          borderRadius: 20,
+                          textColor: Colors.white,
+                          onPressed: () async {
+                            final validationSuccess =
+                                _formKey.currentState!.validate();
 
-                              if (validationSuccess) {
+                            if (validationSuccess) {
+                              _formKey.currentState!.save();
+                              debugPrint(
+                                  _formKey.currentState!.value.toString());
+
+                              if (_isWithFile) {
+                                final Map<String, String> data = {
+                                  'title':
+                                      _formKey.currentState!.value['title'],
+                                  'offered_amount': _formKey
+                                      .currentState!.value['offered_amount'],
+                                  'category':
+                                      _formKey.currentState!.value['category'],
+                                  'resolutionTime': _formKey
+                                      .currentState!.value['resolutionTime']
+                                      .toString(),
+                                };
                                 _formKey.currentState!.save();
-                                debugPrint(
-                                    _formKey.currentState!.value.toString());
-
-                                if (_isWithFile) {
-                                  final Map<String, String> data = {
-                                    'title':
-                                        _formKey.currentState!.value['title'],
-                                    'offered_amount': _formKey
-                                        .currentState!.value['offered_amount'],
-                                    'category': _formKey
-                                        .currentState!.value['category'],
-                                    'resolutionTime': _formKey
-                                        .currentState!.value['resolutionTime']
-                                        .toString(),
-                                  };
-                                  _formKey.currentState!.save();
-                                  /* print(_formKey.currentState!.value); */
-                                  final uploadHomework = await homeworksService
-                                      .uploadHomeworkWithFile(
-                                    data,
-                                    File(_formKey
-                                        .currentState!.value['file'][0].path),
-                                  );
-                                  _successUploaded(uploadHomework);
-                                } else {
-                                  final Map<String, String> data = {
-                                    'title':
-                                        _formKey.currentState!.value['title'],
-                                    'offered_amount': _formKey
-                                        .currentState!.value['offered_amount'],
-                                    'category': _formKey
-                                        .currentState!.value['category'],
-                                    'resolutionTime': _formKey
-                                        .currentState!.value['resolutionTime']
-                                        .toString(),
-                                  };
-                                  _formKey.currentState!.save();
-                                  setState(() {
-                                    _isLoading = true;
-                                  });
-                                  final uploadHomework = await homeworksService
-                                      .uploadHomeworkOnlyText(
-                                    data,
-                                    homework.id,
-                                  );
-                                  _successUploaded(uploadHomework);
-                                }
+                                /* print(_formKey.currentState!.value); */
+                                final uploadHomework = await homeworksService
+                                    .uploadHomeworkWithFile(
+                                  data,
+                                  File(_formKey
+                                      .currentState!.value['file'][0].path),
+                                );
+                                _successUploaded(uploadHomework, authService);
+                              } else {
+                                final Map<String, String> data = {
+                                  'title':
+                                      _formKey.currentState!.value['title'],
+                                  'offered_amount': _formKey
+                                      .currentState!.value['offered_amount'],
+                                  'category':
+                                      _formKey.currentState!.value['category'],
+                                  'resolutionTime': _formKey
+                                      .currentState!.value['resolutionTime']
+                                      .toString(),
+                                };
+                                _formKey.currentState!.save();
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                final uploadHomework = await homeworksService
+                                    .uploadHomeworkOnlyText(
+                                  data,
+                                  homework.id,
+                                );
+                                _successUploaded(uploadHomework, authService);
                               }
-                            },
-                          )
-                        : const Center(child: CircularProgressIndicator()),
-                  ],
-                )
-              ],
-            ),
+                            }
+                          },
+                        )
+                      : const Center(child: CircularProgressIndicator()),
+                ],
+              )
+            ],
           ),
         ),
       ),
     );
   }
 
-  void _successUploaded(bool uploadHomework) {
+  void _successUploaded(bool uploadHomework, AuthServices authService) async {
     if (uploadHomework) {
       Navigator.pushNamed(context, 'my_homeworks_page');
       _formKey.currentState!.reset();
       setState(() {
         _isLoading = false;
       });
+      await authService.renewToken();
       GlobalSnackBar.show(context, 'Tarea subida correctamente',
           backgroundColor: Colors.green);
     } else {

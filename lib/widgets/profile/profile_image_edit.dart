@@ -79,9 +79,7 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
             ),
             SimpleText(
               top: 5,
-              text: widget.auth.user.nickName != null
-                  ? widget.auth.user.nickName!
-                  : widget.auth.user.username,
+              text: widget.auth.user.nickName,
               lightThemeColor: Colors.white,
             ),
           ],
@@ -91,10 +89,10 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
   }
 
   void _selectGalleryPhoto() async {
-    _procesingPicture(ImageSource.gallery);
+    processImage(ImageSource.gallery);
   }
 
-  _procesingPicture(ImageSource origen) async {
+  processImage(ImageSource origen) async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(
       source: origen,

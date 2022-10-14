@@ -45,5 +45,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
   'withdraw_page': (_) => const WithdrawPage(),
   'withdraw_method_selected_page': (_) => const WithdrawMethodSelectedPage(),
-  'supervisor_list_homeworks': (_) => SupervisorListHomeworks(),
+  'supervisor_list_homeworks': (_) => const SupervisorListHomeworks(),
 };

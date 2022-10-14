@@ -56,29 +56,56 @@ class _AuctionPageState extends State<AuctionPage> {
                     ),
                     actions: <Widget>[
                       isBearer
-                          ? IconButton(
-                              onPressed: () {
-                                snapshot.data!.offers.isEmpty
-                                    ? Navigator.pushNamed(
-                                        context,
-                                        'upload_homework_with_file',
-                                        arguments: snapshot.data!.homework,
-                                        /* PageTransition(
-                                      type: PageTransitionType
-                                          .leftToRightWithFade,
-                                      child: UploadHomeworkOnlyText(),
-                                      settings: snapshot.data!.homework,
-                                    ), */
-                                      )
-                                    : GlobalSnackBar.show(context,
-                                        "No puedes editar tu tarea porque ya tiene ofertas",
-                                        backgroundColor: Colors.red);
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                color: Colors.white,
-                                size: 25,
-                              ),
+                          ? Row(
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    snapshot.data!.offers.isEmpty
+                                        ? Navigator.pushNamed(
+                                            context,
+                                            'upload_homework_with_file',
+                                            arguments: snapshot.data!.homework,
+                                            /* PageTransition(
+                                          type: PageTransitionType
+                                              .leftToRightWithFade,
+                                          child: UploadHomeworkOnlyText(),
+                                          settings: snapshot.data!.homework,
+                                        ), */
+                                          )
+                                        : GlobalSnackBar.show(context,
+                                            "No puedes editar tu tarea porque ya tiene ofertas",
+                                            backgroundColor: Colors.red);
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                    size: 25,
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    snapshot.data!.offers.isEmpty
+                                        ? showConfirmDialog(
+                                            context,
+                                            'Eliminar comentario',
+                                            '¿Estás seguro de eliminar este comentario?',
+                                            () => _oneHomeworkBloc
+                                                .commentService
+                                                .deleteComment(
+                                              snapshot.data!.homework.id,
+                                            ),
+                                          )
+                                        : GlobalSnackBar.show(context,
+                                            "No puedes eliminar esta tarea porque ya tiene ofertas",
+                                            backgroundColor: Colors.red);
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                    size: 25,
+                                  ),
+                                ),
+                              ],
                             )
                           : Container(),
                     ],

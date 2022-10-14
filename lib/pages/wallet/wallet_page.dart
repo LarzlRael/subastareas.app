@@ -17,11 +17,14 @@ class WalletPage extends StatelessWidget {
           : Colors.grey[300],
       body: SafeArea(
         child: Container(
+          color: theme.isDarkTheme
+              ? Theme.of(context).scaffoldBackgroundColor
+              : Colors.grey[300],
           /* padding: const EdgeInsets.symmetric(horizontal: 20), */
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 color: theme.isDarkTheme
                     ? Theme.of(context).scaffoldBackgroundColor
                     : Colors.white,
@@ -30,10 +33,10 @@ class WalletPage extends StatelessWidget {
                   children: [
                     const SimpleText(
                       text: 'BILLETERA',
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       lightThemeColor: Colors.black87,
-                      top: 25,
+                      /* top: 10, */
                       bottom: 10,
                     ),
                     Row(
@@ -49,15 +52,13 @@ class WalletPage extends StatelessWidget {
                             const SizedBox(
                               height: 30,
                             ),
-                            SimpleText(
-                              text: auth.user.wallet.balanceTotal.toString(),
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                            showWalletInfo(
+                              auth.user!.wallet.balanceTotal,
+                              'Saldo Total',
                             ),
-                            const SimpleText(
-                              text: 'Monedas',
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
+                            showWalletInfo(
+                              auth.user.wallet.balanceWithDrawable,
+                              'Saldo Retirable',
                             ),
                             const SizedBox(
                               height: 30,
@@ -137,6 +138,26 @@ class WalletPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget showWalletInfo(int amount, String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Column(
+        children: [
+          SimpleText(
+            text: title,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          SimpleText(
+            text: "$amount",
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ],
       ),
     );
   }
