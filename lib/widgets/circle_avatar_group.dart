@@ -28,7 +28,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
     socketService.socket
         .emit('joinOfferRoom', widget.oneHomeworkModel.homework.id);
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
-    socketService.socket.on('deleteOffer', _listeneOfferDeleted);
+    socketService.socket.on('deleteOffer', _listenOfferDeleted);
     super.initState();
   }
 
@@ -38,7 +38,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
     super.dispose();
   }
 
-  void _listeneOfferDeleted(dynamic payload) {
+  void _listenOfferDeleted(dynamic payload) {
     final offer = offerSimpleModelFromJson(payload);
     if (mounted) {
       setState(() {

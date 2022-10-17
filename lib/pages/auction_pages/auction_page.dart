@@ -433,7 +433,12 @@ class _AuctionPageState extends State<AuctionPage> {
     );
   }
 
-  Widget homeworkStatus(String status, bool isBearer, String? observation) {
+  Widget homeworkStatus(
+    String status,
+    bool isBearer,
+    String? observation,
+  ) {
+    print('status: $status');
     switch (status) {
       case "accepted_to_offer":
         return statusMessage('Aceptada', Icons.check_circle);
@@ -454,6 +459,20 @@ class _AuctionPageState extends State<AuctionPage> {
       case "pending_to_accept":
         return statusMessage('En proceso de aprobación', Icons.lock_clock,
             color: Colors.orange);
+      case "pending_to_resolve":
+        return statusMessage(
+            'El profesor subira esta tarea pronto', Icons.pending_actions,
+            color: Colors.orange);
+      case "traded":
+        return Column(
+          children: [
+            statusMessage(
+              'Esta tarea ya fue resuelta',
+              Icons.check_circle,
+              color: Colors.green,
+            ),
+          ],
+        );
     }
     return Container();
   }

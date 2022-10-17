@@ -255,8 +255,10 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-    inspect(widget.offer);
-    final pendingToResolve = widget.offer.status == 'pending_to_resolve';
+    /*TODO Check this code */
+    final pendingToResolve = widget.offer.status == 'pending_to_resolve' ||
+        widget.offer.status == 'traded';
+    print(pendingToResolve);
     final offersServices = OffersServices();
     return Container(
       padding: const EdgeInsets.all(20),
@@ -278,6 +280,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
             children: [
               SimpleText(
                 text: !pendingToResolve
+                    /* TODO revisar esta parte para que no de error a future */
                     ? 'Aceptar oferta'
                     : 'Ya aceptaste una oferta',
                 /* textAlign: TextAlign.center, */

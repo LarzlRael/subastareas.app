@@ -41,10 +41,9 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                             element.status == "pending_to_accept")
                         .first
                         .id;
-                    print(getIdOfferAccepted);
 
                     return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      /* mainAxisAlignment: MainAxisAlignment.center, */
                       children: [
                         showProfileImage(
                           homework.user.profileImageUrl,
