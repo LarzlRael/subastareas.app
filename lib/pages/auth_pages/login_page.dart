@@ -29,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height,
             padding: const EdgeInsets.only(
               left: 30.0,
               right: 30.0,

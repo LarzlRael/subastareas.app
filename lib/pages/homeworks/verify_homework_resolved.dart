@@ -37,7 +37,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SimpleText(
-                  text: tradeUserModel.title,
+                  text: tradeUserModel.title.toCapitalized(),
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),

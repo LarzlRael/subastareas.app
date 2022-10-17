@@ -44,13 +44,10 @@ class _ShowHomeworkUploadedState extends State<ShowHomeworkUploaded> {
       appBar: AppBarWithBackIcon(
           appBar: AppBar(),
           title: widget.showHomeworkParams.title.toCapitalized()),
-      body: widget.showHomeworkParams.fileType == 'pdf'
-          ? PdfType(
-              pdfFlePath: pdfFlePath!,
-            )
-          : widget.showHomeworkParams.fileType.contains('image')
-              ? ImageType(imagePath: widget.showHomeworkParams.fileUrl)
-              : const Text('Error al cargar el archivo'),
+      body: showFile(
+        widget.showHomeworkParams.fileType,
+        widget.showHomeworkParams.fileUrl,
+      ),
       floatingActionButton: pdfFlePath != null
           ? FloatingActionButton(
               onPressed: () {
@@ -62,76 +59,16 @@ class _ShowHomeworkUploadedState extends State<ShowHomeworkUploaded> {
           : null,
     );
   }
-}
 
-/* class PdfType extends StatelessWidget {
-  const PdfType({
-    Key? key,
-    required this.pdfFlePath,
-  }) : super(key: key);
-
-  final String? pdfFlePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          /* ElevatedButton(
-            child: Text("Descargar pdf"),
-            onPressed: () async {
-              final taskId = await FlutterDownloader.enqueue(
-                url: sampleUrl,
-                savedDir:
-                    'the path of directory where you want to save downloaded files',
-                showNotification:
-                    true, // show download progress in status bar (for Android)
-                openFileFromNotification:
-                    true, // click on notification to open downloaded file (for Android)
-              );
-            },
-          ), */
-          if (pdfFlePath != null)
-            Expanded(
-              child: PdfView(path: pdfFlePath!),
-            )
-          else
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
-        ],
-      ),
-    );
+  Widget showFile(String fileType, String fileUrl) {
+    if (fileType == 'pdf') {
+      return PdfType(
+        pdfFlePath: pdfFlePath!,
+      );
+    } else if (fileType.contains('image')) {
+      return ImageType(imagePath: fileUrl);
+    } else {
+      return const Text('Error al cargar el archivo');
+    }
   }
 }
-
-class ImageType extends StatelessWidget {
-  const ImageType({
-    Key? key,
-    required this.imagePath,
-  }) : super(key: key);
-
-  final String? imagePath;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          if (imagePath != null)
-            Expanded(
-                child: FadeInImage.assetNetwork(
-              placeholder: 'assets/icon.png',
-              fit: BoxFit.contain,
-              image: imagePath!,
-            ))
-          else
-            const Center(
-              child: CircularProgressIndicator(),
-            ),
-        ],
-      ),
-    );
-  }
-}
- */

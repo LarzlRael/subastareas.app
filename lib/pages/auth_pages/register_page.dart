@@ -12,7 +12,7 @@ class RegisterPage extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            /* height: MediaQuery.of(context).size.height, */
             padding: const EdgeInsets.only(
               bottom: 30,
               top: 20,

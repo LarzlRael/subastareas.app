@@ -52,7 +52,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                           radius: 90,
                         ),
                         SimpleText(
-                          text: homework.title,
+                          text: homework.title.toCapitalized(),
                           fontWeight: FontWeight.bold,
                           fontSize: 20,
                           bottom: 15,
@@ -62,9 +62,11 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                           endTime: homework.resolutionTime,
                         ),
                         SimpleText(
+                          top: 10,
                           text: homework.offeredAmount.toString(),
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
+                          bottom: 5,
                         ),
                         FormBuilder(
                           /* initialValue: {

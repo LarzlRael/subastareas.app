@@ -14,11 +14,13 @@ class HomeworkCard extends StatelessWidget {
   final bool isLogged;
   final HomeworksModel homework;
   final String goTo;
+  final bool? isOwner;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
     required this.homework,
     required this.goTo,
+    this.isOwner = false,
   }) : super(key: key);
 
   @override
@@ -36,6 +38,24 @@ class HomeworkCard extends StatelessWidget {
         );
       },
       child: Container(
+        decoration: BoxDecoration(
+          /* color: Colors.white, */
+          borderRadius: BorderRadius.circular(10),
+          border: isOwner!
+              ? Border.all(
+                  color: Colors.green,
+                  width: 2,
+                )
+              : null,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 1), // changes position of shadow
+            ),
+          ],
+        ),
         margin: const EdgeInsets.all(15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
