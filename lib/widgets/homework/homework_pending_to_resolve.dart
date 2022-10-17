@@ -30,7 +30,9 @@ class HomeworkPendingToResolve extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SimpleText(
-                  text: tradeUserModel.title,
+                  text: tradeUserModel.title.length > 60
+                      ? '${tradeUserModel.title.substring(0, 60)}...'
+                      : tradeUserModel.title,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                   bottom: 10,

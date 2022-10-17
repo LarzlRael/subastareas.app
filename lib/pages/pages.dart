@@ -43,6 +43,7 @@ part 'home_pages/upload_homework_page.dart';
 
 part 'homeworks/list_open_homeworks_page.dart';
 part 'homeworks/show_homework.dart';
+part 'homeworks/show_homework_uploaded.dart';
 part 'homeworks/verify_homework_resolved.dart';
 
 part 'offers_pages/make_offer_page.dart';

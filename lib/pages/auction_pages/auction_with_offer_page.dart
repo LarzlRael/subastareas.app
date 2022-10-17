@@ -190,22 +190,22 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                         AsyncSnapshot<OneHomeworkModel> snapshot) {
                       if (!snapshot.hasData) {
                         return const CircularCenter();
-                      } else if (_offer.isEmpty) {
+                      }
+                      if (_offer.isEmpty) {
                         return const NoInformation(
                           message: 'Aún no hay ofertas ',
                           icon: Icons.search_off,
                           showButton: false,
                           iconButton: Icons.add,
                         );
-                      } else {
-                        return Expanded(
-                          child: ListView.builder(
-                            /* scrollDirection: Axis.horizontal, */
-                            itemCount: _offer.length,
-                            itemBuilder: (_, int index) => _offer[index],
-                          ),
-                        );
                       }
+                      return Expanded(
+                        child: ListView.builder(
+                          /* scrollDirection: Axis.horizontal, */
+                          itemCount: _offer.length,
+                          itemBuilder: (_, int index) => _offer[index],
+                        ),
+                      );
                     },
                   ),
                 ],

@@ -10,8 +10,7 @@ class TradeServices {
       {},
       await _storage.read(key: 'token'),
     );
-    final finalData = tradeUserModelFromJson(homeworkRequest!.body);
-    return finalData;
+    return tradeUserModelFromJson(homeworkRequest!.body);
   }
 
   Future<List<TradeUserModel>> getHomeworksResolved(String status) async {
@@ -21,8 +20,7 @@ class TradeServices {
       {},
       await _storage.read(key: 'token'),
     );
-    final finalData = tradeUserModelFromJson(homeworkRequest!.body);
-    return finalData;
+    return tradeUserModelFromJson(homeworkRequest!.body);
   }
 
   Future<bool> acceptOrDeclineTrade(int idOffer, bool accepted) async {
@@ -43,8 +41,7 @@ class TradeServices {
       {},
       await _storage.read(key: 'token'),
     );
-    final finalData = planesModelFromJson(planesRequest!.body);
-    return finalData;
+    return planesModelFromJson(planesRequest!.body);
   }
 
   Future<bool> shopCoins(int idPlan, String planName) async {

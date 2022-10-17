@@ -16,7 +16,7 @@ class SupervisorListHomeworks extends StatelessWidget {
                 future: superviseServices.getHomeworksToSupervise(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: SquareLoading());
                   }
                   if (snapshot.data!.isEmpty) {
                     return const Center(child: Text('No hay tareas'));

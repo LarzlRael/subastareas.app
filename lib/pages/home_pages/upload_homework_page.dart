@@ -244,6 +244,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   File(_formKey
                                       .currentState!.value['file'][0].path),
                                 );
+
                                 _successUploaded(uploadHomework, authService);
                               } else {
                                 final Map<String, String> data = {
@@ -258,6 +259,9 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                       .toString(),
                                 };
                                 _formKey.currentState!.save();
+                                showFilterBottomMenuSheetxD(
+                                  context,
+                                );
                                 setState(() {
                                   _isLoading = true;
                                 });
@@ -266,6 +270,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   data,
                                   homework.id,
                                 );
+
                                 _successUploaded(uploadHomework, authService);
                               }
                             }
@@ -281,7 +286,10 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     );
   }
 
-  void _successUploaded(bool uploadHomework, AuthServices authService) async {
+  void _successUploaded(
+    bool uploadHomework,
+    AuthServices authService,
+  ) async {
     if (uploadHomework) {
       Navigator.pushNamed(context, 'my_homeworks_page');
       _formKey.currentState!.reset();
@@ -291,7 +299,10 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
       await authService.renewToken();
       GlobalSnackBar.show(context, 'Tarea subida correctamente',
           backgroundColor: Colors.green);
+      Navigator.pop(context);
+      Navigator.pop(context);
     } else {
+      Navigator.pop(context);
       setState(() {
         _isLoading = false;
       });
@@ -299,4 +310,17 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
           backgroundColor: Colors.red);
     }
   }
+}
+
+showFilterBottomMenuSheetxD(BuildContext context) {
+  showModalBottomSheet(
+    isScrollControlled: true,
+    context: context,
+    builder: (context) {
+      return const SafeArea(
+          child: Center(
+        child: CircularProgressIndicator(),
+      ));
+    },
+  );
 }

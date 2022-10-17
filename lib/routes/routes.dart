@@ -24,6 +24,11 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'showHomework': (_) => ShowHomework(
         homework: ModalRoute.of(_)?.settings.arguments as Homework,
       ),
+  'show_homework_uploaded': (_) => ShowHomeworkUploaded(
+        /* Todo create a model for this */
+        showHomeworkParams:
+            ModalRoute.of(_)?.settings.arguments as ShowHomeworkParams,
+      ),
   'profile': (_) => const ProfilePage(),
   'forgot_password': (_) => const ForgotPassword(),
   'verify_email_page': (_) => const VerifyEmailPage(),

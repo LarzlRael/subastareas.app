@@ -1,5 +1,16 @@
 part of '../pages.dart';
 
+class ShowHomeworkParams {
+  String title;
+  String fileType;
+  String fileUrl;
+  ShowHomeworkParams({
+    required this.title,
+    required this.fileType,
+    required this.fileUrl,
+  });
+}
+
 class VerifyHomeworkResolved extends StatefulWidget {
   const VerifyHomeworkResolved({Key? key}) : super(key: key);
 
@@ -27,13 +38,28 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
               children: [
                 SimpleText(
                   text: tradeUserModel.title,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
                 //No mostrar se creara un widget reutilizable para mostrar el estado de la tarea
                 /* SimpleText(
                   text: tradeUserModel.resolutionTime.toString(),
                 ), */
+                tradeUserModel.fileUrl != null
+                    ? FillButton(
+                        label: 'Ver tarea subida',
+                        backgroundColor: Colors.blue,
+                        borderRadius: 30,
+                        textColor: Colors.white,
+                        onPressed: () async {
+                          Navigator.pushNamed(
+                            context,
+                            'show_homework_uploaded',
+                            arguments: tradeUserModel.solvedHomeworkUrl,
+                          );
+                        },
+                      )
+                    : const SizedBox(),
                 tradeUserModel.solvedHomeworkUrl != null
                     ? FillButton(
                         label: 'Ver tarea resuelta',
@@ -43,8 +69,12 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                         onPressed: () async {
                           Navigator.pushNamed(
                             context,
-                            'showHomework',
-                            arguments: tradeUserModel.solvedHomeworkUrl,
+                            'show_homework_uploaded',
+                            arguments: ShowHomeworkParams(
+                              title: tradeUserModel.title,
+                              fileType: tradeUserModel.solvedFileType,
+                              fileUrl: tradeUserModel.solvedHomeworkUrl!,
+                            ),
                           );
                         },
                       )

@@ -35,7 +35,7 @@ class _AuctionPageState extends State<AuctionPage> {
             (BuildContext context, AsyncSnapshot<OneHomeworkModel> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: SquareLoading(),
             );
           }
           return Container(

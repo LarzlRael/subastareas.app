@@ -18,6 +18,9 @@ class TradeUserModel {
     required this.resolutionTime,
     required this.description,
     required this.offerId,
+    required this.fileType,
+    required this.solvedFileType,
+    required this.fileUrl,
   });
 
   String? solvedHomeworkUrl;
@@ -27,17 +30,23 @@ class TradeUserModel {
   String status;
   String title;
   DateTime resolutionTime;
+  String fileType;
+  String solvedFileType;
+  String? fileUrl;
   String? description;
 
   factory TradeUserModel.fromJson(Map<String, dynamic> json) => TradeUserModel(
         solvedHomeworkUrl: json["solvedHomeworkUrl"] == null
             ? null
             : json["solvedHomeworkUrl"],
+        fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
         tradeId: json["tradeId"],
         offerId: json["offerId"],
         homeworkId: json["homeworkId"],
         status: json["status"],
         title: json["title"],
+        fileType: json["fileType"],
+        solvedFileType: json["solvedFileType"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         description: json["description"] == null ? null : json["description"],
       );
@@ -45,6 +54,7 @@ class TradeUserModel {
   Map<String, dynamic> toJson() => {
         "solvedHomeworkUrl":
             solvedHomeworkUrl == null ? null : solvedHomeworkUrl,
+        "fileUrl": fileUrl == null ? null : fileUrl,
         "tradeId": tradeId,
         "homeworkId": homeworkId,
         "status": status,
@@ -52,5 +62,7 @@ class TradeUserModel {
         "resolutionTime": resolutionTime.toIso8601String(),
         "description": description == null ? null : description,
         "offerId": offerId,
+        "fileType": fileType,
+        "solvedFileType": solvedFileType,
       };
 }
