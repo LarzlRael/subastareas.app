@@ -187,7 +187,7 @@ class OfferUser {
   OfferUser({
     required this.id,
     required this.username,
-    profileImageUrl,
+    this.profileImageUrl,
     /* required this.profileImageUrl, */
   });
 

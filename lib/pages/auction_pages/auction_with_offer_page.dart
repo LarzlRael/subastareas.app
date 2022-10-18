@@ -162,7 +162,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
-        title: widget.args.homework.title,
+        title: widget.args.homework.title.toCapitalized(),
       ),
       body: SafeArea(
         child: Stack(
@@ -380,8 +380,9 @@ class _ButtonOffer extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const SimpleText(
-                            text: 'Afro Weed',
+                          SimpleText(
+                            text:
+                                homework.homework.user.username.toCapitalized(),
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),

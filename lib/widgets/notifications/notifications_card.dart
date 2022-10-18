@@ -94,23 +94,20 @@ class NotificationsCard extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 5),
-        Container(
-          /* color: Colors.yellowAccent, */
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SimpleText(
-                text: '045 favorites',
-                fontSize: 12,
-                lightThemeColor: Colors.black,
-              ),
-              SimpleText(
-                text: timeAgo.format(notification.createdAt, locale: 'es'),
-                fontSize: 12,
-                lightThemeColor: Colors.black,
-              ),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const SimpleText(
+              text: ' ',
+              fontSize: 12,
+              lightThemeColor: Colors.black,
+            ),
+            SimpleText(
+              text: timeAgo.format(notification.createdAt, locale: 'es'),
+              fontSize: 12,
+              lightThemeColor: Colors.black,
+            ),
+          ],
         )
       ],
     );
