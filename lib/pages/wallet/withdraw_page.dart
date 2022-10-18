@@ -133,7 +133,7 @@ class RetirableInformation extends StatelessWidget {
               constraints: const BoxConstraints(),
               icon: const Icon(Icons.help, color: Colors.grey),
               tooltip:
-                  'Puedes retirar fondos que solo han sido a traves de la resolucion de tareas en Subastareas',
+                  'Puedes retirar fondos que solo hayan sido a traves de la resolucion de tareas en Subastareas',
               onPressed: () {},
             ),
           ],

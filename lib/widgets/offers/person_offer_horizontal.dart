@@ -47,7 +47,12 @@ class PersonOfferHorizontal extends StatelessWidget {
         Navigator.pushNamed(
           context,
           'public_profile_page',
-          arguments: homework.homework.user.id,
+          arguments: homework.offers
+              .firstWhere(
+                (element) => element.id == offer.id,
+              )
+              .user
+              .id,
         );
       },
       child: Ink(
