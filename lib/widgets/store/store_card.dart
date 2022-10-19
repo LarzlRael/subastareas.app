@@ -80,9 +80,6 @@ class StoreCard extends StatelessWidget {
                 /* color: Colors.yellow, */
                 child: InkWell(
                   onTap: () {
-                    print(planesModel.amount);
-                    //TODO
-                    //page to buy the plan
                     onPressed();
                   },
                   child: Card(

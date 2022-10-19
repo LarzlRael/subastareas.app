@@ -3,12 +3,12 @@ part of '../widgets.dart';
 class NameAndTimeAgo extends StatelessWidget {
   const NameAndTimeAgo({
     Key? key,
-    required this.circle,
+    required this.isOwner,
     required this.userName,
     required this.createdAt,
     this.isRow = true,
   }) : super(key: key);
-  final bool circle;
+  final bool isOwner;
   final String userName;
   final DateTime createdAt;
   final bool isRow;
@@ -28,7 +28,7 @@ class NameAndTimeAgo extends StatelessWidget {
 
   List<Widget> content() {
     return [
-      circle
+      isOwner
           ? SimpleText(
               text: userName,
               fontSize: 13,

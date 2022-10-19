@@ -91,7 +91,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                       message: 'No se encontraron resultados',
                       icon: Icons.search_off,
                       showButton: false,
-                      iconButton: Icons.abc,
+                      iconButton: Icons.task,
                     ),
                   );
                 }

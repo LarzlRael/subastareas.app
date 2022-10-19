@@ -67,77 +67,97 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                           fontWeight: FontWeight.w600,
                           bottom: 5,
                         ),
-                        FormBuilder(
-                          /* initialValue: {
+                        homework.status != "pending_to_accept"
+                            ? FormBuilder(
+                                /* initialValue: {
                             'title': homework.title,
                             'offered_amount': homework.offeredAmount.toString(),
                             /* 'category': homework.category, */
                             'resolutionTime': homework.resolutionTime,
                           }, */
-                          // TOOD notification after upload the file with the homework resolved
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const CustomFileField(
-                                name: 'file',
-                              ),
-                              _loading
-                                  ? const Center(
-                                      child: CircularProgressIndicator())
-                                  : FillButton(
-                                      label: "Subir tarea resuelta",
-                                      textColor: Colors.white,
-                                      /* backgroundColor: Colors.green, */
-                                      borderRadius: 30,
-                                      onPressed: () async {
-                                        setState(() {
-                                          _loading = true;
-                                        });
-                                        final validationSuccess =
-                                            _formKey.currentState!.validate();
-
-                                        if (validationSuccess) {
-                                          _formKey.currentState!.save();
-
-                                          final response = await offersServices
-                                              .uploadHomeworkResolvedFile(
-                                                  File(
-                                                    _formKey.currentState!
-                                                        .value['file'][0].path,
-                                                  ),
-                                                  getIdOfferAccepted);
-                                          setState(() {
-                                            _loading = false;
-                                          });
-                                          if (response) {
-                                            Navigator.pop(context);
-                                            GlobalSnackBar.show(
-                                              context,
-                                              "Tarea resuelta subida correctamente",
-                                              backgroundColor: Colors.green,
-                                            );
-                                          } else {
-                                            setState(() {
-                                              _loading = false;
-                                            });
-                                            GlobalSnackBar.show(
-                                              context,
-                                              "Error al subir la tarea resuelta",
-                                              backgroundColor: Colors.red,
-                                            );
-                                          }
-                                        } else {
-                                          setState(() {
-                                            _loading = false;
-                                          });
-                                        }
-                                      },
+                                // TOOD notification after upload the file with the homework resolved
+                                key: _formKey,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const CustomFileField(
+                                      name: 'file',
                                     ),
-                            ],
-                          ),
-                        ),
+                                    _loading
+                                        ? const Center(
+                                            child: CircularProgressIndicator())
+                                        : FillButton(
+                                            label: "Subir tarea resuelta",
+                                            textColor: Colors.white,
+                                            /* backgroundColor: Colors.green, */
+                                            borderRadius: 30,
+                                            onPressed: () async {
+                                              setState(() {
+                                                _loading = true;
+                                              });
+                                              final validationSuccess = _formKey
+                                                  .currentState!
+                                                  .validate();
+
+                                              if (validationSuccess) {
+                                                _formKey.currentState!.save();
+
+                                                final response =
+                                                    await offersServices
+                                                        .uploadHomeworkResolvedFile(
+                                                            File(
+                                                              _formKey
+                                                                  .currentState!
+                                                                  .value['file']
+                                                                      [0]
+                                                                  .path,
+                                                            ),
+                                                            getIdOfferAccepted);
+                                                setState(() {
+                                                  _loading = false;
+                                                });
+                                                if (response) {
+                                                  Navigator.pop(context);
+                                                  GlobalSnackBar.show(
+                                                    context,
+                                                    "Tarea resuelta subida correctamente",
+                                                    backgroundColor:
+                                                        Colors.green,
+                                                  );
+                                                  /* Refresh list */
+                                                  _oneHomeworkBloc
+                                                      .getOneHomework(
+                                                          homeworkArguments
+                                                              .idHomework);
+                                                } else {
+                                                  setState(() {
+                                                    _loading = false;
+                                                  });
+                                                  GlobalSnackBar.show(
+                                                    context,
+                                                    "Error al subir la tarea resuelta",
+                                                    backgroundColor: Colors.red,
+                                                  );
+                                                }
+                                              } else {
+                                                setState(() {
+                                                  _loading = false;
+                                                });
+                                              }
+                                            },
+                                          ),
+                                  ],
+                                ),
+                              )
+                            : const SimpleText(
+                                top: 10,
+                                text:
+                                    "La tarea ya fue enviada para su revisión, espere por favor",
+                                fontSize: 16,
+                                textAlign: TextAlign.center,
+                              ),
                       ],
                     );
                   } else {

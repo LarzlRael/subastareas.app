@@ -20,13 +20,15 @@ class BellIconNotification extends StatelessWidget {
               .toList()
               .length;
           /* child: notificationsNotRead > 0 */
-          return Badge(
-            badgeContent: Text(
-              '$notificationsNotRead',
-              style: const TextStyle(color: Colors.white),
-            ),
-            child: iconNotification(context),
-          );
+          return notificationsNotRead > 0
+              ? Badge(
+                  badgeContent: Text(
+                    '$notificationsNotRead',
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                  child: iconNotification(context),
+                )
+              : iconNotification(context);
         },
       ),
     );
@@ -34,6 +36,8 @@ class BellIconNotification extends StatelessWidget {
 
   Widget iconNotification(BuildContext context) {
     return IconButton(
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(),
       icon: const Icon(Icons.notifications),
       onPressed: () {
         /* Navigator.pushNamed(context, 'notifications'); */

@@ -50,7 +50,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     LoginButton(
                       onPressed: () async {
-                        //TODO redirect to main menu
                         final googleInfo = await authService.signInWithGoogle();
                         if (googleInfo.correctCredentials) {
                           loginOk();

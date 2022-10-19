@@ -14,7 +14,9 @@ class HomeworkToSuperviseCard extends StatelessWidget {
           context,
           'auctionPage',
           arguments: HomeworkArguments(
-              homeworkToSupervise.id, homeworkToSupervise.user.id),
+            homeworkToSupervise.id,
+            homeworkToSupervise.user.id,
+          ),
         );
       },
       child: Container(
@@ -36,7 +38,7 @@ class HomeworkToSuperviseCard extends StatelessWidget {
                     Column(
                       children: [
                         NameAndTimeAgo(
-                          circle: true,
+                          isOwner: true,
                           userName: homeworkToSupervise.user.username,
                           createdAt: homeworkToSupervise.createdAt,
                           isRow: false,

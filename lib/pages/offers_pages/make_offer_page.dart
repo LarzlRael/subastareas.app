@@ -284,11 +284,11 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                 fontSize: 12,
                                 bottom: 5,
                               ),
-                              SimpleText(
+                              /* SimpleText(
                                 text:
                                     "Puntos disponibles: ${userModel.wallet.balanceTotal}",
                                 fontSize: 12,
-                              ),
+                              ), */
                             ],
                           ),
                         ],
@@ -307,13 +307,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'La oferta es requerida';
-                              } else {
-                                if (userModel.wallet.balanceTotal <
-                                    homework.offeredAmount) {
-                                  return 'No tienes puntos suficientes';
-                                }
-                                return null;
                               }
+                              return null;
                             },
                             onSaved: (value) => emailField = int.parse(value!),
                           ),
@@ -339,7 +334,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                     emailField,
                                     idOffer,
                                   );
-                                  //TODO emitir evento para actualizar la lista de ofertas
                                   socketService.emit(
                                       idOffer == 0
                                           ? 'makeOfferToServer'

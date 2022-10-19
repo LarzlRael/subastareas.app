@@ -25,7 +25,6 @@ class _CommentCardState extends State<CommentCard>
 
   @override
   Widget build(BuildContext context) {
-    /* double c_width = MediaQuery.of(context).size.width * 0.8; */
     final auth = Provider.of<AuthServices>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -42,7 +41,7 @@ class _CommentCardState extends State<CommentCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NameAndTimeAgo(
-                  circle: false,
+                  isOwner: auth.user.id == widget.comment.user.id,
                   userName: widget.comment.user.username,
                   createdAt: widget.comment.createdAt,
                 ),

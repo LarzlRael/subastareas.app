@@ -25,7 +25,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         homework: ModalRoute.of(_)?.settings.arguments as Homework,
       ),
   'show_homework_uploaded': (_) => ShowHomeworkUploaded(
-        /* Todo create a model for this */
         showHomeworkParams:
             ModalRoute.of(_)?.settings.arguments as ShowHomeworkParams,
       ),

@@ -22,7 +22,7 @@ class UploadedHomeworkUser extends StatelessWidget {
             icon: Icons.assignment,
             message: 'No tienes ofertas realizadas',
             showButton: true,
-            iconButton: Icons.abc,
+            iconButton: Icons.note_add,
             onPressed: () {
               Navigator.pushNamed(context, 'bottomNavigation');
             },

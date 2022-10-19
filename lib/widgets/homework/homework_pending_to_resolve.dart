@@ -17,7 +17,7 @@ class HomeworkPendingToResolve extends StatelessWidget {
           arguments: tradeUserModel,
         );
       },
-      child: Container(
+      /* child: Container(
         /* color: Colors.red, */
         margin: const EdgeInsets.only(bottom: 20),
         width: double.infinity,
@@ -48,6 +48,73 @@ class HomeworkPendingToResolve extends StatelessWidget {
                     ),
                   ],
                 )
+              ],
+            ),
+          ),
+        ),
+      ), */
+      child: Container(
+        /* margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), */
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Column(
+                      children: [
+                        /* NameAndTimeAgo(
+                              isOwner: true,
+                              userName: homeworkToSupervise.user.username,
+                              createdAt: homeworkToSupervise.createdAt,
+                              isRow: false,
+                            ), */
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    SimpleText(
+                      top: 10,
+                      text: tradeUserModel.title.toCapitalized(),
+                      bottom: 10,
+                    ),
+                    SimpleText(
+                      text: tradeUserModel.category.toUpperCase(),
+                      lightThemeColor: Colors.black,
+                      bottom: 10,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      'public_profile_page',
+                      arguments: tradeUserModel.id,
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      SimpleText(
+                        text: 'Resuelto por: ',
+                        bottom: 5,
+                      ),
+                      showProfileImage(
+                        tradeUserModel.profileImageUrl,
+                        tradeUserModel.username,
+                        radius: 18,
+                      ),
+                      SimpleText(
+                        top: 5,
+                        text: tradeUserModel.username.toCapitalized(),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

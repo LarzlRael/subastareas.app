@@ -1,4 +1,6 @@
 part of 'models.dart';
+// To parse this JSON data, do
+//
 //     final tradeUserModel = tradeUserModelFromJson(jsonString);
 
 List<TradeUserModel> tradeUserModelFromJson(String str) =>
@@ -14,55 +16,68 @@ class TradeUserModel {
     required this.tradeId,
     required this.homeworkId,
     required this.status,
+    required this.solvedFileType,
     required this.title,
     required this.resolutionTime,
     required this.description,
-    required this.offerId,
-    required this.fileType,
-    required this.solvedFileType,
+    required this.category,
     required this.fileUrl,
+    required this.fileType,
+    required this.offerId,
+    required this.username,
+    required this.id,
+    required this.profileImageUrl,
   });
 
-  String? solvedHomeworkUrl;
+  String solvedHomeworkUrl;
   int tradeId;
   int homeworkId;
-  int offerId;
   String status;
+  String solvedFileType;
   String title;
   DateTime resolutionTime;
+  dynamic description;
+  String category;
+  dynamic fileUrl;
   String fileType;
-  String solvedFileType;
-  String? fileUrl;
-  String? description;
+  int offerId;
+  String username;
+  int id;
+  String profileImageUrl;
 
   factory TradeUserModel.fromJson(Map<String, dynamic> json) => TradeUserModel(
-        solvedHomeworkUrl: json["solvedHomeworkUrl"] == null
-            ? null
-            : json["solvedHomeworkUrl"],
-        fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
+        solvedHomeworkUrl: json["solvedHomeworkUrl"],
         tradeId: json["tradeId"],
-        offerId: json["offerId"],
         homeworkId: json["homeworkId"],
         status: json["status"],
-        title: json["title"],
-        fileType: json["fileType"],
         solvedFileType: json["solvedFileType"],
+        title: json["title"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
-        description: json["description"] == null ? null : json["description"],
+        description: json["description"],
+        category: json["category"],
+        fileUrl: json["fileUrl"],
+        fileType: json["fileType"],
+        offerId: json["offerId"],
+        username: json["username"],
+        id: json["id"],
+        profileImageUrl: json["profileImageUrl"],
       );
 
   Map<String, dynamic> toJson() => {
-        "solvedHomeworkUrl":
-            solvedHomeworkUrl == null ? null : solvedHomeworkUrl,
-        "fileUrl": fileUrl == null ? null : fileUrl,
+        "solvedHomeworkUrl": solvedHomeworkUrl,
         "tradeId": tradeId,
         "homeworkId": homeworkId,
         "status": status,
+        "solvedFileType": solvedFileType,
         "title": title,
         "resolutionTime": resolutionTime.toIso8601String(),
-        "description": description == null ? null : description,
-        "offerId": offerId,
+        "description": description,
+        "category": category,
+        "fileUrl": fileUrl,
         "fileType": fileType,
-        "solvedFileType": solvedFileType,
+        "offerId": offerId,
+        "username": username,
+        "id": id,
+        "profileImageUrl": profileImageUrl,
       };
 }
