@@ -61,6 +61,16 @@ class OffersServices {
     return homeworksModelFromJson(offerSent!.body);
   }
 
+  Future<List<HomeworksModel>> getUserOffersReceived() async {
+    final offerSent = await Request.sendRequestWithToken(
+      'GET',
+      'offer/getOfferReceivedByUser',
+      {},
+      await _storage.read(key: 'token') ?? '',
+    );
+    return homeworksModelFromJson(offerSent!.body);
+  }
+
   Future<OfferSimpleModel> deleteOffer(int idOffer) async {
     final deletedOffer = await Request.sendRequestWithToken(
       'DELETE',
