@@ -52,7 +52,7 @@ class SettingsPage extends StatelessWidget {
                 child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.person),
+                      leading: const Icon(Icons.notifications),
                       title: const Text('Notificaciones'),
                       trailing: Switch(
                         value: themeChanger.getNotifications,
@@ -76,7 +76,7 @@ class SettingsPage extends StatelessWidget {
                       },
                     ), */
                     GenericListTile(
-                      icon: Icons.person_add_alt,
+                      icon: Icons.color_lens,
                       title: 'Tema oscuro',
                       initialValue: themeChanger.isDarkTheme,
                       onChanged: (value) async {

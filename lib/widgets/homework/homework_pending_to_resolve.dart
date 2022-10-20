@@ -17,48 +17,12 @@ class HomeworkPendingToResolve extends StatelessWidget {
           arguments: tradeUserModel,
         );
       },
-      /* child: Container(
-        /* color: Colors.red, */
-        margin: const EdgeInsets.only(bottom: 20),
-        width: double.infinity,
-        height: 140,
-        child: Card(
-          elevation: 5,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SimpleText(
-                  text: tradeUserModel.title.length > 60
-                      ? '${tradeUserModel.title.substring(0, 60)}...'
-                      : tradeUserModel.title,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  bottom: 10,
-                ),
-                Row(
-                  children: [
-                    SimpleText(
-                      text:
-                          '${getDateDiff(tradeUserModel.resolutionTime).inHours < 0 ? 0 : getDateDiff(tradeUserModel.resolutionTime).inHours} horas restantes',
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      bottom: 10,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
-        ),
-      ), */
-      child: Container(
+      child: SizedBox(
         /* margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), */
         child: Card(
           elevation: 5,
           child: Padding(
-            padding: const EdgeInsets.all(4),
+            padding: const EdgeInsets.all(5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -80,6 +44,23 @@ class HomeworkPendingToResolve extends StatelessWidget {
                       text: tradeUserModel.title.toCapitalized(),
                       bottom: 10,
                     ),
+                    tradeUserModel.status == 'pending_to_accept'
+                        ? Column(
+                            children: [
+                              const SimpleText(
+                                top: 3,
+                                text: 'Tiempo restante: ',
+                                lightThemeColor: Colors.black,
+                                bottom: 3,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              Timer(
+                                endTime: tradeUserModel.resolutionTime,
+                              ),
+                            ],
+                          )
+                        : const SizedBox(),
                     SimpleText(
                       text: tradeUserModel.category.toUpperCase(),
                       lightThemeColor: Colors.black,
@@ -99,14 +80,17 @@ class HomeworkPendingToResolve extends StatelessWidget {
                   },
                   child: Column(
                     children: [
-                      SimpleText(
+                      const SimpleText(
                         text: 'Resuelto por: ',
                         bottom: 5,
                       ),
-                      showProfileImage(
-                        tradeUserModel.profileImageUrl,
-                        tradeUserModel.username,
-                        radius: 18,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: showProfileImage(
+                          tradeUserModel.profileImageUrl,
+                          tradeUserModel.username,
+                          radius: 18,
+                        ),
                       ),
                       SimpleText(
                         top: 5,

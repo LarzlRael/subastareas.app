@@ -66,7 +66,7 @@ Widget showProfileImage(String? profileImage, String userName,
             lightThemeColor: Colors.white,
           ),
     backgroundImage: profileImage == null ? null : NetworkImage(profileImage),
-    backgroundColor: Colors.green,
+    backgroundColor: Colors.grey,
   );
 }
 

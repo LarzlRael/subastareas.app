@@ -75,7 +75,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                     ),
                                   ],
                                 )
-                              : SizedBox(),
+                              : const SizedBox(),
                           FillButton(
                             label: 'Ver tarea resuelta',
                             backgroundColor: Colors.green,
@@ -137,6 +137,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                       GlobalSnackBar.show(context,
                                           "Tarea aceptada y confirmada",
                                           backgroundColor: Colors.green);
+                                      /* Use bloc for this */
                                     } else {
                                       GlobalSnackBar.show(
                                           context, "Hubo un error",
