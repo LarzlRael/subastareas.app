@@ -88,7 +88,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     height: MediaQuery.of(context).size.height * 0.7,
                     /* color: Colors.green, */
                     child: const NoInformation(
-                      message: 'No se encontraron resultados',
+                      message: 'No se encontraron tareas',
                       icon: Icons.search_off,
                       showButton: false,
                       iconButton: Icons.task,

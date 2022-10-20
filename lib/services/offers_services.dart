@@ -38,7 +38,6 @@ class OffersServices {
         file,
         await _storage.read(key: 'token') ?? '');
 
-    print(homeworkRequest.body);
     return validateStatus(homeworkRequest.statusCode);
   }
 
@@ -50,6 +49,16 @@ class OffersServices {
       await _storage.read(key: 'token') ?? '',
     );
     return homeworksModelFromJson(uploadWithFile!.body);
+  }
+
+  Future<List<HomeworksModel>> getUserOfferSent() async {
+    final offerSent = await Request.sendRequestWithToken(
+      'GET',
+      'offer/getOfferSentByUser',
+      {},
+      await _storage.read(key: 'token') ?? '',
+    );
+    return homeworksModelFromJson(offerSent!.body);
   }
 
   Future<OfferSimpleModel> deleteOffer(int idOffer) async {

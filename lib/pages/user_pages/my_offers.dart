@@ -6,6 +6,7 @@ class MyOffers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
+    final offerServices = OffersServices();
     return Scaffold(
       body: DefaultTabController(
         length: 2,
@@ -29,14 +30,12 @@ class MyOffers extends StatelessWidget {
           body: TabBarView(
             children: [
               FutureBuilder(
-                future: homeworkServices.getHomeworksByUser(),
+                future: offerServices.getUserOfferSent(),
                 /* initialData: InitialData, */
                 builder: (BuildContext context,
                     AsyncSnapshot<List<HomeworksModel>> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const SquareLoading();
                   }
                   if (snapshot.data!.isEmpty) {
                     return NoInformation(
@@ -73,43 +72,4 @@ class MyOffers extends StatelessWidget {
       ),
     );
   }
-
-/* class OffersPage extends StatelessWidget {
-  const OffersPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
-
-    return Container(
-      child: FutureBuilder(
-        future: homeworkServices.getHomeworksByUser(),
-        /* initialData: InitialData, */
-        builder: (BuildContext context,
-            AsyncSnapshot<List<HomeworksModel>> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: snapshot.data!.length,
-              itemBuilder: (BuildContext context, int index) {
-                return HomeworkCard(
-                  isLogged: true,
-                  homework: snapshot.data![index],
-
-                  /* homework: snapshot.data[index], */
-                );
-              },
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
-    );
-  }
-}
- */
 }

@@ -26,7 +26,7 @@ class HomeworkServices {
   Future<List<HomeworksModel>> getHomeworksByUser() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'homework/homeworksbyuser',
+      'homework/homeworksByUser',
       {},
       await _storage.read(key: 'token'),
     );
@@ -38,11 +38,11 @@ class HomeworkServices {
   Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
       List<String> category) async {
     /* category/programacion,algebra/level/Universitario */
-    final categorFilter = category.isNotEmpty ? category.join(',') : 'empty';
+    final categoryFilter = category.isNotEmpty ? category.join(',') : 'empty';
     /* final levelFilter = level.isNotEmpty ? level.join(',') : 'empty'; */
     final homeworkRequest = await Request.sendRequest(
       'GET',
-      'homework/category/$categorFilter',
+      'homework/category/$categoryFilter',
       {},
     );
 
@@ -77,7 +77,7 @@ class HomeworkServices {
   Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'devices/clearnotificated',
+      'devices/clearNotificated',
       {},
       await _storage.read(key: 'token'),
     );

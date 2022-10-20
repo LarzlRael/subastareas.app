@@ -145,6 +145,10 @@ class AuthServices with ChangeNotifier {
     }
   }
 
+  Future<void> refreshUser() async {
+    await renewToken();
+  }
+
   Future clearIdAndToken() async {
     await _storage.delete(key: 'token');
     await _storage.delete(key: 'id');

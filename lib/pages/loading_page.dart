@@ -23,8 +23,7 @@ class LoadingPage extends StatelessWidget {
     if (isAuthenticated) {
       socketService.connect();
       goToPage(context, const BottomNavigation());
-    } else {
-      goToPage(context, const WelcomePage());
     }
+    goToPage(context, const WelcomePage());
   }
 }

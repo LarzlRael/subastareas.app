@@ -88,7 +88,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                 arguments: ShowHomeworkParams(
                                   title: tradeUserModel.title,
                                   fileType: tradeUserModel.solvedFileType,
-                                  fileUrl: tradeUserModel.solvedHomeworkUrl!,
+                                  fileUrl: tradeUserModel.solvedHomeworkUrl,
                                 ),
                               );
                             },

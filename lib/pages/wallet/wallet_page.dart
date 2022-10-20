@@ -53,7 +53,7 @@ class WalletPage extends StatelessWidget {
                               height: 30,
                             ),
                             showWalletInfo(
-                              auth.user!.wallet.balanceTotal,
+                              auth.user.wallet.balanceTotal,
                               'Saldo Total',
                             ),
                             showWalletInfo(
