@@ -13,13 +13,13 @@ class NotificationPage extends StatelessWidget {
       ),
       body: StreamBuilder(
         stream: notificationBloc.notificationStream,
-        builder: (BuildContext context,
-            AsyncSnapshot<List<NotificationModel>> snapshot) {
+        builder: (_, AsyncSnapshot<List<NotificationModel>> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+          print(snapshot.data);
           if (snapshot.data!.isEmpty) {
             return const Center(
               child: NoInformation(
@@ -30,6 +30,7 @@ class NotificationPage extends StatelessWidget {
               ),
             );
           }
+
           return ListView.builder(
             itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {

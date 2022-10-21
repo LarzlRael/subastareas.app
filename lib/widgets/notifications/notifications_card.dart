@@ -12,13 +12,21 @@ class NotificationsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (!notification.seen) {
-          await notificationBloc.seeNotification(notification.id);
-        }
-
         goToPage(
           context,
           notification,
+        );
+        if (!notification.seen) {
+          await notificationBloc.seeNotification(notification.id);
+          notificationBloc.getNotificationByUser();
+        }
+      },
+      onLongPress: () {
+        showConfirmDialog(
+          context,
+          'Eliminar notificacion',
+          '¿Estás seguro de quiere eliminar esta notification?',
+          () => notificationBloc.deleteNotification(notification.id),
         );
       },
       child: SizedBox(
@@ -126,6 +134,7 @@ String typeNotification(String type) {
   }
 }
 
+/* Change this for another types */
 IconData iconType(String type) {
   switch (type) {
     case 'new_comment':

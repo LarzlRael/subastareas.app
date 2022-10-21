@@ -43,7 +43,7 @@ class TradeUserModel {
   int offerId;
   String username;
   int id;
-  String profileImageUrl;
+  dynamic profileImageUrl;
 
   factory TradeUserModel.fromJson(Map<String, dynamic> json) => TradeUserModel(
         solvedHomeworkUrl: json["solvedHomeworkUrl"],

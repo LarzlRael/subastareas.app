@@ -32,4 +32,10 @@ class NotificationBloc {
     _notificationController.sink
         .add(await homeworkServices.getUserNotifications());
   }
+
+  deleteNotification(int id) async {
+    await homeworkServices.deleteNotification(id);
+    _notificationController.sink
+        .add(await homeworkServices.getUserNotifications());
+  }
 }

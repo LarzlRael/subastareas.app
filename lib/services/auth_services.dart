@@ -126,9 +126,10 @@ class AuthServices with ChangeNotifier {
   }
 
   Future<bool> renewToken() async {
+    final deviceId = await messaging.getToken() ?? '';
     final resp = await Request.sendRequestWithToken(
       'GET',
-      'auth/renewToken',
+      'auth/renewToken/$deviceId',
       {},
       await _storage.read(key: 'token'),
     );
