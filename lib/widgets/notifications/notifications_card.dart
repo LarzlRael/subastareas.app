@@ -143,6 +143,8 @@ IconData iconType(String type) {
       return FontAwesomeIcons.dollarSign;
     case 'offer_accepted':
       return FontAwesomeIcons.commentsDollar;
+    case 'homework_finished':
+      return FontAwesomeIcons.book;
     default:
       return FontAwesomeIcons.dollarSign;
   }
