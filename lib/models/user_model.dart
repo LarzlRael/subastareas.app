@@ -17,12 +17,13 @@ class UserModel {
     required this.email,
     required this.nickName,
     required this.phone,
-    this.profileImageUrl,
+    required this.profileImageUrl,
     required this.google,
     required this.verify,
     required this.createdAt,
     required this.updatedAt,
     required this.wallet,
+    required this.professor,
     required this.userProfile,
     required this.userRols,
     required this.accessToken,
@@ -35,12 +36,13 @@ class UserModel {
   String email;
   String nickName;
   dynamic phone;
-  dynamic profileImageUrl;
+  String profileImageUrl;
   bool google;
   bool verify;
   DateTime createdAt;
   DateTime updatedAt;
   Wallet wallet;
+  Professor professor;
   UserProfile userProfile;
   List<String> userRols;
   String accessToken;
@@ -59,6 +61,7 @@ class UserModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         wallet: Wallet.fromJson(json["wallet"]),
+        professor: Professor.fromJson(json["professor"]),
         userProfile: UserProfile.fromJson(json["userProfile"]),
         userRols: List<String>.from(json["userRols"].map((x) => x)),
         accessToken: json["accessToken"],
@@ -78,9 +81,34 @@ class UserModel {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "wallet": wallet.toJson(),
+        "professor": professor.toJson(),
         "userProfile": userProfile.toJson(),
         "userRols": List<dynamic>.from(userRols.map((x) => x)),
         "accessToken": accessToken,
+      };
+}
+
+class Professor {
+  Professor({
+    required this.id,
+    required this.solvedHomeworks,
+    required this.reputation,
+  });
+
+  int id;
+  int solvedHomeworks;
+  int reputation;
+
+  factory Professor.fromJson(Map<String, dynamic> json) => Professor(
+        id: json["id"],
+        solvedHomeworks: json["solvedHomeworks"],
+        reputation: json["reputation"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "solvedHomeworks": solvedHomeworks,
+        "reputation": reputation,
       };
 }
 

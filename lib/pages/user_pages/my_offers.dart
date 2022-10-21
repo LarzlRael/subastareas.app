@@ -5,9 +5,11 @@ class MyOffers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
     final offerServices = OffersServices();
     return Scaffold(
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+      ),
       body: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -17,11 +19,11 @@ class MyOffers extends StatelessWidget {
             bottom: const TabBar(
               tabs: [
                 Tab(
-                  icon: Icon(Ionicons.paper_plane_outline),
+                  icon: Icon(Ionicons.send),
                   text: "Ofertas realizadas",
                 ),
                 Tab(
-                  icon: Icon(Icons.directions_transit),
+                  icon: Icon(Icons.call_received),
                   text: "Ofertas recibidas",
                 ),
               ],

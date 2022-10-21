@@ -99,9 +99,14 @@ class CardProfile extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             /* crossAxisAlignment: CrossAxisAlignment.center, */
-            children: const [
-              ProfileCard(amount: 20, title: 'Seguidores'),
-              ProfileCard(amount: 44, title: 'Seguidores'),
+            children: [
+              ProfileCard(
+                  amount: auth.user.professor.solvedHomeworks,
+                  title: 'Tarea resueltas'),
+              ProfileCard(
+                amount: auth.user.professor.reputation,
+                title: 'Reputacion',
+              ),
             ],
           ),
         ],
