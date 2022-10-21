@@ -1,6 +1,6 @@
 part of 'utils.dart';
 
-goToPage(BuildContext context, Widget page) {
+goToInitialPage(BuildContext context, Widget page) {
   Navigator.pushReplacement(
     context,
     PageRouteBuilder(

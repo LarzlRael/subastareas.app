@@ -22,8 +22,9 @@ class LoadingPage extends StatelessWidget {
     final isAuthenticated = await authServices.renewToken();
     if (isAuthenticated) {
       socketService.connect();
-      goToPage(context, const BottomNavigation());
+      goToInitialPage(context, const BottomNavigation());
+    } else {
+      goToInitialPage(context, const WelcomePage());
     }
-    goToPage(context, const WelcomePage());
   }
 }

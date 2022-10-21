@@ -36,7 +36,7 @@ class UserModel {
   String email;
   String nickName;
   dynamic phone;
-  String profileImageUrl;
+  dynamic profileImageUrl;
   bool google;
   bool verify;
   DateTime createdAt;

@@ -138,10 +138,11 @@ class AuthServices with ChangeNotifier {
       setUser(userModelFromJson(resp.body));
       await _saveIdAnToken(user.id.toString(), user.accessToken);
       return true;
+    } else {
+      isLogged = false;
+      logout();
+      return false;
     }
-    isLogged = false;
-    logout();
-    return false;
   }
 
   Future<void> refreshUser() async {

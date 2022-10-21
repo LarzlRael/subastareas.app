@@ -22,6 +22,6 @@ class LoadingPageParameters extends StatelessWidget {
 
   Future redirect(BuildContext context) async {
     future;
-    goToPage(context, const BottomNavigation());
+    goToInitialPage(context, const BottomNavigation());
   }
 }

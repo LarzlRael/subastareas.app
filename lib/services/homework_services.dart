@@ -16,7 +16,7 @@ class HomeworkServices {
   Future<OneHomeworkModel> getOneHomework(int id) async {
     final homeworkRequest = await Request.sendRequest(
       'GET',
-      'homework/getonehomework/$id',
+      'homework/getOneHomework/$id',
       null,
     );
     final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
@@ -87,7 +87,7 @@ class HomeworkServices {
   }
 
   Future seeNotification(int idNotification) async {
-    final homeworkRequest = await Request.sendRequestWithToken(
+    final seeNotification = await Request.sendRequestWithToken(
       'PUT',
       'devices/seeNotification/$idNotification',
       {},

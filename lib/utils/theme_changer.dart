@@ -4,6 +4,14 @@ class ThemeChanger with ChangeNotifier {
   final preferences = UserPreferences();
   bool isDarkTheme = false;
   bool notifications = false;
+  int _currentHomeworksTabIndex = 0;
+
+  int get getCurrentHomeworksTabIndex => _currentHomeworksTabIndex;
+  set setCurrentHomeworksTabIndex(int value) {
+    _currentHomeworksTabIndex = value;
+    notifyListeners();
+  }
+
   late ThemeData _currentTheme;
 
   get getCurrentTheme => _currentTheme;

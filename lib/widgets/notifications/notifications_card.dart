@@ -2,29 +2,24 @@ part of '../widgets.dart';
 
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
-  final HomeworkServices homeworkServices;
+  final NotificationBloc notificationBloc;
   const NotificationsCard({
     Key? key,
     required this.notification,
-    required this.homeworkServices,
+    required this.notificationBloc,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
         if (!notification.seen) {
-          await homeworkServices.seeNotification(notification.id);
+          await notificationBloc.seeNotification(notification.id);
         }
-        if (notification.type == 'new_comment') {
-          Navigator.pushNamed(
-            context,
-            'auctionPage',
-            arguments: HomeworkArguments(
-              notification.id,
-              notification.user.id,
-            ),
-          );
-        }
+
+        goToPage(
+          context,
+          notification,
+        );
       },
       child: SizedBox(
         width: double.infinity,
@@ -141,5 +136,35 @@ IconData iconType(String type) {
       return FontAwesomeIcons.commentsDollar;
     default:
       return FontAwesomeIcons.dollarSign;
+  }
+}
+
+void goToPage(BuildContext context, NotificationModel notification) {
+  switch (notification.type) {
+    case 'new_comment':
+    case 'new_offer':
+      Navigator.pushNamed(
+        context,
+        'auctionPage',
+        arguments: HomeworkArguments(
+          notification.id,
+          notification.user.id,
+        ),
+      );
+      break;
+    case 'homework_finished':
+      Navigator.pushNamed(
+        context,
+        'my_homeworks_page',
+        arguments: 1,
+      );
+      break;
+    case 'offer_accepted':
+      Navigator.pushNamed(
+        context,
+        'pending_homeworks_offers_accepts',
+      );
+      break;
+    default:
   }
 }

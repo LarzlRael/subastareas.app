@@ -1,8 +1,8 @@
 part of '../pages.dart';
 
 class MyHomeworksPage extends StatelessWidget {
-  const MyHomeworksPage({Key? key}) : super(key: key);
-
+  const MyHomeworksPage({Key? key, this.goToPage = 0}) : super(key: key);
+  final int goToPage;
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();
@@ -12,6 +12,7 @@ class MyHomeworksPage extends StatelessWidget {
         appBar: AppBar(),
       ),
       body: DefaultTabController(
+        initialIndex: goToPage,
         length: 3,
         child: Scaffold(
           appBar: AppBar(

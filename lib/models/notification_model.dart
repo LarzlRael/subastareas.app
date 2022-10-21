@@ -29,7 +29,8 @@ class NotificationModel {
     required this.type,
     required this.visible,
     required this.seen,
-    required this.idHomeworkOrOffer,
+    required this.idHomework,
+    required this.idOffer,
     required this.content,
     required this.createdAt,
     required this.updatedAt,
@@ -43,7 +44,8 @@ class NotificationModel {
   bool visible;
   bool seen;
   bool notified;
-  int idHomeworkOrOffer;
+  int idHomework;
+  int idOffer;
   dynamic category;
   String content;
   DateTime createdAt;
@@ -57,7 +59,8 @@ class NotificationModel {
         notified: json["notified"],
         visible: json["visible"],
         seen: json["seen"],
-        idHomeworkOrOffer: json["idHomeworkOrOffer"],
+        idOffer: json["idHomework"],
+        idHomework: json["idOffer"],
         content: json["content"],
         category: json["category"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -70,7 +73,8 @@ class NotificationModel {
         "type": type,
         "visible": visible,
         "seen": seen,
-        "idHomeworkOrOffer": idHomeworkOrOffer,
+        "idHomework": idHomework,
+        "idOffer": idOffer,
         "category": category,
         "content": content,
         "notified": notified,

@@ -4,15 +4,15 @@ class NotificationPage extends StatelessWidget {
   const NotificationPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
-    homeworkServices.getUserNotifications();
+    final notificationBloc = NotificationBloc();
+    notificationBloc.getNotificationByUser();
 
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
       ),
-      body: FutureBuilder(
-        future: homeworkServices.getUserNotifications(),
+      body: StreamBuilder(
+        stream: notificationBloc.notificationStream,
         builder: (BuildContext context,
             AsyncSnapshot<List<NotificationModel>> snapshot) {
           if (!snapshot.hasData) {
@@ -35,7 +35,7 @@ class NotificationPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return NotificationsCard(
                 notification: snapshot.data![index],
-                homeworkServices: homeworkServices,
+                notificationBloc: notificationBloc,
               );
             },
           );
