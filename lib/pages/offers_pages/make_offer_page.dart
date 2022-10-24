@@ -62,9 +62,9 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                showProfileImage(
-                  oneHomework.homework.user.profileImageUrl,
-                  oneHomework.homework.user.username,
+                ShowProfileImage(
+                  profileImage: oneHomework.homework.user.profileImageUrl,
+                  userName: oneHomework.homework.user.username,
                   radius: 75,
                 ),
                 SimpleText(

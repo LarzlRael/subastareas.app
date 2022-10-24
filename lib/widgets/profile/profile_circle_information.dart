@@ -18,9 +18,9 @@ class ProfileCircleInformation extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: SizedBox(
-                child: showProfileImage(
-                  publicProfile.profileImageUrl,
-                  publicProfile.name,
+                child: ShowProfileImage(
+                  profileImage: publicProfile.profileImageUrl,
+                  userName: publicProfile.name,
                   radius: 25,
                 ),
               ),

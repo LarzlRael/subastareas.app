@@ -18,9 +18,13 @@ class DrawerMenu extends StatelessWidget {
         children: [
           SafeArea(
             child: SizedBox(
-                width: double.infinity,
-                height: 200,
-                child: showProfileImage(profileImage, userName)),
+              width: double.infinity,
+              height: 200,
+              child: ShowProfileImage(
+                profileImage: profileImage,
+                userName: userName,
+              ),
+            ),
           ),
           Expanded(
             child: _ListOptions(
@@ -52,22 +56,6 @@ class DrawerMenu extends StatelessWidget {
       ),
     );
   }
-}
-
-Widget showProfileImage(String? profileImage, String userName,
-    {double radius = 30}) {
-  return CircleAvatar(
-    radius: radius,
-    child: profileImage != null
-        ? null
-        : SimpleText(
-            text: convertName(userName),
-            fontSize: radius * 0.65,
-            lightThemeColor: Colors.white,
-          ),
-    backgroundImage: profileImage == null ? null : NetworkImage(profileImage),
-    backgroundColor: Colors.grey,
-  );
 }
 
 class _ListOptions extends StatelessWidget {

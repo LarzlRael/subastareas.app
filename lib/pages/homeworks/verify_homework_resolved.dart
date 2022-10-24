@@ -169,9 +169,9 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: showProfileImage(
-                                  tradeUserModel.profileImageUrl,
-                                  tradeUserModel.username,
+                              child: ShowProfileImage(
+                                  profileImage: tradeUserModel.profileImageUrl,
+                                  userName: tradeUserModel.username,
                                   radius: 18),
                             ),
                           ),

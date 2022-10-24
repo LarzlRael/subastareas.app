@@ -195,9 +195,11 @@ class _AuctionPageState extends State<AuctionPage> {
                   'Creador',
                   Row(
                     children: [
-                      showProfileImage(
-                          oneHomeworkModel.homework.user.profileImageUrl,
-                          oneHomeworkModel.homework.user.username),
+                      ShowProfileImage(
+                        profileImage:
+                            oneHomeworkModel.homework.user.profileImageUrl,
+                        userName: oneHomeworkModel.homework.user.username,
+                      ),
                       const SizedBox(
                         width: 7,
                       ),

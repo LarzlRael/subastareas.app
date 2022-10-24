@@ -86,9 +86,9 @@ class HomeworkPendingToResolve extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: showProfileImage(
-                          tradeUserModel.profileImageUrl,
-                          tradeUserModel.username,
+                        child: ShowProfileImage(
+                          profileImage: tradeUserModel.profileImageUrl,
+                          userName: tradeUserModel.username,
                           radius: 18,
                         ),
                       ),

@@ -42,9 +42,9 @@ class SettingsPage extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 20),
-                child: showProfileImage(
-                  auth.user.profileImageUrl,
-                  auth.user.username,
+                child: ShowProfileImage(
+                  profileImage: auth.user.profileImageUrl,
+                  userName: auth.user.username,
                   radius: 75,
                 ),
               ),

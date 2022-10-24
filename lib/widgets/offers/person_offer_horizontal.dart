@@ -80,9 +80,9 @@ class HorizontalOfferRow extends StatelessWidget {
         children: [
           Row(
             children: [
-              showProfileImage(
-                offer.user.profileImageUrl,
-                offer.user.username,
+              ShowProfileImage(
+                profileImage: offer.user.profileImageUrl,
+                userName: offer.user.username,
                 radius: 20,
               ),
               SimpleText(

@@ -33,10 +33,11 @@ final List<BottomNavigationBarItem> bottonItemsWithLogin = [
     label: 'Preguntar',
   ),
   BottomNavigationBarItem(
-    icon: Badge(
+    /* icon: Badge(
       child: const Icon(FontAwesomeIcons.user),
       badgeContent: null,
-    ),
+    ), */
+    icon: const Icon(FontAwesomeIcons.user),
     label: 'Perfil',
   ),
 ];

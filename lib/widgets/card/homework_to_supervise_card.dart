@@ -29,9 +29,9 @@ class HomeworkToSuperviseCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    showProfileImage(
-                      homeworkToSupervise.user.profileImageUrl,
-                      homeworkToSupervise.user.username,
+                    ShowProfileImage(
+                      profileImage: homeworkToSupervise.user.profileImageUrl,
+                      userName: homeworkToSupervise.user.username,
                       radius: 18,
                     ),
                     const SizedBox(width: 15),

@@ -10,7 +10,7 @@ class NotificationsCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () async {
         goToPage(
           context,
@@ -29,46 +29,50 @@ class NotificationsCard extends StatelessWidget {
           () => notificationBloc.deleteNotification(notification.id),
         );
       },
-      child: SizedBox(
-        width: double.infinity,
-        height: 75,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Row(
-              children: [
-                Container(
-                  height: 10,
-                  width: 10,
-                  decoration: BoxDecoration(
-                    color: notification.seen ? Colors.transparent : Colors.red,
-                    borderRadius: BorderRadius.circular(100),
+      child: Ink(
+        child: SizedBox(
+          width: double.infinity,
+          height: 75,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    height: 10,
+                    width: 10,
+                    decoration: BoxDecoration(
+                      color:
+                          notification.seen ? Colors.transparent : Colors.red,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
+                  const SizedBox(width: 5),
+                  SizedBox(
+                    child: ShowProfileImage(
+                        profileImage: notification.user.profileImageUrl,
+                        userName: notification.user.username,
+                        radius: 20),
+                  ),
+                ],
+              ),
+              contentNotification(notification),
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  /* color: Colors.red, */
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Center(
+                  child: Icon(
+                    iconType(notification.type),
                   ),
                 ),
-                const SizedBox(width: 5),
-                Container(
-                  child: showProfileImage(notification.user.profileImageUrl,
-                      notification.user.username,
-                      radius: 20),
-                ),
-              ],
-            ),
-            contentNotification(notification),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                /* color: Colors.red, */
-                borderRadius: BorderRadius.circular(10),
               ),
-              child: Center(
-                child: Icon(
-                  iconType(notification.type),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -81,13 +85,14 @@ class NotificationsCard extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-            /* text: 'Nombre ', */
-            /* style: DefaultTextStyle.of(context).style, */
             children: [
               TextSpan(
-                  text: notification.user.username,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.blue)),
+                text: notification.user.username,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
               TextSpan(
                 text: ' ' + typeNotification(notification.type),
                 style: const TextStyle(

@@ -45,9 +45,9 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                     return Column(
                       /* mainAxisAlignment: MainAxisAlignment.center, */
                       children: [
-                        showProfileImage(
-                          homework.user.profileImageUrl,
-                          homework.user.username,
+                        ShowProfileImage(
+                          profileImage: homework.user.profileImageUrl,
+                          userName: homework.user.username,
                           radius: 90,
                         ),
                         SimpleText(
