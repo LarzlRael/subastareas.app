@@ -19,14 +19,15 @@ class OffersServices {
     return offerSimpleModelFromJson(homeworkRequest!.body);
   }
 
-  Future enterPendingTrade(int idOffer) async {
+  Future<bool> enterPendingTrade(int idOffer) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-        'GET',
-        'trade/enterPendingTrade/$idOffer',
-        {},
-        await _storage.read(key: 'token'));
+      'GET',
+      'trade/enterPendingTrade/$idOffer',
+      {},
+      await _storage.read(key: 'token'),
+    );
 
-    print(homeworkRequest!.body);
+    return validateStatus(homeworkRequest!.statusCode);
   }
 
   Future<bool> uploadHomeworkResolvedFile(

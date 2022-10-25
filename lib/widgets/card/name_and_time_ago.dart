@@ -28,7 +28,7 @@ class NameAndTimeAgo extends StatelessWidget {
 
   List<Widget> content() {
     return [
-      isOwner
+      !isOwner
           ? SimpleText(
               text: userName,
               fontSize: 13,

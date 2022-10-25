@@ -19,11 +19,10 @@ class BellIconNotification extends StatelessWidget {
               .where((element) => element.notified == true)
               .toList()
               .length;
-          /* child: notificationsNotRead > 0 */
           return notificationsNotRead > 0
               ? Badge(
                   badgeContent: Text(
-                    '$notificationsNotRead',
+                    notificationsNotRead > 9 ? '9+' : '$notificationsNotRead',
                     style: const TextStyle(color: Colors.white, fontSize: 10),
                   ),
                   child: iconNotification(context),
