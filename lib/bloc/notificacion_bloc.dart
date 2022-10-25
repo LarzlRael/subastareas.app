@@ -5,7 +5,7 @@ import 'package:subastareaspp/services/services.dart';
 
 class NotificationBloc {
   static final NotificationBloc _singleton = NotificationBloc._internal();
-  HomeworkServices homeworkServices = HomeworkServices();
+  NotificationService notificationService = NotificationService();
 
   factory NotificationBloc() {
     return _singleton;
@@ -24,18 +24,18 @@ class NotificationBloc {
 
   getNotificationByUser() async {
     _notificationController.sink
-        .add(await homeworkServices.getUserNotifications());
+        .add(await notificationService.getUserNotifications());
   }
 
   seeNotification(int id) async {
-    await homeworkServices.seeNotification(id);
+    await notificationService.seeNotification(id);
     _notificationController.sink
-        .add(await homeworkServices.getUserNotifications());
+        .add(await notificationService.getUserNotifications());
   }
 
   deleteNotification(int id) async {
-    await homeworkServices.deleteNotification(id);
+    await notificationService.deleteNotification(id);
     _notificationController.sink
-        .add(await homeworkServices.getUserNotifications());
+        .add(await notificationService.getUserNotifications());
   }
 }

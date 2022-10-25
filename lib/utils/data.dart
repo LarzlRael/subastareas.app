@@ -23,24 +23,32 @@ final List<Widget> bottomItemsWithLogin = <Widget>[
   const ProfilePage(),
 ];
 
-final List<BottomNavigationBarItem> bottonItemsWithLogin = [
-  const BottomNavigationBarItem(
-    icon: Icon(FontAwesomeIcons.circleDollarToSlot),
-    label: 'Aportar',
-  ),
-  const BottomNavigationBarItem(
-    icon: Icon(FontAwesomeIcons.comment),
-    label: 'Preguntar',
-  ),
-  BottomNavigationBarItem(
-    /* icon: Badge(
+List<BottomNavigationBarItem> bottonItemsWithLogin(bool isThereNotifications) {
+  return [
+    const BottomNavigationBarItem(
+      icon: Icon(FontAwesomeIcons.circleDollarToSlot),
+      label: 'Aportar',
+    ),
+    const BottomNavigationBarItem(
+      icon: Icon(FontAwesomeIcons.comment),
+      label: 'Preguntar',
+    ),
+    BottomNavigationBarItem(
+      /* icon: Badge(
       child: const Icon(FontAwesomeIcons.user),
       badgeContent: null,
     ), */
-    icon: const Icon(FontAwesomeIcons.user),
-    label: 'Perfil',
-  ),
-];
+      icon: isThereNotifications
+          ? Badge(
+              child: const Icon(FontAwesomeIcons.user),
+              badgeContent: null,
+            )
+          : const Icon(FontAwesomeIcons.user),
+      label: 'Perfil',
+    ),
+  ];
+}
+
 final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   const BottomNavigationBarItem(
     icon: Icon(Icons.category),

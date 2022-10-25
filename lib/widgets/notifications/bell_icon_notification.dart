@@ -5,31 +5,24 @@ class BellIconNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
+    final notificationService =
+        Provider.of<NotificationService>(context, listen: true);
+    notificationService.getUserNotifications();
+    final notificationsNotRead = notificationService.notifications
+        .where((element) => element.notified == true)
+        .toList()
+        .length;
     return Container(
       padding: const EdgeInsets.all(0.0),
-      child: FutureBuilder(
-        future: homeworkServices.getUserNotifications(),
-        builder: (BuildContext context,
-            AsyncSnapshot<List<NotificationModel>> snapshot) {
-          if (!snapshot.hasData) {
-            return iconNotification(context);
-          }
-          final notificationsNotRead = snapshot.data!
-              .where((element) => element.notified == true)
-              .toList()
-              .length;
-          return notificationsNotRead > 0
-              ? Badge(
-                  badgeContent: Text(
-                    notificationsNotRead > 9 ? '9+' : '$notificationsNotRead',
-                    style: const TextStyle(color: Colors.white, fontSize: 10),
-                  ),
-                  child: iconNotification(context),
-                )
-              : iconNotification(context);
-        },
-      ),
+      child: notificationsNotRead > 0
+          ? Badge(
+              badgeContent: Text(
+                notificationsNotRead > 9 ? '9+' : '$notificationsNotRead',
+                style: const TextStyle(color: Colors.white, fontSize: 10),
+              ),
+              child: iconNotification(context),
+            )
+          : iconNotification(context),
     );
   }
 

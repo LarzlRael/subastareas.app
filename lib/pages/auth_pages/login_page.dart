@@ -14,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
     final authService = Provider.of<AuthServices>(context);
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
+    final notificationService = Provider.of<NotificationService>(context);
     final preferences = UserPreferences();
     final theme = Provider.of<ThemeChanger>(context);
 
@@ -21,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       Navigator.pushReplacementNamed(context, 'bottomNavigation');
       theme.setDarkTheme = authService.user.userProfile.isDarkTheme;
       filter.setCurrentBottomTab = 0;
+      notificationService.getUserNotifications();
       socketService.connect();
     }
 

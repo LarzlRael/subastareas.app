@@ -61,17 +61,6 @@ class HomeworkServices {
     return finalData;
   }
 
-  Future<List<NotificationModel>> getUserNotifications() async {
-    final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
-      'devices/getUserNotifications',
-      {},
-      await _storage.read(key: 'token'),
-    );
-
-    return notificationModelFromJson(homeworkRequest!.body);
-  }
-
   Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
@@ -82,27 +71,6 @@ class HomeworkServices {
 
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
-  }
-
-  Future deleteNotification(int idNotification) async {
-    final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
-      'devices/deleteNotification/$idNotification',
-      {},
-      await _storage.read(key: 'token'),
-    );
-
-    return (homeworkRequest!.statusCode);
-    /* homeworkRequest!.body; */
-  }
-
-  Future seeNotification(int idNotification) async {
-    final seeNotification = await Request.sendRequestWithToken(
-      'PUT',
-      'devices/seeNotification/$idNotification',
-      {},
-      await _storage.read(key: 'token'),
-    );
   }
 
   Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
