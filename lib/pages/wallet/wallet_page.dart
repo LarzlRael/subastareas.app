@@ -2,7 +2,7 @@ part of '../pages.dart';
 
 class WalletPage extends StatelessWidget {
   WalletPage({Key? key}) : super(key: key);
-  late final AuthServices auth;
+  late AuthServices auth;
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   @override
@@ -35,7 +35,7 @@ class WalletPage extends StatelessWidget {
                   children: [
                     const SimpleText(
                       text: 'BILLETERA',
-                      fontSize: 25,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       lightThemeColor: Colors.black87,
                       /* top: 10, */
@@ -100,7 +100,7 @@ class WalletPage extends StatelessWidget {
                     ),
                     const SimpleText(
                       text: 'HISTORIAL',
-                      fontSize: 30,
+                      fontSize: 25,
                       fontWeight: FontWeight.bold,
                       top: 20,
                       bottom: 20,

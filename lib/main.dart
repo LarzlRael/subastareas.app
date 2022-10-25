@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/services/services.dart';
@@ -25,7 +23,7 @@ void main() async {
   );
 
   print('User granted permission: ${settings.authorizationStatus}');
-  
+
   await FlutterDownloader.initialize(
       debug: true // optional: set false to disable printing logs to console
       ); */
@@ -47,7 +45,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  final GlobalKey<ScaffoldMessengerState> messengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   void initState() {
     super.initState();
@@ -61,10 +62,12 @@ class _MyAppState extends State<MyApp> {
         print('Message also contained a notification: ${message.notification}');
       }
     }); */
-    PushNotificationService.messageStream.listen((message) {
-      print('Got a message whilst in the foreground!');
-      print('Message data: $message');
-      /* showSnackBar(message); */
+    PushNotificationService.messagesStream.listen((message) {
+      // print('MyApp: $message');
+      navigatorKey.currentState?.pushNamed('message', arguments: message);
+
+      final snackBar = SnackBar(content: Text(message));
+      messengerKey.currentState?.showSnackBar(snackBar);
     });
   }
 
@@ -79,10 +82,9 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         title: 'Subastareas',
-        scaffoldMessengerKey: _messengerKey,
-        navigatorKey: navigatorKey,
+        navigatorKey: navigatorKey, // Navegar
+        scaffoldMessengerKey: messengerKey, // Snacks
         debugShowCheckedModeBanner: false,
-        /* theme: darkTheme, */
         routes: appRoutes,
         initialRoute: 'loading',
         theme: appTheme,

@@ -19,7 +19,6 @@ class NotificationPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          print(snapshot.data);
           if (snapshot.data!.isEmpty) {
             return const Center(
               child: NoInformation(
