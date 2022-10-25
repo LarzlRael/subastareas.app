@@ -7,22 +7,22 @@ final pageRoutes = <_Route>[
   _Route(
     icon: FontAwesomeIcons.wallet,
     titulo: 'Mi billetera',
-    page: const WalletPage(),
+    page: WalletPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.gear,
     titulo: 'Configuraciones',
-    page: const WalletPage(),
+    page: WalletPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.heading,
     titulo: 'Encabezados',
-    page: const WalletPage(),
+    page: WalletPage(),
   ),
   _Route(
     icon: FontAwesomeIcons.fileContract,
     titulo: 'Terminos de uso',
-    page: const WalletPage(),
+    page: WalletPage(),
   ),
 ];
 

@@ -1,11 +1,13 @@
 part of '../pages.dart';
 
 class WalletPage extends StatelessWidget {
-  const WalletPage({Key? key}) : super(key: key);
-
+  WalletPage({Key? key}) : super(key: key);
+  late final AuthServices auth;
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context);
+    auth = Provider.of<AuthServices>(context);
     final theme = Provider.of<ThemeChanger>(context);
     final transactionServices = TransactionServices();
     return Scaffold(
@@ -106,34 +108,38 @@ class WalletPage extends StatelessWidget {
                   ],
                 ),
               ),
-              FutureBuilder(
-                future: transactionServices.getUserHistoryTransaction(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<UserTransactionModel>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularCenter();
-                  }
-                  if (snapshot.data!.isEmpty) {
-                    return const Center(
-                      child: NoInformation(
-                        icon: Icons.hourglass_empty,
-                        message: 'No tienes transacciones',
-                        showButton: false,
-                        iconButton: Icons.arrow_forward_ios,
+              Expanded(
+                child: FutureBuilder(
+                  future: transactionServices.getUserHistoryTransaction(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<UserTransactionModel>> snapshot) {
+                    if (!snapshot.hasData) {
+                      return const CircularCenter();
+                    }
+                    if (snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: NoInformation(
+                          icon: Icons.hourglass_empty,
+                          message: 'No tienes transacciones',
+                          showButton: false,
+                          iconButton: Icons.arrow_forward_ios,
+                        ),
+                      );
+                    }
+                    return SmartRefresher(
+                      onRefresh: _refreshUser,
+                      controller: _refreshController,
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return TransactionCard(
+                            transaction: snapshot.data![index],
+                          );
+                        },
                       ),
                     );
-                  }
-                  return Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return TransactionCard(
-                          transaction: snapshot.data![index],
-                        );
-                      },
-                    ),
-                  );
-                },
+                  },
+                ),
               ),
             ],
           ),
@@ -160,5 +166,10 @@ class WalletPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _refreshUser() async {
+    await auth.refreshUser();
+    _refreshController.refreshCompleted();
   }
 }

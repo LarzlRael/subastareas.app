@@ -10,9 +10,12 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   late final AuthServices auth;
 
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: true);
+    auth = Provider.of<AuthServices>(context, listen: true);
     return Scaffold(
       appBar: AppBarTitle(
         title: 'PERFIL',
@@ -20,39 +23,48 @@ class _MyProfilePageState extends State<MyProfilePage> {
         appBar: AppBar(),
       ),
       body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: [
-              CardProfile(auth: auth),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  /* ProfileCard(),
-                  ProfileCard(), */
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              /* BellIconNotification(), */
-              Expanded(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: menuProfileOptions(auth).length,
-                  itemBuilder: (
-                    BuildContext context,
-                    int index,
-                  ) {
-                    return menuProfileOptions(auth)[index];
-                  },
+        child: SmartRefresher(
+          onRefresh: _refreshUser,
+          controller: _refreshController,
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children: [
+                CardProfile(auth: auth),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    /* ProfileCard(),
+                    ProfileCard(), */
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 30,
+                ),
+                /* BellIconNotification(), */
+                Expanded(
+                  child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: menuProfileOptions(auth).length,
+                    itemBuilder: (
+                      BuildContext context,
+                      int index,
+                    ) {
+                      return menuProfileOptions(auth)[index];
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void _refreshUser() async {
+    await auth.refreshUser();
+    _refreshController.refreshCompleted();
   }
 
   Future closeSession() async {
@@ -98,7 +110,7 @@ class CardProfile extends StatelessWidget {
           */
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            /* crossAxisAlignment: CrossAxisAlignment.center, */
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ProfileCard(
                   amount: auth.user.professor.solvedHomeworks,

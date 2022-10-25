@@ -55,7 +55,7 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
 final homeworkServices = HomeworkServices();
 List<StatelessWidget> menuProfileOptions(AuthServices authService) {
   final menuProfileOptions = [
-    const MenuProfileOption(
+    MenuProfileOption(
       icon: Icon(
         Ionicons.wallet,
       ),
@@ -68,7 +68,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       page: const NotificationPage(),
       callback: () => homeworkServices.clearNotifications(),
     ),
-    const MenuProfileOption(
+    MenuProfileOption(
       icon: Icon(Icons.message_rounded),
       title: "Mensajes",
       showTrailing: true,
@@ -104,7 +104,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
             page: SelectOption(),
           )
         : Container(),
-    const MenuProfileOption(
+    MenuProfileOption(
       icon: Icon(Icons.exit_to_app, color: Colors.white),
       title: "Cerrar sesión",
       page: WalletPage(),
