@@ -51,9 +51,10 @@ class NotificationsCard extends StatelessWidget {
                   const SizedBox(width: 5),
                   SizedBox(
                     child: ShowProfileImage(
-                        profileImage: notification.user.profileImageUrl,
-                        userName: notification.user.username,
-                        radius: 20),
+                      profileImage: notification.user.profileImageUrl,
+                      userName: notification.user.username,
+                      radius: 20,
+                    ),
                   ),
                 ],
               ),
@@ -110,6 +111,13 @@ class NotificationsCard extends StatelessWidget {
               fontSize: 12,
               lightThemeColor: Colors.black,
             ),
+            notification.type == 'new_comment'
+                ? const SimpleText(
+                    text: ' ',
+                    fontSize: 12,
+                    lightThemeColor: Colors.black,
+                  )
+                : const SizedBox(),
             SimpleText(
               text: timeAgo.format(notification.createdAt, locale: 'es'),
               fontSize: 12,
@@ -163,7 +171,7 @@ void goToPage(BuildContext context, NotificationModel notification) {
         context,
         'auctionPage',
         arguments: HomeworkArguments(
-          notification.id,
+          notification.idHomework,
           notification.user.id,
         ),
       );

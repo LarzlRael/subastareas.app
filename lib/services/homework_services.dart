@@ -9,8 +9,7 @@ class HomeworkServices {
       null,
     );
 
-    final finalData = homeworksModelFromJson(homeworkRequest!.body);
-    return finalData;
+    return homeworksModelFromJson(homeworkRequest!.body);
   }
 
   Future<OneHomeworkModel> getOneHomework(int id) async {
@@ -19,8 +18,7 @@ class HomeworkServices {
       'homework/getOneHomework/$id',
       null,
     );
-    final finalData = oneHomeworkModelFromJson(homeworkRequest!.body);
-    return finalData;
+    return oneHomeworkModelFromJson(homeworkRequest!.body);
   }
 
   Future<List<HomeworksModel>> getHomeworksByUser() async {
@@ -31,8 +29,7 @@ class HomeworkServices {
       await _storage.read(key: 'token'),
     );
 
-    final finalData = homeworksModelFromJson(homeworkRequest!.body);
-    return finalData;
+    return homeworksModelFromJson(homeworkRequest!.body);
   }
 
   Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
@@ -46,9 +43,7 @@ class HomeworkServices {
       {},
     );
 
-    final finalData = homeworksModelFromJson(homeworkRequest!.body);
-
-    return finalData;
+    return homeworksModelFromJson(homeworkRequest!.body);
   }
 
   Future<List<String>> getSubjectAndLevels() async {
@@ -68,7 +63,6 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
-
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
   }
