@@ -10,6 +10,7 @@ class NotificationPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
+        title: 'Notificaciones',
       ),
       body: StreamBuilder(
         stream: notificationBloc.notificationStream,

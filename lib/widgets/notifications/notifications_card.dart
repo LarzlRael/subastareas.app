@@ -30,47 +30,62 @@ class NotificationsCard extends StatelessWidget {
         );
       },
       child: Ink(
-        child: SizedBox(
+        child: Container(
+          /* color: Colors.purple, */
+          margin: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 5,
+          ),
+          /* color: Colors.yellow, */
           width: double.infinity,
-          height: 75,
+          /* height: 75, */
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
+                /* crossAxisAlignment: CrossAxisAlignment.center, */
                 children: [
-                  Container(
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      color:
-                          notification.seen ? Colors.transparent : Colors.red,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                          left: 5,
+                          right: 5,
+                        ),
+                        height: 10,
+                        width: 10,
+                        decoration: BoxDecoration(
+                          color: notification.seen
+                              ? Colors.transparent
+                              : Colors.red,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
+                      /* const SizedBox(width: 5), */
+
+                      ShowProfileImage(
+                        profileImage: notification.user.profileImageUrl,
+                        userName: notification.user.username,
+                        radius: 20,
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 5),
-                  SizedBox(
-                    child: ShowProfileImage(
-                      profileImage: notification.user.profileImageUrl,
-                      userName: notification.user.username,
-                      radius: 20,
+                  contentNotification(notification),
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      /* color: Colors.red, */
+                      borderRadius: BorderRadius.circular(10),
                     ),
                   ),
                 ],
               ),
-              contentNotification(notification),
-              Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  /* color: Colors.red, */
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Icon(
-                    iconType(notification.type),
-                  ),
-                ),
+              Icon(
+                iconType(notification.type),
               ),
             ],
           ),
@@ -102,20 +117,31 @@ class NotificationsCard extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 5),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        /* const SizedBox(height: 5), */
+        Column(
+          /* mainAxisAlignment: MainAxisAlignment.start, */
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SimpleText(
-              text: ' ',
-              fontSize: 12,
-              lightThemeColor: Colors.black,
-            ),
             notification.type == 'new_comment'
-                ? const SimpleText(
-                    text: ' ',
-                    fontSize: 12,
+                ? SimpleText(
+                    top: 5,
+                    bottom: 5,
+                    text: notification.content.length < 20
+                        ? notification.content
+                        : notification.content.substring(0, 20),
+                    fontSize: 14,
                     lightThemeColor: Colors.black,
+                    fontWeight: FontWeight.w400,
+                  )
+                : const SizedBox(),
+            notification.type == 'new_offer'
+                ? SimpleText(
+                    top: 5,
+                    bottom: 5,
+                    text: 'Oferta: ' + notification.offerAmount.toString(),
+                    fontSize: 14,
+                    lightThemeColor: Colors.black,
+                    fontWeight: FontWeight.w400,
                   )
                 : const SizedBox(),
             SimpleText(

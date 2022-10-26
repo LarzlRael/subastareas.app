@@ -4,18 +4,6 @@
 
 part of 'models.dart';
 
-// To parse this JSON data, do
-//
-//     final notificationModel = notificationModelFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final subjectsAndLevel = subjectsAndLevelFromJson(jsonString);
-
-// To parse this JSON data, do
-//
-//     final notificationModel = notificationModelFromJson(jsonString);
-
 List<NotificationModel> notificationModelFromJson(String str) =>
     List<NotificationModel>.from(
         json.decode(str).map((x) => NotificationModel.fromJson(x)));
@@ -36,6 +24,7 @@ class NotificationModel {
     required this.updatedAt,
     required this.user,
     required this.notified,
+    required this.offerAmount,
     this.category,
   });
 
@@ -46,6 +35,7 @@ class NotificationModel {
   bool notified;
   int idHomework;
   int idOffer;
+  int offerAmount;
   dynamic category;
   String content;
   DateTime createdAt;
@@ -61,6 +51,7 @@ class NotificationModel {
         seen: json["seen"],
         idOffer: json["idOffer"],
         idHomework: json["idHomework"],
+        offerAmount: json["offerAmount"],
         content: json["content"],
         category: json["category"],
         createdAt: DateTime.parse(json["created_at"]),
@@ -77,6 +68,7 @@ class NotificationModel {
         "idOffer": idOffer,
         "category": category,
         "content": content,
+        "offerAmount": offerAmount,
         "notified": notified,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),

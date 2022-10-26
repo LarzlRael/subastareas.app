@@ -10,26 +10,32 @@ class MyHomeworksPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
+        title: 'Mis tareas',
       ),
       body: DefaultTabController(
         initialIndex: goToPage,
-        length: 3,
+        length: 4,
         child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 0,
             automaticallyImplyLeading: false,
             bottom: const TabBar(
+              isScrollable: true,
               tabs: [
                 Tab(
                   icon: Icon(Ionicons.paper_plane_outline),
                   text: "Tareas subidas",
                 ),
                 Tab(
-                  icon: Icon(Icons.directions_transit),
-                  text: "Tareas Pendientes",
+                  icon: Icon(FontAwesomeIcons.listCheck),
+                  text: "Tareas por revisar",
                 ),
                 Tab(
-                  icon: Icon(Icons.directions_transit),
+                  icon: Icon(FontAwesomeIcons.circleCheck),
+                  text: "Tareas resueltas por otros usuarios",
+                ),
+                Tab(
+                  icon: Icon(FontAwesomeIcons.circleCheck),
                   text: "Tareas resueltas",
                 ),
               ],
@@ -39,6 +45,7 @@ class MyHomeworksPage extends StatelessWidget {
             children: [
               UploadedHomeworkUser(homeworkServices: homeworkServices),
               PendingOfferedPendingHomework(tradeServices: tradeServices),
+              ResolvedHomeworkUser(tradeServices: tradeServices),
               ResolvedHomeworkUser(tradeServices: tradeServices),
             ],
           ),

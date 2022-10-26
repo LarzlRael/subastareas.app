@@ -8,7 +8,7 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-  late final AuthServices auth;
+  late AuthServices auth;
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);

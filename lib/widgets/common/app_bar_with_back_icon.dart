@@ -20,7 +20,8 @@ class AppBarWithBackIcon extends StatelessWidget
               text: title!,
               lightThemeColor: Colors.black,
               darkThemeColor: Colors.white,
-              fontSize: 16,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             )
           : null,
       leading: IconButton(
