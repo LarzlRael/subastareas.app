@@ -61,14 +61,19 @@ class _ShowHomeworkUploadedState extends State<ShowHomeworkUploaded> {
   }
 
   Widget showFile(String fileType, String fileUrl) {
-    if (fileType == 'pdf') {
+    if (fileType.contains('pdf')) {
       return PdfType(
         pdfFlePath: pdfFlePath!,
       );
-    } else if (fileType.contains('image')) {
-      return ImageType(imagePath: fileUrl);
-    } else {
-      return const Text('Error al cargar el archivo');
     }
+    if (fileType.contains('image')) {
+      return ImageType(imagePath: fileUrl);
+    }
+    return const NoInformation(
+      icon: Icons.error,
+      message: 'No se puede mostrar el archivo',
+      showButton: false,
+      iconButton: Icons.add,
+    );
   }
 }
