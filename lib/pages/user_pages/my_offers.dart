@@ -80,7 +80,6 @@ class OffersSent extends StatelessWidget {
               isLogged: true,
               homework: snapshot.data![index],
               goTo: 'auctionPage',
-              /* homework: snapshot.data[index], */
             );
           },
         );
@@ -128,7 +127,6 @@ class OffersReceived extends StatelessWidget {
               isLogged: true,
               homework: snapshot.data![index],
               goTo: 'auctionPage',
-              /* homework: snapshot.data[index], */
             );
           },
         );

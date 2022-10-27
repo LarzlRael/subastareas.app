@@ -326,7 +326,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   setState(() {
                                     isLoading = true;
                                   });
-
                                   final newOffer =
                                       await blocHomework.makeOrEditOffer(
                                     verify,

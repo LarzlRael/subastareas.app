@@ -29,12 +29,13 @@ class NotificationsCard extends StatelessWidget {
           () => notificationBloc.deleteNotification(notification.id),
         );
       },
+      /* TODO fix view */
       child: Ink(
         child: Container(
           /* color: Colors.purple, */
           margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 5,
+            horizontal: 0,
+            vertical: 10,
           ),
           /* color: Colors.yellow, */
           width: double.infinity,
@@ -69,7 +70,7 @@ class NotificationsCard extends StatelessWidget {
                         radius: 20,
                       ),
                       const SizedBox(
-                        width: 15,
+                        width: 10,
                       ),
                     ],
                   ),
