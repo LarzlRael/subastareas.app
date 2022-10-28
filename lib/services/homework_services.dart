@@ -91,4 +91,34 @@ class HomeworkServices {
     );
     return validateStatus(homeworkUploadWithFile.statusCode);
   }
+
+  Future<bool> updateHomeworkWithFile(
+      Map<String, String> body, File? file, int idHomework) async {
+    if (file == null) {
+      final homeworkUploadWithFile = await Request.sendRequestWithToken(
+        'PUT',
+        'homework/updateHomework/$idHomework',
+        body,
+        await _storage.read(key: 'token') ?? '',
+      );
+      return validateStatus(homeworkUploadWithFile!.statusCode);
+    } else {
+      final homeworkUploadWithFile = await Request.sendRequestWithFile(
+        'PUT',
+        'homework/updateHomework/$idHomework',
+        body,
+        file,
+        await _storage.read(key: 'token') ?? '',
+      );
+      return validateStatus(homeworkUploadWithFile.statusCode);
+    }
+    /* final homeworkUploadWithFile = await Request.sendRequestWithFile(
+      'POST',
+      'updateHomework/$idHomework',
+      body,
+      file,
+      await _storage.read(key: 'token') ?? '',
+    );
+    return validateStatus(homeworkUploadWithFile.statusCode); */
+  }
 }

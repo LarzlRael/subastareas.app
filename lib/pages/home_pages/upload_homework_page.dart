@@ -238,14 +238,26 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                 };
                                 _formKey.currentState!.save();
                                 /* print(_formKey.currentState!.value); */
-                                final uploadHomework = await homeworksService
-                                    .uploadHomeworkWithFile(
-                                  data,
-                                  File(_formKey
-                                      .currentState!.value['file'][0].path),
-                                );
+                                if (isNewHomework) {
+                                  final uploadHomework = await homeworksService
+                                      .uploadHomeworkWithFile(
+                                    data,
+                                    File(_formKey
+                                        .currentState!.value['file'][0].path),
+                                  );
 
-                                _successUploaded(uploadHomework, authService);
+                                  _successUploaded(uploadHomework, authService);
+                                } else {
+                                  final uploadHomework = await homeworksService
+                                      .updateHomeworkWithFile(
+                                    data,
+                                    File(_formKey
+                                        .currentState!.value['file'][0].path),
+                                    homework.id,
+                                  );
+
+                                  _successUploaded(uploadHomework, authService);
+                                }
                               } else {
                                 final Map<String, String> data = {
                                   'title':
@@ -265,13 +277,22 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                 setState(() {
                                   _isLoading = true;
                                 });
-                                final uploadHomework = await homeworksService
-                                    .uploadHomeworkOnlyText(
-                                  data,
-                                  homework.id,
-                                );
-
-                                _successUploaded(uploadHomework, authService);
+                                if (isNewHomework) {
+                                  final uploadHomework = await homeworksService
+                                      .uploadHomeworkOnlyText(
+                                    data,
+                                    homework.id,
+                                  );
+                                  _successUploaded(uploadHomework, authService);
+                                } else {
+                                  final uploadHomework = await homeworksService
+                                      .updateHomeworkWithFile(
+                                    data,
+                                    null,
+                                    homework.id,
+                                  );
+                                  _successUploaded(uploadHomework, authService);
+                                }
                               }
                             }
                           },
