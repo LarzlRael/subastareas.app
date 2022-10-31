@@ -67,7 +67,7 @@ class HomeworkServices {
     /* homeworkRequest!.body; */
   }
 
-  Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
+  /* Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
     final homeworkRequest = await Request.sendRequestWithToken(
       idHomework == 0 ? 'POST' : 'PUT',
       idHomework == 0
@@ -78,21 +78,34 @@ class HomeworkServices {
     );
 
     return validateStatus(homeworkRequest!.statusCode);
+  } */
+
+  Future<bool> uploadHomework(
+      Map<String, String> body, File? file, int idHomework) async {
+    if (file != null) {
+      final homeworkUploadWithFile = await Request.sendRequestWithFile(
+        'POST',
+        'homework/create',
+        body,
+        file,
+        await _storage.read(key: 'token') ?? '',
+      );
+      return validateStatus(homeworkUploadWithFile.statusCode);
+    } else {
+      final homeworkRequest = await Request.sendRequestWithToken(
+        idHomework == 0 ? 'POST' : 'PUT',
+        idHomework == 0
+            ? 'homework/create'
+            : 'homework/updateHomework/$idHomework',
+        body,
+        await _storage.read(key: 'token'),
+      );
+
+      return validateStatus(homeworkRequest!.statusCode);
+    }
   }
 
-  Future<bool> uploadHomeworkWithFile(
-      Map<String, String> body, File file) async {
-    final homeworkUploadWithFile = await Request.sendRequestWithFile(
-      'POST',
-      'homework/create',
-      body,
-      file,
-      await _storage.read(key: 'token') ?? '',
-    );
-    return validateStatus(homeworkUploadWithFile.statusCode);
-  }
-
-  Future<bool> updateHomeworkWithFile(
+  Future<bool> updateHomework(
       Map<String, String> body, File? file, int idHomework) async {
     if (file == null) {
       final homeworkUploadWithFile = await Request.sendRequestWithToken(

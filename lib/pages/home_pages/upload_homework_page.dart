@@ -153,8 +153,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                   _isWithFile
                       ? const CustomFileField(
                           name: 'file',
-                          /* title: 'Subir archivo',
-                            icon: Icons.file_upload, */
                         )
                       : const SizedBox(),
                   /* const CustomFileField(
@@ -237,25 +235,25 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                       .toString(),
                                 };
                                 _formKey.currentState!.save();
-                                /* print(_formKey.currentState!.value); */
                                 if (isNewHomework) {
-                                  final uploadHomework = await homeworksService
-                                      .uploadHomeworkWithFile(
+                                  final uploadHomework =
+                                      await homeworksService.uploadHomework(
                                     data,
-                                    File(_formKey
-                                        .currentState!.value['file'][0].path),
+                                    File(
+                                      _formKey
+                                          .currentState!.value['file'][0].path,
+                                    ),
+                                    homework.id,
                                   );
-
                                   _successUploaded(uploadHomework, authService);
                                 } else {
-                                  final uploadHomework = await homeworksService
-                                      .updateHomeworkWithFile(
+                                  final uploadHomework =
+                                      await homeworksService.updateHomework(
                                     data,
                                     File(_formKey
                                         .currentState!.value['file'][0].path),
                                     homework.id,
                                   );
-
                                   _successUploaded(uploadHomework, authService);
                                 }
                               } else {
@@ -278,15 +276,16 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   _isLoading = true;
                                 });
                                 if (isNewHomework) {
-                                  final uploadHomework = await homeworksService
-                                      .uploadHomeworkOnlyText(
+                                  final uploadHomework =
+                                      await homeworksService.uploadHomework(
                                     data,
+                                    null,
                                     homework.id,
                                   );
                                   _successUploaded(uploadHomework, authService);
                                 } else {
-                                  final uploadHomework = await homeworksService
-                                      .updateHomeworkWithFile(
+                                  final uploadHomework =
+                                      await homeworksService.updateHomework(
                                     data,
                                     null,
                                     homework.id,
@@ -312,7 +311,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     AuthServices authService,
   ) async {
     if (uploadHomework) {
-      Navigator.pushNamed(context, 'my_homeworks_page');
+      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
       _formKey.currentState!.reset();
       setState(() {
         _isLoading = false;
@@ -320,10 +319,9 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
       await authService.renewToken();
       GlobalSnackBar.show(context, 'Tarea subida correctamente',
           backgroundColor: Colors.green);
-      Navigator.pop(context);
-      Navigator.pop(context);
+      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
     } else {
-      Navigator.pop(context);
+      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
       setState(() {
         _isLoading = false;
       });
