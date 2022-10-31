@@ -14,7 +14,8 @@ class _LoginPageState extends State<LoginPage> {
     final authService = Provider.of<AuthServices>(context);
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
-    final notificationService = Provider.of<NotificationService>(context);
+    final notificationService =
+        Provider.of<NotificationService>(context, listen: false);
     final preferences = UserPreferences();
     final theme = Provider.of<ThemeChanger>(context);
 

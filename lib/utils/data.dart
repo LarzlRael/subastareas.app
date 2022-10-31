@@ -61,7 +61,7 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
 ];
 
 final homeworkServices = HomeworkServices();
-final notificationServices = NotificationService();
+/* final notificationServices = NotificationService(); */
 List<StatelessWidget> menuProfileOptions(AuthServices authService) {
   final menuProfileOptions = [
     MenuProfileOption(
@@ -74,8 +74,8 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
     MenuProfileOption(
       icon: const BellIconNotification(),
       title: "Notificaciones",
-      page: const NotificationPage(),
-      callback: () => notificationServices.clearNotifications(),
+      page: NotificationPage(),
+      callback: () => homeworkServices.clearNotifications(),
     ),
     MenuProfileOption(
       icon: Icon(Icons.message_rounded),

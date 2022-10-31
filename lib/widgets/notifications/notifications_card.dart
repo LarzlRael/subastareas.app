@@ -18,7 +18,7 @@ class NotificationsCard extends StatelessWidget {
         );
         if (!notification.seen) {
           await notificationBloc.seeNotification(notification.id);
-          notificationBloc.getNotificationByUser();
+          /* notificationBloc.getNotificationByUser(); */
         }
       },
       onLongPress: () {

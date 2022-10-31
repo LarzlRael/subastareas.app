@@ -6,7 +6,7 @@ class BellIconNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final notificationService =
-        Provider.of<NotificationService>(context, listen: true);
+        Provider.of<NotificationService>(context, listen: false);
     notificationService.getUserNotifications();
     final notificationsNotRead = notificationService.notifications
         .where((element) => element.notified == true)

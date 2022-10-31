@@ -55,7 +55,7 @@ class HomeworkServices {
     return finalData;
   }
 
-  /* Future clearNotifications() async {
+  Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
       'devices/clearNotificated',
@@ -64,7 +64,7 @@ class HomeworkServices {
     );
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
-  } */
+  }
 
   /* Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
     final homeworkRequest = await Request.sendRequestWithToken(
