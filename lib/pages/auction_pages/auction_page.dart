@@ -38,6 +38,17 @@ class _AuctionPageState extends State<AuctionPage> {
               child: SquareLoading(),
             );
           }
+          if (!snapshot.data!.homework.visible) {
+            return const Center(
+              child: NoInformation(
+                icon: Icons.visibility_off,
+                message: "Esta tarea no está disponible",
+                showButton: false,
+                iconButton: Icons.add,
+              ),
+            );
+          }
+
           return Container(
             child: CustomScrollView(
               slivers: <Widget>[
@@ -84,20 +95,26 @@ class _AuctionPageState extends State<AuctionPage> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    snapshot.data!.offers.isEmpty
-                                        ? showConfirmDialog(
-                                            context,
-                                            'Eliminar comentario',
-                                            '¿Estás seguro de eliminar este comentario?',
-                                            () => _oneHomeworkBloc
-                                                .commentService
-                                                .deleteComment(
-                                              snapshot.data!.homework.id,
-                                            ),
-                                          )
-                                        : GlobalSnackBar.show(context,
-                                            "No puedes eliminar esta tarea porque ya tiene ofertas",
-                                            backgroundColor: Colors.red);
+                                    if (snapshot.data!.homework.status !=
+                                            'traded' ||
+                                        snapshot.data!.homework.status !=
+                                            'pending_to_resolve' ||
+                                        snapshot.data!.homework.status !=
+                                            'pending_to_resolve') {
+                                      showConfirmDialog(
+                                        context,
+                                        'Retirar tarea',
+                                        '¿Estás seguro de eliminar esta tarea?',
+                                        () => _oneHomeworkBloc.homeworkServices
+                                            .deleteHomework(
+                                          snapshot.data!.homework.id,
+                                        ),
+                                      );
+                                    } else {
+                                      GlobalSnackBar.show(context,
+                                          "En este momento no puedes eliminar esta tarea",
+                                          backgroundColor: Colors.red);
+                                    }
                                   },
                                   icon: const Icon(
                                     Icons.delete,

@@ -41,4 +41,15 @@ class NotificationService with ChangeNotifier {
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
   }
+
+  Future clearNotifications() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'devices/clearNotificated',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    return (homeworkRequest!.statusCode);
+    /* homeworkRequest!.body; */
+  }
 }

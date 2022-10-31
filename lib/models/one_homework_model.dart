@@ -102,6 +102,7 @@ class Homework {
     required this.createdAt,
     required this.updatedAt,
     required this.user,
+    required this.visible,
   });
 
   int id;
@@ -112,7 +113,7 @@ class Homework {
   String fileType;
   DateTime resolutionTime;
   String category;
-
+  bool visible;
   dynamic observation;
   String status;
   DateTime createdAt;
@@ -126,6 +127,7 @@ class Homework {
         offeredAmount: json["offered_amount"],
         fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
         fileType: json["fileType"],
+        visible: json["visible"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         category: json["category"],
         observation: json["observation"],

@@ -24,6 +24,7 @@ class HomeworksModel {
     required this.createdAt,
     required this.updatedAt,
     required this.user,
+    required this.visible,
     this.offers,
   });
 
@@ -38,6 +39,7 @@ class HomeworksModel {
   dynamic observation;
   dynamic subCategory;
   String status;
+  bool visible;
   DateTime createdAt;
   DateTime updatedAt;
   List<OfferManyHomeworks>? offers;
@@ -57,6 +59,7 @@ class HomeworksModel {
         status: json["status"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        visible: json["visible"],
         offers: json["offers"] == null
             ? null
             : List<OfferManyHomeworks>.from(

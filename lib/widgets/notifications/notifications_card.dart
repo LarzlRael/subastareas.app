@@ -32,13 +32,16 @@ class NotificationsCard extends StatelessWidget {
       /* TODO fix view */
       child: Ink(
         child: Container(
-          /* color: Colors.purple, */
           margin: const EdgeInsets.symmetric(
             horizontal: 0,
             vertical: 10,
           ),
+          padding: const EdgeInsets.only(
+            right: 20,
+            /* vertical: 10, */
+          ),
           /* color: Colors.yellow, */
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width * 0.2,
           /* height: 75, */
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -42,7 +42,6 @@ class HomeworkServices {
       'homework/category/$categoryFilter',
       {},
     );
-
     return homeworksModelFromJson(homeworkRequest!.body);
   }
 
@@ -56,7 +55,7 @@ class HomeworkServices {
     return finalData;
   }
 
-  Future clearNotifications() async {
+  /* Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
       'devices/clearNotificated',
@@ -65,7 +64,7 @@ class HomeworkServices {
     );
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
-  }
+  } */
 
   /* Future<bool> uploadHomeworkOnlyText(body, int idHomework) async {
     final homeworkRequest = await Request.sendRequestWithToken(
@@ -103,6 +102,15 @@ class HomeworkServices {
 
       return validateStatus(homeworkRequest!.statusCode);
     }
+  }
+
+  Future deleteHomework(int idHomework) async {
+    return Request.sendRequestWithToken(
+      'DELETE',
+      'homework/deleteHomework/$idHomework',
+      {},
+      await _storage.read(key: 'token'),
+    );
   }
 
   Future<bool> updateHomework(

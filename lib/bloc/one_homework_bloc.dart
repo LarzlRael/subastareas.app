@@ -30,6 +30,10 @@ class OneHomeworkBloc {
     _oneHomeworkController.sink.add(await homeworkServices.getOneHomework(id));
   }
 
+  deleteHomework(int id) async {
+    await homeworkServices.getOneHomework(id);
+  }
+
   deleteComment(int idComment, int idHomework) async {
     await commentService.deleteComment(idComment);
     await getOneHomework(idHomework);

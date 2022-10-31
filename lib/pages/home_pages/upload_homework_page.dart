@@ -67,6 +67,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
   bool _isWithFile = false;
   late bool isNewHomework;
   Homework homework = Homework(
+    visible: true,
     id: 0,
     title: '',
     description: '',
