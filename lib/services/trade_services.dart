@@ -23,10 +23,13 @@ class TradeServices {
     return tradeUserModelFromJson(homeworkRequest!.body);
   }
 
-  Future<bool> acceptOrDeclineTrade(int idOffer, bool accepted) async {
+  Future<bool> acceptOrDeclineTrade(int idOffer, bool accepted,
+      {String reasonRejected = ''}) async {
     final tradeRequest = await Request.sendRequestWithToken(
       'GET',
-      accepted ? 'trade/acceptTrade/$idOffer' : 'trade/declineTrade/$idOffer',
+      accepted
+          ? 'trade/acceptTrade/$idOffer'
+          : 'trade/declineTrade/$idOffer/$reasonRejected',
       {},
       await _storage.read(key: 'token'),
     );

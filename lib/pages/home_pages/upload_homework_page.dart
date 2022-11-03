@@ -116,7 +116,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
-        height: MediaQuery.of(context).size.height,
+        /* height: MediaQuery.of(context).size.height, */
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
         ),
@@ -220,26 +220,26 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
 
                             if (validationSuccess) {
                               _formKey.currentState!.save();
-                              debugPrint(
-                                  _formKey.currentState!.value.toString());
+                              final Map<String, String> data = {
+                                'title': _formKey.currentState!.value['title'],
+                                'offered_amount': _formKey
+                                    .currentState!.value['offered_amount'],
+                                'category':
+                                    _formKey.currentState!.value['category'],
+                                'resolutionTime': _formKey
+                                    .currentState!.value['resolutionTime']
+                                    .toString(),
+                              };
 
                               if (_isWithFile) {
-                                final Map<String, String> data = {
-                                  'title':
-                                      _formKey.currentState!.value['title'],
-                                  'offered_amount': _formKey
-                                      .currentState!.value['offered_amount'],
-                                  'category':
-                                      _formKey.currentState!.value['category'],
-                                  'resolutionTime': _formKey
-                                      .currentState!.value['resolutionTime']
-                                      .toString(),
+                                final Map<String, String> dataWithFile = {
+                                  ...data,
                                 };
                                 _formKey.currentState!.save();
                                 if (isNewHomework) {
                                   final uploadHomework =
                                       await homeworksService.uploadHomework(
-                                    data,
+                                    dataWithFile,
                                     File(
                                       _formKey
                                           .currentState!.value['file'][0].path,
@@ -258,17 +258,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                                   _successUploaded(uploadHomework, authService);
                                 }
                               } else {
-                                final Map<String, String> data = {
-                                  'title':
-                                      _formKey.currentState!.value['title'],
-                                  'offered_amount': _formKey
-                                      .currentState!.value['offered_amount'],
-                                  'category':
-                                      _formKey.currentState!.value['category'],
-                                  'resolutionTime': _formKey
-                                      .currentState!.value['resolutionTime']
-                                      .toString(),
-                                };
                                 _formKey.currentState!.save();
                                 showFilterBottomMenuSheetxD(
                                   context,

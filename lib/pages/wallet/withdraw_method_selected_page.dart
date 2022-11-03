@@ -70,7 +70,7 @@ class _WithdrawMethodSelectedPageState
                         children: [
                           CustomRowFormBuilderTextField(
                             name: 'balanceToWithDrawable',
-                            placeholder: 'Presupuesto ',
+                            placeholder: 'Saldo a retirar ',
                             keyboardType: TextInputType.number,
                             suffixIcon: FontAwesomeIcons.coins,
                             validator: FormBuilderValidators.compose([
@@ -122,9 +122,13 @@ class _WithdrawMethodSelectedPageState
                                       _loading = false;
                                     });
                                     GlobalSnackBar.show(
-                                        context, 'Error al subir tarea',
+                                        context, 'Error al retirar puntos',
                                         backgroundColor: Colors.red);
                                   }
+                                } else {
+                                  GlobalSnackBar.show(
+                                      context, 'Error al retirar puntos',
+                                      backgroundColor: Colors.red);
                                 }
                               },
                             )

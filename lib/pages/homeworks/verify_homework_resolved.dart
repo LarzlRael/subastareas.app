@@ -24,6 +24,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
   Widget build(BuildContext context) {
     final tradeUserModel =
         ModalRoute.of(context)!.settings.arguments as TradeUserModel;
+    final _formKey = GlobalKey<FormBuilderState>();
     final tradeServices = TradeServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -93,6 +94,18 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               );
                             },
                           ),
+                          FormBuilder(
+                            key: _formKey,
+                            child: Column(
+                              children: const [
+                                CustomFormBuilderTextField(
+                                  name: 'commentTaskRejected',
+                                  icon: FontAwesomeIcons.ban,
+                                  placeholder: 'Describe el motivo de rechazo',
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       )
                     : Container(),
@@ -112,8 +125,27 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                   label: "Rechazar",
                                   ghostButton: true,
                                   onPressed: () async {
-                                    await tradeServices.acceptOrDeclineTrade(
-                                        tradeUserModel.offerId, false);
+                                    final result = await tradeServices
+                                        .acceptOrDeclineTrade(
+                                            tradeUserModel.offerId, false,
+                                            reasonRejected: _formKey
+                                                .currentState!
+                                                .fields['commentTaskRejected']!
+                                                .value);
+                                    if (result) {
+                                      Navigator.pop(context);
+                                      GlobalSnackBar.show(
+                                        context,
+                                        'Tarea rechazada',
+                                        backgroundColor: Colors.red,
+                                      );
+                                    } else {
+                                      GlobalSnackBar.show(
+                                        context,
+                                        'Hubo un error',
+                                        backgroundColor: Colors.red,
+                                      );
+                                    }
                                   },
                                 ),
                               ),

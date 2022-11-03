@@ -126,7 +126,8 @@ class _LoginPageState extends State<LoginPage> {
                                       context, 'Credenciales incorrectas');
                                 }
                               }
-                            }),
+                            },
+                          ),
                     const LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',

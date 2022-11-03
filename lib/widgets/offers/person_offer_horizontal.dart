@@ -73,8 +73,8 @@ class HorizontalOfferRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      /* color: Colors.amber, */
-      margin: const EdgeInsets.only(bottom: 15),
+      /* color: Colors.blue, */
+      margin: const EdgeInsets.symmetric(vertical: 7),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
