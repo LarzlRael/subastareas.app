@@ -68,7 +68,7 @@ class OffersSent extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, 'upload_homework_with_file');
             },
-            buttonTitle: 'Subir Tarea',
+            buttonTitle: 'Subir tarea',
           );
         }
         return ListView.builder(
@@ -115,7 +115,7 @@ class OffersReceived extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, 'upload_homework_with_file');
             },
-            buttonTitle: 'Subir Tarea',
+            buttonTitle: 'Subir tarea',
           );
         }
         return ListView.builder(

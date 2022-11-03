@@ -211,7 +211,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                 children: [
                   !_isLoading
                       ? FillButton(
-                          label: isNewHomework ? "Subir Tarea" : "Editar Tarea",
+                          label: isNewHomework ? "Subir tarea" : "Editar tarea",
                           borderRadius: 20,
                           textColor: Colors.white,
                           onPressed: () async {
@@ -312,7 +312,8 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     AuthServices authService,
   ) async {
     if (uploadHomework) {
-      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
+      Navigator.pushReplacementNamed(context, 'my_homeworks_page',
+          arguments: 0);
       _formKey.currentState!.reset();
       setState(() {
         _isLoading = false;
@@ -320,7 +321,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
       await authService.renewToken();
       GlobalSnackBar.show(context, 'Tarea subida correctamente',
           backgroundColor: Colors.green);
-      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
     } else {
       Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
       setState(() {

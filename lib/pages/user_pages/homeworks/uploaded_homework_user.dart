@@ -26,7 +26,7 @@ class UploadedHomeworkUser extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, 'bottomNavigation');
             },
-            buttonTitle: 'Subir Tarea',
+            buttonTitle: 'Subir tarea',
           );
         }
         return ListView.builder(
