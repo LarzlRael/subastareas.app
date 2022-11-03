@@ -10,6 +10,7 @@ class AuctionPage extends StatefulWidget {
 class _AuctionPageState extends State<AuctionPage> {
   late AuthServices auth;
   final _oneHomeworkBloc = OneHomeworkBloc();
+  final OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
 
   @override
   void initState() {
@@ -105,10 +106,8 @@ class _AuctionPageState extends State<AuctionPage> {
                                         context,
                                         'Retirar tarea',
                                         '¿Estás seguro de eliminar esta tarea?',
-                                        () => _oneHomeworkBloc.homeworkServices
-                                            .deleteHomework(
-                                          snapshot.data!.homework.id,
-                                        ),
+                                        () => deleteAndRefresh(
+                                            snapshot.data!.homework.id),
                                       );
                                     } else {
                                       GlobalSnackBar.show(context,
@@ -516,5 +515,18 @@ class _AuctionPageState extends State<AuctionPage> {
         ],
       ),
     );
+  }
+
+  deleteAndRefresh(int idHomework) async {
+    _oneHomeworkBloc.homeworkServices.deleteHomework(
+      idHomework,
+    );
+    await homeworksBloc.getHomeworksByCategory([]);
+    /* Navigator.pushNamed(context, 'bottomNavigation'); */
+    Navigator.pop(context);
+
+    await auth.refreshUser();
+    GlobalSnackBar.show(context, "Tarea eliminada Exitosamente",
+        backgroundColor: Colors.blue);
   }
 }
