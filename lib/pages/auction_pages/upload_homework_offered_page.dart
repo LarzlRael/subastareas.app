@@ -56,6 +56,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                           fontSize: 20,
                           bottom: 15,
                           top: 15,
+                          textAlign: TextAlign.center,
                         ),
                         Timer(
                           endTime: homework.resolutionTime,
@@ -158,6 +159,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                                 fontSize: 16,
                                 textAlign: TextAlign.center,
                               ),
+                        tradeStatus(homework.status, null),
                       ],
                     );
                   } else {
@@ -172,5 +174,19 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
         ),
       ),
     );
+  }
+
+  Widget tradeStatus(String status, String? rejectedReason) {
+    switch (status) {
+      case "reject":
+        return statusMessage(
+            'Tarea enviada y en espera de la revision', Icons.check_circle);
+      case "rejected_offer_homework":
+        return statusMessage('La tarea fue rechazada', Icons.warning,
+            color: Colors.red);
+      case "pending_to_accept":
+        return SizedBox();
+    }
+    return Container();
   }
 }

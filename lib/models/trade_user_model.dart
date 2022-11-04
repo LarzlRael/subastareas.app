@@ -27,6 +27,7 @@ class TradeUserModel {
     required this.username,
     required this.id,
     required this.profileImageUrl,
+    required this.commentTaskRejected,
   });
 
   String solvedHomeworkUrl;
@@ -44,6 +45,7 @@ class TradeUserModel {
   String username;
   int id;
   dynamic profileImageUrl;
+  dynamic commentTaskRejected;
 
   factory TradeUserModel.fromJson(Map<String, dynamic> json) => TradeUserModel(
         solvedHomeworkUrl: json["solvedHomeworkUrl"],
@@ -52,6 +54,7 @@ class TradeUserModel {
         status: json["status"],
         solvedFileType: json["solvedFileType"],
         title: json["title"],
+        commentTaskRejected: json["commentTaskRejected"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         description: json["description"],
         category: json["category"],

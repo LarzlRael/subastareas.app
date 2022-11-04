@@ -37,6 +37,10 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                tradeUserModel.status == 'rejected'
+                    ? statusMessage("ESta tarea fue rechazada", Icons.error,
+                        color: Colors.red)
+                    : const SizedBox(),
                 SimpleText(
                   text: tradeUserModel.title.toCapitalized(),
                   fontSize: 20,
@@ -94,18 +98,21 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               );
                             },
                           ),
-                          FormBuilder(
-                            key: _formKey,
-                            child: Column(
-                              children: const [
-                                CustomFormBuilderTextField(
-                                  name: 'commentTaskRejected',
-                                  icon: FontAwesomeIcons.ban,
-                                  placeholder: 'Describe el motivo de rechazo',
-                                ),
-                              ],
-                            ),
-                          ),
+                          tradeUserModel.status != 'accepted'
+                              ? FormBuilder(
+                                  key: _formKey,
+                                  child: Column(
+                                    children: const [
+                                      CustomFormBuilderTextField(
+                                        name: 'commentTaskRejected',
+                                        icon: FontAwesomeIcons.ban,
+                                        placeholder:
+                                            'Describe el motivo de rechazo',
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(),
                         ],
                       )
                     : Container(),
@@ -114,6 +121,20 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                         text: tradeUserModel.description!,
                       )
                     : Container(),
+                tradeUserModel.status == 'rejected'
+                    ? Column(
+                        children: [
+                          SimpleText(
+                            text: 'Motivo de rechazo',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          SimpleText(
+                            text: tradeUserModel.commentTaskRejected!,
+                          ),
+                        ],
+                      )
+                    : const SizedBox(),
                 tradeUserModel.status == 'accepted'
                     ? Container()
                     : !loading
@@ -133,7 +154,11 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                                 .fields['commentTaskRejected']!
                                                 .value);
                                     if (result) {
-                                      Navigator.pop(context);
+                                      Navigator.pushNamed(
+                                        context,
+                                        'my_homeworks_page',
+                                        arguments: 1,
+                                      );
                                       GlobalSnackBar.show(
                                         context,
                                         'Tarea rechazada',

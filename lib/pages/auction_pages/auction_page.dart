@@ -495,28 +495,6 @@ class _AuctionPageState extends State<AuctionPage> {
     return Container();
   }
 
-  Widget statusMessage(String message, IconData icon,
-      {Color color = Colors.green}) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 5),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: color,
-          ),
-          const SizedBox(width: 5),
-          SimpleText(
-            text: message,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            lightThemeColor: color,
-          ),
-        ],
-      ),
-    );
-  }
-
   deleteAndRefresh(int idHomework) async {
     _oneHomeworkBloc.homeworkServices.deleteHomework(
       idHomework,
@@ -529,4 +507,26 @@ class _AuctionPageState extends State<AuctionPage> {
     GlobalSnackBar.show(context, "Tarea eliminada Exitosamente",
         backgroundColor: Colors.blue);
   }
+}
+
+Widget statusMessage(String message, IconData icon,
+    {Color color = Colors.green}) {
+  return Container(
+    margin: const EdgeInsets.only(bottom: 5),
+    child: Row(
+      children: [
+        Icon(
+          icon,
+          color: color,
+        ),
+        const SizedBox(width: 5),
+        SimpleText(
+          text: message,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          lightThemeColor: color,
+        ),
+      ],
+    ),
+  );
 }

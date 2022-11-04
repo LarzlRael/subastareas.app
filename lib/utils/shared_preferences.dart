@@ -25,6 +25,14 @@ class UserPreferences {
     _preferences.setString('loginEmail', value);
   }
 
+  int get currentIdHomework {
+    return _preferences.getInt('currentIdHomework') ?? 0;
+  }
+
+  set currentIdHomework(int value) {
+    _preferences.setInt('currentIdHomework', value);
+  }
+
   bool get showInitialSlider {
     return _preferences.getBool('showInitialSlider') ?? true;
   }

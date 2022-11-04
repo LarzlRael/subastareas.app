@@ -41,7 +41,10 @@ class HomeworkPendingToResolve extends StatelessWidget {
                     const SizedBox(height: 10),
                     SimpleText(
                       top: 10,
-                      text: tradeUserModel.title.toCapitalized(),
+                      text: tradeUserModel.title.length > 25
+                          ? '${tradeUserModel.title.substring(0, 25)}...'
+                              .toCapitalized()
+                          : tradeUserModel.title.toCapitalized(),
                       bottom: 10,
                     ),
                     tradeUserModel.status == 'pending_to_accept'
