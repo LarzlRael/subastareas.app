@@ -165,6 +165,11 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                         backgroundColor: Colors.red,
                                       );
                                     } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        'my_homeworks_page',
+                                        arguments: 1,
+                                      );
                                       GlobalSnackBar.show(
                                         context,
                                         'Hubo un error',

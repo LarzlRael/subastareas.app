@@ -169,9 +169,11 @@ String typeNotification(String type) {
     case 'offer_accepted':
       return 'Acepto tu oferta';
     case 'homework_finished':
-      return 'termino tu tarea';
+      return 'Termino tu tarea';
     case 'rejected':
       return 'Rechazaste una oferta';
+    case 'homework_reject':
+      return 'Ha rechazado tu tarea';
     default:
       return 'Notification';
   }
@@ -188,6 +190,9 @@ IconData iconType(String type) {
       return FontAwesomeIcons.commentsDollar;
     case 'homework_finished':
       return FontAwesomeIcons.book;
+    case 'homework_reject':
+      return FontAwesomeIcons.cancel;
+
     default:
       return FontAwesomeIcons.dollarSign;
   }

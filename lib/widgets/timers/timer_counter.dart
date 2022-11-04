@@ -22,11 +22,11 @@ class _TimerCounterState extends State<TimerCounter> {
         CountdownTimerController(endTime: widget.endTime, onEnd: onEnd);
   }
 
-  @override
+  /* @override
   dispose() {
     controller.dispose();
     super.dispose();
-  }
+  } */
 
   void onEnd() {
     print('onEnd');
