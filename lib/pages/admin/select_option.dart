@@ -6,17 +6,18 @@ class SelectOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBackIcon(appBar: AppBar()),
+      appBar: AppBarWithBackIcon(
+          appBar: AppBar(), title: 'Administracion de Subastareas'),
       body: Column(
         children: [
-          const SimpleText(
+          /* const SimpleText(
             text: 'Selecciona una opción',
             fontSize: 25,
             bottom: 30,
             fontWeight: FontWeight.bold,
             textAlign: TextAlign.center,
             lightThemeColor: Colors.black87,
-          ),
+          ), */
           Expanded(
             child: GridView.count(
               /* shrinkWrap: true, */

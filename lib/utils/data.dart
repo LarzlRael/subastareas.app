@@ -3,12 +3,29 @@ part of 'utils.dart';
 List<Widget> adminOptions(BuildContext context) {
   return [
     CircleButton(
-        color: Colors.blue,
-        icon: Icons.food_bank,
-        text: 'Supervisar tarea',
-        onPressed: () {
-          Navigator.pushNamed(context, 'supervisor_list_homeworks');
-        }),
+      color: Colors.blue,
+      icon: Icons.home_work,
+      text: 'Supervisar tarea',
+      onPressed: () {
+        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+      },
+    ),
+    CircleButton(
+      color: Colors.purple,
+      icon: FontAwesomeIcons.moneyBillTransfer,
+      text: 'Solicitudes de retiro',
+      onPressed: () {
+        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+      },
+    ),
+    CircleButton(
+      color: Colors.green,
+      icon: Icons.person_search,
+      text: 'Usuarios',
+      onPressed: () {
+        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+      },
+    ),
   ];
 }
 

@@ -9,7 +9,10 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   /* Register and login  */
   'login': (_) => const LoginPage(),
   'register': (_) => RegisterPage(),
-  'bottomNavigation': (_) => const BottomNavigation(),
+  /* 'bottomNavigation': (context) => BottomNavigation(
+        currentIndex: ModalRoute.of(context)!.settings.arguments as int,
+      ), */
+  'bottomNavigation': (context) => const BottomNavigation(),
   'loading': (_) => LoadingPage(),
   'welcome': (_) => const WelcomePage(),
   'uploadHomework': (_) => const UploadHomeworkPage(),

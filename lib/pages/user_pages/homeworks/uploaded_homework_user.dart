@@ -24,7 +24,7 @@ class UploadedHomeworkUser extends StatelessWidget {
             showButton: true,
             iconButton: Icons.note_add,
             onPressed: () {
-              Navigator.pushNamed(context, 'bottomNavigation');
+              Navigator.pushNamed(context, 'bottomNavigation', arguments: 1);
             },
             buttonTitle: 'Subir tarea',
           );

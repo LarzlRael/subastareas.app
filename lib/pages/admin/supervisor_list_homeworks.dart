@@ -19,7 +19,12 @@ class SupervisorListHomeworks extends StatelessWidget {
                     return const Center(child: SquareLoading());
                   }
                   if (snapshot.data!.isEmpty) {
-                    return const Center(child: Text('No hay tareas'));
+                    return const NoInformation(
+                      message: 'Aún no hay tareas para revisar ',
+                      icon: FontAwesomeIcons.book,
+                      showButton: false,
+                      iconButton: Icons.add,
+                    );
                   }
                   return ListView.builder(
                     itemCount: snapshot.data.length,
