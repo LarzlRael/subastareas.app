@@ -56,9 +56,13 @@ class SettingsPage extends StatelessWidget {
                       title: const Text('Notificaciones'),
                       trailing: Switch(
                         value: themeChanger.getNotifications,
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           themeChanger.setNotifications = value;
-                          /* preferences.notifications = value; */
+                          await userServices.changeUserPreferences(
+                            auth.user.userProfile.id,
+                            themeChanger.getDarkTheme,
+                            themeChanger.getNotifications,
+                          );
                         },
                       ),
                       onTap: () {
@@ -82,9 +86,10 @@ class SettingsPage extends StatelessWidget {
                       onChanged: (value) async {
                         themeChanger.setDarkTheme = value;
                         preferences.setThemeStatus = value ? 0 : 1;
-                        final boolxd = await userServices.changeTheme(
+                        final boolxd = await userServices.changeUserPreferences(
                           auth.user.userProfile.id,
-                          value ? 0 : 1,
+                          themeChanger.getDarkTheme,
+                          themeChanger.getNotifications,
                         );
                         print(boolxd);
                       },

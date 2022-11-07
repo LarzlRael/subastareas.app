@@ -14,11 +14,16 @@ class UserServices {
     return publicProfileFromJson(resp!.body);
   }
 
-  Future<bool> changeTheme(int idProfileUser, int newThemeStatus) async {
+  Future<bool> changeUserPreferences(
+      int idProfileUser, bool isDarkTheme, bool sendNotifications) async {
     final resp = await Request.sendRequestWithToken(
-      'GET',
-      'userProfile/changeTheme/$idProfileUser/$newThemeStatus',
-      {},
+      'POST',
+      'userProfile/changePreferences',
+      {
+        'id': idProfileUser,
+        'isDarkTheme': isDarkTheme,
+        'notifications': sendNotifications,
+      },
       await _storage.read(key: 'token'),
     );
 
