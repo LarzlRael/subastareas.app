@@ -9,6 +9,8 @@ class ButtonWithIcon extends StatelessWidget {
   final VoidCallback onPressed;
   final Color backgroundColorButton;
   final double verticalPadding;
+  final double horizontalPadding;
+
   final double iconSize;
 
   final double marginHorizontal;
@@ -24,6 +26,7 @@ class ButtonWithIcon extends StatelessWidget {
     this.iconSize = 24.0,
     this.marginHorizontal = 0,
     this.marginVertical = 0,
+    this.horizontalPadding = 0,
     required this.onPressed,
   }) : super(key: key);
 
@@ -59,7 +62,8 @@ class ButtonWithIcon extends StatelessWidget {
 
   buttonsStyles(BuildContext context) {
     return ElevatedButton.styleFrom(
-      padding: EdgeInsets.symmetric(vertical: verticalPadding),
+      padding: EdgeInsets.symmetric(
+          vertical: verticalPadding, horizontal: horizontalPadding),
       shape: const StadiumBorder(),
       primary: backgroundColorButton,
       side: BorderSide(

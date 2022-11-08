@@ -80,7 +80,7 @@ class _WithdrawMethodSelectedPageState
                               FormBuilderValidators.min(1),
                             ]),
                           ),
-                          /* CustomRowFormBuilderTextField(
+                          CustomRowFormBuilderTextField(
                             name: 'phoneNumber',
                             placeholder: 'Número de teléfono',
                             keyboardType: TextInputType.number,
@@ -89,7 +89,7 @@ class _WithdrawMethodSelectedPageState
                               FormBuilderValidators.required(),
                               FormBuilderValidators.numeric(),
                             ]),
-                          ), */
+                          ),
                         ],
                       ),
                       !_loading
@@ -114,12 +114,15 @@ class _WithdrawMethodSelectedPageState
                                       .value['balanceToWithDrawable']);
                                   final withdrawMoneyTransaction =
                                       await transactionServices
-                                          .withdrawMoneyTransaction(int.parse(
-                                              _formKey.currentState!.value[
-                                                  'balanceToWithDrawable']));
+                                          .withdrawMoneyTransaction(
+                                    int.parse(_formKey.currentState!
+                                        .value['balanceToWithDrawable']),
+                                    _formKey.currentState!.value['phoneNumber'],
+                                  );
                                   if (withdrawMoneyTransaction) {
                                     Navigator.pushNamed(
-                                        context, 'my_homeworks_page');
+                                        context, 'my_homeworks_page',
+                                        arguments: 1);
                                     _formKey.currentState!.reset();
                                     setState(() {
                                       _loading = false;

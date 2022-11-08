@@ -16,6 +16,7 @@ import 'package:subastareaspp/widgets/widgets.dart';
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 part 'theme_changer.dart';
 part 'validation.dart';
@@ -27,3 +28,4 @@ part 'download_file.dart';
 part 'time_utils.dart';
 part 'redirection.dart';
 part 'main_utils.dart';
+part 'launcher.dart';

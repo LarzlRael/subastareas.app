@@ -142,8 +142,14 @@ class LocalSubjectCategory extends StatelessWidget {
               hint: Text(placeholder),
               validator: FormBuilderValidators.required(),
               items: sharedPreferences.getSubjectsList
-                  .map((category) =>
-                      DropdownMenuItem(value: category, child: Text(category)))
+                  .map(
+                    (category) => DropdownMenuItem(
+                      value: category,
+                      child: Text(
+                        category,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           ),

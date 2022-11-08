@@ -25,6 +25,7 @@ import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/buttons/buttons.dart';
 
@@ -80,3 +81,4 @@ part 'admin/select_option.dart';
 part 'admin/supervisor_list_homeworks.dart';
 part 'admin/homework_to_supervise_detail_page.dart';
 part 'admin/list_withdraw_request.dart';
+part 'admin/withdraw_request_detail_page.dart';

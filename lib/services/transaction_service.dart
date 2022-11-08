@@ -14,13 +14,18 @@ class TransactionServices {
     return finalData;
   }
 
-  Future<bool> withdrawMoneyTransaction(int balance) async {
+  Future<bool> withdrawMoneyTransaction(int amount, String phone) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
-      'transaction/withdrawMoneyTransaction/$balance',
-      {},
+      'POST',
+      'transaction/withdrawMoneyTransaction',
+      {
+        'amount': amount,
+        'phone': phone,
+      },
+      /* {"statusCode":400,"message":["accountNumber must be a string","paymentMethod must be a string","status must be a string","phone must be empty"],"error":"Bad Request"} */
       await _storage.read(key: 'token'),
     );
+    print(homeworkRequest!.body);
     return validateStatus(homeworkRequest!.statusCode);
   }
   /* Admin services */
@@ -34,4 +39,13 @@ class TransactionServices {
     );
     return withdrawalRequestsModelFromJson(homeworkRequest!.body);
   }
+  /* Future<List<WithdrawalRequestsModel>> getListUserWithdrawRequest() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'transaction/getListUserWithdrawRequest/',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    return withdrawalRequestsModelFromJson(homeworkRequest!.body);
+  } */
 }

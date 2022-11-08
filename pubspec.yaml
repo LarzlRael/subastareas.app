@@ -80,6 +80,9 @@ dependencies:
 
   pull_to_refresh: ^2.0.0
 
+  #launcher
+  url_launcher: ^6.1.6
+
 flutter_native_splash:
   color: "#ffffff"
   image: assets/icon.png
