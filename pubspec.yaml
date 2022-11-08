@@ -71,7 +71,6 @@ dependencies:
   #time controller
   simple_moment: ^1.1.1
   timeago: ^3.2.2
-  http_interceptor: ^1.0.1
   image_picker: ^0.8.5+3
 
   #animations

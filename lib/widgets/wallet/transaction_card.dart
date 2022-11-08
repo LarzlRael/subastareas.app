@@ -64,6 +64,13 @@ class TransactionCard extends StatelessWidget {
                 ),
               ],
             ),
+            transaction.transactionType == 'solicutud_retiro'
+                ? const Icon(
+                    FontAwesomeIcons.checkCircle,
+                    size: 25,
+                    color: Colors.green,
+                  )
+                : const SizedBox(),
             const Icon(
               Icons.check_circle_outline,
               size: 30,

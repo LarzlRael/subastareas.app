@@ -23,4 +23,15 @@ class TransactionServices {
     );
     return validateStatus(homeworkRequest!.statusCode);
   }
+  /* Admin services */
+
+  Future<List<WithdrawalRequestsModel>> getListUserWithdrawRequest() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'transaction/getListUserWithdrawRequest/',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    return withdrawalRequestsModelFromJson(homeworkRequest!.body);
+  }
 }

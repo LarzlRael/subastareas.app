@@ -38,7 +38,7 @@ class WithdrawPage extends StatelessWidget {
               top: 55,
               fontWeight: FontWeight.w500,
             ),
-            Expanded(
+            /* Expanded(
               child: GridView.count(
                 childAspectRatio: (itemWidth / itemHeight),
                 primary: false,
@@ -78,7 +78,24 @@ class WithdrawPage extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ) */
+            CardMethodSelect(
+              arguments: MethodArguments(
+                  methodName: 'Tigo money',
+                  logoWidget: Container(
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff00377B),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Image.asset(
+                      'assets/payment_logos/tigo_money_logo.png',
+                      width: 200,
+                      height: 75,
+                    ),
+                  ),
+                  imageLocation: 'assets/payment_logos/tigo_money_logo.png'),
+            ),
           ],
         ),
       ),
@@ -165,7 +182,6 @@ class CardMethodSelect extends StatelessWidget {
   final MethodArguments arguments;
   const CardMethodSelect({
     Key? key,
-    required,
     required this.arguments,
   }) : super(key: key);
 

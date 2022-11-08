@@ -80,6 +80,16 @@ class _WithdrawMethodSelectedPageState
                               FormBuilderValidators.min(1),
                             ]),
                           ),
+                          /* CustomRowFormBuilderTextField(
+                            name: 'phoneNumber',
+                            placeholder: 'Número de teléfono',
+                            keyboardType: TextInputType.number,
+                            suffixIcon: FontAwesomeIcons.whatsapp,
+                            validator: FormBuilderValidators.compose([
+                              FormBuilderValidators.required(),
+                              FormBuilderValidators.numeric(),
+                            ]),
+                          ), */
                         ],
                       ),
                       !_loading
@@ -141,7 +151,8 @@ class _WithdrawMethodSelectedPageState
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: SimpleText(
                     text:
-                        'El pago se realizará en unos minutos, a partir de la hora de la solicitud de retiro, el procedimiento podria tardar hasta 72 horas',
+                        /* 'El pago se realizará en unos minutos, a partir de la hora de la solicitud de retiro, el procedimiento podria tardar hasta 72 horas', */
+                        'Unos de nuestros asesores se pondrá en contacto contigo para realizar el pago',
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                     textAlign: TextAlign.center,

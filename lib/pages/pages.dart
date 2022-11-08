@@ -79,3 +79,4 @@ part 'wallet/withdraw_method_selected_page.dart';
 part 'admin/select_option.dart';
 part 'admin/supervisor_list_homeworks.dart';
 part 'admin/homework_to_supervise_detail_page.dart';
+part 'admin/list_withdraw_request.dart';

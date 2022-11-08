@@ -15,7 +15,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: FontAwesomeIcons.moneyBillTransfer,
       text: 'Solicitudes de retiro',
       onPressed: () {
-        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+        Navigator.pushNamed(context, 'list_withdraw_request');
       },
     ),
     CircleButton(
