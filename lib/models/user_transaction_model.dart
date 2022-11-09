@@ -18,9 +18,10 @@ class UserTransactionModel {
     required this.currencyType,
     required this.transactionType,
     required this.amount,
-    required this.status,
+    /* required this.status, */
     required this.createdAt,
     required this.updatedAt,
+    required this.withdrawalRequestAmount,
   });
 
   int id;
@@ -28,7 +29,8 @@ class UserTransactionModel {
   String currencyType;
   String transactionType;
   int amount;
-  bool status;
+  int withdrawalRequestAmount;
+  /* bool status; */
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -39,7 +41,8 @@ class UserTransactionModel {
         currencyType: json["currencyType"],
         transactionType: json["transactionType"],
         amount: json["amount"],
-        status: json["status"],
+        /* status: json["status"], */
+        withdrawalRequestAmount: json["withdrawalRequestAmount"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -50,7 +53,8 @@ class UserTransactionModel {
         "currencyType": currencyType,
         "transactionType": transactionType,
         "amount": amount,
-        "status": status,
+        /* "status": status, */
+        "withdrawalRequestAmount": withdrawalRequestAmount,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

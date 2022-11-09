@@ -36,9 +36,12 @@ class WithdrawRequestCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SimpleText(
-                            text: withdrawRequest.username,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            text: withdrawRequest.username.toCapitalized(),
+                            fontSize: 18,
+                            /* fontWeight: FontWeight.bold, */
+                          ),
+                          const SizedBox(
+                            height: 5,
                           ),
                           SimpleText(
                             text: withdrawRequest.email.toCapitalized(),
