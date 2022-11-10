@@ -20,7 +20,6 @@ import 'package:subastareaspp/provider/filter_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 
 import 'package:subastareaspp/utils/utils.dart';
-import 'package:subastareaspp/widgets/slideshows/slideshow.dart';
 import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+part of '../widgets.dart';
 
 class Slideshow extends StatelessWidget {
   final List<Widget> slides;

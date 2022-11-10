@@ -1,5 +1,15 @@
 part of '../pages.dart';
 
+class WithDrawRequestBody {
+  int idUser;
+  int idTransaction;
+  int idWithdraw;
+  String paymentMethod;
+  String status;
+  WithDrawRequestBody(this.idUser, this.idTransaction, this.idWithdraw,
+      this.paymentMethod, this.status);
+}
+
 class WithdrawRequestDetail extends StatefulWidget {
   const WithdrawRequestDetail({Key? key}) : super(key: key);
 
@@ -8,48 +18,92 @@ class WithdrawRequestDetail extends StatefulWidget {
 }
 
 class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
-  String _selectedValue = "";
+  final _formKey = GlobalKey<FormBuilderState>();
+
   @override
   Widget build(BuildContext context) {
+    final WithdrawalRequestsModel withdrawRequest =
+        ModalRoute.of(context)!.settings.arguments as WithdrawalRequestsModel;
+    final transactionServices = TransactionServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
         title: 'Detalle de solicitud de retiro',
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: ButtonWithIcon(
-              label: 'Contactar por whatsapp',
-              icon: FontAwesomeIcons.whatsapp,
-              backgroundColorButton: Colors.green,
-              onPressed: () {
-                startWhatsapp(context, '+59163116355',
-                    'Hola, Solicitud de retiro de puntos en Subastareas');
-              },
-              verticalPadding: 10,
-              horizontalPadding: 10,
+      body: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            userInformation(withdrawRequest),
+            Center(
+              child: ButtonWithIcon(
+                label: 'Contactar por whatsapp',
+                icon: FontAwesomeIcons.whatsapp,
+                backgroundColorButton: Colors.green,
+                onPressed: () {
+                  startWhatsapp(context, '+591' + withdrawRequest.phone,
+                      'Hola, Solicitud de retiro de puntos en Subastareas');
+                },
+                verticalPadding: 10,
+                horizontalPadding: 10,
+              ),
             ),
-          ),
-          DropdownButton(
-              value: _selectedValue,
-              items: [
-                DropdownMenuItem(
-                  child: Text('Pendiente'),
-                  value: 'Pendiente',
-                ),
-                DropdownMenuItem(
-                  child: Text('Pendiente'),
-                  value: 'Pendiente',
-                ),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedValue = value.toString();
-                });
-              })
-        ],
+            const SizedBox(height: 10),
+            FormBuilder(
+              key: _formKey,
+              child: Column(
+                children: const [
+                  CustomDropdown(
+                    title: 'Estado',
+                    formFieldName: 'status',
+                    placeholder: 'Seleccionar estado',
+                    listItems: [
+                      'Pendiente',
+                      'Aprobado',
+                      'Rechazado',
+                    ],
+                  ),
+                  CustomDropdown(
+                    title: 'Metodo de pago',
+                    formFieldName: 'paymentMethod',
+                    placeholder: 'Metodo de pago',
+                    listItems: [
+                      'Transferencia bancaria',
+                      'Pago movil (Tigo money) ',
+                      'Efectivo',
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            ButtonWithIcon(
+              marginVertical: 10,
+              label: "Confirmar pago",
+              backgroundColorButton: Colors.green,
+              horizontalPadding: 20,
+              verticalPadding: 10,
+              icon: FontAwesomeIcons.check,
+              onPressed: () {
+                if (_formKey.currentState!.saveAndValidate()) {
+                  print(_formKey.currentState!.value);
+                  transactionServices.confirmWithDraw(
+                    WithDrawRequestBody(
+                      withdrawRequest.idUser,
+                      withdrawRequest.idTransaction,
+                      withdrawRequest.idWithdraw,
+                      _formKey.currentState!.value['paymentMethod'],
+                      _formKey.currentState!.value['status'],
+                    ),
+                  );
+                  /* _formKey.currentState!.value['status'],
+                      _formKey.currentState!.value['paymentMethod']);
+                      ); */
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -87,5 +141,42 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
         GlobalSnackBar.show(context, noWhatsapp);
       }
     }
+  }
+
+  Widget userInformation(WithdrawalRequestsModel withdrawRequest) {
+    return Column(
+      children: [
+        SimpleText(
+          text: withdrawRequest.phone,
+          fontSize: 16,
+          bottom: 5,
+        ),
+        ShowProfileImage(
+          profileImage: withdrawRequest.profileImageUrl,
+          userName: withdrawRequest.username.toCapitalized(),
+          radius: 30,
+        ),
+        SimpleText(
+          text: withdrawRequest.username.toCapitalized(),
+          fontSize: 18,
+          top: 10,
+          fontWeight: FontWeight.bold,
+        ),
+        SimpleText(
+          top: 5,
+          text: withdrawRequest.email.toCapitalized(),
+          fontSize: 16,
+          fontWeight: FontWeight.normal,
+          bottom: 5,
+        ),
+        SimpleText(
+          text: 'Monto solicitado: ' +
+              withdrawRequest.withdrawalRequestAmount.toString(),
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          bottom: 5,
+        ),
+      ],
+    );
   }
 }

@@ -353,7 +353,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                           ? Colors.green
                                           : Colors.yellow);
                                   Navigator.of(context).pop();
-                                  Navigator.of(context).pop();
                                 }
                               : null,
                           style: ElevatedButton.styleFrom(

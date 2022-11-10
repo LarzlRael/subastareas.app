@@ -309,7 +309,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                           setState(() {
                             loading = false;
                           });
-                          Navigator.of(context).pop();
+                          /* Navigator.of(context).pop(); */
                           GlobalSnackBar.show(
                             context,
                             'Acabas de aceptar la oferta, espere a que el otro usuario termine tu tarea',

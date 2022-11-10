@@ -4,7 +4,7 @@ class TransactionCard extends StatelessWidget {
   const TransactionCard({Key? key, required this.transaction})
       : super(key: key);
   final UserTransactionModel transaction;
-  final transactionType = 'solicutud_retiro';
+  final transactionType = 'solicitud_retiro';
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -67,7 +67,7 @@ class TransactionCard extends StatelessWidget {
                 ),
               ],
             ),
-            transaction.transactionType != 'solicutud_retiro'
+            transaction.transactionType != transactionType
                 ? const Icon(
                     FontAwesomeIcons.circleCheck,
                     size: 25,

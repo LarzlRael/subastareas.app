@@ -25,7 +25,6 @@ class TransactionServices {
       /* {"statusCode":400,"message":["accountNumber must be a string","paymentMethod must be a string","status must be a string","phone must be empty"],"error":"Bad Request"} */
       await _storage.read(key: 'token'),
     );
-    print(homeworkRequest!.body);
     return validateStatus(homeworkRequest!.statusCode);
   }
   /* Admin services */
@@ -39,6 +38,7 @@ class TransactionServices {
     );
     return withdrawalRequestsModelFromJson(homeworkRequest!.body);
   }
+
   /* Future<List<WithdrawalRequestsModel>> getListUserWithdrawRequest() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
@@ -48,4 +48,13 @@ class TransactionServices {
     );
     return withdrawalRequestsModelFromJson(homeworkRequest!.body);
   } */
+  Future<bool> confirmWithDraw(WithDrawRequestBody withDrawRequestBody) async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      'GET',
+      'transaction/confirmWithDraw/',
+      {},
+      await _storage.read(key: 'token'),
+    );
+    return validateStatus(homeworkRequest!.statusCode);
+  }
 }

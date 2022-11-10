@@ -55,7 +55,8 @@ class WithdrawRequestCard extends StatelessWidget {
                   Column(
                     children: [
                       SimpleText(
-                        text: '${withdrawRequest.amount.abs()} monedas',
+                        text:
+                            '${withdrawRequest.withdrawalRequestAmount.abs()} monedas',
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                       ),

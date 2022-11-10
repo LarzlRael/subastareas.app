@@ -12,41 +12,53 @@ String withdrawalRequestsModelToJson(List<WithdrawalRequestsModel> data) =>
 
 class WithdrawalRequestsModel {
   WithdrawalRequestsModel({
-    required this.id,
-    required this.createdAt,
-    required this.amount,
+    required this.idTransaction,
+    required this.idWithdraw,
+    required this.withdrawalRequestAmount,
     required this.transactionType,
     required this.username,
-    required this.email,
     required this.profileImageUrl,
+    required this.email,
+    required this.phone,
+    required this.createdAt,
+    required this.idUser,
   });
 
-  int id;
-  DateTime createdAt;
-  int amount;
+  int idTransaction;
+  int idWithdraw;
+  int withdrawalRequestAmount;
   String transactionType;
   String username;
-  String email;
+  int idUser;
   dynamic profileImageUrl;
+  String email;
+  String phone;
+  DateTime createdAt;
 
   factory WithdrawalRequestsModel.fromJson(Map<String, dynamic> json) =>
       WithdrawalRequestsModel(
-        id: json["id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        amount: json["amount"],
-        email: json["email"],
+        idTransaction: json["id_transaction"],
+        idWithdraw: json["id_withdraw"],
+        withdrawalRequestAmount: json["withdrawalRequestAmount"],
         transactionType: json["transactionType"],
         username: json["username"],
         profileImageUrl: json["profileImageUrl"],
+        email: json["email"],
+        idUser: json["id_user"],
+        phone: json["phone"],
+        createdAt: DateTime.parse(json["created_at"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "created_at": createdAt.toIso8601String(),
-        "amount": amount,
+        "id_transaction": idTransaction,
+        "id_withdraw": idWithdraw,
+        "withdrawalRequestAmount": withdrawalRequestAmount,
         "transactionType": transactionType,
         "username": username,
-        "email": email,
         "profileImageUrl": profileImageUrl,
+        "email": email,
+        "id_user": idUser,
+        "phone": phone,
+        "created_at": createdAt.toIso8601String(),
       };
 }

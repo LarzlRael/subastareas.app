@@ -1,4 +1,4 @@
-part of '../widgets.dart';
+part of 'buttons.dart';
 
 class ButtonConfirm extends StatefulWidget {
   final String textConfirm;

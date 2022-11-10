@@ -26,9 +26,6 @@ import 'package:subastareaspp/widgets/text/text.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import '../routes/routes_page.dart';
 
-part 'buttons/button_icon.dart';
-part 'buttons/button_confirm.dart';
-
 part 'text/description_text.dart';
 part 'offers/person_offer_card.dart';
 part 'offers/person_offer_horizontal.dart';
@@ -49,10 +46,12 @@ part 'forms/custom_date_picker.dart';
 part 'forms/input_container.dart';
 part 'forms/custom_formbuilder_text_area.dart';
 part 'forms/custom_formbuilder_fetch_dropdown.dart';
+part 'forms/custom_dropdown.dart';
 part 'login_register/label_login_register.dart';
 part 'login_register/header_login_register.dart';
 part 'login_register/app_bar_title.dart';
 part 'slideshows/slide_item.dart';
+part 'slideshows/slideshow.dart';
 part 'menu/profile_menu.dart';
 part 'filter/list_filter.dart';
 part 'notifications/global_snack_bar.dart';
