@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:subastareaspp/provider/filter_provider.dart';
+import 'package:subastareaspp/provider/providers.dart';
 import 'package:subastareaspp/routes/routes.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
+        ChangeNotifierProvider(create: (_) => CountdownProvider()),
         ChangeNotifierProvider(create: (_) => NotificationService()),
       ],
       child: MaterialApp(

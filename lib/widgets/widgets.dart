@@ -17,7 +17,7 @@ import 'package:subastareaspp/bloc/notificacion_bloc.dart';
 import 'package:subastareaspp/bloc/one_homework_bloc.dart';
 import 'package:subastareaspp/dialogs/dialogs.dart';
 import 'package:subastareaspp/models/models.dart';
-import 'package:subastareaspp/provider/filter_provider.dart';
+import 'package:subastareaspp/provider/providers.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';

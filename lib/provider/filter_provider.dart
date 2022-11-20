@@ -1,5 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:subastareaspp/utils/utils.dart';
+part of 'providers.dart';
 
 class FilterProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
