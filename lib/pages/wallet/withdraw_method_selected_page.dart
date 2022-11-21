@@ -58,8 +58,9 @@ class _WithdrawMethodSelectedPageState
                 const SizedBox(height: 20),
                 RetirableInformation(user: user),
                 FormBuilder(
-                  initialValue: const {
+                  initialValue: {
                     'balanceToWithDrawable': "0",
+                    'phoneNumber': user.phone ?? "",
                   },
                   key: _formKey,
                   child: Column(
@@ -110,8 +111,6 @@ class _WithdrawMethodSelectedPageState
                                   setState(() {
                                     _loading = true;
                                   });
-                                  print(_formKey.currentState!
-                                      .value['balanceToWithDrawable']);
                                   final withdrawMoneyTransaction =
                                       await transactionServices
                                           .withdrawMoneyTransaction(

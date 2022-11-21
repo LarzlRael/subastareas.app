@@ -60,4 +60,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'supervisor_list_homeworks': (_) => const SupervisorListHomeworks(),
   'list_withdraw_request': (_) => const ListWithdrawRequest(),
   'withdraw_request_detail': (_) => const WithdrawRequestDetail(),
+  'select_option': (_) => const SelectOption(),
 };

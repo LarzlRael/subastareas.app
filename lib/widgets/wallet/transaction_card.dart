@@ -56,11 +56,11 @@ class TransactionCard extends StatelessWidget {
                               : Colors.green,
                           right: 5,
                         ),
-                        SimpleText(
+                        /* SimpleText(
                           text: transaction.transactionType,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                        ),
+                        ), */
                       ],
                     ),
                   ],

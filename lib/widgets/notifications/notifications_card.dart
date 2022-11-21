@@ -89,7 +89,7 @@ class NotificationsCard extends StatelessWidget {
                 ],
               ),
               Icon(
-                iconType(notification.type),
+                typeNotification(notification.type).icon,
               ),
             ],
           ),
@@ -114,7 +114,7 @@ class NotificationsCard extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: ' ' + typeNotification(notification.type),
+                text: ' ' + typeNotification(notification.type).type,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.grey),
               ),
@@ -160,43 +160,32 @@ class NotificationsCard extends StatelessWidget {
   }
 }
 
-String typeNotification(String type) {
-  switch (type) {
-    case 'new_comment':
-      return 'Hizo un comentario';
-    case 'new_offer':
-      return 'Hizo una oferta';
-    case 'offer_accepted':
-      return 'Acepto tu oferta';
-    case 'homework_finished':
-      return 'Termino tu tarea';
-    case 'rejected':
-      return 'Rechazaste una oferta';
-    case 'homework_reject':
-      return 'Ha rechazado tu tarea';
-    default:
-      return 'Notification';
-  }
+class TypeNotification {
+  final String type;
+  final IconData icon;
+  TypeNotification(this.type, this.icon);
+}
+
+TypeNotification typeNotification(String type) {
+  const map = {
+    'new_comment': 'Hizo un comentario',
+    'new_offer': 'Hizo una oferta',
+    'offer_accepted': 'Acepto tu oferta',
+    'homework_finished': 'Termino tu tarea',
+    'rejected': 'Rechazaste una oferta',
+    'homework_reject': 'Ha rechazado tu tarea',
+  };
+  const iconMap = {
+    'new_comment': FontAwesomeIcons.commentDots,
+    'new_offer': FontAwesomeIcons.dollarSign,
+    'offer_accepted': FontAwesomeIcons.commentsDollar,
+    'homework_finished': FontAwesomeIcons.book,
+    'homework_reject': FontAwesomeIcons.cancel,
+  };
+  return TypeNotification(map[type]!, iconMap[type]!);
 }
 
 /* Change this for another types */
-IconData iconType(String type) {
-  switch (type) {
-    case 'new_comment':
-      return FontAwesomeIcons.commentDots;
-    case 'new_offer':
-      return FontAwesomeIcons.dollarSign;
-    case 'offer_accepted':
-      return FontAwesomeIcons.commentsDollar;
-    case 'homework_finished':
-      return FontAwesomeIcons.book;
-    case 'homework_reject':
-      return FontAwesomeIcons.cancel;
-
-    default:
-      return FontAwesomeIcons.dollarSign;
-  }
-}
 
 void goToPage(BuildContext context, NotificationModel notification) {
   switch (notification.type) {

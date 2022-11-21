@@ -30,3 +30,4 @@ part 'time_utils.dart';
 part 'redirection.dart';
 part 'main_utils.dart';
 part 'launcher.dart';
+part 'enums.dart';

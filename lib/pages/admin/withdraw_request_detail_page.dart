@@ -100,8 +100,8 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
               icon: FontAwesomeIcons.check,
               onPressed: () {
                 if (_formKey.currentState!.saveAndValidate()) {
-                  print(_formKey.currentState!.value);
                   transactionServices.confirmWithDraw(
+                    context,
                     WithDrawRequestBody(
                       withdrawRequest.idUser,
                       withdrawRequest.idTransaction,
