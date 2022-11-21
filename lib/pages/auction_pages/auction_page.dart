@@ -229,11 +229,11 @@ class _AuctionPageState extends State<AuctionPage> {
                   )),
               _infoContainer(
                 'Acaba en ',
-                /* Timer(
+                Timer(
                   endTime: oneHomeworkModel.homework.resolutionTime,
-                ), */
-                CustomTimer(
-                    resolutionTime: oneHomeworkModel.homework.resolutionTime),
+                ),
+                /* CustomTimer(
+                    resolutionTime: oneHomeworkModel.homework.resolutionTime), */
               ),
             ],
           ),

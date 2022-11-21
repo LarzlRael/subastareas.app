@@ -10,11 +10,12 @@ class CustomTimer extends StatelessWidget {
     Key? key,
     required this.resolutionTime,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     // CountdownProvider with parameters
 
-    final countDownProvider = Provider.of<CountdownProvider>(context);
+    /*   final countDownProvider = Provider.of<CountdownProvider>(context);
     /* Datetime to duration */
 
     print('final;: ' + getDateDiff(resolutionTime).inSeconds.toString());
@@ -22,7 +23,19 @@ class CustomTimer extends StatelessWidget {
 
     /* countDownProvider.startStopTimer(); */
     return Text(context
-        .select((CountdownProvider countDown) => countDown.timeLeftString));
+        .select((CountdownProvider countDown) => countDown.timeLeftString)); */
+    return ChangeNotifierProvider(
+      create: (_) => CountdownProvider(),
+      child: Builder(
+        builder: (context) {
+          Provider.of<CountdownProvider>(context).setCountdownDuration(
+            getDateDiff(resolutionTime),
+          );
+          /* Provider.of<CountdownProvider>(context).startStopTimer(); */
+          return Text(Provider.of<CountdownProvider>(context).timeLeftString);
+        },
+      ),
+    );
   }
 
   int isEnd() {

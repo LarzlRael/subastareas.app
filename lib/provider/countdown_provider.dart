@@ -26,14 +26,23 @@ class CountdownProvider extends ChangeNotifier {
     _tickSubscription = Stream<int>.periodic(
             const Duration(seconds: 1), (sec) => seconds - sec - 1)
         .take(seconds)
-        .listen((timeLeftInSeconds) {
-      duration = Duration(seconds: timeLeftInSeconds);
-      notifyListeners();
-    });
+        .listen(
+      (timeLeftInSeconds) {
+        duration = Duration(seconds: timeLeftInSeconds);
+        notifyListeners();
+      },
+    );
   }
 
   void setCountdownDuration(Duration newDuration) {
     duration = newDuration;
+    /* 
+    _tickSubscription?.cancel();
+    isRunning = false;
+    notifyListeners(); */
+  }
+
+  void clear() {
     _tickSubscription?.cancel();
     isRunning = false;
     notifyListeners();

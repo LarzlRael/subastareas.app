@@ -6,8 +6,22 @@ class WithDrawRequestBody {
   int idWithdraw;
   String paymentMethod;
   String status;
-  WithDrawRequestBody(this.idUser, this.idTransaction, this.idWithdraw,
-      this.paymentMethod, this.status);
+  WithDrawRequestBody(
+    this.idUser,
+    this.idTransaction,
+    this.idWithdraw,
+    this.paymentMethod,
+    this.status,
+  );
+  Map<String, Object> bodyToJson() {
+    return {
+      'idUser': idUser,
+      'idTransaction': idTransaction,
+      'idWithdraw': idWithdraw,
+      'paymentMethod': paymentMethod,
+      'status': status,
+    };
+  }
 }
 
 class WithdrawRequestDetail extends StatefulWidget {

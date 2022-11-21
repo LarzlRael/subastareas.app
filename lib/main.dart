@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
-        ChangeNotifierProvider(create: (_) => CountdownProvider()),
+        /* ChangeNotifierProvider(create: (_) => CountdownProvider()), */
         ChangeNotifierProvider(create: (_) => NotificationService()),
       ],
       child: MaterialApp(

@@ -32,7 +32,7 @@ class TransactionServices {
   Future<List<WithdrawalRequestsModel>> getListUserWithdrawRequest() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       'GET',
-      'transaction/getListUserWithdrawRequest/',
+      'transaction/getListUserWithdrawRequest',
       {},
       await _storage.read(key: 'token'),
     );
@@ -50,9 +50,9 @@ class TransactionServices {
   } */
   Future<bool> confirmWithDraw(WithDrawRequestBody withDrawRequestBody) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
-      'transaction/confirmWithDraw/',
-      {},
+      'POST',
+      'transaction/confirmWithDraw',
+      withDrawRequestBody.bodyToJson(),
       await _storage.read(key: 'token'),
     );
     return validateStatus(homeworkRequest!.statusCode);
