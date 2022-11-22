@@ -67,6 +67,11 @@ class OneHomeworkBloc {
     _homeworksController.sink.add(await homeworkServices.getHomeworks());
   }
 
+  getSearchedHomeworks(String query) async {
+    _homeworksController.sink
+        .add(await homeworkServices.getSearchedHomeworks(query));
+  }
+
   getHomeworksByCategory(List<String> category) async {
     _homeworksController.sink
         .add(await homeworkServices.getHomeworksByCategoryAndLevel(category));

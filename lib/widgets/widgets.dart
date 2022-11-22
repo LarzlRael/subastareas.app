@@ -83,3 +83,9 @@ part 'common/show_profile_image.dart';
 part 'card/homework_to_supervise_card.dart';
 part 'card/name_and_time_ago.dart';
 part 'card/withdraw_request_card.dart';
+
+/* Searches delegates */
+part 'search/open_homework_search.dart';
+
+/* Errors */
+part 'errors/no_results.dart';

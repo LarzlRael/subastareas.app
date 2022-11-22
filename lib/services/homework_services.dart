@@ -12,6 +12,19 @@ class HomeworkServices {
     return homeworksModelFromJson(homeworkRequest!.body);
   }
 
+  Future<List<HomeworksModel>> getSearchedHomeworks(String querySearch) async {
+    if (querySearch.isEmpty) {
+      return await getHomeworks();
+    }
+    final homeworkRequest = await Request.sendRequest(
+      'GET',
+      'homework/findHomework/$querySearch',
+      null,
+    );
+
+    return homeworksModelFromJson(homeworkRequest!.body);
+  }
+
   Future<OneHomeworkModel> getOneHomework(int id) async {
     final homeworkRequest = await Request.sendRequest(
       'GET',

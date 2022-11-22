@@ -56,7 +56,7 @@ class HomeworkCard extends StatelessWidget {
             ),
           ],
         ),
-        margin: const EdgeInsets.all(15),
+        margin: const EdgeInsets.symmetric(vertical: 15),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
