@@ -7,7 +7,10 @@ class SupervisorListHomeworks extends StatelessWidget {
   Widget build(BuildContext context) {
     final superviseServices = SuperviseServices();
     return Scaffold(
-      appBar: AppBarWithBackIcon(appBar: AppBar()),
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+        title: 'Tareas por revisar',
+      ),
       body: SizedBox(
         child: Column(
           children: [

@@ -16,11 +16,6 @@ class WelcomePage extends StatelessWidget {
             children: [
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 32),
-                /* child: Image.asset(
-                  'assets/logo_with_letters.png',
-                  fit: BoxFit.contain,
-                  width: 250,
-                ), */
                 child: const OnlyImageAndTitle(),
               ),
               const Expanded(

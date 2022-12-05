@@ -33,22 +33,21 @@ class NoInformation extends StatelessWidget {
             const SizedBox(height: 15),
             Text(message),
             const SizedBox(height: 15),
-            if (showButton)
-              Row(
-                /* mainAxisAlignment: MainAxisAlignment.center, */
-                children: [
-                  Expanded(
-                    child: ButtonWithIcon(
-                      label: buttonTitle ?? '',
-                      icon: iconButton,
-                      /* buttonBorderPrimary: true, */
-                      onPressed: onPressed!,
-                    ),
-                  ),
-                ],
-              )
-            else
-              Container(),
+            showButton
+                ? Row(
+                    /* mainAxisAlignment: MainAxisAlignment.center, */
+                    children: [
+                      Expanded(
+                        child: ButtonWithIcon(
+                          label: buttonTitle ?? '',
+                          icon: iconButton,
+                          /* buttonBorderPrimary: true, */
+                          onPressed: onPressed!,
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox()
           ],
         ),
       ),

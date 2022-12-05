@@ -65,7 +65,7 @@ class ButtonWithIcon extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           vertical: verticalPadding, horizontal: horizontalPadding),
       shape: const StadiumBorder(),
-      primary: backgroundColorButton,
+      backgroundColor: backgroundColorButton,
       side: BorderSide(
         width: .8,
         color: buttonBorderColor,
