@@ -5,7 +5,7 @@ class UserServices {
 
   Future<PublicProfile> getPublicProfile(int idUser) async {
     final resp = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'auth/viewPublicProfile/$idUser',
       {},
       await _storage.read(key: 'token'),
@@ -17,7 +17,7 @@ class UserServices {
   Future<bool> changeUserPreferences(
       int idProfileUser, bool isDarkTheme, bool sendNotifications) async {
     final resp = await Request.sendRequestWithToken(
-      'POST',
+      RequestType.get,
       'userProfile/changePreferences',
       {
         'id': idProfileUser,

@@ -5,7 +5,7 @@ class TradeServices {
 
   Future<List<TradeUserModel>> getHomeworksPendingToResolve() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'trade/getTradePendingToTrade/',
       {},
       await _storage.read(key: 'token'),
@@ -15,7 +15,7 @@ class TradeServices {
 
   Future<List<TradeUserModel>> getHomeworksResolved(String status) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'trade/getTradingByUser/$status',
       {},
       await _storage.read(key: 'token'),
@@ -26,7 +26,7 @@ class TradeServices {
   Future<bool> acceptOrDeclineTrade(int idOffer, bool accepted,
       {String reasonRejected = ''}) async {
     final tradeRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       accepted
           ? 'trade/acceptTrade/$idOffer'
           : 'trade/declineTrade/$idOffer/$reasonRejected',
@@ -39,7 +39,7 @@ class TradeServices {
 
   Future<List<PlanesModel>> getPlanes() async {
     final planesRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'planes/getPlanes',
       {},
       await _storage.read(key: 'token'),
@@ -50,7 +50,7 @@ class TradeServices {
   Future<bool> shopCoins(int idPlan, String planName) async {
     /* buyCoins/:idPlan/:planName */
     final planesRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'shopping/buyCoins/$idPlan/$planName',
       {},
       await _storage.read(key: 'token'),

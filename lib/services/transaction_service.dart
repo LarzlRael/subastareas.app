@@ -5,7 +5,7 @@ class TransactionServices {
 
   Future<List<UserTransactionModel>> getUserHistoryTransaction() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'transaction/getUserTransactionsHistory',
       {},
       await _storage.read(key: 'token'),
@@ -16,7 +16,7 @@ class TransactionServices {
 
   Future<bool> withdrawMoneyTransaction(int amount, String phone) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'POST',
+      RequestType.get,
       'transaction/withdrawMoneyTransaction',
       {
         'amount': amount,
@@ -31,7 +31,7 @@ class TransactionServices {
 
   Future<List<WithdrawalRequestsModel>> getListUserWithdrawRequest() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'transaction/getListUserWithdrawRequest',
       {},
       await _storage.read(key: 'token'),
@@ -51,7 +51,7 @@ class TransactionServices {
   Future<void> confirmWithDraw(
       BuildContext context, WithDrawRequestBody withDrawRequestBody) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'POST',
+      RequestType.get,
       'transaction/confirmWithDraw',
       withDrawRequestBody.bodyToJson(),
       await _storage.read(key: 'token'),

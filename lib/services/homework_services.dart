@@ -4,7 +4,7 @@ class HomeworkServices {
   final _storage = const FlutterSecureStorage();
   Future<List<HomeworksModel>> getHomeworks() async {
     final homeworkRequest = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'homework',
       null,
     );
@@ -17,7 +17,7 @@ class HomeworkServices {
       return await getHomeworks();
     }
     final homeworkRequest = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'homework/findHomework/$querySearch',
       null,
     );
@@ -27,7 +27,7 @@ class HomeworkServices {
 
   Future<OneHomeworkModel> getOneHomework(int id) async {
     final homeworkRequest = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'homework/getOneHomework/$id',
       null,
     );
@@ -36,7 +36,7 @@ class HomeworkServices {
 
   Future<List<HomeworksModel>> getHomeworksByUser() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'homework/homeworksByUser',
       {},
       await _storage.read(key: 'token'),
@@ -51,7 +51,7 @@ class HomeworkServices {
     final categoryFilter = category.isNotEmpty ? category.join(',') : 'empty';
     /* final levelFilter = level.isNotEmpty ? level.join(',') : 'empty'; */
     final homeworkRequest = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'homework/category/$categoryFilter',
       {},
     );
@@ -60,7 +60,7 @@ class HomeworkServices {
 
   Future<List<String>> getSubjectAndLevels() async {
     final homeworkRequest = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'homework/getSubjectsList',
       {},
     );
@@ -70,7 +70,7 @@ class HomeworkServices {
 
   Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'devices/clearNotificated',
       {},
       await _storage.read(key: 'token'),
@@ -105,7 +105,7 @@ class HomeworkServices {
       return validateStatus(homeworkUploadWithFile.statusCode);
     } else {
       final homeworkRequest = await Request.sendRequestWithToken(
-        idHomework == 0 ? 'POST' : 'PUT',
+        idHomework == 0 ? RequestType.post : RequestType.put,
         idHomework == 0
             ? 'homework/create'
             : 'homework/updateHomework/$idHomework',
@@ -119,7 +119,7 @@ class HomeworkServices {
 
   Future deleteHomework(int idHomework) async {
     return Request.sendRequestWithToken(
-      'DELETE',
+      RequestType.delete,
       'homework/deleteHomework/$idHomework',
       {},
       await _storage.read(key: 'token'),
@@ -130,7 +130,7 @@ class HomeworkServices {
       Map<String, String> body, File? file, int idHomework) async {
     if (file == null) {
       final homeworkUploadWithFile = await Request.sendRequestWithToken(
-        'PUT',
+        RequestType.put,
         'homework/updateHomework/$idHomework',
         body,
         await _storage.read(key: 'token') ?? '',

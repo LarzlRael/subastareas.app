@@ -1,32 +1,39 @@
 part of 'services.dart';
 
+enum RequestType {
+  get,
+  post,
+  put,
+  delete,
+}
+
 class Request {
   String uri = '${Environment.serverHttpUrl}/';
   static Future<http.Response?> sendRequest(
-      String method, String url, Map<String, String>? body) async {
+      RequestType method, String url, Map<String, String>? body) async {
     final headers = {
       'Content-Type': 'application/json',
     };
     Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
-      case "GET":
+      case RequestType.get:
         res = await http.get(uri);
         break;
-      case "POST":
+      case RequestType.post:
         res = await http.post(uri, body: jsonEncode(body), headers: headers);
         break;
-      case "PUT":
+      case RequestType.put:
         res = await http.put(uri, body: jsonEncode(body), headers: headers);
         break;
-      case "DELETE":
+      case RequestType.delete:
         res = await http.delete(uri);
     }
     return res;
   }
 
-  static Future<http.Response?> sendRequestWithToken(String method, String url,
-      Map<String, dynamic> body, String? token) async {
+  static Future<http.Response?> sendRequestWithToken(RequestType method,
+      String url, Map<String, dynamic> body, String? token) async {
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
@@ -35,16 +42,16 @@ class Request {
     final Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
-      case "GET":
+      case RequestType.get:
         res = await http.get(uri, headers: headers);
         break;
-      case "POST":
+      case RequestType.post:
         res = await http.post(uri, body: jsonEncode(body), headers: headers);
         break;
-      case "PUT":
+      case RequestType.put:
         res = await http.put(uri, body: jsonEncode(body), headers: headers);
         break;
-      case "DELETE":
+      case RequestType.delete:
         res = await http.delete(uri, headers: headers);
     }
     return res;

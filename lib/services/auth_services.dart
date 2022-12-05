@@ -43,7 +43,8 @@ class AuthServices with ChangeNotifier {
       'idDevice': await messaging.getToken() ?? ''
     };
 
-    final resp = await Request.sendRequest('POST', 'auth/signIn', data);
+    final resp =
+        await Request.sendRequest(RequestType.post, 'auth/signIn', data);
     setAuthenticating = false;
 
     if (validateStatus(resp!.statusCode)) {
@@ -74,7 +75,8 @@ class AuthServices with ChangeNotifier {
       'changePassword': changePassword,
     };
 
-    final resp = await Request.sendRequest('POST', 'auth/changePassword', data);
+    final resp = await Request.sendRequest(
+        RequestType.post, 'auth/changePassword', data);
     setAuthenticating = false;
 
     return validateStatus(resp!.statusCode);
@@ -93,7 +95,8 @@ class AuthServices with ChangeNotifier {
       'email': email,
     };
 
-    final resp = await Request.sendRequest('POST', 'auth/signUp', data);
+    final resp =
+        await Request.sendRequest(RequestType.post, 'auth/signUp', data);
     setAuthenticating = false;
 
     if (validateStatus(resp!.statusCode)) {
@@ -107,7 +110,7 @@ class AuthServices with ChangeNotifier {
 
   Future<bool> logout() async {
     await Request.sendRequestWithToken(
-        'GET',
+        RequestType.get,
         'auth/signOut/${await messaging.getToken()}',
         {},
         await _storage.read(key: 'token'));
@@ -128,7 +131,7 @@ class AuthServices with ChangeNotifier {
   Future<bool> renewToken() async {
     final deviceId = await messaging.getToken() ?? '';
     final resp = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'auth/renewToken/$deviceId',
       {},
       await _storage.read(key: 'token'),

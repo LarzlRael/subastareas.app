@@ -5,7 +5,7 @@ class MailServices {
 
   Future requestPasswordChange(String email) async {
     final requestPasswordChange = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'auth/requestPasswordChange/$email',
       {},
     );
@@ -15,7 +15,7 @@ class MailServices {
 
   Future<bool> requestEmailVerification(String email) async {
     final requestEmailVerification = await Request.sendRequest(
-      'GET',
+      RequestType.get,
       'auth/sendEmailVerification/$email',
       {},
     );

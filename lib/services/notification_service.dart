@@ -9,7 +9,7 @@ class NotificationService with ChangeNotifier {
 
   Future<List<NotificationModel>> getUserNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'devices/getUserNotifications',
       {},
       await _storage.read(key: 'token'),
@@ -23,7 +23,7 @@ class NotificationService with ChangeNotifier {
 
   Future<void> seeNotification(int idNotification) async {
     await Request.sendRequestWithToken(
-      'PUT',
+      RequestType.put,
       'devices/seeNotification/$idNotification',
       {},
       await _storage.read(key: 'token'),
@@ -32,7 +32,7 @@ class NotificationService with ChangeNotifier {
 
   Future deleteNotification(int idNotification) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'devices/deleteNotification/$idNotification',
       {},
       await _storage.read(key: 'token'),
@@ -44,7 +44,7 @@ class NotificationService with ChangeNotifier {
 
   Future clearNotifications() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'devices/clearNotificated',
       {},
       await _storage.read(key: 'token'),

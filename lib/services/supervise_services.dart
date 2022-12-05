@@ -5,7 +5,7 @@ class SuperviseServices {
 
   Future<List<HomeworkToSupervise>> getHomeworksToSupervise() async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'supervisor/homeworksToSupervise/',
       {},
       await _storage.read(key: 'token'),
@@ -17,7 +17,7 @@ class SuperviseServices {
   Future<bool> superviseHomework(
       String observation, String status, int idHomework) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'POST',
+      RequestType.post,
       'supervisor/superviseHomework/',
       {
         'observation': observation,

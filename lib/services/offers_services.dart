@@ -9,7 +9,7 @@ class OffersServices {
     int idOffer,
   ) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-        !edit ? 'POST' : 'PUT',
+        !edit ? RequestType.post : RequestType.put,
         !edit ? 'offer/makeOffer/$idHomework' : 'offer/editOffer/$idOffer',
         {
           'priceOffer': priceOffer,
@@ -21,7 +21,7 @@ class OffersServices {
 
   Future<bool> enterPendingTrade(int idOffer) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'trade/enterPendingTrade/$idOffer',
       {},
       await _storage.read(key: 'token'),
@@ -44,7 +44,7 @@ class OffersServices {
 
   Future<List<HomeworksModel>> getUsersHomeworksPending() async {
     final uploadWithFile = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'offer/getUsersHomeworksPending',
       {},
       await _storage.read(key: 'token') ?? '',
@@ -54,7 +54,7 @@ class OffersServices {
 
   Future<List<HomeworksModel>> getUserOfferSent() async {
     final offerSent = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'offer/getOfferSentByUser',
       {},
       await _storage.read(key: 'token') ?? '',
@@ -64,7 +64,7 @@ class OffersServices {
 
   Future<List<HomeworksModel>> getUserOffersReceived() async {
     final offerSent = await Request.sendRequestWithToken(
-      'GET',
+      RequestType.get,
       'offer/getOfferReceivedByUser',
       {},
       await _storage.read(key: 'token') ?? '',
@@ -74,7 +74,7 @@ class OffersServices {
 
   Future<OfferSimpleModel> deleteOffer(int idOffer) async {
     final deletedOffer = await Request.sendRequestWithToken(
-      'DELETE',
+      RequestType.delete,
       'offer/$idOffer',
       {},
       await _storage.read(key: 'token') ?? '',
