@@ -4,9 +4,11 @@ class AppBarWithBackIcon extends StatelessWidget
     implements PreferredSizeWidget {
   final AppBar appBar;
   final String? title;
+  final bool centerTitle;
   const AppBarWithBackIcon({
     Key? key,
     required this.appBar,
+    this.centerTitle = false,
     this.title,
   }) : super(key: key);
   @override
@@ -14,6 +16,7 @@ class AppBarWithBackIcon extends StatelessWidget
     final theme = Provider.of<ThemeChanger>(context);
     return AppBar(
       elevation: 0,
+      centerTitle: centerTitle,
       backgroundColor: theme.isDarkTheme ? Colors.transparent : Colors.white,
       title: title != null
           ? SimpleText(

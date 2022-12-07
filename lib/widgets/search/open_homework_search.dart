@@ -15,7 +15,6 @@ class OpenHomeworkSearch extends SearchDelegate {
 
   @override
   Widget? buildLeading(BuildContext context) {
-    /* TODO return something */
     return IconButton(
         onPressed: () => close(context, null),
         icon: const Icon(Icons.arrow_back_ios));
@@ -38,15 +37,11 @@ class OpenHomeworkSearch extends SearchDelegate {
           );
         }
         if (snapshot.data!.isEmpty) {
-          return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            /* color: Colors.green, */
-            child: const NoInformation(
-              message: 'No se encontraron tareas',
-              icon: Icons.search_off,
-              showButton: false,
-              iconButton: Icons.task,
-            ),
+          return NoInformation(
+            message: 'No se encontraron tareas con $query',
+            icon: Icons.search_off,
+            showButton: false,
+            iconButton: Icons.task,
           );
         }
 

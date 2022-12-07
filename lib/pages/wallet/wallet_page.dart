@@ -13,6 +13,8 @@ class WalletPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
+        title: 'BILLETERA',
+        centerTitle: true,
       ),
       backgroundColor: theme.isDarkTheme
           ? Theme.of(context).scaffoldBackgroundColor
@@ -33,14 +35,14 @@ class WalletPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SimpleText(
+                    /* const SimpleText(
                       text: 'BILLETERA',
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       lightThemeColor: Colors.black87,
                       /* top: 10, */
                       bottom: 10,
-                    ),
+                    ), */
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [

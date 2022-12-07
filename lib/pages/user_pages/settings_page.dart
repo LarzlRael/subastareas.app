@@ -9,31 +9,9 @@ class SettingsPage extends StatelessWidget {
     final themeChanger = Provider.of<ThemeChanger>(context, listen: true);
     final preferences = UserPreferences();
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              auth.logout();
-            },
-            icon: IconButton(
-              onPressed: () {
-                auth.logout();
-              },
-              icon: const Icon(Icons.logout),
-            ),
-          )
-        ],
-        title: const Text('Configuraciones'),
-        centerTitle: true,
-        /* backgroundColor: isDarkMode(context) ? Colors.black : Colors.white, */
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.chevron_left),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+      appBar: AppBarWithBackIcon(
+        appBar: AppBar(),
+        title: 'Configuraciones',
       ),
       body: SafeArea(
         child: Container(
