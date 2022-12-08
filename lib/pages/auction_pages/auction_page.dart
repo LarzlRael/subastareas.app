@@ -50,128 +50,132 @@ class _AuctionPageState extends State<AuctionPage> {
             );
           }
 
-          return Container(
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverAppBar(
-                    elevation: 5,
-                    centerTitle: true,
-                    leading: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.chevron_left,
-                        color: Colors.white,
-                        size: 25,
-                      ),
+          return CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                  elevation: 5,
+                  centerTitle: true,
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.chevron_left,
+                      color: Colors.white,
+                      size: 25,
                     ),
-                    actions: <Widget>[
-                      isBearer
-                          ? Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    snapshot.data!.offers.isEmpty
-                                        ? Navigator.pushNamed(
-                                            context,
-                                            'upload_homework_with_file',
-                                            arguments: snapshot.data!.homework,
-                                            /* PageTransition(
-                                          type: PageTransitionType
-                                              .leftToRightWithFade,
-                                          child: UploadHomeworkOnlyText(),
-                                          settings: snapshot.data!.homework,
-                                        ), */
-                                          )
-                                        : GlobalSnackBar.show(context,
-                                            "No puedes editar tu tarea porque ya tiene ofertas",
-                                            backgroundColor: Colors.red);
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                    size: 25,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    if (snapshot.data!.homework.status !=
-                                            'traded' ||
-                                        snapshot.data!.homework.status !=
-                                            'pending_to_resolve' ||
-                                        snapshot.data!.homework.status !=
-                                            'pending_to_resolve') {
-                                      showConfirmDialog(
-                                        context,
-                                        'Retirar tarea',
-                                        '¿Estás seguro de eliminar esta tarea?',
-                                        () => deleteAndRefresh(
-                                            snapshot.data!.homework.id),
-                                      );
-                                    } else {
-                                      GlobalSnackBar.show(context,
-                                          "En este momento no puedes eliminar esta tarea",
-                                          backgroundColor: Colors.red);
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.white,
-                                    size: 25,
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Container(),
-                    ],
-                    floating: true,
-                    pinned: true,
-                    snap: false,
-                    expandedHeight: 200,
-                    flexibleSpace: FlexibleSpaceBar(
-                      background: Image.asset(
-                        'assets/category/${removeDiacritics(
-                          snapshot.data!.homework.category,
-                        )}.jpg',
-                        fit: BoxFit.cover,
-                        /* width: 280.0, */
-                      ),
-                      centerTitle: true,
-                      title: SimpleText(
-                        text: 'Tarea de ${snapshot.data!.homework.category} ',
-                        lightThemeColor: Colors.white,
-                        fontSize: 16,
-                      ),
-                    )),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      SafeArea(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  ),
+                  actions: <Widget>[
+                    isBearer
+                        ? Row(
                             children: [
-                              Column(
-                                children: [
-                                  _cardAuction(
-                                    snapshot.data!,
-                                    auth.isLogged,
-                                    false,
-                                    isBearer,
-                                  )
-                                ],
+                              IconButton(
+                                onPressed: () {
+                                  snapshot.data!.offers.isEmpty
+                                      ? Navigator.pushNamed(
+                                          context,
+                                          'upload_homework_with_file',
+                                          arguments: snapshot.data!.homework,
+                                          /* PageTransition(
+                                        type: PageTransitionType
+                                            .leftToRightWithFade,
+                                        child: UploadHomeworkOnlyText(),
+                                        settings: snapshot.data!.homework,
+                                      ), */
+                                        )
+                                      : GlobalSnackBar.show(context,
+                                          "No puedes editar tu tarea porque ya tiene ofertas",
+                                          backgroundColor: Colors.red);
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  if (snapshot.data!.homework.status !=
+                                          'traded' ||
+                                      snapshot.data!.homework.status !=
+                                          'pending_to_resolve' ||
+                                      snapshot.data!.homework.status !=
+                                          'pending_to_resolve') {
+                                    showConfirmDialog(
+                                      context,
+                                      'Retirar tarea',
+                                      '¿Estás seguro de eliminar esta tarea?',
+                                      () => deleteAndRefresh(
+                                          snapshot.data!.homework.id),
+                                    );
+                                  } else {
+                                    GlobalSnackBar.show(context,
+                                        "En este momento no puedes eliminar esta tarea",
+                                        backgroundColor: Colors.red);
+                                  }
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                  size: 25,
+                                ),
                               ),
                             ],
+                          )
+                        : Container(),
+                  ],
+                  floating: true,
+                  pinned: true,
+                  snap: false,
+                  expandedHeight: 200,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Image.asset(
+                      'assets/category/${removeDiacritics(
+                        snapshot.data!.homework.category,
+                      )}.jpg',
+                      fit: BoxFit.cover,
+                      /* width: 280.0, */
+                    ),
+                    centerTitle: true,
+                    title: SimpleText(
+                      text: 'Tarea de ${snapshot.data!.homework.category} ',
+                      lightThemeColor: Colors.white,
+                      fontSize: 16,
+                    ),
+                  )),
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    Container(
+                      color: Colors.blueGrey[50],
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
+                        children: [
+                          _cardAuction(
+                            snapshot.data!,
+                            auth.isLogged,
+                            false,
+                            isBearer,
                           ),
-                          /* _buttonMakeOffer(), */
-                        ),
+                          snapshot.data!.homework.status == 'accepted_to_offer'
+                              ? _buttonMakeOffer(snapshot.data!, isBearer)
+                              : const SizedBox(),
+                          snapshot.data!.homework.status == 'accepted_to_offer'
+                              ? CommentsByHomework(
+                                  comments: snapshot.data!.comments,
+                                  isLogged: auth.isLogged,
+                                  idHomework: snapshot.data!.homework.id,
+                                  auth: auth,
+                                )
+                              : Container(),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         },
       ),
@@ -183,14 +187,14 @@ class _AuctionPageState extends State<AuctionPage> {
     final _formKey = GlobalKey<FormBuilderState>();
     final supervisorServices = SuperviseServices();
     return Container(
-      padding: const EdgeInsets.all(10),
+      /* padding: const EdgeInsets.all(10), */
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SimpleText(
             text: oneHomeworkModel.homework.title.toCapitalized(),
             fontWeight: FontWeight.w500,
-            bottom: 15,
+            bottom: 10,
             fontSize: 22,
           ),
           isBearer
@@ -199,48 +203,47 @@ class _AuctionPageState extends State<AuctionPage> {
                   isBearer,
                   oneHomeworkModel.homework.observation,
                 )
-              : Container(
-                  /*   child: Text(
-                    oneHomeworkModel.homework.status,
-                  ), */
+              : const SizedBox(),
+          Container(
+            /* color: Colors.yellow, */
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              /* crossAxisAlignment: CrossAxisAlignment.center, */
+              children: [
+                _infoContainer(
+                    'Creador',
+                    Container(
+                      child: Row(
+                        children: [
+                          ShowProfileImage(
+                            profileImage:
+                                oneHomeworkModel.homework.user.profileImageUrl,
+                            userName: oneHomeworkModel.homework.user.username,
+                          ),
+                          const SizedBox(
+                            width: 7,
+                          ),
+                          SimpleText(
+                            text: oneHomeworkModel.homework.user.username
+                                .toCapitalized(),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ],
+                      ),
+                    )),
+                /* _infoContainer(
+                  'Acaba en ',
+                  Timer(
+                    endTime: oneHomeworkModel.homework.resolutionTime,
                   ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _infoContainer(
-                  'Creador',
-                  Row(
-                    children: [
-                      ShowProfileImage(
-                        profileImage:
-                            oneHomeworkModel.homework.user.profileImageUrl,
-                        userName: oneHomeworkModel.homework.user.username,
-                      ),
-                      const SizedBox(
-                        width: 7,
-                      ),
-                      SimpleText(
-                        text: oneHomeworkModel.homework.user.username
-                            .toCapitalized(),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ],
-                  )),
-              _infoContainer(
-                'Acaba en ',
-                Timer(
-                  endTime: oneHomeworkModel.homework.resolutionTime,
-                ),
-                /* CustomTimer(
-                    resolutionTime: oneHomeworkModel.homework.resolutionTime), */
-              ),
-            ],
+                  /* CustomTimer(
+                      resolutionTime: oneHomeworkModel.homework.resolutionTime), */
+                ), */
+              ],
+            ),
           ),
           description(oneHomeworkModel.homework.description),
-          oneHomeworkModel.homework.status == 'accepted_to_offer'
-              ? _buttonMakeOffer(oneHomeworkModel, isLogged)
-              : Container(),
           oneHomeworkModel.homework.fileUrl != null
               ? TextButton(
                   child: const Text('Ver Tarea '),
@@ -253,9 +256,11 @@ class _AuctionPageState extends State<AuctionPage> {
                   },
                 )
               : Container(),
-          CircleAvatarGroup(
-            oneHomeworkModel: oneHomeworkModel,
-          ),
+          oneHomeworkModel.offers.isNotEmpty
+              ? CircleAvatarGroup(
+                  oneHomeworkModel: oneHomeworkModel,
+                )
+              : const SizedBox(),
           oneHomeworkModel.homework.status == 'pending_to_accept' &&
                   isAdmin(auth.user.userRols)
               ? Column(
@@ -350,13 +355,6 @@ class _AuctionPageState extends State<AuctionPage> {
                   ],
                 )
               : Container(),
-          oneHomeworkModel.homework.status == 'accepted_to_offer'
-              ? CommentsWidget(
-                  comments: oneHomeworkModel.comments,
-                  isLogged: isLogged,
-                  idHomework: oneHomeworkModel.homework.id,
-                )
-              : Container(),
         ],
       ),
     );
@@ -384,51 +382,47 @@ class _AuctionPageState extends State<AuctionPage> {
     if (isLogged) {
       isBearer = oneHomeworkModel.homework.user.id == auth.user.id;
     }
-    return SizedBox(
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        width: size.width * 1,
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.blue,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          /* crossAxisAlignment: CrossAxisAlignment.stretch, */
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SimpleText(
-                  text: 'Ofertar',
-                  fontSize: 15,
-                  lightThemeColor: Colors.white,
-                ),
-                SimpleText(
-                  text: '${oneHomeworkModel.homework.offeredAmount} bs',
-                  fontSize: 20,
-                  lightThemeColor: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () {
-                /* Navigator.pushNamed(context, 'makeOffer'); */
-                if (isBearer) {
-                  navigatorProtected(context, isLogged, 'auctionWithOfferPage',
-                      oneHomeworkModel);
-                } else {
-                  navigatorProtected(
-                      context, isLogged, 'makeOffer', oneHomeworkModel);
-                }
-              },
-              child:
-                  isBearer ? const Text('Ver ofertas') : const Text('Ofertar'),
-            ),
-          ],
-        ),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: Colors.purple,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        /* crossAxisAlignment: CrossAxisAlignment.stretch, */
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SimpleText(
+                text: 'Ofertar',
+                fontSize: 15,
+                lightThemeColor: Colors.white,
+              ),
+              SimpleText(
+                text: '${oneHomeworkModel.homework.offeredAmount} bs',
+                fontSize: 20,
+                lightThemeColor: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              /* Navigator.pushNamed(context, 'makeOffer'); */
+              if (isBearer) {
+                navigatorProtected(context, isLogged, 'auctionWithOfferPage',
+                    oneHomeworkModel);
+              } else {
+                navigatorProtected(
+                    context, isLogged, 'makeOffer', oneHomeworkModel);
+              }
+            },
+            child: isBearer ? const Text('Ver ofertas') : const Text('Ofertar'),
+          ),
+        ],
       ),
     );
   }
@@ -458,7 +452,6 @@ class _AuctionPageState extends State<AuctionPage> {
     bool isBearer,
     String? observation,
   ) {
-    print('status: $status');
     switch (status) {
       case "accepted_to_offer":
         return statusMessage('Aceptada', Icons.check_circle);

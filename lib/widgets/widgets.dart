@@ -33,7 +33,7 @@ part 'menu/float_menu.dart';
 part 'timers/timer_counter.dart';
 part 'timers/timer.dart';
 part 'comments/comment_card.dart';
-part 'comments/comments.dart';
+part 'comments/comments_by_homeworks.dart';
 part 'comments/desplegable_comment.dart';
 part 'homework/homework_card.dart';
 part 'circle_avatar_group.dart';

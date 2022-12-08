@@ -32,12 +32,15 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            padding: const EdgeInsets.only(
-              left: 30.0,
-              right: 30.0,
+            height: MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top,
+            color: Colors.black26,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 30,
+              vertical: 10,
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
                   children: [
@@ -79,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                     FormBuilder(
                       key: _formKey,
                       child: Column(
-                        children: const [
+                        children: [
                           CustomFormBuilderTextField(
                             name: 'username',
                             icon: FontAwesomeIcons.at,
@@ -91,6 +94,40 @@ class _LoginPageState extends State<LoginPage> {
                             placeholder: 'Contraseña',
                             passwordField: true,
                           ),
+                          authService.getAuthenticating
+                              ? const CircularProgressIndicator()
+                              : FillButton(
+                                  label: "Iniciar sesión",
+                                  textColor: Colors.white,
+                                  borderRadius: 50,
+                                  onPressed: () async {
+                                    final validationSuccess =
+                                        _formKey.currentState!.validate();
+
+                                    if (validationSuccess) {
+                                      _formKey.currentState!.save();
+                                      final login = await authService.login(
+                                          _formKey
+                                              .currentState!.value['username'],
+                                          _formKey
+                                              .currentState!.value['password']);
+                                      final response =
+                                          login.message.split(' ')[0];
+                                      if (response == "login_ok") {
+                                        loginOk();
+                                      } else if (response ==
+                                          "verify_your_email") {
+                                        preferences.loginEmail =
+                                            login.message.split(' ')[1];
+                                        Navigator.pushReplacementNamed(
+                                            context, 'verify_email_page');
+                                      } else {
+                                        showSimpleAlert(context,
+                                            'Credenciales incorrectas');
+                                      }
+                                    }
+                                  },
+                                ),
                         ],
                       ),
                     )
@@ -98,36 +135,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Column(
                   children: [
-                    authService.getAuthenticating
-                        ? const CircularProgressIndicator()
-                        : FillButton(
-                            label: "Iniciar sesión",
-                            textColor: Colors.white,
-                            borderRadius: 50,
-                            onPressed: () async {
-                              final validationSuccess =
-                                  _formKey.currentState!.validate();
-
-                              if (validationSuccess) {
-                                _formKey.currentState!.save();
-                                final login = await authService.login(
-                                    _formKey.currentState!.value['username'],
-                                    _formKey.currentState!.value['password']);
-                                final response = login.message.split(' ')[0];
-                                if (response == "login_ok") {
-                                  loginOk();
-                                } else if (response == "verify_your_email") {
-                                  preferences.loginEmail =
-                                      login.message.split(' ')[1];
-                                  Navigator.pushReplacementNamed(
-                                      context, 'verify_email_page');
-                                } else {
-                                  showSimpleAlert(
-                                      context, 'Credenciales incorrectas');
-                                }
-                              }
-                            },
-                          ),
                     const LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',

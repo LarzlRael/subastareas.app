@@ -16,7 +16,7 @@ class CircleAvatarGroup extends StatefulWidget {
 
 class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
   late SocketService socketService;
-  late List<ProfileImage> _profileImages = [];
+  late final List<ProfileImage> _profileImages = [];
   late List<Offer> sliceArray = [];
   @override
   void initState() {
@@ -113,12 +113,12 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
                       widget.oneHomeworkModel.offers.length >
                               widget.elementsToShow
                           ? _createCircleAvatarMore()
-                          : Container(),
+                          : const SizedBox(),
                     ],
                   ),
                 ],
               )
-            : Container(),
+            : const SizedBox(),
       ),
     );
   }

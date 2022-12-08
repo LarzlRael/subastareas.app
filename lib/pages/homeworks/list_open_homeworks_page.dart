@@ -88,24 +88,28 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                 ),
               ],
             ),
-            Expanded(
-              child: StreamBuilder(
-                stream: homeworksBloc.homeworksStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<HomeworksModel>> snapshot) {
-                  if (!snapshot.hasData) {
-                    return const CircularProgressIndicator();
-                  }
-                  if (snapshot.data!.isEmpty) {
-                    return const NoInformation(
-                      message: 'No se encontraron tareas',
-                      icon: Icons.search_off,
-                      showButton: false,
-                      iconButton: Icons.task,
-                    );
-                  }
+            StreamBuilder(
+              stream: homeworksBloc.homeworksStream,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<HomeworksModel>> snapshot) {
+                if (!snapshot.hasData) {
+                  return const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (snapshot.data!.isEmpty) {
+                  return const NoInformation(
+                    message: 'No se encontraron tareas',
+                    icon: Icons.search_off,
+                    showButton: false,
+                    iconButton: Icons.task,
+                  );
+                }
 
-                  return ListView.builder(
+                return Expanded(
+                  child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
@@ -119,9 +123,9 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                         /* homework: snapshot.data[index], */
                       );
                     },
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
           ],
         ),

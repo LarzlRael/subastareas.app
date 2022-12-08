@@ -3,13 +3,14 @@ part of '../widgets.dart';
 class CommentCard extends StatefulWidget {
   final Comment comment;
   final int idHomework;
-
-  bool isExpanded;
-  CommentCard({
+  final bool isExpanded;
+  final AuthServices auth;
+  const CommentCard({
     Key? key,
     this.isExpanded = false,
     required this.comment,
     required this.idHomework,
+    required this.auth,
   }) : super(key: key);
 
   @override
@@ -25,7 +26,6 @@ class _CommentCardState extends State<CommentCard>
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
@@ -41,7 +41,7 @@ class _CommentCardState extends State<CommentCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NameAndTimeAgo(
-                  isOwner: auth.user.id == widget.comment.user.id,
+                  isOwner: widget.auth.user.id == widget.comment.user.id,
                   userName: widget.comment.user.username,
                   createdAt: widget.comment.createdAt,
                 ),
@@ -66,11 +66,11 @@ class _CommentCardState extends State<CommentCard>
               ],
             ),
           ),
-          auth.isLogged
+          widget.auth.isLogged
               ? IconButton(
                   onPressed: () {
                     showBottomMenuSheet(
-                      auth,
+                      widget.auth,
                       widget.comment,
                       widget.idHomework,
                     );
