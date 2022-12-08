@@ -1,11 +1,11 @@
 part of '../pages.dart';
 
 class ShowHomeworkUploaded extends StatefulWidget {
-  ShowHomeworkUploaded({
+  final ShowHomeworkParams showHomeworkParams;
+  const ShowHomeworkUploaded({
     Key? key,
     required this.showHomeworkParams,
   }) : super(key: key);
-  ShowHomeworkParams showHomeworkParams;
 
   @override
   _ShowHomeworkUploadedState createState() => _ShowHomeworkUploadedState();

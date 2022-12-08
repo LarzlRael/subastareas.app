@@ -100,11 +100,13 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                   );
                 }
                 if (snapshot.data!.isEmpty) {
-                  return const NoInformation(
-                    message: 'No se encontraron tareas',
-                    icon: Icons.search_off,
-                    showButton: false,
-                    iconButton: Icons.task,
+                  return const Expanded(
+                    child: NoInformation(
+                      message: 'No se encontraron tareas',
+                      icon: Icons.search_off,
+                      showButton: false,
+                      iconButton: Icons.task,
+                    ),
                   );
                 }
 
@@ -116,7 +118,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
                       return HomeworkCard(
-                        isLogged: auth.isLogged == null ? false : auth.isLogged,
+                        isLogged: auth.isLogged ? auth.isLogged : false,
                         homework: snapshot.data![index],
                         goTo: 'auctionPage',
                         isOwner: snapshot.data![index].user.id == auth.user.id,

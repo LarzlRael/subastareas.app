@@ -6,10 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:mime_type/mime_type.dart';
 
 import 'package:http_parser/http_parser.dart';
-import 'package:subastareaspp/models/homework_only_text.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
-    as Environment;
+    as environment;
 import 'package:subastareaspp/pages/pages.dart';
 import 'package:subastareaspp/utils/utils.dart';
 

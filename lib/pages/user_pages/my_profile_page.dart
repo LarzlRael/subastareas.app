@@ -10,8 +10,7 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   late AuthServices auth;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  final _refreshController = RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +30,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
             child: Column(
               children: [
                 CardProfile(auth: auth),
-                Column(
+                /* Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /* ProfileCard(),
-                    ProfileCard(), */
+                    ProfileCard(),
+                    ProfileCard(),
                   ],
-                ),
+                ), */
                 const SizedBox(
                   height: 30,
                 ),

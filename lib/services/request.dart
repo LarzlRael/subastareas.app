@@ -8,13 +8,13 @@ enum RequestType {
 }
 
 class Request {
-  String uri = '${Environment.serverHttpUrl}/';
+  String uri = '${environment.serverHttpUrl}/';
   static Future<http.Response?> sendRequest(
       RequestType method, String url, Map<String, String>? body) async {
     final headers = {
       'Content-Type': 'application/json',
     };
-    Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
+    Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
       case RequestType.get:
@@ -39,7 +39,7 @@ class Request {
       'Authorization': 'Bearer $token',
     };
 
-    final Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
     late http.Response res;
     switch (method) {
       case RequestType.get:
@@ -58,14 +58,14 @@ class Request {
   }
 
   static Future<http.Response> sendRequestWithFile(
-    String method,
+    RequestType requestType,
     String url,
     Map<String, String> otherFields,
     File file,
     String token,
   ) async {
     late http.Response res;
-    final Uri uri = Uri.parse('${Environment.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
     final mimeType = mime(file.path)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',
@@ -77,7 +77,7 @@ class Request {
     );
 
     final uploadPostRequest = http.MultipartRequest(
-      method,
+      requestType == RequestType.post ? 'POST' : 'PUT',
       uri,
     );
     uploadPostRequest.headers.addAll(headers);

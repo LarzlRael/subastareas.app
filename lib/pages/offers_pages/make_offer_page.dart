@@ -356,7 +356,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                 }
                               : null,
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blue,
+                            backgroundColor: Colors.blue,
                             // fixedSize: Size(250, 50),
                           ),
                           child: isLoading

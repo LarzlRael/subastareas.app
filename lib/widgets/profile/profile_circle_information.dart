@@ -37,9 +37,7 @@ class ProfileCircleInformation extends StatelessWidget {
             ),
             SimpleText(
               top: 5,
-              text: publicProfile.nickName != null
-                  ? publicProfile.nickName
-                  : publicProfile.nickName,
+              text: publicProfile.nickName,
               lightThemeColor: Colors.white,
             ),
           ],

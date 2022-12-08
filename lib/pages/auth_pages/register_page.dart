@@ -12,7 +12,6 @@ class RegisterPage extends StatelessWidget {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            /* height: MediaQuery.of(context).size.height, */
             padding: const EdgeInsets.only(
               bottom: 30,
               top: 20,
@@ -101,6 +100,10 @@ class RegisterPage extends StatelessWidget {
 
                           if (login) {
                             Navigator.pushReplacementNamed(context, 'login');
+                            GlobalSnackBar.show(
+                              context,
+                              'Registro exitoso, confirma tu correo electrónico, por favor',
+                            );
                           } else {
                             showSimpleAlert(
                                 context, 'hubo un error en el registro');

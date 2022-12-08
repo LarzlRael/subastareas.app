@@ -34,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
           child: Container(
             height: MediaQuery.of(context).size.height -
                 MediaQuery.of(context).padding.top,
-            color: Colors.black26,
             padding: const EdgeInsets.symmetric(
               horizontal: 30,
               vertical: 10,
@@ -83,12 +82,12 @@ class _LoginPageState extends State<LoginPage> {
                       key: _formKey,
                       child: Column(
                         children: [
-                          CustomFormBuilderTextField(
+                          const CustomFormBuilderTextField(
                             name: 'username',
                             icon: FontAwesomeIcons.at,
                             placeholder: 'Nombre de usuario o email',
                           ),
-                          CustomFormBuilderTextField(
+                          const CustomFormBuilderTextField(
                             name: 'password',
                             icon: FontAwesomeIcons.lock,
                             placeholder: 'Contraseña',
@@ -134,8 +133,8 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 Column(
-                  children: [
-                    const LabelLoginRegister(
+                  children: const [
+                    LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',
                       route: 'register',

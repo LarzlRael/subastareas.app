@@ -10,7 +10,6 @@ import 'package:simple_moment/simple_moment.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import 'package:subastareaspp/provider/providers.dart';
-import 'package:subastareaspp/provider/providers.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';

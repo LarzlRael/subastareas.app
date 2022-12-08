@@ -1,9 +1,9 @@
 part of '../pages.dart';
 
 class AuctionWithOfferPage extends StatefulWidget {
-  OneHomeworkModel args;
+  final OneHomeworkModel args;
 
-  AuctionWithOfferPage({
+  const AuctionWithOfferPage({
     required this.args,
     Key? key,
   }) : super(key: key);

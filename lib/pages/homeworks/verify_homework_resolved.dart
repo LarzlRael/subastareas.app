@@ -124,7 +124,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                 tradeUserModel.status == 'rejected'
                     ? Column(
                         children: [
-                          SimpleText(
+                          const SimpleText(
                             text: 'Motivo de rechazo',
                             fontSize: 16,
                             fontWeight: FontWeight.w500,

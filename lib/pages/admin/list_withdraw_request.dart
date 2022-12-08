@@ -11,7 +11,7 @@ class ListWithdrawRequest extends StatelessWidget {
         appBar: AppBar(),
         title: 'Solicitudes de retiro',
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [

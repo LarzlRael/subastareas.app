@@ -160,7 +160,7 @@ class AuthServices with ChangeNotifier {
 
   Future updateProfileImage(File file, int idUser) async {
     final resp = await Request.sendRequestWithFile(
-        'PUT',
+        RequestType.put,
         'auth/updateProfileImage/$idUser',
         {},
         file,
@@ -183,7 +183,7 @@ class AuthServices with ChangeNotifier {
 
     final signInWithGoogleEndPoint = Uri(
       scheme: 'https',
-      host: Environment.googleHttpsDomain,
+      host: environment.googleHttpsDomain,
       path: '/auth/googleAuth',
     );
     final resp = await http.post(

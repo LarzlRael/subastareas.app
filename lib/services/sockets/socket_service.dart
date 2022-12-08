@@ -1,15 +1,15 @@
 part of '../services.dart';
 
 enum ServerStatus {
-  Online,
-  Offline,
-  Connecting,
+  online,
+  offline,
+  connecting,
 }
 
 class SocketService with ChangeNotifier {
   final _storage = const FlutterSecureStorage();
 
-  ServerStatus _serverStatus = ServerStatus.Connecting;
+  ServerStatus _serverStatus = ServerStatus.connecting;
 
   late IO.Socket _socket;
 
@@ -25,7 +25,7 @@ class SocketService with ChangeNotifier {
     /* final token = await AuthService.getToken(); */
     // Dart client
     _socket = IO.io(
-        Environment.serverHttpUrl,
+        environment.serverHttpUrl,
         IO.OptionBuilder()
             .setTransports(['websocket']) // for Flutter or Dart VM
             .enableAutoConnect() // disable auto-connection
@@ -39,12 +39,12 @@ class SocketService with ChangeNotifier {
 
     _socket.on('connect', (_) {
       print('connected socket success');
-      _serverStatus = ServerStatus.Online;
+      _serverStatus = ServerStatus.online;
       notifyListeners();
     });
     _socket.on('disconnect', (_) {
       print('offline sockets');
-      _serverStatus = ServerStatus.Offline;
+      _serverStatus = ServerStatus.offline;
       notifyListeners();
     });
 

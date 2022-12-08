@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/models/models.dart';
-import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
 import '../pages/pages.dart';
@@ -34,7 +33,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'profile': (_) => const ProfilePage(),
   'forgot_password': (_) => const ForgotPassword(),
   'verify_email_page': (_) => const VerifyEmailPage(),
-  'notifications': (_) => NotificationPage(),
+  'notifications': (_) => const NotificationPage(),
   'filter': (_) => const FilterPage(),
   'store_page': (_) => const StorePage(),
   'public_profile_page': (BuildContext context) => PublicProfilePage(

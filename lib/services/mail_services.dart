@@ -1,8 +1,6 @@
 part of 'services.dart';
 
 class MailServices {
-  final _storage = const FlutterSecureStorage();
-
   Future requestPasswordChange(String email) async {
     final requestPasswordChange = await Request.sendRequest(
       RequestType.get,

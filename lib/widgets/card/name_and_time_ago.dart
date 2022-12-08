@@ -55,7 +55,7 @@ class NameAndTimeAgo extends StatelessWidget {
             ),
       const SizedBox(width: 15),
       SimpleText(
-        text: timeAgo.format(createdAt, locale: 'es'),
+        text: timeago.format(createdAt, locale: 'es'),
         lightThemeColor: Colors.grey,
       ),
     ];

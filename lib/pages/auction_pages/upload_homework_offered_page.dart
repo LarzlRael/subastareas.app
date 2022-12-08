@@ -185,7 +185,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
         return statusMessage('La tarea fue rechazada', Icons.warning,
             color: Colors.red);
       case "pending_to_accept":
-        return SizedBox();
+        return const SizedBox();
     }
     return Container();
   }

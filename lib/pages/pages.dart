@@ -21,7 +21,7 @@ import 'package:subastareaspp/services/services.dart';
 
 import 'package:subastareaspp/utils/utils.dart';
 import 'package:subastareaspp/widgets/text/text.dart';
-import 'package:subastareaspp/widgets/timers/custom_timer.dart';
+/* import 'package:subastareaspp/widgets/timers/custom_timer.dart'; */
 import 'package:subastareaspp/widgets/widgets.dart';
 
 import 'package:http/http.dart' as http;

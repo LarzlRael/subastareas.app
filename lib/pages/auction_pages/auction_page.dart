@@ -159,7 +159,7 @@ class _AuctionPageState extends State<AuctionPage> {
                             isBearer,
                           ),
                           snapshot.data!.homework.status == 'accepted_to_offer'
-                              ? _buttonMakeOffer(snapshot.data!, isBearer)
+                              ? _buttonMakeOffer(snapshot.data!, auth.isLogged)
                               : const SizedBox(),
                           snapshot.data!.homework.status == 'accepted_to_offer'
                               ? CommentsByHomework(
@@ -376,8 +376,6 @@ class _AuctionPageState extends State<AuctionPage> {
   }
 
   Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModel, bool isLogged) {
-    /* Change this for the condition */
-    final size = MediaQuery.of(context).size;
     bool isBearer = false;
     if (isLogged) {
       isBearer = oneHomeworkModel.homework.user.id == auth.user.id;

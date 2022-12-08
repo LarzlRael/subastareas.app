@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     PushNotificationService.messagesStream.listen((message) {
-      print('MyApp: $message');
+      /* print('MyApp: $message'); */
       navigatorKey.currentState?.pushNamed('message', arguments: message);
 
       final snackBar = SnackBar(content: Text(message));

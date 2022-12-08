@@ -36,7 +36,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       ),
       body: Center(
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             /* crossAxisAlignment: CrossAxisAlignment.start, */

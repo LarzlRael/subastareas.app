@@ -96,7 +96,7 @@ class HomeworkServices {
       Map<String, String> body, File? file, int idHomework) async {
     if (file != null) {
       final homeworkUploadWithFile = await Request.sendRequestWithFile(
-        'POST',
+        RequestType.post,
         'homework/create',
         body,
         file,
@@ -138,7 +138,7 @@ class HomeworkServices {
       return validateStatus(homeworkUploadWithFile!.statusCode);
     } else {
       final homeworkUploadWithFile = await Request.sendRequestWithFile(
-        'PUT',
+        RequestType.put,
         'homework/updateHomework/$idHomework',
         body,
         file,

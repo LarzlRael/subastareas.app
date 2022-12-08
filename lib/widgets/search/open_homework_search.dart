@@ -55,7 +55,7 @@ class OpenHomeworkSearch extends SearchDelegate {
               builder: (BuildContext context) {
                 return HomeworkCard(
                   isLogged: context.select((AuthServices auth) =>
-                      auth.isLogged == null ? false : auth.isLogged),
+                      auth.isLogged ? auth.isLogged : false),
                   homework: snapshot.data![index],
                   goTo: 'auctionPage',
                   isOwner: context.select((AuthServices auth) =>
@@ -100,7 +100,7 @@ class OpenHomeworkSearch extends SearchDelegate {
             )
           : listViewItems(suggestionList);
     } */
-    return Text('build Suggestions');
+    return const Text('build Suggestions');
   }
 
   /* ListView listViewItems(List<ShopModel> suggestionList) {

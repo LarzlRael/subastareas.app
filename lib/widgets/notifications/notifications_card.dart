@@ -149,7 +149,7 @@ class NotificationsCard extends StatelessWidget {
                   )
                 : const SizedBox(),
             SimpleText(
-              text: timeAgo.format(notification.createdAt, locale: 'es'),
+              text: timeago.format(notification.createdAt, locale: 'es'),
               fontSize: 12,
               lightThemeColor: Colors.black,
             ),
@@ -180,7 +180,7 @@ TypeNotification typeNotification(String type) {
     'new_offer': FontAwesomeIcons.dollarSign,
     'offer_accepted': FontAwesomeIcons.commentsDollar,
     'homework_finished': FontAwesomeIcons.book,
-    'homework_reject': FontAwesomeIcons.cancel,
+    'homework_reject': FontAwesomeIcons.ban,
   };
   return TypeNotification(map[type]!, iconMap[type]!);
 }

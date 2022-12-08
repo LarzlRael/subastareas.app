@@ -82,7 +82,7 @@ final homeworkServices = HomeworkServices();
 List<StatelessWidget> menuProfileOptions(AuthServices authService) {
   final menuProfileOptions = [
     MenuProfileOption(
-      icon: Icon(
+      icon: const Icon(
         Ionicons.wallet,
       ),
       title: "Billetera",
@@ -91,11 +91,11 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
     MenuProfileOption(
       icon: const BellIconNotification(),
       title: "Notificaciones",
-      page: NotificationPage(),
+      page: const NotificationPage(),
       callback: () => homeworkServices.clearNotifications(),
     ),
     MenuProfileOption(
-      icon: Icon(Icons.message_rounded),
+      icon: const Icon(Icons.message_rounded),
       title: "Mensajes",
       showTrailing: true,
       page: WalletPage(),
@@ -131,7 +131,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
           )
         : Container(),
     MenuProfileOption(
-      icon: Icon(Icons.exit_to_app, color: Colors.white),
+      icon: const Icon(Icons.exit_to_app, color: Colors.white),
       title: "Cerrar sesión",
       page: WalletPage(),
       showTrailingIcon: false,
