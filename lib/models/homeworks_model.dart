@@ -48,7 +48,7 @@ class HomeworksModel {
   factory HomeworksModel.fromJson(Map<String, dynamic> json) => HomeworksModel(
         id: json["id"],
         title: json["title"],
-        description: json["description"] == null ? null : json["description"],
+        description: json["description"],
         offeredAmount: json["offered_amount"],
         fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
         fileType: json["fileType"],

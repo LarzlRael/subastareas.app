@@ -1,18 +1,16 @@
 part of 'pages.dart';
 
 class LoadingPage extends StatelessWidget {
-  LoadingPage({Key? key}) : super(key: key);
-  late AuthServices authServices;
-  late SocketService socketService;
-  late ThemeChanger theme;
+  const LoadingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    authServices = Provider.of<AuthServices>(context, listen: false);
-    socketService = Provider.of<SocketService>(context, listen: false);
-    theme = Provider.of<ThemeChanger>(context, listen: false);
+    final authServices = Provider.of<AuthServices>(context, listen: false);
+    final socketService = Provider.of<SocketService>(context, listen: false);
+    final theme = Provider.of<ThemeChanger>(context, listen: false);
     return Scaffold(
       body: FutureBuilder(
-        future: checkLoginState(context),
+        future: checkLoginState(context, authServices, socketService, theme),
         builder: (_, __) {
           return const SquareLoading();
         },
@@ -20,7 +18,8 @@ class LoadingPage extends StatelessWidget {
     );
   }
 
-  Future checkLoginState(BuildContext context) async {
+  Future checkLoginState(BuildContext context, AuthServices authServices,
+      SocketService socketService, ThemeChanger theme) async {
     final isAuthenticated = await authServices.renewToken();
     if (isAuthenticated) {
       socketService.connect();

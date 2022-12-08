@@ -107,9 +107,9 @@ class Homework {
 
   int id;
   String title;
-  String? description;
+  dynamic description;
   int offeredAmount;
-  String? fileUrl;
+  dynamic fileUrl;
   String fileType;
   DateTime resolutionTime;
   String category;
@@ -123,9 +123,9 @@ class Homework {
   factory Homework.fromJson(Map<String, dynamic> json) => Homework(
         id: json["id"],
         title: json["title"],
-        description: json["description"] == null ? null : json["description"],
+        description: json["description"],
         offeredAmount: json["offered_amount"],
-        fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
+        fileUrl: json["fileUrl"],
         fileType: json["fileType"],
         visible: json["visible"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
@@ -200,8 +200,7 @@ class OfferUser {
   factory OfferUser.fromJson(Map<String, dynamic> json) => OfferUser(
         id: json["id"],
         username: json["username"],
-        profileImageUrl:
-            json["profileImageUrl"] == null ? null : json["profileImageUrl"],
+        profileImageUrl: json["profileImageUrl"] ?? null,
       );
 
   Map<String, dynamic> toJson() => {

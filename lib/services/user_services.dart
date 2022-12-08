@@ -17,7 +17,7 @@ class UserServices {
   Future<bool> changeUserPreferences(
       int idProfileUser, bool isDarkTheme, bool sendNotifications) async {
     final resp = await Request.sendRequestWithToken(
-      RequestType.get,
+      RequestType.post,
       'userProfile/changePreferences',
       {
         'id': idProfileUser,

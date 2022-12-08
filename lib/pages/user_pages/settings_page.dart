@@ -14,77 +14,74 @@ class SettingsPage extends StatelessWidget {
         title: 'Configuraciones',
       ),
       body: SafeArea(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: ShowProfileImage(
-                  profileImage: auth.user.profileImageUrl,
-                  userName: auth.user.username,
-                  radius: 75,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 20),
+              child: ShowProfileImage(
+                profileImage: auth.user.profileImageUrl,
+                userName: auth.user.username,
+                radius: 75,
               ),
-              Expanded(
-                child: ListView(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.notifications),
-                      title: const Text('Notificaciones'),
-                      trailing: Switch(
-                        value: themeChanger.getNotifications,
-                        onChanged: (value) async {
-                          themeChanger.setNotifications = value;
-                          await userServices.changeUserPreferences(
-                            auth.user.userProfile.id,
-                            themeChanger.getDarkTheme,
-                            themeChanger.getNotifications,
-                          );
-                        },
-                      ),
-                      onTap: () {
-                        /* auth.logout(); */
-                      },
-                    ),
-                    /* ListTile(
-                      leading: const Icon(Icons.person_add_alt),
-                      title: const Text('Tema oscuro'),
-                      trailing: Switch(
-                        value: true,
-                        onChanged: (value) {},
-                      ),
-                      onTap: () {
-                      },
-                    ), */
-                    GenericListTile(
-                      icon: Icons.color_lens,
-                      title: 'Tema oscuro',
-                      initialValue: themeChanger.isDarkTheme,
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.notifications),
+                    title: const Text('Notificaciones'),
+                    trailing: Switch(
+                      value: themeChanger.getNotifications,
                       onChanged: (value) async {
-                        themeChanger.setDarkTheme = value;
-                        preferences.setThemeStatus = value ? 0 : 1;
-                        final boolxd = await userServices.changeUserPreferences(
+                        themeChanger.setNotifications = value;
+                        await userServices.changeUserPreferences(
                           auth.user.userProfile.id,
                           themeChanger.getDarkTheme,
                           themeChanger.getNotifications,
                         );
-                        print(boolxd);
                       },
                     ),
-                    ListTile(
-                      leading: const Icon(Icons.lock),
-                      title: const Text('Cambiar contraseña'),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () {
-                        Navigator.pushNamed(context, 'change_password');
-                      },
+                    onTap: () {
+                      /* auth.logout(); */
+                    },
+                  ),
+                  /* ListTile(
+                    leading: const Icon(Icons.person_add_alt),
+                    title: const Text('Tema oscuro'),
+                    trailing: Switch(
+                      value: true,
+                      onChanged: (value) {},
                     ),
-                  ],
-                ),
+                    onTap: () {
+                    },
+                  ), */
+                  GenericListTile(
+                    icon: Icons.color_lens,
+                    title: 'Tema oscuro',
+                    initialValue: themeChanger.isDarkTheme,
+                    onChanged: (value) async {
+                      themeChanger.setDarkTheme = value;
+                      preferences.setThemeStatus = value ? 0 : 1;
+                      final boolxd = await userServices.changeUserPreferences(
+                        auth.user.userProfile.id,
+                        themeChanger.getDarkTheme,
+                        themeChanger.getNotifications,
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.lock),
+                    title: const Text('Cambiar contraseña'),
+                    trailing: const Icon(Icons.chevron_right),
+                    onTap: () {
+                      Navigator.pushNamed(context, 'change_password');
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

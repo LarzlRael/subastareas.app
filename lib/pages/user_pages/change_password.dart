@@ -26,88 +26,85 @@ class _ChangePasswordState extends State<ChangePassword> {
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SimpleText(
-                text: 'CAMBIAR CONTRASEÑA',
-                textAlign: TextAlign.center,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                bottom: 10,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SimpleText(
+              text: 'CAMBIAR CONTRASEÑA',
+              textAlign: TextAlign.center,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              bottom: 10,
+            ),
+            const SizedBox(
+              child: Icon(
+                Icons.lock,
+                size: 200,
               ),
-              const SizedBox(
-                child: Icon(
-                  Icons.lock,
-                  size: 200,
-                ),
-              ),
-              const SimpleText(
-                text: 'Tu nueva contraseña debe ser diferente a las anteriores',
-                textAlign: TextAlign.center,
-                fontSize: 14,
-                top: 10,
-                fontWeight: FontWeight.w500,
-              ),
-              // two inputs
-              FormBuilder(
-                key: _formKey,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Column(
-                    children: [
-                      const CustomFormBuilderTextField(
-                        name: 'password',
-                        icon: FontAwesomeIcons.lock,
-                        placeholder: 'Contraseña',
-                        passwordField: true,
-                      ),
-                      const CustomFormBuilderTextField(
-                        name: 'confirmPassword',
-                        icon: FontAwesomeIcons.lock,
-                        placeholder: 'Confirmar Contraseña',
-                        passwordField: true,
-                      ),
-                      FillButton(
-                        label: "Cambiar contraseña",
-                        textColor: Colors.white,
-                        borderRadius: 50,
-                        onPressed: () async {
-                          final validationSuccess =
-                              _formKey.currentState!.validate();
+            ),
+            const SimpleText(
+              text: 'Tu nueva contraseña debe ser diferente a las anteriores',
+              textAlign: TextAlign.center,
+              fontSize: 14,
+              top: 10,
+              fontWeight: FontWeight.w500,
+            ),
+            // two inputs
+            FormBuilder(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    const CustomFormBuilderTextField(
+                      name: 'password',
+                      icon: FontAwesomeIcons.lock,
+                      placeholder: 'Contraseña',
+                      passwordField: true,
+                    ),
+                    const CustomFormBuilderTextField(
+                      name: 'confirmPassword',
+                      icon: FontAwesomeIcons.lock,
+                      placeholder: 'Confirmar Contraseña',
+                      passwordField: true,
+                    ),
+                    FillButton(
+                      label: "Cambiar contraseña",
+                      textColor: Colors.white,
+                      borderRadius: 50,
+                      onPressed: () async {
+                        final validationSuccess =
+                            _formKey.currentState!.validate();
 
-                          if (validationSuccess) {
-                            _formKey.currentState!.save();
-                            final isLoginOk = await authService.changePassword(
-                                _formKey.currentState!.value['password'],
-                                _formKey
-                                    .currentState!.value['confirmPassword']);
+                        if (validationSuccess) {
+                          _formKey.currentState!.save();
+                          final isLoginOk = await authService.changePassword(
+                              _formKey.currentState!.value['password'],
+                              _formKey.currentState!.value['confirmPassword']);
 
-                            if (isLoginOk) {
-                              Navigator.pop(context);
-                              GlobalSnackBar.show(
-                                context,
-                                'Contraseña cambiada correctamente',
-                                backgroundColor: Colors.green,
-                              );
-                            } else {
-                              GlobalSnackBar.show(
-                                context,
-                                'Error al cambiar contraseña',
-                                backgroundColor: Colors.red,
-                              );
-                            }
+                          if (isLoginOk) {
+                            Navigator.pop(context);
+                            GlobalSnackBar.show(
+                              context,
+                              'Contraseña cambiada correctamente',
+                              backgroundColor: Colors.green,
+                            );
+                          } else {
+                            GlobalSnackBar.show(
+                              context,
+                              'Error al cambiar contraseña',
+                              backgroundColor: Colors.red,
+                            );
                           }
-                        },
-                      ),
-                    ],
-                  ),
+                        }
+                      },
+                    ),
+                  ],
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
