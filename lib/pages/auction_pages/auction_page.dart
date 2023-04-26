@@ -147,7 +147,6 @@ class _AuctionPageState extends State<AuctionPage> {
                 delegate: SliverChildListDelegate(
                   [
                     Container(
-                      color: Colors.blueGrey[50],
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */

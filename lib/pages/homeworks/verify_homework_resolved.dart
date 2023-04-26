@@ -77,6 +77,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                       textAlign: TextAlign.center,
+                                      bottom: 10,
                                     ),
                                   ],
                                 )

@@ -33,7 +33,7 @@ class SimpleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeStatus = Provider.of<ThemeChanger>(context, listen: true);
+    final themeStatus = context.watch<ThemeProviderNotifier>();
     return Padding(
       padding: EdgeInsets.only(
           top: top ?? 0,
@@ -59,7 +59,7 @@ class SimpleText extends StatelessWidget {
                   : color ?? Colors.black, */
               color: setUniqueColor
                   ? lightThemeColor
-                  : themeStatus.isDarkTheme
+                  : themeStatus.isDarkModeEnabled
                       ? darkThemeColor ?? Colors.white
                       : lightThemeColor ?? Colors.black,
             ),

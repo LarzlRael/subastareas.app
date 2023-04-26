@@ -15,7 +15,7 @@ class BellIconNotification extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(0.0),
       child: notificationsNotRead > 0
-          ? Badge(
+          ? badges.Badge(
               badgeContent: Text(
                 notificationsNotRead > 9 ? '9+' : '$notificationsNotRead',
                 style: const TextStyle(color: Colors.white, fontSize: 10),

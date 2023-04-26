@@ -42,7 +42,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                     );
                   },
                   child: Container(
-                    color: Colors.brown,
+                    /* color: Colors.brown, */
                     child: Row(
                       children: [
                         ShowProfileImage(
@@ -62,21 +62,22 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                   ),
                 )
               : Container(),
-          Container(
-            color: Colors.amberAccent,
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: reverseComments.length,
-              itemBuilder: (context, index) {
-                return CommentCard(
-                  comment: reverseComments[index],
-                  idHomework: widget.idHomework,
-                  auth: widget.auth,
-                );
-              },
-            ),
-          ),
+          reverseComments.isNotEmpty
+              ? Container(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: reverseComments.length,
+                    itemBuilder: (context, index) {
+                      return CommentCard(
+                        comment: reverseComments[index],
+                        idHomework: widget.idHomework,
+                        auth: widget.auth,
+                      );
+                    },
+                  ),
+                )
+              : const SizedBox(),
         ],
       ),
     );

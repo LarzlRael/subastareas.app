@@ -6,7 +6,8 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: false);
     final userServices = UserServices();
-    final themeChanger = Provider.of<ThemeChanger>(context, listen: true);
+    final themeProvider = context.watch<ThemeProviderNotifier>();
+
     final preferences = UserPreferences();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -28,7 +29,7 @@ class SettingsPage extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: [
-                  ListTile(
+                  /*  ListTile(
                     leading: const Icon(Icons.notifications),
                     title: const Text('Notificaciones'),
                     trailing: Switch(
@@ -45,7 +46,7 @@ class SettingsPage extends StatelessWidget {
                     onTap: () {
                       /* auth.logout(); */
                     },
-                  ),
+                  ), */
                   /* ListTile(
                     leading: const Icon(Icons.person_add_alt),
                     title: const Text('Tema oscuro'),
@@ -56,23 +57,38 @@ class SettingsPage extends StatelessWidget {
                     onTap: () {
                     },
                   ), */
-                  GenericListTile(
+                  /* GenericListTile(
                     icon: Icons.color_lens,
                     title: 'Tema oscuro',
                     initialValue: themeChanger.isDarkTheme,
                     onChanged: (value) async {
-                      themeChanger.setDarkTheme = value;
                       preferences.setThemeStatus = value ? 0 : 1;
+                      themeProvider.toggleTheme();
                       final boolxd = await userServices.changeUserPreferences(
                         auth.user.userProfile.id,
                         themeChanger.getDarkTheme,
                         themeChanger.getNotifications,
                       );
                     },
+                  ), */
+                  ListTile(
+                    leading: const Icon(Icons.color_lens_sharp),
+                    title: Text('Tema actual',
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    trailing: Icon(
+                      themeProvider.isDarkModeEnabled
+                          ? Icons.dark_mode_rounded
+                          : Icons.light_mode_rounded,
+                    ),
+                    onTap: () {
+                      /* Navigator.pushNamed(context, 'language'); */
+                      themeProvider.toggleTheme();
+                    },
                   ),
                   ListTile(
                     leading: const Icon(Icons.lock),
-                    title: const Text('Cambiar contraseña'),
+                    title: Text('Cambiar contraseña',
+                        style: Theme.of(context).textTheme.bodyMedium),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.pushNamed(context, 'change_password');

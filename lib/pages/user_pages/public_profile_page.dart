@@ -20,9 +20,9 @@ class PublicProfilePage extends StatelessWidget {
         appBar: AppBar(),
       ),
       //hexadecimal background color
-      backgroundColor: theme.isDarkTheme
+      /* backgroundColor: theme.isDarkTheme
           ? Theme.of(context).scaffoldBackgroundColor
-          : const Color(0xFFD9D9D9),
+          : const Color(0xFFD9D9D9), */
       body: SafeArea(
         child: SingleChildScrollView(
           child: FutureBuilder(

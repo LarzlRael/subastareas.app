@@ -168,7 +168,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
         child: Stack(
           children: [
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(8),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -224,7 +224,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
         children: [
           const Icon(Icons.remove_red_eye, color: Colors.grey),
           const SizedBox(width: 5),
-          SimpleText(
+          /* SimpleText(
             text: _currentViewers == 1
                 ? 'Solo tú estas viendo esto'
                 : 'Tú y ${_currentViewers - 1} personas más, están viendo esto',
@@ -232,6 +232,15 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
             fontWeight: FontWeight.w500,
             top: 5,
             bottom: 5,
+          ), */
+          Text(
+            _currentViewers == 1
+                ? 'Solo tú estas viendo esto'
+                : 'Tú y ${_currentViewers - 1} personas más, están viendo esto',
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),

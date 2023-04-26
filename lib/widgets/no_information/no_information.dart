@@ -20,7 +20,6 @@ class NoInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final getDarkTheme = Provider.of<ThemeChanger>(context).getDarkTheme;
     return Container(
       /* color: Colors.yellow, */
       padding: const EdgeInsets.all(40),
@@ -28,8 +27,7 @@ class NoInformation extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon,
-                size: 150, color: getDarkTheme ? Colors.white : Colors.black),
+            Icon(icon, size: 150),
             const SizedBox(height: 15),
             Text(message),
             const SizedBox(height: 15),

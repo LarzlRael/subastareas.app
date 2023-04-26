@@ -13,24 +13,23 @@ class AppBarWithBackIcon extends StatelessWidget
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
+    final style = Theme.of(context).textTheme.headlineSmall;
     return AppBar(
       elevation: 0,
       centerTitle: centerTitle,
-      backgroundColor: theme.isDarkTheme ? Colors.transparent : Colors.white,
       title: title != null
-          ? SimpleText(
+          ? /* SimpleText(
               text: title!,
               lightThemeColor: Colors.black,
               darkThemeColor: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
-            )
+            ) */
+          Text(title!, style: style)
           : null,
       leading: IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.chevron_left,
-          color: theme.isDarkTheme ? Colors.white : Colors.black,
           size: 35,
         ),
         onPressed: () => Navigator.pop(context),

@@ -7,7 +7,7 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authServices = Provider.of<AuthServices>(context, listen: false);
     final socketService = Provider.of<SocketService>(context, listen: false);
-    final theme = Provider.of<ThemeChanger>(context, listen: false);
+    final theme = Provider.of<ThemeProviderNotifier>(context, listen: false);
     return Scaffold(
       body: FutureBuilder(
         future: checkLoginState(context, authServices, socketService, theme),
@@ -18,12 +18,16 @@ class LoadingPage extends StatelessWidget {
     );
   }
 
-  Future checkLoginState(BuildContext context, AuthServices authServices,
-      SocketService socketService, ThemeChanger theme) async {
+  Future checkLoginState(
+    BuildContext context,
+    AuthServices authServices,
+    SocketService socketService,
+    ThemeProviderNotifier theme,
+  ) async {
     final isAuthenticated = await authServices.renewToken();
     if (isAuthenticated) {
       socketService.connect();
-      theme.setDarkTheme = authServices.user.userProfile.isDarkTheme;
+      /* theme.setDarkTheme = authServices.user.userProfile.isDarkTheme; */
       goToInitialPage(context, const BottomNavigation());
     } else {
       goToInitialPage(context, const WelcomePage());

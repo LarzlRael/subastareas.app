@@ -10,11 +10,11 @@ GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PushNotificationService.initializeApp();
-  final preferences = UserPreferences();
-  await preferences.initPreferences();
+  await UserPreferences.init();
+  /* await Enviroment.initEnviroment(); */
   runApp(
     ChangeNotifierProvider(
-      create: (_) => ThemeChanger(preferences.getThemeStatus),
+      create: (_) => ThemeProviderNotifier(),
       child: const MyApp(),
     ),
   );
@@ -46,14 +46,14 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final appTheme = Provider.of<ThemeChanger>(context).getCurrentTheme;
+    final appTheme = context.watch<ThemeProviderNotifier>().appTheme;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
-        /* ChangeNotifierProvider(create: (_) => CountdownProvider()), */
         ChangeNotifierProvider(create: (_) => NotificationService()),
+        ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
       child: MaterialApp(
         title: 'Subastareas',
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         routes: appRoutes,
         initialRoute: 'loading',
-        theme: appTheme,
+        theme: appTheme.getTheme(),
         localizationsDelegates: formBuildersDelegates,
         supportedLocales: supportedLocales,
       ),

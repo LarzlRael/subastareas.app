@@ -142,12 +142,10 @@ class ProfileCard extends StatefulWidget {
 class _ProfileCardState extends State<ProfileCard> {
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: theme.isDarkTheme ? Colors.black : Colors.white,
         border: Border.all(
           color: Colors.grey,
           width: 1,

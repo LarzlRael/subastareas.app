@@ -8,6 +8,7 @@ class WelcomePage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -20,9 +21,9 @@ class WelcomePage extends StatelessWidget {
               ),
               const Expanded(
                 child: Slideshow(
-                  primaryColor: Colors.blue,
-                  secondaryColor: Colors.blueGrey,
-                  primaryBullet: 15.0,
+                  primaryColor: Colors.amber,
+                  secondaryColor: Colors.grey,
+                  primaryBullet: 13.0,
                   secondaryBullet: 10.0,
                   slides: [
                     SlideItem(
@@ -49,7 +50,7 @@ class WelcomePage extends StatelessWidget {
                 },
                 label: 'Iniciar sesión',
                 textColor: Colors.white,
-                backgroundColor: Colors.amber,
+                /* backgroundColor: Colors.amber, */
               ),
               FillButton(
                 onPressed: () {
@@ -57,7 +58,6 @@ class WelcomePage extends StatelessWidget {
                 },
                 ghostButton: true,
                 label: 'Registrarse',
-                backgroundColor: Colors.blue,
               ),
               showNotNow
                   ? TextOnTap(

@@ -43,7 +43,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     final blocHomework = OneHomeworkBloc();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme.isDarkTheme ? Colors.black : Colors.white,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
@@ -51,7 +50,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           },
           icon: Icon(
             Icons.chevron_left,
-            color: theme.isDarkTheme ? Colors.white : Colors.black54,
             size: 30,
           ),
         ),
@@ -318,7 +316,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         width: double.infinity,
                         height: 60,
                         padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
+                        child: FilledButton(
                           onPressed: !isLoading
                               ? () async {
                                   if (!formKey.currentState!.validate()) return;
@@ -355,10 +353,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   Navigator.of(context).pop();
                                 }
                               : null,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blue,
-                            // fixedSize: Size(250, 50),
-                          ),
                           child: isLoading
                               ? const CircularProgressIndicator(
                                   color: Colors.white,

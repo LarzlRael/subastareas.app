@@ -8,7 +8,7 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     auth = Provider.of<AuthServices>(context);
-    final theme = Provider.of<ThemeChanger>(context);
+    final displayMedium = Theme.of(context).textTheme.displayMedium;
     final transactionServices = TransactionServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -16,22 +16,22 @@ class WalletPage extends StatelessWidget {
         title: 'BILLETERA',
         centerTitle: true,
       ),
-      backgroundColor: theme.isDarkTheme
+      /* backgroundColor: theme.isDarkTheme
           ? Theme.of(context).scaffoldBackgroundColor
-          : Colors.grey[300],
+          : Colors.grey[300], */
       body: SafeArea(
         child: Container(
-          color: theme.isDarkTheme
+          /* color: theme.isDarkTheme
               ? Theme.of(context).scaffoldBackgroundColor
-              : Colors.grey[300],
+              : Colors.grey[300], */
           /* padding: const EdgeInsets.symmetric(horizontal: 20), */
           child: Column(
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                color: theme.isDarkTheme
+                /* color: theme.isDarkTheme
                     ? Theme.of(context).scaffoldBackgroundColor
-                    : Colors.white,
+                    : Colors.white, */
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -76,6 +76,7 @@ class WalletPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: ButtonWithIcon(
+                            backgroundColorButton: Colors.green,
                             label: 'Adquirir monedas',
                             icon: Icons.arrow_upward,
                             onPressed: () {
@@ -100,12 +101,16 @@ class WalletPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SimpleText(
+                    /* const SimpleText(
                       text: 'HISTORIAL',
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       top: 20,
                       bottom: 20,
+                    ), */
+                    Text(
+                      'Historial',
+                      style: displayMedium,
                     ),
                   ],
                 ),

@@ -41,11 +41,9 @@ class AppBarTitle extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     return AppBar(
       centerTitle: true,
-      backgroundColor: theme.isDarkTheme ? Colors.transparent : Colors.white,
-      elevation: 0,
+      elevation: 5,
       automaticallyImplyLeading: false,
       title: OnlyImageAndTitle(title: title, fontSize: fontSize),
     );
@@ -74,13 +72,20 @@ class OnlyImageAndTitle extends StatelessWidget {
           'assets/icon.png',
           height: 35,
         ),
-        SimpleText(
+        SizedBox(width: 10),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        )
+        /* SimpleText(
           left: 10,
           text: title,
           /* color: Colors.black, */
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
-        ),
+          setUniqueColor: true,
+          lightThemeColor: Colors.black,
+        ), */
       ],
     );
   }

@@ -27,12 +27,11 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
         child: Scaffold(
           appBar: AppBar(
             elevation: 0,
-            backgroundColor:
-                theme.getDarkTheme ? Colors.transparent : Colors.grey[100],
+            /* backgroundColor:
+                theme.getDarkTheme ? Colors.transparent : Colors.grey[100], */
             toolbarHeight: 20,
             automaticallyImplyLeading: false,
             bottom: TabBar(
-              /* indicatorColor: Colors.blue, */
               padding: const EdgeInsets.only(bottom: 20),
               tabs: tabsOptions(),
             ),
@@ -118,7 +117,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
       child: Container(
         /* height: MediaQuery.of(context).size.height, */
         padding: const EdgeInsets.symmetric(
-          horizontal: 20,
+          horizontal: 8,
         ),
         child: FormBuilder(
           initialValue: {
@@ -134,12 +133,19 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
             children: [
               Column(
                 children: [
-                  SimpleText(
+                  /* SimpleText(
                     text:
                         'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     bottom: 10,
+                  ), */
+                  Text(
+                    'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      /* color: Colors.grey[600], */
+                    ),
                   ),
                   GenericListTile(
                     icon: Icons.file_open,

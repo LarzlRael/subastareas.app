@@ -7,7 +7,7 @@ class MenuProfileOption extends StatelessWidget {
   final bool showTrailing;
   final bool showTrailingIcon;
   final bool closeSession;
-  final bool badge;
+  final bool showBadge;
   final Widget? badgeChild;
   final Future<dynamic> Function()? callback;
   const MenuProfileOption({
@@ -15,7 +15,7 @@ class MenuProfileOption extends StatelessWidget {
     required this.title,
     required this.page,
     required this.icon,
-    this.badge = false,
+    this.showBadge = false,
     this.showTrailing = false,
     this.showTrailingIcon = true,
     this.closeSession = false,
@@ -63,19 +63,20 @@ class MenuProfileOption extends StatelessWidget {
                   /* color: color, */
                 )
               : null,
-          leading: badge
-              ? Badge(
-                  child: icon,
+          leading: showBadge
+              ? badges.Badge(
                   badgeContent: badgeChild,
+                  child: icon,
                 )
               : icon,
-          title: SimpleText(
+          title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+          /* SimpleText(
             text: title,
             fontSize: 15,
             fontWeight: FontWeight.bold,
             setUniqueColor: false,
-            lightThemeColor: closeSession ? Colors.white : Colors.black87,
-          ),
+            /* lightThemeColor: closeSession ? Colors.white : Colors.black87, */
+          ), */
         ),
       ),
     );

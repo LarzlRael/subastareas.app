@@ -29,11 +29,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               /* crossAxisAlignment: CrossAxisAlignment.start, */
               children: [
                 const Center(
-                    child: Icon(
-                  Ionicons.mail_unread,
-                  color: Colors.blue,
-                  size: 200,
-                )),
+                  child: Icon(
+                    Ionicons.mail_unread,
+                    /* color: Colors.blue, */
+                    size: 200,
+                  ),
+                ),
                 const SimpleText(
                   text: 'Recuperación de contraseña',
                   fontSize: 23,
@@ -84,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         child: const Icon(
                           Ionicons.chevron_forward_circle,
                           size: 35,
-                          color: Colors.blue,
+                          /* color: Colors.blue, */
                         ),
                       ),
                       const SizedBox(

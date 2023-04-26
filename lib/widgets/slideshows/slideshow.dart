@@ -164,7 +164,7 @@ class _Slides extends StatefulWidget {
 
 class _SlidesState extends State<_Slides> {
   final pageViewController = PageController();
-  @override
+
   @override
   void initState() {
     super.initState();

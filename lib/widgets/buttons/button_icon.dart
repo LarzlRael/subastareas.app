@@ -21,7 +21,7 @@ class ButtonWithIcon extends StatelessWidget {
     required this.label,
     this.backgroundColorButton = Colors.blue,
     this.buttonBorderColor = Colors.transparent,
-    this.styleLabelButton = const TextStyle(color: Colors.white, fontSize: 16),
+    this.styleLabelButton = const TextStyle(color: Colors.white, fontSize: 14),
     this.verticalPadding = 5,
     this.iconSize = 24.0,
     this.marginHorizontal = 0,
@@ -39,37 +39,21 @@ class ButtonWithIcon extends StatelessWidget {
       ),
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: icon != null
-          ? TextButton.icon(
+          ? FilledButton.icon(
               icon: Icon(
                 icon,
-                color: Colors.white,
                 size: iconSize,
               ),
               label: Text(label, style: styleLabelButton),
               onPressed: onPressed,
-              style: buttonsStyles(context),
             )
           : ElevatedButton(
               child: Text(
                 label,
                 style: styleLabelButton,
               ),
-              style: buttonsStyles(context),
               onPressed: onPressed,
             ),
-    );
-  }
-
-  buttonsStyles(BuildContext context) {
-    return ElevatedButton.styleFrom(
-      padding: EdgeInsets.symmetric(
-          vertical: verticalPadding, horizontal: horizontalPadding),
-      shape: const StadiumBorder(),
-      backgroundColor: backgroundColorButton,
-      side: BorderSide(
-        width: .8,
-        color: buttonBorderColor,
-      ),
     );
   }
 }

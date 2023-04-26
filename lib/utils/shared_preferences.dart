@@ -2,58 +2,55 @@ part of 'utils.dart';
 
 class UserPreferences {
   //no one this properties it is used
+  static late SharedPreferences _prefs;
 
-  static final UserPreferences _instance = UserPreferences._internal();
-
-  factory UserPreferences() {
-    return _instance;
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  UserPreferences._internal();
+  static bool get isDarkModeEnabled => _prefs.getBool('isDarkTheme') ?? false;
 
-  late SharedPreferences _preferences;
-
-  initPreferences() async {
-    _preferences = await SharedPreferences.getInstance();
+  static set isDarkTheme(bool value) {
+    _prefs.setBool('isDarkTheme', value);
   }
 
   String get loginEmail {
-    return _preferences.getString('loginEmail') ?? '';
+    return _prefs.getString('loginEmail') ?? '';
   }
 
   set loginEmail(String value) {
-    _preferences.setString('loginEmail', value);
+    _prefs.setString('loginEmail', value);
   }
 
   int get currentIdHomework {
-    return _preferences.getInt('currentIdHomework') ?? 0;
+    return _prefs.getInt('currentIdHomework') ?? 0;
   }
 
   set currentIdHomework(int value) {
-    _preferences.setInt('currentIdHomework', value);
+    _prefs.setInt('currentIdHomework', value);
   }
 
   bool get showInitialSlider {
-    return _preferences.getBool('showInitialSlider') ?? true;
+    return _prefs.getBool('showInitialSlider') ?? true;
   }
 
   set setShowInitialSlider(bool value) {
-    _preferences.setBool('showInitialSlider', value);
+    _prefs.setBool('showInitialSlider', value);
   }
 
   List<String> get getSubjectsList {
-    return _preferences.getStringList('subjectsList') ?? [];
+    return _prefs.getStringList('subjectsList') ?? [];
   }
 
   set setSubjectsList(List<String> listSubjects) {
-    _preferences.setStringList('subjectsList', listSubjects);
+    _prefs.setStringList('subjectsList', listSubjects);
   }
 
   int get getThemeStatus {
-    return _preferences.getInt('themeStatus') ?? 0;
+    return _prefs.getInt('themeStatus') ?? 0;
   }
 
   set setThemeStatus(int themeStatus) {
-    _preferences.setInt('themeStatus', themeStatus);
+    _prefs.setInt('themeStatus', themeStatus);
   }
 }

@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
     void loginOk() {
       Navigator.pushReplacementNamed(context, 'bottomNavigation');
-      theme.setDarkTheme = authService.user.userProfile.isDarkTheme;
+      /* theme.setDarkTheme = authService.user.userProfile.isDarkTheme; */
       filter.setCurrentBottomTab = 0;
       notificationService.getUserNotifications();
       socketService.connect();
@@ -69,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       fontSize: 15,
-                      backGroundColor:
-                          theme.isDarkTheme ? Colors.black38 : Colors.white,
+                      /*  backGroundColor:
+                          theme.isDarkTheme ? Colors.black38 : Colors.white, */
                       icon: SvgPicture.asset(
                         'assets/svg/google_icon.svg',
                         width: 25,

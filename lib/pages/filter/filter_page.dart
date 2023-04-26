@@ -77,7 +77,6 @@ class FutureGetSubjectList extends StatelessWidget {
                   separatorBuilder: (context, index) {
                     return const Divider(
                       height: 1,
-                      color: Colors.blue,
                     );
                   }),
             ),
@@ -132,7 +131,6 @@ class LocalGetSubjectList extends StatelessWidget {
               separatorBuilder: (context, index) {
                 return const Divider(
                   height: 1,
-                  color: Colors.blue,
                 );
               }),
         ),
@@ -176,7 +174,9 @@ class _FilterItemState extends State<FilterItem> {
         borderRadius: BorderRadius.circular(2.0),
       ),
       side: MaterialStateBorderSide.resolveWith(
-        (states) => const BorderSide(width: 2.5, color: Colors.blue),
+        (states) => const BorderSide(
+          width: 2.5,
+        ),
       ),
       title: Text(widget.title),
       value: isSelected,

@@ -56,7 +56,7 @@ List<BottomNavigationBarItem> bottonItemsWithLogin(bool isThereNotifications) {
       badgeContent: null,
     ), */
       icon: isThereNotifications
-          ? Badge(
+          ? badges.Badge(
               child: const Icon(FontAwesomeIcons.user),
               badgeContent: null,
             )
