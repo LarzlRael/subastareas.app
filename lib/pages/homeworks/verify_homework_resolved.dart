@@ -82,22 +82,25 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                   ],
                                 )
                               : const SizedBox(),
-                          FillButton(
-                            label: 'Ver tarea resuelta',
-                            backgroundColor: Colors.green,
-                            borderRadius: 30,
-                            textColor: Colors.white,
-                            onPressed: () async {
-                              Navigator.pushNamed(
-                                context,
-                                'show_homework_uploaded',
-                                arguments: ShowHomeworkParams(
-                                  title: tradeUserModel.title,
-                                  fileType: tradeUserModel.solvedFileType,
-                                  fileUrl: tradeUserModel.solvedHomeworkUrl,
-                                ),
-                              );
-                            },
+                          SizedBox(
+                            width: double.infinity,
+                            child: FilledButton(
+                              child: Text('Ver tarea resuelta'),
+                              /* backgroundColor: Colors.green, */
+                              /* borderRadius: 30, */
+                              /* textColor: Colors.white, */
+                              onPressed: () async {
+                                Navigator.pushNamed(
+                                  context,
+                                  'show_homework_uploaded',
+                                  arguments: ShowHomeworkParams(
+                                    title: tradeUserModel.title,
+                                    fileType: tradeUserModel.solvedFileType,
+                                    fileUrl: tradeUserModel.solvedHomeworkUrl,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                           tradeUserModel.status != 'accepted'
                               ? FormBuilder(

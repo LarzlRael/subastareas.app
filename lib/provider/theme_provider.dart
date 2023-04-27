@@ -23,4 +23,18 @@ class ThemeProviderNotifier extends ChangeNotifier {
     );
     notifyListeners(); // Notificar a los oyentes del cambio de estado
   }
+
+  void changeToLightTheme() {
+    _appTheme = _appTheme.copyWith(
+      isDarkMode: false,
+    );
+    notifyListeners(); // Notificar a los oyentes del cambio de estado
+  }
+
+  void changeToDarkTheme() {
+    _appTheme = _appTheme.copyWith(
+      isDarkMode: false,
+    );
+    notifyListeners(); // Notificar a los oyentes del cambio de estado
+  }
 }

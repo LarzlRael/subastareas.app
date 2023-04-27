@@ -23,7 +23,7 @@ class SettingsPage extends StatelessWidget {
               child: ShowProfileImage(
                 profileImage: auth.user.profileImageUrl,
                 userName: auth.user.username,
-                radius: 75,
+                radius: 50,
               ),
             ),
             Expanded(

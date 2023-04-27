@@ -15,11 +15,10 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
   @override
   Widget build(BuildContext context) {
     /* final authServices = Provider.of<AuthServices>(context, listen: true); */
-    final theme = Provider.of<ThemeChanger>(context, listen: true);
     return Scaffold(
       appBar: AppBarTitle(
-        title: 'SUBIR NUEVA TAREA',
-        fontSize: 20,
+        title: 'Subir nueva tarea',
+        fontSize: 15,
         appBar: AppBar(),
       ),
       body: DefaultTabController(

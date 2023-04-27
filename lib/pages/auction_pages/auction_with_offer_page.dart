@@ -155,7 +155,6 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   @override
   Widget build(BuildContext context) {
     /* final auth = Provider.of<AuthServices>(context, listen: false); */
-
     OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
     homeworksBloc.getOneHomework(widget.args.homework.id);
     final isOwner = auth.user.id == widget.args.homework.user.id;
@@ -183,7 +182,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                           top: 5,
                           bottom: 5,
                         )
-                      : Container(),
+                      : const SizedBox(),
                   StreamBuilder(
                     stream: homeworksBloc.oneHomeworkStream,
                     builder: (BuildContext context,
@@ -265,16 +264,16 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
   @override
   Widget build(BuildContext context) {
     /*TODO Check this code */
+    final colors = Theme.of(context).colorScheme;
     final pendingToResolve = widget.offer.status == 'pending_to_resolve' ||
         widget.offer.status == 'traded';
-    print(pendingToResolve);
     final offersServices = OffersServices();
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       height: 100,
-      decoration: const BoxDecoration(
-        color: Colors.green,
+      decoration: BoxDecoration(
+        color: colors.primary,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -290,17 +289,17 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
               SimpleText(
                 text: !pendingToResolve
                     /* TODO revisar esta parte para que no de error a future */
-                    ? 'Aceptar oferta'
+                    ? 'Oferta'
                     : 'Ya aceptaste una oferta',
                 /* textAlign: TextAlign.center, */
-                fontSize: 20,
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
                 lightThemeColor: Colors.white,
               ),
               !pendingToResolve
                   ? SimpleText(
                       text: widget.offer.priceOffer.toString(),
-                      fontSize: 20,
+                      fontSize: 15,
                       lightThemeColor: Colors.white)
                   : Container()
             ],
@@ -335,7 +334,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                   child: !loading
                       ? const SimpleText(
                           text: 'Aceptar oferta',
-                          fontSize: 20,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           lightThemeColor: Colors.white,
                         )
@@ -359,14 +358,13 @@ class _ButtonOffer extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Card(
-      elevation: 10,
+      elevation: 5,
       child: Column(
         children: [
           Container(
-            width: size.width * 0.75,
+            width: size.width * 0.85,
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.circular(5),
               boxShadow: const [
                 BoxShadow(
@@ -394,17 +392,12 @@ class _ButtonOffer extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                             fontSize: 17,
                           ),
-                          /* TimerCounter(
-                            endTime: DateTime.now().millisecondsSinceEpoch +
-                                getDateDiff(homework.homework.resolutionTime)
-                                    .inMilliseconds,
-                          ), */
                           Timer(
                             endTime: homework.homework.resolutionTime,
                           ),
                         ],
                       ),
-                      ElevatedButton(
+                      FilledButton(
                         onPressed: () {
                           navigatorProtected(
                             context,
@@ -417,7 +410,7 @@ class _ButtonOffer extends StatelessWidget {
                           fontSize: 15,
                           text: "Hacer una oferta",
                           fontWeight: FontWeight.w400,
-                          lightThemeColor: Colors.white,
+                          /* lightThemeColor: Colors.white, */
                         ),
                       ),
                     ]),
@@ -448,24 +441,6 @@ class _ImageBackgroundAndTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    /* return Stack(
-      children: [
-        Image.network(
-            'https://concepto.de/wp-content/uploads/2018/08/f%C3%ADsica-e1534938838719.jpg'),
-        _ButtonOffer(isLogged: auth.isLogged, homework: homework),
-        Positioned(
-          bottom: 30,
-          child: SizedBox(
-            width: size.width,
-            height: 100,
-            child: const Align(
-              child: FloatMenu(),
-            ),
-          ),
-          top: 0,
-        ),
-      ],
-    ); */
     final double height = size.height * 0.35;
     return Stack(
       children: <Widget>[
@@ -476,7 +451,6 @@ class _ImageBackgroundAndTimer extends StatelessWidget {
               width: size.width,
               height: height,
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              /* color: Colors.blue, */
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),

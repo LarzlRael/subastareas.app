@@ -8,7 +8,7 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     auth = Provider.of<AuthServices>(context);
-    final displayMedium = Theme.of(context).textTheme.displayMedium;
+    final displayMedium = Theme.of(context).textTheme.displaySmall;
     final transactionServices = TransactionServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -28,7 +28,7 @@ class WalletPage extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 8),
                 /* color: theme.isDarkTheme
                     ? Theme.of(context).scaffoldBackgroundColor
                     : Colors.white, */
@@ -48,7 +48,7 @@ class WalletPage extends StatelessWidget {
                       children: [
                         const Icon(
                           Ionicons.wallet,
-                          size: 150,
+                          size: 125,
                           /* color: Colors.black87, */
                         ),
                         Column(

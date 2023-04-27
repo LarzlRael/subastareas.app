@@ -50,20 +50,19 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                           userName: widget.auth.user.username,
                           radius: 25,
                         ),
-                        const SizedBox(
-                          width: 15,
-                        ),
+                        const SizedBox(width: 15),
                         const SimpleText(
                           text: 'Agregar un comentario...',
-                          lightThemeColor: Colors.grey,
+                          fontSize: 13,
+                          lightThemeColor: Colors.blueGrey,
                         ),
                       ],
                     ),
                   ),
                 )
-              : Container(),
+              : SizedBox(),
           reverseComments.isNotEmpty
-              ? Container(
+              ? SizedBox(
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),

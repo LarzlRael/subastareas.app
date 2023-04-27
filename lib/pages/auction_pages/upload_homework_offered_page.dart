@@ -95,58 +95,12 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                                             /* backgroundColor: Colors.green, */
                                             borderRadius: 30,
                                             onPressed: () async {
-                                              setState(() {
-                                                _loading = true;
-                                              });
-                                              final validationSuccess = _formKey
-                                                  .currentState!
-                                                  .validate();
-
-                                              if (validationSuccess) {
-                                                _formKey.currentState!.save();
-
-                                                final response =
-                                                    await offersServices
-                                                        .uploadHomeworkResolvedFile(
-                                                            File(
-                                                              _formKey
-                                                                  .currentState!
-                                                                  .value['file']
-                                                                      [0]
-                                                                  .path,
-                                                            ),
-                                                            getIdOfferAccepted);
-                                                setState(() {
-                                                  _loading = false;
-                                                });
-                                                if (response) {
-                                                  Navigator.pop(context);
-                                                  GlobalSnackBar.show(
-                                                    context,
-                                                    "Tarea resuelta subida correctamente",
-                                                    backgroundColor:
-                                                        Colors.green,
-                                                  );
-                                                  /* Refresh list */
-                                                  _oneHomeworkBloc
-                                                      .getOneHomework(
-                                                          homeworkArguments
-                                                              .idHomework);
-                                                } else {
-                                                  setState(() {
-                                                    _loading = false;
-                                                  });
-                                                  GlobalSnackBar.show(
-                                                    context,
-                                                    "Error al subir la tarea resuelta",
-                                                    backgroundColor: Colors.red,
-                                                  );
-                                                }
-                                              } else {
-                                                setState(() {
-                                                  _loading = false;
-                                                });
-                                              }
+                                              await uploadHomework(
+                                                _formKey,
+                                                offersServices,
+                                                getIdOfferAccepted,
+                                                homework.id,
+                                              );
                                             },
                                           ),
                                   ],
@@ -174,6 +128,54 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
         ),
       ),
     );
+  }
+
+  Future<void> uploadHomework(
+    formKey,
+    offersServices,
+    int getIdOfferAccepted,
+    int idHomework,
+  ) async {
+    setState(() {
+      _loading = true;
+    });
+    final validationSuccess = formKey.currentState!.validate();
+
+    if (validationSuccess) {
+      formKey.currentState!.save();
+
+      final response = await offersServices.uploadHomeworkResolvedFile(
+          File(
+            formKey.currentState!.value['file'][0].path,
+          ),
+          getIdOfferAccepted);
+      setState(() {
+        _loading = false;
+      });
+      if (response) {
+        Navigator.pop(context);
+        GlobalSnackBar.show(
+          context,
+          "Tarea resuelta subida correctamente",
+          backgroundColor: Colors.green,
+        );
+        /* Refresh list */
+        _oneHomeworkBloc.getOneHomework(idHomework);
+      } else {
+        setState(() {
+          _loading = false;
+        });
+        GlobalSnackBar.show(
+          context,
+          "Error al subir la tarea resuelta",
+          backgroundColor: Colors.red,
+        );
+      }
+    } else {
+      setState(() {
+        _loading = false;
+      });
+    }
   }
 
   Widget tradeStatus(String status, String? rejectedReason) {

@@ -53,7 +53,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => NotificationService()),
-        ChangeNotifierProvider(create: (_) => ThemeChanger()),
       ],
       child: MaterialApp(
         title: 'Subastareas',

@@ -9,7 +9,6 @@ class PublicProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Provider.of<ThemeChanger>(context);
     const textStyle = TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w500,
@@ -38,7 +37,7 @@ class PublicProfilePage extends StatelessWidget {
               final publicProfile = snapshot.data!;
               return Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -26,7 +26,11 @@ class PersonOfferHorizontal extends StatelessWidget {
       child: SizeTransition(
         sizeFactor:
             CurvedAnimation(parent: animationController, curve: Curves.easeOut),
-        child: Container(child: horizontalOffer(context)),
+        child: Container(
+          child: horizontalOffer(
+            context,
+          ),
+        ),
       ),
     );
   }
@@ -72,33 +76,21 @@ class HorizontalOfferRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      /* color: Colors.blue, */
-      margin: const EdgeInsets.symmetric(vertical: 7),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              ShowProfileImage(
-                profileImage: offer.user.profileImageUrl,
-                userName: offer.user.username,
-                radius: 20,
-              ),
-              SimpleText(
-                left: 15,
-                text: offer.user.username,
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-              ),
-            ],
-          ),
-          SimpleText(
-            text: '${offer.priceOffer}',
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-          ),
-        ],
+    final textTheme = Theme.of(context).textTheme;
+    return ListTile(
+      leading: ShowProfileImage(
+        profileImage: offer.user.profileImageUrl,
+        userName: offer.user.username,
+        radius: 20,
+      ),
+      title: Text(
+        offer.user.username.toCapitalized(),
+        style: textTheme.bodyLarge,
+      ),
+      trailing: SimpleText(
+        text: '${offer.priceOffer}',
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
       ),
     );
   }

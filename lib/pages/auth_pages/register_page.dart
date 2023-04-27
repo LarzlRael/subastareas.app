@@ -63,7 +63,7 @@ class RegisterPage extends StatelessWidget {
                                       text: 'Tengo más de 18 años',
                                       style: TextStyle(
                                         color: Colors.grey,
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ],

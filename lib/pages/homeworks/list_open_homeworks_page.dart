@@ -27,7 +27,6 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
-    /* final theme = Provider.of<ThemeChanger>(context, listen: true); */
 
     homeworksBloc.getHomeworksByCategory(
       filter.getListLevelSelected,
@@ -117,11 +116,12 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int index) {
+                      final homework = snapshot.data![index];
                       return HomeworkCard(
                         isLogged: auth.isLogged ? auth.isLogged : false,
-                        homework: snapshot.data![index],
+                        homework: homework,
                         goTo: 'auctionPage',
-                        isOwner: snapshot.data![index].user.id == auth.user.id,
+                        isOwner: homework.user.id == auth.user.id,
                         /* homework: snapshot.data[index], */
                       );
                     },

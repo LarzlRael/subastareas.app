@@ -31,7 +31,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     final oneHomework =
         ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
     final auth = Provider.of<AuthServices>(context, listen: false);
-    final theme = Provider.of<ThemeChanger>(context, listen: false);
     final verifyUserOffered =
         oneHomework.offers.map((item) => item.user.id).contains(auth.user.id);
 
@@ -48,7 +47,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.chevron_left,
             size: 30,
           ),
@@ -63,7 +62,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 ShowProfileImage(
                   profileImage: oneHomework.homework.user.profileImageUrl,
                   userName: oneHomework.homework.user.username,
-                  radius: 75,
+                  radius: 50,
                 ),
                 SimpleText(
                   top: 25,

@@ -42,13 +42,13 @@ class _CustomFormBuilderTextFieldState
             labelText: widget.placeholder,
             labelStyle: const TextStyle(
               color: Colors.grey,
-              fontSize: 18,
+              fontSize: 16,
             ),
             suffixIcon: widget.passwordField
                 ? IconButton(
                     icon: _obscureText
-                        ? const Icon(Icons.password)
-                        : const Icon(Ionicons.eye),
+                        ? const Icon(Icons.password, size: 20)
+                        : const Icon(Ionicons.eye, size: 20),
                     onPressed: () {
                       setState(() {
                         _obscureText = !_obscureText;
@@ -56,7 +56,7 @@ class _CustomFormBuilderTextFieldState
                     },
                   )
                 : null,
-            prefixIcon: Icon(widget.icon),
+            prefixIcon: Icon(widget.icon, size: 20),
           ),
         ),
       ),

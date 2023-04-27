@@ -18,7 +18,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-part 'theme_changer.dart';
 part 'validation.dart';
 part 'text_util.dart';
 part 'data.dart';

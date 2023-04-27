@@ -17,7 +17,6 @@ class _LoginPageState extends State<LoginPage> {
     final notificationService =
         Provider.of<NotificationService>(context, listen: false);
     final preferences = UserPreferences();
-    final theme = Provider.of<ThemeChanger>(context);
 
     void loginOk() {
       Navigator.pushReplacementNamed(context, 'bottomNavigation');

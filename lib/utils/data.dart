@@ -41,13 +41,20 @@ final List<Widget> bottomItemsWithLogin = <Widget>[
 ];
 
 List<BottomNavigationBarItem> bottonItemsWithLogin(bool isThereNotifications) {
+  const iconSize = 18.0;
   return [
     const BottomNavigationBarItem(
-      icon: Icon(FontAwesomeIcons.circleDollarToSlot),
+      icon: Icon(
+        FontAwesomeIcons.circleDollarToSlot,
+        size: iconSize,
+      ),
       label: 'Aportar',
     ),
     const BottomNavigationBarItem(
-      icon: Icon(FontAwesomeIcons.comment),
+      icon: Icon(
+        FontAwesomeIcons.comment,
+        size: iconSize,
+      ),
       label: 'Preguntar',
     ),
     BottomNavigationBarItem(
@@ -56,11 +63,14 @@ List<BottomNavigationBarItem> bottonItemsWithLogin(bool isThereNotifications) {
       badgeContent: null,
     ), */
       icon: isThereNotifications
-          ? badges.Badge(
-              child: const Icon(FontAwesomeIcons.user),
+          ? const badges.Badge(
+              child: Icon(FontAwesomeIcons.user, size: iconSize),
               badgeContent: null,
             )
-          : const Icon(FontAwesomeIcons.user),
+          : const Icon(
+              FontAwesomeIcons.user,
+              size: iconSize,
+            ),
       label: 'Perfil',
     ),
   ];
@@ -142,7 +152,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
 }
 
 List<Widget> tabsOptions() {
-  const sizeTabIcon = 35.0;
+  const sizeTabIcon = 30.0;
   const colorTab = Colors.grey;
   return const [
     Tab(

@@ -10,7 +10,7 @@ class NotificationsCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return ListTile(
       onTap: () async {
         goToPage(
           context,
@@ -30,7 +30,21 @@ class NotificationsCard extends StatelessWidget {
         );
       },
       /* TODO fix view */
-      child: Ink(
+      leading: ShowProfileImage(
+        profileImage: notification.user.profileImageUrl,
+        userName: notification.user.username,
+        radius: 20,
+      ),
+      title: contentNotification(notification),
+      subtitle: SimpleText(
+        text: timeago.format(notification.createdAt, locale: 'es'),
+        fontSize: 12,
+        lightThemeColor: Colors.black,
+      ),
+      trailing: Icon(
+        typeNotification(notification.type).icon,
+      ),
+      /* child: Ink(
         child: Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 0,
@@ -94,7 +108,7 @@ class NotificationsCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
+      ), */
     );
   }
 
@@ -148,11 +162,6 @@ class NotificationsCard extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   )
                 : const SizedBox(),
-            SimpleText(
-              text: timeago.format(notification.createdAt, locale: 'es'),
-              fontSize: 12,
-              lightThemeColor: Colors.black,
-            ),
           ],
         )
       ],

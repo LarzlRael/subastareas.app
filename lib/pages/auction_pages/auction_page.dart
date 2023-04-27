@@ -21,7 +21,7 @@ class _AuctionPageState extends State<AuctionPage> {
 
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthServices>(context, listen: false);
+    auth = context.read<AuthServices>();
     bool isBearer = false;
     if (auth.isLogged) {
       isBearer = widget.args.idUser == auth.user.id;
@@ -39,7 +39,8 @@ class _AuctionPageState extends State<AuctionPage> {
               child: SquareLoading(),
             );
           }
-          if (!snapshot.data!.homework.visible) {
+          final homework = snapshot.data!.homework;
+          if (!homework.visible) {
             return const Center(
               child: NoInformation(
                 icon: Icons.visibility_off,
@@ -54,14 +55,12 @@ class _AuctionPageState extends State<AuctionPage> {
             slivers: <Widget>[
               SliverAppBar(
                   elevation: 5,
-                  centerTitle: true,
                   leading: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
                     icon: const Icon(
                       Icons.chevron_left,
-                      color: Colors.white,
                       size: 25,
                     ),
                   ),
@@ -83,13 +82,14 @@ class _AuctionPageState extends State<AuctionPage> {
                                         settings: snapshot.data!.homework,
                                       ), */
                                         )
-                                      : GlobalSnackBar.show(context,
+                                      : GlobalSnackBar.show(
+                                          context,
                                           "No puedes editar tu tarea porque ya tiene ofertas",
-                                          backgroundColor: Colors.red);
+                                          backgroundColor: Colors.red,
+                                        );
                                 },
                                 icon: const Icon(
                                   Icons.edit,
-                                  color: Colors.white,
                                   size: 25,
                                 ),
                               ),
@@ -116,7 +116,6 @@ class _AuctionPageState extends State<AuctionPage> {
                                 },
                                 icon: const Icon(
                                   Icons.delete,
-                                  color: Colors.white,
                                   size: 25,
                                 ),
                               ),
@@ -131,14 +130,14 @@ class _AuctionPageState extends State<AuctionPage> {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Image.asset(
                       'assets/category/${removeDiacritics(
-                        snapshot.data!.homework.category,
+                        homework.category,
                       )}.jpg',
                       fit: BoxFit.cover,
                       /* width: 280.0, */
                     ),
                     centerTitle: true,
                     title: SimpleText(
-                      text: 'Tarea de ${snapshot.data!.homework.category} ',
+                      text: 'Tarea de ${homework.category} ',
                       lightThemeColor: Colors.white,
                       fontSize: 16,
                     ),
@@ -157,10 +156,10 @@ class _AuctionPageState extends State<AuctionPage> {
                             false,
                             isBearer,
                           ),
-                          snapshot.data!.homework.status == 'accepted_to_offer'
+                          homework.status == 'accepted_to_offer'
                               ? _buttonMakeOffer(snapshot.data!, auth.isLogged)
                               : const SizedBox(),
-                          snapshot.data!.homework.status == 'accepted_to_offer'
+                          homework.status == 'accepted_to_offer'
                               ? CommentsByHomework(
                                   comments: snapshot.data!.comments,
                                   isLogged: auth.isLogged,
@@ -211,17 +210,16 @@ class _AuctionPageState extends State<AuctionPage> {
               children: [
                 _infoContainer(
                     'Creador',
-                    Container(
+                    SizedBox(
                       child: Row(
                         children: [
                           ShowProfileImage(
                             profileImage:
                                 oneHomeworkModel.homework.user.profileImageUrl,
                             userName: oneHomeworkModel.homework.user.username,
+                            radius: 25,
                           ),
-                          const SizedBox(
-                            width: 7,
-                          ),
+                          const SizedBox(width: 7),
                           SimpleText(
                             text: oneHomeworkModel.homework.user.username
                                 .toCapitalized(),
@@ -254,7 +252,7 @@ class _AuctionPageState extends State<AuctionPage> {
                     );
                   },
                 )
-              : Container(),
+              : SizedBox(),
           oneHomeworkModel.offers.isNotEmpty
               ? CircleAvatarGroup(
                   oneHomeworkModel: oneHomeworkModel,
