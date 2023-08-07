@@ -7,7 +7,22 @@ class CustomFileField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FormBuilderFilePicker(
-      type: FileType.custom,
+      /* type: FileType.custom, */
+      typeSelectors: [
+        const TypeSelector(
+          type: FileType.custom,
+          selector: Row(
+            children: [
+              Icon(Icons.upload_file),
+              SizedBox(width: 3),
+              SimpleText(
+                text: 'Escoger archivo',
+                fontSize: 16,
+              ),
+            ],
+          ),
+        )
+      ],
       allowMultiple: false,
       allowedExtensions: const ['jpg', 'png', 'pdf'],
       name: name,
@@ -21,7 +36,7 @@ class CustomFileField extends StatelessWidget {
       maxFiles: 1,
       /* previewImages: true, */
       onChanged: (val) => print(val),
-      selector: Row(
+      /*  selector: Row(
         children: const [
           Icon(FontAwesomeIcons.file),
           SimpleText(
@@ -29,7 +44,7 @@ class CustomFileField extends StatelessWidget {
             fontSize: 16,
           ),
         ],
-      ),
+      ), */
       onFileLoading: (val) {
         print(val);
       },

@@ -74,15 +74,16 @@ class FutureSubjectCategory extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: FormBuilderDropdown(
                   name: formFieldName,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     border: InputBorder.none,
+                    hintText: placeholder,
                     labelStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 18,
                     ),
                   ),
                   /* initialValue: category[0], */
-                  hint: Text(placeholder),
+
                   validator: FormBuilderValidators.required(),
                   items: snapshot.data!
                       .map((category) => DropdownMenuItem(
@@ -131,15 +132,15 @@ class LocalSubjectCategory extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: FormBuilderDropdown(
               name: formFieldName,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: InputBorder.none,
-                labelStyle: TextStyle(
+                hintText: placeholder,
+                labelStyle: const TextStyle(
                   color: Colors.grey,
                   fontSize: 18,
                 ),
               ),
               /* initialValue: category[0], */
-              hint: Text(placeholder),
               validator: FormBuilderValidators.required(),
               items: sharedPreferences.getSubjectsList
                   .map(

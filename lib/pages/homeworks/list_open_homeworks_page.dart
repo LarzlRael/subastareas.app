@@ -58,8 +58,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                       onTap: () {
                         showFilterBottomMenuSheet(context);
                       },
-                      child: Row(
-                        children: const [
+                      child: const Row(
+                        children: [
                           Icon(
                             Icons.filter_list,
                             color: Colors.grey,

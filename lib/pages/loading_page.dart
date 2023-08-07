@@ -24,16 +24,17 @@ class LoadingPage extends StatelessWidget {
     SocketService socketService,
     ThemeProviderNotifier theme,
   ) async {
-    final isAuthenticated = await authServices.renewToken();
-    if (isAuthenticated) {
-      socketService.connect();
-      /* theme.setDarkTheme = authServices.user.userProfile.isDarkTheme; */
-      authServices.user.userProfile.isDarkTheme
-          ? theme.changeToDarkTheme()
-          : theme.changeToLightTheme();
-      goToInitialPage(context, const BottomNavigation());
-    } else {
-      goToInitialPage(context, const WelcomePage());
-    }
+    authServices.renewToken().then((value) {
+      if (value) {
+        socketService.connect();
+        /* theme.setDarkTheme = authServices.user.userProfile.isDarkTheme; */
+        authServices.user.userProfile.isDarkTheme
+            ? theme.changeToDarkTheme()
+            : theme.changeToLightTheme();
+        goToInitialPage(context, const BottomNavigation());
+      } else {
+        goToInitialPage(context, const WelcomePage());
+      }
+    });
   }
 }

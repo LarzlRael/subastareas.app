@@ -65,7 +65,7 @@ class DropdownItemsList extends StatelessWidget {
                 ),
               ),
               /* initialValue: category[0], */
-              hint: Text(placeholder),
+              /* hint: Text(placeholder), */
               validator: FormBuilderValidators.required(),
               items: listItems
                   .map(

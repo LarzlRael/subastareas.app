@@ -28,7 +28,7 @@ String capitalizeFirstLetter(String string) {
 }
 
 String convertTime(DateTime date, {String format = 'dd/MM/yyyy HH:mm'}) {
-  Moment rawDate = Moment.fromDate(date);
+  Moment rawDate = Moment(date);
   return rawDate.format(format);
 }
 /* String literalDate(DateTime date) {
