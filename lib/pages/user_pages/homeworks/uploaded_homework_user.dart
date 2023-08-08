@@ -38,6 +38,16 @@ class UploadedHomeworkUser extends StatelessWidget {
               isLogged: true,
               homework: snapshot.data![index],
               goTo: 'auctionPage',
+              onSelected: (homework) {
+                Navigator.pushNamed(
+                  context,
+                  'auctionPage',
+                  arguments: HomeworkArguments(
+                    homework.id,
+                    homework.user.id,
+                  ),
+                );
+              },
               /* homework: snapshot.data[index], */
             );
           },

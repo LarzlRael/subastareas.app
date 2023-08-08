@@ -83,12 +83,10 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
                           color: Colors.blue,
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       const SimpleText(
-                        text: 'Reenviar e-mail de verificación',
-                        fontSize: 20,
+                        text: 'Reenviar E-mail de verificación',
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ],

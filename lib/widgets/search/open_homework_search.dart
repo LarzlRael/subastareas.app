@@ -54,14 +54,24 @@ class OpenHomeworkSearch extends SearchDelegate {
             return Builder(
               builder: (BuildContext context) {
                 return HomeworkCard(
-                  isLogged: context.select((AuthServices auth) =>
-                      auth.isLogged ? auth.isLogged : false),
-                  homework: snapshot.data![index],
-                  goTo: 'auctionPage',
-                  isOwner: context.select((AuthServices auth) =>
-                      snapshot.data![index].user.id == auth.user.id),
-                  /* homework: snapshot.data[index], */
-                );
+                    isLogged: context.select((AuthServices auth) =>
+                        auth.isLogged ? auth.isLogged : false),
+                    homework: snapshot.data![index],
+                    goTo: 'auctionPage',
+                    isOwner: context.select((AuthServices auth) =>
+                        snapshot.data![index].user.id == auth.user.id),
+                    onSelected: (homework) {
+                      Navigator.pushNamed(
+                        context,
+                        'auctionPage',
+                        arguments: HomeworkArguments(
+                          homework.id,
+                          homework.user.id,
+                        ),
+                      );
+                    }
+                    /* homework: snapshot.data[index], */
+                    );
               },
             );
           },

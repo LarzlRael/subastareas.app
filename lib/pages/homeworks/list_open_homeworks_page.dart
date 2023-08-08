@@ -123,6 +123,16 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                         goTo: 'auctionPage',
                         isOwner: homework.user.id == auth.user.id,
                         /* homework: snapshot.data[index], */
+                        onSelected: (HomeworksModel homework) {
+                          Navigator.pushNamed(
+                            context,
+                            'auctionPage',
+                            arguments: HomeworkArguments(
+                              homework.id,
+                              homework.user.id,
+                            ),
+                          );
+                        },
                       );
                     },
                   ),

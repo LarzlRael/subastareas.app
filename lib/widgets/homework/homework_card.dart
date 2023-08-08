@@ -15,12 +15,14 @@ class HomeworkCard extends StatelessWidget {
   final HomeworksModel homework;
   final String goTo;
   final bool? isOwner;
+  final void Function(HomeworksModel homework)? onSelected;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
     required this.homework,
     required this.goTo,
     this.isOwner = false,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -28,14 +30,17 @@ class HomeworkCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
+        /* Navigator.pushNamed(
           context,
           goTo,
           arguments: HomeworkArguments(
             homework.id,
             homework.user.id,
           ),
-        );
+        ); */
+        if (onSelected != null) {
+          onSelected!(homework);
+        }
       },
       child: Container(
         decoration: BoxDecoration(
@@ -58,7 +63,7 @@ class HomeworkCard extends StatelessWidget {
         ),
         margin: const EdgeInsets.symmetric(vertical: 15),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: size.width * 0.25,
@@ -84,7 +89,7 @@ class HomeworkCard extends StatelessWidget {
                         ? homework.title.toCapitalized().substring(0, 60) +
                             ' ...'
                         : homework.title.toCapitalized(),
-                    fontSize: 18,
+                    fontSize: 16,
                     lineHeight: 1.35,
                     fontWeight: FontWeight.w700,
                     lightThemeColor: Colors.black54,
@@ -96,7 +101,7 @@ class HomeworkCard extends StatelessWidget {
                     text: homework.category,
                     fontSize: 16,
                     lineHeight: 1.35,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.bold,
                     lightThemeColor: Colors.black45,
                     darkThemeColor: Colors.white54,
                   ),
@@ -106,42 +111,42 @@ class HomeworkCard extends StatelessWidget {
                         Icons.timer_outlined,
                         color: Colors.red,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SimpleText(
-                        text:
-                            '${getDateDiff(homework.resolutionTime).inHours < 0 ? 0 : getDateDiff(homework.resolutionTime).inHours} horas restantes',
-                        lightThemeColor: Colors.red,
-                        fontWeight: FontWeight.w700,
+                      const SizedBox(width: 2),
+                      Flexible(
+                        child: SimpleText(
+                          text: getDateDiffString(homework.resolutionTime),
+                          lightThemeColor: Colors.red,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SimpleText(
-                  text: '\$ ${homework.offeredAmount}',
-                  lightThemeColor: Colors.lightGreen,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                homework.offers!.isNotEmpty
-                    ? SimpleText(
-                        text: '${homework.offers!.length} ofertas',
-                        lightThemeColor: Colors.grey,
-                        darkThemeColor: Colors.white54,
-                        fontSize: 16,
-                      )
-                    : Container(),
-              ],
+            /* const SizedBox(width: 10), */
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SimpleText(
+                    text: '\$ ${homework.offeredAmount}',
+                    lightThemeColor: Colors.lightGreen,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  const SizedBox(height: 5),
+                  homework.offers!.isNotEmpty
+                      ? SimpleText(
+                          text: '${homework.offers!.length} ofertas',
+                          lightThemeColor: Colors.grey,
+                          darkThemeColor: Colors.white54,
+                          fontSize: 18,
+                        )
+                      : const SizedBox(),
+                ],
+              ),
             ),
           ],
         ),

@@ -37,47 +37,53 @@ class MenuProfileOption extends StatelessWidget {
         color: closeSession ? Colors.red : null,
         elevation: 3,
         child: ListTile(
-          onTap: () async {
-            if (closeSession) {
-              await auth.logout();
-              filterProvider.setCurrentBottomTab = 0;
-              socketProvider.disconnect();
-              Navigator.pushNamed(context, 'loading');
-            } else {
-              if (!showTrailing) {
-                Navigator.push(
-                  context,
-                  PageTransition(type: PageTransitionType.fade, child: page),
-                );
-                if (callback != null) {
-                  await callback!();
-                }
+            onTap: () async {
+              if (closeSession) {
+                await auth.logout();
+                filterProvider.setCurrentBottomTab = 0;
+                socketProvider.disconnect();
+                Navigator.pushNamed(context, 'loading');
               } else {
-                GlobalSnackBar.show(context, 'Proximamente!');
+                if (!showTrailing) {
+                  Navigator.push(
+                    context,
+                    PageTransition(type: PageTransitionType.fade, child: page),
+                  );
+                  if (callback != null) {
+                    await callback!();
+                  }
+                } else {
+                  GlobalSnackBar.show(context, 'Proximamente!');
+                }
               }
-            }
-          },
-          trailing: showTrailingIcon
-              ? Icon(
-                  showTrailing ? Icons.lock_clock : Icons.chevron_right,
-                  /* color: color, */
-                )
-              : null,
-          leading: showBadge
-              ? badges.Badge(
-                  badgeContent: badgeChild,
-                  child: icon,
-                )
-              : icon,
-          title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
-          /* SimpleText(
+            },
+            trailing: showTrailingIcon
+                ? Icon(
+                    showTrailing ? Icons.lock_clock : Icons.chevron_right,
+                    /* color: color, */
+                  )
+                : null,
+            leading: showBadge
+                ? badges.Badge(
+                    badgeContent: badgeChild,
+                    child: icon,
+                  )
+                : icon,
+            title: Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: closeSession ? Colors.white : null),
+            )
+            /* SimpleText(
             text: title,
             fontSize: 15,
             fontWeight: FontWeight.bold,
             setUniqueColor: false,
             /* lightThemeColor: closeSession ? Colors.white : Colors.black87, */
           ), */
-        ),
+            ),
       ),
     );
   }
