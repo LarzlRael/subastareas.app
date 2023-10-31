@@ -79,16 +79,8 @@ class OffersSent extends StatelessWidget {
             return HomeworkCard(
               isLogged: true,
               homework: snapshot.data![index],
-              goTo: 'auctionPage',
               onSelected: (homework) {
-                Navigator.pushNamed(
-                  context,
-                  'auctionPage',
-                  arguments: HomeworkArguments(
-                    homework.id,
-                    homework.user.id,
-                  ),
-                );
+                context.push('/homework_detail/${homework.id}');
               },
             );
           },
@@ -136,16 +128,8 @@ class OffersReceived extends StatelessWidget {
             return HomeworkCard(
               isLogged: true,
               homework: snapshot.data![index],
-              goTo: 'auctionPage',
               onSelected: (homework) {
-                Navigator.pushNamed(
-                  context,
-                  'auctionPage',
-                  arguments: HomeworkArguments(
-                    homework.id,
-                    homework.user.id,
-                  ),
-                );
+                context.push('/homework_detail/${homework.id}');
               },
             );
           },

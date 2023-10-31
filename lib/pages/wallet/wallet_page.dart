@@ -80,7 +80,7 @@ class WalletPage extends StatelessWidget {
                             label: 'Adquirir monedas',
                             icon: Icons.arrow_upward,
                             onPressed: () {
-                              Navigator.pushNamed(context, 'store_page');
+                              context.push('/store_page');
                             },
                           ),
                         ),
@@ -89,7 +89,7 @@ class WalletPage extends StatelessWidget {
                             label: 'Retirar',
                             onPressed: () {
                               if (auth.user.wallet.balanceWithDrawable > 0) {
-                                Navigator.pushNamed(context, 'withdraw_page');
+                                context.push('/withdraw_page');
                               } else {
                                 GlobalSnackBar.show(
                                     context, 'Tienes 0 de monedas',
@@ -118,8 +118,8 @@ class WalletPage extends StatelessWidget {
               Expanded(
                 child: FutureBuilder(
                   future: transactionServices.getUserHistoryTransaction(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<UserTransactionModel>> snapshot) {
+                  builder:
+                      (_, AsyncSnapshot<List<UserTransactionModel>> snapshot) {
                     if (!snapshot.hasData) {
                       return const CircularCenter();
                     }

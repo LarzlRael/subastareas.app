@@ -3,8 +3,10 @@ part of '../../pages.dart';
 class UploadedHomeworkUser extends StatelessWidget {
   final HomeworkServices homeworkServices;
 
-  const UploadedHomeworkUser({Key? key, required this.homeworkServices})
-      : super(key: key);
+  const UploadedHomeworkUser({
+    Key? key,
+    required this.homeworkServices,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -37,15 +39,9 @@ class UploadedHomeworkUser extends StatelessWidget {
             return HomeworkCard(
               isLogged: true,
               homework: snapshot.data![index],
-              goTo: 'auctionPage',
               onSelected: (homework) {
-                Navigator.pushNamed(
-                  context,
-                  'auctionPage',
-                  arguments: HomeworkArguments(
-                    homework.id,
-                    homework.user.id,
-                  ),
+                context.push(
+                  'homework_detail/${homework.id}',
                 );
               },
               /* homework: snapshot.data[index], */

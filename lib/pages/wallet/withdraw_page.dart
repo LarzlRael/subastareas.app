@@ -189,8 +189,7 @@ class CardMethodSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, 'withdraw_method_selected_page',
-            arguments: arguments);
+        context.push('withdraw_method_selected_page', extra: arguments);
       },
       child: Hero(
         tag: arguments.methodName,

@@ -1,8 +1,11 @@
 part of '../pages.dart';
 
 class MyHomeworksPage extends StatelessWidget {
-  const MyHomeworksPage({Key? key, this.goToPage = 0}) : super(key: key);
   final int goToPage;
+  const MyHomeworksPage({
+    Key? key,
+    this.goToPage = 0,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final homeworkServices = HomeworkServices();

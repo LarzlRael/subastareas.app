@@ -92,8 +92,12 @@ class HomeworkServices {
     return validateStatus(homeworkRequest!.statusCode);
   } */
 
-  Future<bool> uploadHomework(
-      Map<String, String> body, File? file, int idHomework) async {
+  Future<bool> uploadOrUpdateHomework(
+    int idHomework,
+    Map<String, String> body, {
+    String? pathFile,
+  }) async {
+    final file = pathFile != null ? File(pathFile) : null;
     if (file != null) {
       final homeworkUploadWithFile = await Request.sendRequestWithFile(
         RequestType.post,
@@ -103,18 +107,18 @@ class HomeworkServices {
         await _storage.read(key: 'token') ?? '',
       );
       return validateStatus(homeworkUploadWithFile.statusCode);
-    } else {
-      final homeworkRequest = await Request.sendRequestWithToken(
-        idHomework == 0 ? RequestType.post : RequestType.put,
-        idHomework == 0
-            ? 'homework/create'
-            : 'homework/updateHomework/$idHomework',
-        body,
-        await _storage.read(key: 'token'),
-      );
-
-      return validateStatus(homeworkRequest!.statusCode);
     }
+
+    final homeworkRequest = await Request.sendRequestWithToken(
+      idHomework == 0 ? RequestType.post : RequestType.put,
+      idHomework == 0
+          ? 'homework/create'
+          : 'homework/updateHomework/$idHomework',
+      body,
+      await _storage.read(key: 'token'),
+    );
+
+    return validateStatus(homeworkRequest!.statusCode);
   }
 
   Future deleteHomework(int idHomework) async {
@@ -124,35 +128,5 @@ class HomeworkServices {
       {},
       await _storage.read(key: 'token'),
     );
-  }
-
-  Future<bool> updateHomework(
-      Map<String, String> body, File? file, int idHomework) async {
-    if (file == null) {
-      final homeworkUploadWithFile = await Request.sendRequestWithToken(
-        RequestType.put,
-        'homework/updateHomework/$idHomework',
-        body,
-        await _storage.read(key: 'token') ?? '',
-      );
-      return validateStatus(homeworkUploadWithFile!.statusCode);
-    } else {
-      final homeworkUploadWithFile = await Request.sendRequestWithFile(
-        RequestType.put,
-        'homework/updateHomework/$idHomework',
-        body,
-        file,
-        await _storage.read(key: 'token') ?? '',
-      );
-      return validateStatus(homeworkUploadWithFile.statusCode);
-    }
-    /* final homeworkUploadWithFile = await Request.sendRequestWithFile(
-      'POST',
-      'updateHomework/$idHomework',
-      body,
-      file,
-      await _storage.read(key: 'token') ?? '',
-    );
-    return validateStatus(homeworkUploadWithFile.statusCode); */
   }
 }

@@ -8,10 +8,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late final AuthServices authService;
+  @override
+  void initState() {
+    authService = Provider.of<AuthServices>(context, listen: false);
+    super.initState();
+  }
+
   final _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthServices>(context);
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final notificationService =
@@ -19,11 +25,32 @@ class _LoginPageState extends State<LoginPage> {
     final preferences = UserPreferences();
 
     void loginOk() {
-      Navigator.pushReplacementNamed(context, 'bottomNavigation');
+      context.go('/home_page');
       /* theme.setDarkTheme = authService.user.userProfile.isDarkTheme; */
       filter.setCurrentBottomTab = 0;
       notificationService.getUserNotifications();
       socketService.connect();
+    }
+
+    void initLogin(GlobalKey<FormBuilderState> formKey) async {
+      final validationSuccess = _formKey.currentState!.validate();
+
+      if (!validationSuccess) return;
+      formKey.currentState!.save();
+      authService
+          .login(_formKey.currentState!.value['username'],
+              _formKey.currentState!.value['password'])
+          .then((res) {
+        final response = res.message.split(' ')[0];
+        if (response == "login_ok") {
+          loginOk();
+        }
+        if (response == "verify_your_email") {
+          preferences.loginEmail = res.message.split(' ')[1];
+          context.go('/verify_email_page');
+        }
+        showSimpleAlert(context, 'Credenciales incorrectas');
+      });
     }
 
     return Scaffold(
@@ -63,6 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                       buttonChild: const Padding(
                         padding: EdgeInsets.only(left: 20),
                         child: SimpleText(
+                          setUniqueColor: true,
+                          lightThemeColor: Colors.white,
                           text: "Iniciar sesión con google",
                           fontSize: 15,
                         ),
@@ -99,31 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                                   textColor: Colors.white,
                                   borderRadius: 50,
                                   onPressed: () async {
-                                    final validationSuccess =
-                                        _formKey.currentState!.validate();
-
-                                    if (validationSuccess) {
-                                      _formKey.currentState!.save();
-                                      final login = await authService.login(
-                                          _formKey
-                                              .currentState!.value['username'],
-                                          _formKey
-                                              .currentState!.value['password']);
-                                      final response =
-                                          login.message.split(' ')[0];
-                                      if (response == "login_ok") {
-                                        loginOk();
-                                      } else if (response ==
-                                          "verify_your_email") {
-                                        preferences.loginEmail =
-                                            login.message.split(' ')[1];
-                                        Navigator.pushReplacementNamed(
-                                            context, 'verify_email_page');
-                                      } else {
-                                        showSimpleAlert(context,
-                                            'Credenciales incorrectas');
-                                      }
-                                    }
+                                    initLogin(_formKey);
                                   },
                                 ),
                         ],
@@ -131,8 +136,8 @@ class _LoginPageState extends State<LoginPage> {
                     )
                   ],
                 ),
-                Column(
-                  children: const [
+                const Column(
+                  children: [
                     LabelLoginRegister(
                       title: '¿No tienes cuenta?',
                       subtitle: 'Registrate',

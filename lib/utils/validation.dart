@@ -16,11 +16,15 @@ bool validateEmail(String email) {
 }
 
 void navigatorProtected(
-    BuildContext context, bool isLogged, String route, dynamic arguments) {
+  BuildContext context,
+  bool isLogged,
+  String route,
+  dynamic arguments,
+) {
   if (isLogged) {
-    Navigator.pushNamed(context, route, arguments: arguments);
+    context.push(route, extra: arguments);
   } else {
-    Navigator.pushReplacementNamed(context, 'welcome');
+    context.go('welcome');
   }
 }
 

@@ -60,7 +60,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                     ),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           reverseComments.isNotEmpty
               ? SizedBox(
                   child: ListView.builder(

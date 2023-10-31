@@ -39,7 +39,7 @@ class DrawerMenu extends StatelessWidget {
             child: GestureDetector(
               onTap: () => {
                 onPressedLogout(),
-                Navigator.pushReplacementNamed(context, 'loading'),
+                context.go('/loading'),
               },
               child: const ListTile(
                 leading: Icon(Icons.add_to_home_screen, color: Colors.red),

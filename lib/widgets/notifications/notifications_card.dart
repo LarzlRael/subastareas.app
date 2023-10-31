@@ -200,21 +200,10 @@ void goToPage(BuildContext context, NotificationModel notification) {
   switch (notification.type) {
     case 'new_comment':
     case 'new_offer':
-      Navigator.pushNamed(
-        context,
-        'auctionPage',
-        arguments: HomeworkArguments(
-          notification.idHomework,
-          notification.user.id,
-        ),
-      );
+      context.push('/homework_detail/${notification.idHomework}');
       break;
     case 'homework_finished':
-      Navigator.pushNamed(
-        context,
-        'my_homeworks_page',
-        arguments: 1,
-      );
+      context.push('my_homeworks_page', extra: 1);
       break;
     case 'offer_accepted':
       Navigator.pushNamed(

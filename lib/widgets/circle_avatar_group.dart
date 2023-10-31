@@ -84,10 +84,9 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          'auctionWithOfferPage',
-          arguments: widget.oneHomeworkModel,
+        context.push(
+          '/auction_with_offerPage',
+          extra: widget.oneHomeworkModel,
         );
       },
       child: Container(

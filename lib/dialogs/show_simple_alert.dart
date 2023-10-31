@@ -66,8 +66,7 @@ showBottomMenuSheetAddOrEditComment(
     isScrollControlled: true,
     builder: (context) {
       final homeworkBloc = OneHomeworkBloc();
-      return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
+      return StatefulBuilder(builder: (_, StateSetter setState) {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,
           child: Container(
@@ -111,10 +110,12 @@ showBottomMenuSheetAddOrEditComment(
                             _loading = true;
                           });
                           if (!editable) {
-                            await homeworkBloc.newComment(
-                              idComment,
-                              controller.text,
-                            );
+                            await homeworkBloc
+                                .newComment(
+                                  idComment,
+                                  controller.text,
+                                )
+                                .t;
                             Navigator.pop(context);
                             setState(() {
                               _loading = false;

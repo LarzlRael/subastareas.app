@@ -115,23 +115,14 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: snapshot.data!.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (_, int index) {
                       final homework = snapshot.data![index];
                       return HomeworkCard(
                         isLogged: auth.isLogged ? auth.isLogged : false,
                         homework: homework,
-                        goTo: 'auctionPage',
                         isOwner: homework.user.id == auth.user.id,
-                        /* homework: snapshot.data[index], */
                         onSelected: (HomeworksModel homework) {
-                          Navigator.pushNamed(
-                            context,
-                            'auctionPage',
-                            arguments: HomeworkArguments(
-                              homework.id,
-                              homework.user.id,
-                            ),
-                          );
+                          context.push('/homework_detail/${homework.id}');
                         },
                       );
                     },
@@ -150,8 +141,6 @@ showFilterBottomMenuSheet(BuildContext context) {
   showModalBottomSheet(
     isScrollControlled: true,
     context: context,
-    builder: (context) {
-      return const SafeArea(child: FilterPage());
-    },
+    builder: (context) => const SafeArea(child: FilterPage()),
   );
 }

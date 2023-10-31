@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:ionicons/ionicons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,7 +37,7 @@ part 'auth_pages/register_page.dart';
 part 'auth_pages/forgot_password_page.dart';
 part 'auth_pages/verify_email_page.dart';
 
-part 'auction_pages/auction_page.dart';
+part 'auction_pages/homework_detail_page.dart';
 part 'auction_pages/auction_with_offer_page.dart';
 part 'auction_pages/upload_homework_offered_page.dart';
 

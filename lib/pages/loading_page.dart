@@ -11,9 +11,7 @@ class LoadingPage extends StatelessWidget {
     return Scaffold(
       body: FutureBuilder(
         future: checkLoginState(context, authServices, socketService, theme),
-        builder: (_, __) {
-          return const SquareLoading();
-        },
+        builder: (_, __) => const SquareLoading(),
       ),
     );
   }
@@ -31,9 +29,9 @@ class LoadingPage extends StatelessWidget {
         authServices.user.userProfile.isDarkTheme
             ? theme.changeToDarkTheme()
             : theme.changeToLightTheme();
-        goToInitialPage(context, const BottomNavigation());
+        context.go('/home_page');
       } else {
-        goToInitialPage(context, const WelcomePage());
+        context.go('/welcome_page');
       }
     });
   }

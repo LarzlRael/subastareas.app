@@ -1,39 +1,37 @@
 part of '../pages.dart';
 
-class AuctionPage extends StatefulWidget {
-  final HomeworkArguments args;
-  const AuctionPage({Key? key, required this.args}) : super(key: key);
+class HomeworkdDetailPage extends StatefulWidget {
+  /* final HomeworkArguments args; */
+  final int idHomework;
+  const HomeworkdDetailPage({
+    Key? key,
+    required this.idHomework,
+  }) : super(key: key);
   @override
-  State<AuctionPage> createState() => _AuctionPageState();
+  State<HomeworkdDetailPage> createState() => _HomeworkdDetailPageState();
 }
 
-class _AuctionPageState extends State<AuctionPage> {
+class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
   late AuthServices auth;
-  final _oneHomeworkBloc = OneHomeworkBloc();
   final OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
 
   @override
   void initState() {
-    /* getOneHomeWork(); */
-    _oneHomeworkBloc.getOneHomework(widget.args.idHomework);
+    homeworksBloc.getOneHomework(widget.idHomework);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     auth = context.read<AuthServices>();
-    bool isBearer = false;
-    if (auth.isLogged) {
-      isBearer = widget.args.idUser == auth.user.id;
-    }
+
     return Scaffold(
       /* appBar: AppBarWithBackIcon(
         appBar: AppBar(),
       ), */
       body: StreamBuilder(
-        stream: _oneHomeworkBloc.oneHomeworkStream,
-        builder:
-            (BuildContext context, AsyncSnapshot<OneHomeworkModel> snapshot) {
+        stream: homeworksBloc.oneHomeworkStream,
+        builder: (_, AsyncSnapshot<OneHomeworkModel> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
               child: SquareLoading(),
@@ -50,15 +48,14 @@ class _AuctionPageState extends State<AuctionPage> {
               ),
             );
           }
+          final isBearer = snapshot.data?.homework.user.id == auth.user.id;
 
           return CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
                   elevation: 5,
                   leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
+                    onPressed: context.pop,
                     icon: const Icon(
                       Icons.chevron_left,
                       size: 25,
@@ -71,10 +68,9 @@ class _AuctionPageState extends State<AuctionPage> {
                               IconButton(
                                 onPressed: () {
                                   snapshot.data!.offers.isEmpty
-                                      ? Navigator.pushNamed(
-                                          context,
-                                          'upload_homework_with_file',
-                                          arguments: snapshot.data!.homework,
+                                      ? context.push(
+                                          '/upload_homework_with_file',
+                                          extra: snapshot.data!.homework,
                                           /* PageTransition(
                                         type: PageTransitionType
                                             .leftToRightWithFade,
@@ -245,14 +241,13 @@ class _AuctionPageState extends State<AuctionPage> {
               ? TextButton(
                   child: const Text('Ver Tarea '),
                   onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      'showHomework',
-                      arguments: oneHomeworkModel.homework,
+                    context.push(
+                      '/show_homework',
+                      extra: oneHomeworkModel.homework,
                     );
                   },
                 )
-              : SizedBox(),
+              : const SizedBox(),
           oneHomeworkModel.offers.isNotEmpty
               ? CircleAvatarGroup(
                   oneHomeworkModel: oneHomeworkModel,
@@ -274,8 +269,8 @@ class _AuctionPageState extends State<AuctionPage> {
                         : Container(),
                     FormBuilder(
                       key: _formKey,
-                      child: Column(
-                        children: const [
+                      child: const Column(
+                        children: [
                           CustomFormBuilderTextArea(
                             name: 'observation',
                             icon: FontAwesomeIcons.notesMedical,
@@ -297,22 +292,26 @@ class _AuctionPageState extends State<AuctionPage> {
                             borderRadius: 5,
                             label: "Rechazar",
                             ghostButton: true,
-                            onPressed: () async {
+                            onPressed: () {
                               _formKey.currentState!.save();
-                              final accepted =
-                                  await supervisorServices.superviseHomework(
+
+                              supervisorServices
+                                  .superviseHomework(
                                 _formKey.currentState!.value['observation'],
                                 'rejected',
                                 oneHomeworkModel.homework.id,
-                              );
-                              if (accepted) {
-                                Navigator.pop(context);
-                                GlobalSnackBar.show(context, "Tarea Calificada",
-                                    backgroundColor: Colors.green);
-                              } else {
-                                GlobalSnackBar.show(context, "Hubo un error",
-                                    backgroundColor: Colors.red);
-                              }
+                              )
+                                  .then((value) {
+                                if (value) {
+                                  context.pop();
+                                  GlobalSnackBar.show(
+                                      context, "Tarea Calificada",
+                                      backgroundColor: Colors.green);
+                                } else {
+                                  GlobalSnackBar.show(context, "Hubo un error",
+                                      backgroundColor: Colors.red);
+                                }
+                              });
                             },
                           ),
                         ),
@@ -326,24 +325,27 @@ class _AuctionPageState extends State<AuctionPage> {
                               setState(() {
                                 loading = true;
                               });
-                              final accepted =
-                                  await supervisorServices.superviseHomework(
+
+                              supervisorServices
+                                  .superviseHomework(
                                 _formKey.currentState!.value['observation'],
                                 'accepted_to_offer',
                                 oneHomeworkModel.homework.id,
-                              );
-                              setState(() {
-                                loading = false;
+                              )
+                                  .then((value) {
+                                setState(() {
+                                  loading = false;
+                                });
+                                if (value) {
+                                  context.pop();
+                                  GlobalSnackBar.show(
+                                      context, "Tarea aceptada y confirmada",
+                                      backgroundColor: Colors.green);
+                                } else {
+                                  GlobalSnackBar.show(context, "Hubo un error",
+                                      backgroundColor: Colors.red);
+                                }
                               });
-                              if (accepted) {
-                                Navigator.pop(context);
-                                GlobalSnackBar.show(
-                                    context, "Tarea aceptada y confirmada",
-                                    backgroundColor: Colors.green);
-                              } else {
-                                GlobalSnackBar.show(context, "Hubo un error",
-                                    backgroundColor: Colors.red);
-                              }
                             },
                           ),
                         )
@@ -408,11 +410,19 @@ class _AuctionPageState extends State<AuctionPage> {
             onPressed: () {
               /* Navigator.pushNamed(context, 'makeOffer'); */
               if (isBearer) {
-                navigatorProtected(context, isLogged, 'auctionWithOfferPage',
-                    oneHomeworkModel);
+                navigatorProtected(
+                  context,
+                  isLogged,
+                  '/auction_with_offerPage',
+                  oneHomeworkModel,
+                );
               } else {
                 navigatorProtected(
-                    context, isLogged, 'makeOffer', oneHomeworkModel);
+                  context,
+                  isLogged,
+                  '/makeOffer',
+                  oneHomeworkModel,
+                );
               }
             },
             child: isBearer ? const Text('Ver ofertas') : const Text('Ofertar'),
@@ -485,13 +495,13 @@ class _AuctionPageState extends State<AuctionPage> {
     return Container();
   }
 
-  deleteAndRefresh(int idHomework) async {
-    _oneHomeworkBloc.homeworkServices.deleteHomework(
+  Future<void> deleteAndRefresh(int idHomework) async {
+    homeworksBloc.homeworkServices.deleteHomework(
       idHomework,
     );
     await homeworksBloc.getHomeworksByCategory([]);
     /* Navigator.pushNamed(context, 'bottomNavigation'); */
-    Navigator.pop(context);
+    context.pop();
 
     await auth.refreshUser();
     GlobalSnackBar.show(context, "Tarea eliminada Exitosamente",

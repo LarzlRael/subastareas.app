@@ -1,7 +1,9 @@
 part of '../pages.dart';
 
 class WithdrawMethodSelectedPage extends StatefulWidget {
-  const WithdrawMethodSelectedPage({Key? key}) : super(key: key);
+  final MethodArguments arguments;
+  const WithdrawMethodSelectedPage({Key? key, required this.arguments})
+      : super(key: key);
 
   @override
   State<WithdrawMethodSelectedPage> createState() =>
@@ -13,7 +15,6 @@ class _WithdrawMethodSelectedPageState
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthServices>(context, listen: false).user;
-    final args = ModalRoute.of(context)!.settings.arguments as MethodArguments;
     final transactionServices = TransactionServices();
 
     final _formKey = GlobalKey<FormBuilderState>();
@@ -44,7 +45,8 @@ class _WithdrawMethodSelectedPageState
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SimpleText(
-                  text: 'Retirar saldo por ${args.methodName.toUpperCase()}',
+                  text:
+                      'Retirar saldo por ${widget.arguments.methodName.toUpperCase()}',
                   fontSize: 18,
                   bottom: 15,
                   fontWeight: FontWeight.bold,
@@ -52,8 +54,8 @@ class _WithdrawMethodSelectedPageState
                 ),
                 const SizedBox(height: 20),
                 Hero(
-                  tag: args.methodName,
-                  child: args.logoWidget,
+                  tag: widget.arguments.methodName,
+                  child: widget.arguments.logoWidget,
                 ),
                 const SizedBox(height: 20),
                 RetirableInformation(user: user),

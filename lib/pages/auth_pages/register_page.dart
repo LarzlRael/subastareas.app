@@ -1,12 +1,49 @@
 part of '../pages.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  late final AuthServices authService;
   final _formKey = GlobalKey<FormBuilderState>();
 
-  RegisterPage({Key? key}) : super(key: key);
+  @override
+  void initState() {
+    super.initState();
+    authService = Provider.of<AuthServices>(context, listen: false);
+  }
+
+  void register() async {
+    final validationSuccess = _formKey.currentState!.validate();
+    /* print(_formKey.currentState!.value['username']); */
+    /* print(_formKey.currentState!.value['password']); */
+    if (validationSuccess) return;
+    _formKey.currentState!.save();
+    authService
+        .register(
+      _formKey.currentState!.value['username'],
+      _formKey.currentState!.value['email'],
+      _formKey.currentState!.value['password'],
+    )
+        .then((value) {
+      if (value) {
+        context.go('/login_page');
+        GlobalSnackBar.show(
+          context,
+          'Registro exitoso, confirma tu correo electrónico, por favor',
+        );
+        return;
+      }
+      showSimpleAlert(context, 'hubo un error en el registro');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthServices>(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -86,29 +123,7 @@ class RegisterPage extends StatelessWidget {
                       textColor: Colors.white,
                       borderRadius: 50,
                       onPressed: () async {
-                        final validationSuccess =
-                            _formKey.currentState!.validate();
-                        /* print(_formKey.currentState!.value['username']); */
-                        /* print(_formKey.currentState!.value['password']); */
-                        if (validationSuccess) {
-                          _formKey.currentState!.save();
-                          final login = await authService.register(
-                            _formKey.currentState!.value['username'],
-                            _formKey.currentState!.value['email'],
-                            _formKey.currentState!.value['password'],
-                          );
-
-                          if (login) {
-                            Navigator.pushReplacementNamed(context, 'login');
-                            GlobalSnackBar.show(
-                              context,
-                              'Registro exitoso, confirma tu correo electrónico, por favor',
-                            );
-                          } else {
-                            showSimpleAlert(
-                                context, 'hubo un error en el registro');
-                          }
-                        }
+                        register();
                       },
                     ),
                     const LabelLoginRegister(

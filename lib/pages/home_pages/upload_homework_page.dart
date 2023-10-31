@@ -60,10 +60,22 @@ class UploadHomeworkWithFile extends StatefulWidget {
 }
 
 class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
+  final homeworksService = HomeworkServices();
+  late AuthServices authService;
+  late bool isNewHomework;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.homework != null) {
+      homework = widget.homework!;
+    }
+    authService = Provider.of<AuthServices>(context, listen: false);
+  }
+
   final _formKey = GlobalKey<FormBuilderState>();
   bool _isLoading = false;
   bool _isWithFile = false;
-  late bool isNewHomework;
   Homework homework = Homework(
     visible: true,
     id: 0,
@@ -87,12 +99,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
 
   @override
   Widget build(BuildContext context) {
-    final homeworkData = ModalRoute.of(context)?.settings.arguments;
-    final homeworksService = HomeworkServices();
-    final authService = Provider.of<AuthServices>(context, listen: false);
-    if (homeworkData != null) {
-      homework = homeworkData as Homework;
-    }
     isNewHomework = homework.id == 0;
     return Scaffold(
       appBar: isNewHomework
@@ -141,7 +147,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                   ), */
                   Text(
                     'Tu saldo actual es de: ${authService.user.wallet.balanceTotal}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       /* color: Colors.grey[600], */
                     ),
@@ -209,9 +215,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 10,
-              ),
+              const SizedBox(height: 10),
               Column(
                 children: [
                   !_isLoading
@@ -220,75 +224,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                           borderRadius: 20,
                           textColor: Colors.white,
                           onPressed: () async {
-                            final validationSuccess =
-                                _formKey.currentState!.validate();
-
-                            if (validationSuccess) {
-                              _formKey.currentState!.save();
-                              final Map<String, String> data = {
-                                'title': _formKey.currentState!.value['title'],
-                                'offered_amount': _formKey
-                                    .currentState!.value['offered_amount'],
-                                'category':
-                                    _formKey.currentState!.value['category'],
-                                'resolutionTime': _formKey
-                                    .currentState!.value['resolutionTime']
-                                    .toString(),
-                              };
-
-                              if (_isWithFile) {
-                                final Map<String, String> dataWithFile = {
-                                  ...data,
-                                };
-                                _formKey.currentState!.save();
-                                if (isNewHomework) {
-                                  final uploadHomework =
-                                      await homeworksService.uploadHomework(
-                                    dataWithFile,
-                                    File(
-                                      _formKey
-                                          .currentState!.value['file'][0].path,
-                                    ),
-                                    homework.id,
-                                  );
-                                  _successUploaded(uploadHomework, authService);
-                                } else {
-                                  final uploadHomework =
-                                      await homeworksService.updateHomework(
-                                    data,
-                                    File(_formKey
-                                        .currentState!.value['file'][0].path),
-                                    homework.id,
-                                  );
-                                  _successUploaded(uploadHomework, authService);
-                                }
-                              } else {
-                                _formKey.currentState!.save();
-                                showFilterBottomMenuSheetxD(
-                                  context,
-                                );
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                if (isNewHomework) {
-                                  final uploadHomework =
-                                      await homeworksService.uploadHomework(
-                                    data,
-                                    null,
-                                    homework.id,
-                                  );
-                                  _successUploaded(uploadHomework, authService);
-                                } else {
-                                  final uploadHomework =
-                                      await homeworksService.updateHomework(
-                                    data,
-                                    null,
-                                    homework.id,
-                                  );
-                                  _successUploaded(uploadHomework, authService);
-                                }
-                              }
-                            }
+                            uploadOrEditHomework();
                           },
                         )
                       : const Center(child: CircularProgressIndicator()),
@@ -301,40 +237,72 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     );
   }
 
+  void uploadOrEditHomework() async {
+    final validationSuccess = _formKey.currentState!.validate();
+
+    if (!validationSuccess) return;
+    _formKey.currentState!.save();
+
+    final Map<String, String> data = {
+      'title': _formKey.currentState!.value['title'],
+      'offered_amount': _formKey.currentState!.value['offered_amount'],
+      'category': _formKey.currentState!.value['category'],
+      'resolutionTime':
+          _formKey.currentState!.value['resolutionTime'].toString(),
+    };
+
+    _formKey.currentState!.save();
+
+    setState(() {
+      _isLoading = true;
+    });
+    homeworksService
+        .uploadOrUpdateHomework(
+      homework.id,
+      data,
+      pathFile: _formKey.currentState!.value['file'] != null
+          ? _formKey.currentState!.value['file'][0].path
+          : null,
+    )
+        .then((value) {
+      _successUploaded(value);
+    });
+
+    /* showFilterBottomMenuSheetxD(); */
+  }
+
   void _successUploaded(
-    bool uploadHomework,
-    AuthServices authService,
+    bool result,
   ) async {
-    if (uploadHomework) {
-      Navigator.pushReplacementNamed(context, 'my_homeworks_page',
-          arguments: 0);
+    setState(() {
+      _isLoading = false;
+    });
+    if (result) {
+      context.push('/my_homeworks_page', extra: 0);
       _formKey.currentState!.reset();
-      setState(() {
-        _isLoading = false;
-      });
-      await authService.renewToken();
-      GlobalSnackBar.show(context, 'Tarea subida correctamente',
-          backgroundColor: Colors.green);
+      GlobalSnackBar.show(
+        context,
+        'Tarea subida correctamente',
+        backgroundColor: Colors.green,
+      );
     } else {
-      Navigator.pushNamed(context, 'my_homeworks_page', arguments: 0);
-      setState(() {
-        _isLoading = false;
-      });
-      GlobalSnackBar.show(context, 'Error al subir tarea',
-          backgroundColor: Colors.red);
+      GlobalSnackBar.show(
+        context,
+        'Error al subir tarea',
+        backgroundColor: Colors.red,
+      );
     }
   }
-}
 
-showFilterBottomMenuSheetxD(BuildContext context) {
-  showModalBottomSheet(
-    isScrollControlled: true,
-    context: context,
-    builder: (context) {
-      return const SafeArea(
-          child: Center(
-        child: CircularProgressIndicator(),
-      ));
-    },
-  );
+  showFilterBottomMenuSheetxD() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => const SafeArea(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
 }

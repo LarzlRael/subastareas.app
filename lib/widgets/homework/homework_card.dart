@@ -13,14 +13,12 @@ class HomeworkArguments {
 class HomeworkCard extends StatelessWidget {
   final bool isLogged;
   final HomeworksModel homework;
-  final String goTo;
   final bool? isOwner;
   final void Function(HomeworksModel homework)? onSelected;
   const HomeworkCard({
     Key? key,
     required this.isLogged,
     required this.homework,
-    required this.goTo,
     this.isOwner = false,
     this.onSelected,
   }) : super(key: key);
@@ -30,14 +28,6 @@ class HomeworkCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        /* Navigator.pushNamed(
-          context,
-          goTo,
-          arguments: HomeworkArguments(
-            homework.id,
-            homework.user.id,
-          ),
-        ); */
         if (onSelected != null) {
           onSelected!(homework);
         }

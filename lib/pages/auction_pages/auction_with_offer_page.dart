@@ -1,10 +1,10 @@
 part of '../pages.dart';
 
 class AuctionWithOfferPage extends StatefulWidget {
-  final OneHomeworkModel args;
+  final OneHomeworkModel oneHomework;
 
   const AuctionWithOfferPage({
-    required this.args,
+    required this.oneHomework,
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     auth = Provider.of<AuthServices>(context, listen: false);
     socketService = Provider.of<SocketService>(context, listen: false);
     loadOffers();
-    socketService.socket.emit('joinOfferRoom', widget.args.homework.id);
+    socketService.socket.emit('joinOfferRoom', widget.oneHomework.homework.id);
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
     socketService.socket.on('joinOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
@@ -44,7 +44,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     socketService.socket.off('makeOfferToClient');
     socketService.socket.off('deleteOffer');
     socketService.socket.off('editOffer'); */
-    disconnectEvents(socketService, widget.args.homework.id);
+    disconnectEvents(socketService, widget.oneHomework.homework.id);
     super.dispose();
   }
 
@@ -65,10 +65,10 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
       ),
       id: offer.id,
       auth: AuthServices(),
-      homework: widget.args,
+      homework: widget.oneHomework,
       //fix this
 
-      isOwner: auth.user.id == widget.args.homework.user.id,
+      isOwner: auth.user.id == widget.oneHomework.homework.user.id,
       animationController: AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 200),
@@ -115,10 +115,10 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
       ),
       id: offer.id,
       auth: AuthServices(),
-      homework: widget.args,
+      homework: widget.oneHomework,
       //fix this
 
-      isOwner: auth.user.id == widget.args.homework.user.id,
+      isOwner: auth.user.id == widget.oneHomework.homework.user.id,
       animationController: AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 200),
@@ -134,13 +134,13 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   }
 
   void loadOffers() {
-    final offers = widget.args.offers.map((x) => PersonOfferHorizontal(
+    final offers = widget.oneHomework.offers.map((x) => PersonOfferHorizontal(
           offer: x,
           auth: AuthServices(),
-          homework: widget.args,
+          homework: widget.oneHomework,
           id: x.id,
           //fix this
-          isOwner: auth.user.id == widget.args.homework.user.id,
+          isOwner: auth.user.id == widget.oneHomework.homework.user.id,
           animationController: AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 0),
@@ -156,12 +156,12 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   Widget build(BuildContext context) {
     /* final auth = Provider.of<AuthServices>(context, listen: false); */
     OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
-    homeworksBloc.getOneHomework(widget.args.homework.id);
-    final isOwner = auth.user.id == widget.args.homework.user.id;
+    homeworksBloc.getOneHomework(widget.oneHomework.homework.id);
+    final isOwner = auth.user.id == widget.oneHomework.homework.user.id;
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
-        title: widget.args.homework.title.toCapitalized(),
+        title: widget.oneHomework.homework.title.toCapitalized(),
       ),
       body: SafeArea(
         child: Stack(
@@ -172,9 +172,11 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _ImageBackgroundAndTimer(
-                      auth: auth, homework: widget.args, isOwner: isOwner),
+                      auth: auth,
+                      homework: widget.oneHomework,
+                      isOwner: isOwner),
                   auth.isLogged ? currentHomeworkViewers() : Container(),
-                  widget.args.homework.status == 'pending_to_resolve'
+                  widget.oneHomework.homework.status == 'pending_to_resolve'
                       ? const SimpleText(
                           text:
                               'Ya aceptaste una oferta, espera a que el profesor te responda',

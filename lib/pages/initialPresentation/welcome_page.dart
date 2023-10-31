@@ -8,7 +8,6 @@ class WelcomePage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -46,7 +45,7 @@ class WelcomePage extends StatelessWidget {
               ),
               FillButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'login');
+                  context.push('/login_page');
                 },
                 label: 'Iniciar sesión',
                 textColor: Colors.white,
@@ -54,7 +53,7 @@ class WelcomePage extends StatelessWidget {
               ),
               FillButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, 'register');
+                  context.push('/register_page');
                 },
                 ghostButton: true,
                 label: 'Registrarse',
@@ -69,8 +68,7 @@ class WelcomePage extends StatelessWidget {
                         bottom: 10,
                       ),
                       onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, 'bottomNavigation');
+                        context.go('/home_page');
                       },
                     )
                   : Container()
