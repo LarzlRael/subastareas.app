@@ -10,6 +10,10 @@ final appRouter = GoRouter(
     ///* Primera pantalla
 
     GoRoute(
+      path: '/',
+      builder: (context, state) => const LoadingPage(),
+    ),
+    GoRoute(
       path: '/loading',
       builder: (context, state) => const LoadingPage(),
     ),

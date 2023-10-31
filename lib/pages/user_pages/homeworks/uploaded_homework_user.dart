@@ -26,7 +26,7 @@ class UploadedHomeworkUser extends StatelessWidget {
             showButton: true,
             iconButton: Icons.note_add,
             onPressed: () {
-              Navigator.pushNamed(context, 'bottomNavigation', arguments: 1);
+              context.push('home_page');
             },
             buttonTitle: 'Subir tarea',
           );
@@ -41,7 +41,7 @@ class UploadedHomeworkUser extends StatelessWidget {
               homework: snapshot.data![index],
               onSelected: (homework) {
                 context.push(
-                  'homework_detail/${homework.id}',
+                  '/homework_detail/${homework.id}',
                 );
               },
               /* homework: snapshot.data[index], */

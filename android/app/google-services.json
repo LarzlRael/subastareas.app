@@ -7,36 +7,12 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:917999900039:android:54e325d0ca90398202ef22",
+        "mobilesdk_app_id": "1:917999900039:android:b07a5b34ad84393902ef22",
         "android_client_info": {
           "package_name": "com.neo.subastareas"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "917999900039-20808mbi8pt1j1hdo2jaqq9vgkpu96of.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.neo.subastareas",
-            "certificate_hash": "f84f83ddcf7715243b8edbbc00e514e5a719640c"
-          }
-        },
-        {
-          "client_id": "917999900039-d85meg79ka68ugfmlokpttoack65b9d2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.neo.subastareas",
-            "certificate_hash": "432e798bca0c1153d2a77535bb568e3aa71c4cdd"
-          }
-        },
-        {
-          "client_id": "917999900039-fr3cudvjanjk4l8v0d6eojnhq5l97mra.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.neo.subastareas",
-            "certificate_hash": "a49209936bd741f3f23e32be48f806cfd1e05e6f"
-          }
-        },
         {
           "client_id": "917999900039-hhmp729r4qk00euhcqh7c7l25t9c9gak.apps.googleusercontent.com",
           "client_type": 3

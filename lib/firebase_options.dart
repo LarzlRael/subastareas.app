@@ -17,13 +17,19 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -46,32 +52,11 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD9tsH0swNxqG6PEgjbu4K7QK5BSdOnhS8',
-    appId: '1:917999900039:web:b0e1a39b0007b42702ef22',
-    messagingSenderId: '917999900039',
-    projectId: 'subastareas-72416',
-    authDomain: 'subastareas-72416.firebaseapp.com',
-    storageBucket: 'subastareas-72416.appspot.com',
-    measurementId: 'G-71DZML6V8N',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAKUmQ4D8apKKKTE9LGzQf6uuba3ieYQsc',
-    appId: '1:917999900039:android:54e325d0ca90398202ef22',
+    appId: '1:917999900039:android:b07a5b34ad84393902ef22',
     messagingSenderId: '917999900039',
     projectId: 'subastareas-72416',
     storageBucket: 'subastareas-72416.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBAwyDIr_HBAew3s3CaJpR_wEaJMlIsTWA',
-    appId: '1:917999900039:ios:3da709127d4f777402ef22',
-    messagingSenderId: '917999900039',
-    projectId: 'subastareas-72416',
-    storageBucket: 'subastareas-72416.appspot.com',
-    androidClientId: '917999900039-20808mbi8pt1j1hdo2jaqq9vgkpu96of.apps.googleusercontent.com',
-    iosClientId: '917999900039-sjgcjm5p0gse5sq5758h0fptsp49v91u.apps.googleusercontent.com',
-    iosBundleId: 'com.neo.subastareas',
   );
 }
