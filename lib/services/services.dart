@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:mime_type/mime_type.dart';
 
 import 'package:http_parser/http_parser.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
     as environment;
@@ -35,3 +36,5 @@ part 'mail_services.dart';
 part 'notification_service.dart';
 part 'transaction_service.dart';
 part 'supervise_services.dart';
+part 'key_value/key_value_storage_service.dart';
+part 'key_value/key_value_storage_service_impl.dart';
