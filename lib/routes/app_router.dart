@@ -84,6 +84,11 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
+      path: '/change_password',
+      builder: (_, __) => const ChangePassword(),
+    ),
+
+    GoRoute(
       path: '/withdraw_page',
       builder: (_, __) => const WithdrawPage(),
     ),

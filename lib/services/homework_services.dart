@@ -6,7 +6,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequest(
       RequestType.get,
       'homework',
-      null,
     );
 
     return homeworksModelFromJson(homeworkRequest!.body);
@@ -19,7 +18,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequest(
       RequestType.get,
       'homework/findHomework/$querySearch',
-      null,
     );
 
     return homeworksModelFromJson(homeworkRequest!.body);
@@ -29,7 +27,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequest(
       RequestType.get,
       'homework/getOneHomework/$id',
-      null,
     );
     return oneHomeworkModelFromJson(homeworkRequest!.body);
   }
@@ -38,8 +35,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'homework/homeworksByUser',
-      {},
-      await _storage.read(key: 'token'),
     );
 
     return homeworksModelFromJson(homeworkRequest!.body);
@@ -53,7 +48,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequest(
       RequestType.get,
       'homework/category/$categoryFilter',
-      {},
     );
     return homeworksModelFromJson(homeworkRequest!.body);
   }
@@ -62,7 +56,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequest(
       RequestType.get,
       'homework/getSubjectsList',
-      {},
     );
     final finalData = subjectsFromJson(homeworkRequest!.body);
     return finalData;
@@ -72,8 +65,6 @@ class HomeworkServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'devices/clearNotificated',
-      {},
-      await _storage.read(key: 'token'),
     );
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
@@ -104,7 +95,6 @@ class HomeworkServices {
         'homework/create',
         body,
         file,
-        await _storage.read(key: 'token') ?? '',
       );
       return validateStatus(homeworkUploadWithFile.statusCode);
     }
@@ -114,8 +104,7 @@ class HomeworkServices {
       idHomework == 0
           ? 'homework/create'
           : 'homework/updateHomework/$idHomework',
-      body,
-      await _storage.read(key: 'token'),
+      body: body,
     );
 
     return validateStatus(homeworkRequest!.statusCode);
@@ -125,8 +114,6 @@ class HomeworkServices {
     return Request.sendRequestWithToken(
       RequestType.delete,
       'homework/deleteHomework/$idHomework',
-      {},
-      await _storage.read(key: 'token'),
     );
   }
 }

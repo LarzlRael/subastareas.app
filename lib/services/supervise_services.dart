@@ -7,8 +7,6 @@ class SuperviseServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'supervisor/homeworksToSupervise/',
-      {},
-      await _storage.read(key: 'token'),
     );
     final finalData = homeworkToSuperviseFromJson(homeworkRequest!.body);
     return finalData;
@@ -19,12 +17,11 @@ class SuperviseServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.post,
       'supervisor/superviseHomework/',
-      {
+      body: {
         'observation': observation,
         'status': status,
         'idHomework': idHomework,
       },
-      await _storage.read(key: 'token'),
     );
     return validateStatus(homeworkRequest!.statusCode);
   }

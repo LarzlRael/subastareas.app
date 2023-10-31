@@ -14,7 +14,6 @@ class LoginResponse {
 class AuthServices with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   bool isLogged = false;
-  final _storage = const FlutterSecureStorage();
 
   //User model
   late UserModel _user;
@@ -44,7 +43,7 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp =
-        await Request.sendRequest(RequestType.post, 'auth/signIn', data);
+        await Request.sendRequest(RequestType.post, 'auth/signIn', body: data);
     setAuthenticating = false;
 
     if (validateStatus(resp!.statusCode)) {
@@ -76,7 +75,10 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp = await Request.sendRequest(
-        RequestType.post, 'auth/changePassword', data);
+      RequestType.post,
+      'auth/changePassword',
+      body: data,
+    );
     setAuthenticating = false;
 
     return validateStatus(resp!.statusCode);
@@ -96,7 +98,7 @@ class AuthServices with ChangeNotifier {
     };
 
     final resp =
-        await Request.sendRequest(RequestType.post, 'auth/signUp', data);
+        await Request.sendRequest(RequestType.post, 'auth/signUp', body: data);
     setAuthenticating = false;
 
     if (validateStatus(resp!.statusCode)) {
@@ -110,10 +112,9 @@ class AuthServices with ChangeNotifier {
 
   Future<bool> logout() async {
     await Request.sendRequestWithToken(
-        RequestType.get,
-        'auth/signOut/${await messaging.getToken()}',
-        {},
-        await _storage.read(key: 'token'));
+      RequestType.get,
+      'auth/signOut/${await messaging.getToken()}',
+    );
 
     await clearIdAndToken();
     await _googleSignIn.signOut();
@@ -124,8 +125,8 @@ class AuthServices with ChangeNotifier {
   }
 
   Future _saveIdAnToken(String id, String token) async {
-    await _storage.write(key: 'token', value: token);
-    await _storage.write(key: 'id', value: id);
+    await KeyValueStorageServiceImpl().setKeyValue<String>('token', token);
+    await KeyValueStorageServiceImpl().setKeyValue<String>('id', id);
   }
 
   Future<bool> renewToken() async {
@@ -133,8 +134,6 @@ class AuthServices with ChangeNotifier {
     final resp = await Request.sendRequestWithToken(
       RequestType.get,
       'auth/renewToken/$deviceId',
-      {},
-      await _storage.read(key: 'token'),
     );
 
     if (validateStatus(resp!.statusCode)) {
@@ -154,17 +153,17 @@ class AuthServices with ChangeNotifier {
   }
 
   Future clearIdAndToken() async {
-    await _storage.delete(key: 'token');
-    await _storage.delete(key: 'id');
+    await KeyValueStorageServiceImpl().removeKey('token');
+    await KeyValueStorageServiceImpl().removeKey('id');
   }
 
   Future updateProfileImage(File file, int idUser) async {
     final resp = await Request.sendRequestWithFile(
-        RequestType.put,
-        'auth/updateProfileImage/$idUser',
-        {},
-        file,
-        await _storage.read(key: 'token') ?? '');
+      RequestType.put,
+      'auth/updateProfileImage/$idUser',
+      {},
+      file,
+    );
 
     await renewToken();
     return resp.body;

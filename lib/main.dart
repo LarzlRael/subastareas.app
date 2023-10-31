@@ -4,6 +4,7 @@ import 'package:subastareaspp/provider/providers.dart';
 import 'package:subastareaspp/routes/app_router.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
+import 'package:subastareaspp/widgets/widgets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
-        ChangeNotifierProvider(create: (_) => NotificationService()),
+        ChangeNotifierProvider(
+          create: (_) => NotificationService(),
+          lazy: false,
+        ),
       ],
       child: MaterialApp.router(
         title: 'Subastareas',
@@ -48,6 +52,9 @@ class _MyAppState extends State<MyApp> {
         theme: appTheme.getTheme(),
         localizationsDelegates: formBuildersDelegates,
         supportedLocales: supportedLocales,
+        builder: (context, child) => HandleNotificationInteraction(
+          child: child!,
+        ),
       ),
     );
   }

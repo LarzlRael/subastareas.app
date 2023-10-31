@@ -1,14 +1,10 @@
 part of 'services.dart';
 
 class UserServices {
-  final _storage = const FlutterSecureStorage();
-
   Future<PublicProfile> getPublicProfile(int idUser) async {
     final resp = await Request.sendRequestWithToken(
       RequestType.get,
       'auth/viewPublicProfile/$idUser',
-      {},
-      await _storage.read(key: 'token'),
     );
 
     return publicProfileFromJson(resp!.body);
@@ -19,12 +15,11 @@ class UserServices {
     final resp = await Request.sendRequestWithToken(
       RequestType.post,
       'userProfile/changePreferences',
-      {
+      body: {
         'id': idProfileUser,
         'isDarkTheme': isDarkTheme,
         'notifications': sendNotifications,
       },
-      await _storage.read(key: 'token'),
     );
 
     return validateStatus(resp!.statusCode);

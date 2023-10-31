@@ -7,8 +7,6 @@ class TradeServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'trade/getTradePendingToTrade/',
-      {},
-      await _storage.read(key: 'token'),
     );
     return tradeUserModelFromJson(homeworkRequest!.body);
   }
@@ -17,8 +15,6 @@ class TradeServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'trade/getTradingByUser/$status',
-      {},
-      await _storage.read(key: 'token'),
     );
     return tradeUserModelFromJson(homeworkRequest!.body);
   }
@@ -30,8 +26,6 @@ class TradeServices {
       accepted
           ? 'trade/acceptTrade/$idOffer'
           : 'trade/declineTrade/$idOffer/$reasonRejected',
-      {},
-      await _storage.read(key: 'token'),
     );
 
     return validateStatus(tradeRequest?.statusCode);
@@ -41,8 +35,6 @@ class TradeServices {
     final planesRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'planes/getPlanes',
-      {},
-      await _storage.read(key: 'token'),
     );
     return planesModelFromJson(planesRequest!.body);
   }
@@ -52,8 +44,6 @@ class TradeServices {
     final planesRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'shopping/buyCoins/$idPlan/$planName',
-      {},
-      await _storage.read(key: 'token'),
     );
 
     return validateStatus(planesRequest?.statusCode);

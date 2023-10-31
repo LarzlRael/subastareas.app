@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:animate_do/animate_do.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_countdown_timer/index.dart';
@@ -19,6 +20,7 @@ import 'package:subastareaspp/bloc/one_homework_bloc.dart';
 import 'package:subastareaspp/dialogs/dialogs.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/provider/providers.dart';
+import 'package:subastareaspp/routes/app_router.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
@@ -66,6 +68,7 @@ part 'profile/profile_image.dart';
 part 'profile/profile_circle_information.dart';
 
 part 'notifications/notifications_card.dart';
+part 'notifications/handle_notification_interactive.dart';
 
 part 'forms/custom_file_field.dart';
 part 'homework/homework_pending_to_resolve.dart';

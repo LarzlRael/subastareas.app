@@ -5,10 +5,9 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: false);
-    final userServices = UserServices();
+
     final themeProvider = context.watch<ThemeProviderNotifier>();
 
-    final preferences = UserPreferences();
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
@@ -91,7 +90,7 @@ class SettingsPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyMedium),
                     trailing: const Icon(Icons.chevron_right),
                     onTap: () {
-                      Navigator.pushNamed(context, 'change_password');
+                      context.push('/change_password');
                     },
                   ),
                 ],

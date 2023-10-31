@@ -1,13 +1,12 @@
 part of 'services.dart';
 
 class CommentServices {
-  final _storage = const FlutterSecureStorage();
   Future<bool> newComment(int idHomework, String commentContent) async {
     final comment = await Request.sendRequestWithToken(
-        RequestType.post,
-        'comments/newComment/$idHomework',
-        {'content': commentContent},
-        await _storage.read(key: 'token'));
+      RequestType.post,
+      'comments/newComment/$idHomework',
+      body: {'content': commentContent},
+    );
 
     return validateStatus(comment!.statusCode);
   }
@@ -16,18 +15,16 @@ class CommentServices {
     final comment = await Request.sendRequestWithToken(
       RequestType.put,
       'comments/editComment/$idCommnent',
-      {'content': commentContent},
-      await _storage.read(key: 'token'),
+      body: {'content': commentContent},
     );
     return validateStatus(comment!.statusCode);
   }
 
   Future<bool> deleteComment(int idCommnent) async {
     final comment = await Request.sendRequestWithToken(
-        RequestType.delete,
-        'comments/deletecomment/$idCommnent',
-        {},
-        await _storage.read(key: 'token'));
+      RequestType.delete,
+      'comments/deletecomment/$idCommnent',
+    );
 
     return validateStatus(comment!.statusCode);
   }

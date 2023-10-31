@@ -7,8 +7,6 @@ class TransactionServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'transaction/getUserTransactionsHistory',
-      {},
-      await _storage.read(key: 'token'),
     );
     final finalData = userTransactionModelFromJson(homeworkRequest!.body);
     return finalData;
@@ -18,12 +16,11 @@ class TransactionServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'transaction/withdrawMoneyTransaction',
-      {
+      body: {
         'amount': amount,
         'phone': phone,
       },
       /* {"statusCode":400,"message":["accountNumber must be a string","paymentMethod must be a string","status must be a string","phone must be empty"],"error":"Bad Request"} */
-      await _storage.read(key: 'token'),
     );
     return validateStatus(homeworkRequest!.statusCode);
   }
@@ -33,8 +30,6 @@ class TransactionServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'transaction/getListUserWithdrawRequest',
-      {},
-      await _storage.read(key: 'token'),
     );
     return withdrawalRequestsModelFromJson(homeworkRequest!.body);
   }
@@ -53,8 +48,7 @@ class TransactionServices {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'transaction/confirmWithDraw',
-      withDrawRequestBody.bodyToJson(),
-      await _storage.read(key: 'token'),
+      body: withDrawRequestBody.bodyToJson(),
     );
     /* validateStatus(homeworkRequest!.statusCode); */
     if (validateStatus(homeworkRequest!.statusCode)) {

@@ -5,7 +5,6 @@ class MailServices {
     final requestPasswordChange = await Request.sendRequest(
       RequestType.get,
       'auth/requestPasswordChange/$email',
-      {},
     );
 
     return validateStatus(requestPasswordChange!.statusCode);
@@ -15,7 +14,6 @@ class MailServices {
     final requestEmailVerification = await Request.sendRequest(
       RequestType.get,
       'auth/sendEmailVerification/$email',
-      {},
     );
     return validateStatus(requestEmailVerification!.statusCode);
   }
