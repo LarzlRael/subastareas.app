@@ -27,8 +27,9 @@ class _HandleNotificationInteractionState
     context.read<NotificationService>().handleRemoteMessage(message);
     /* final messageId = clearMessageId(message.messageId); */
     /* print('Message ID: $messageId'); */
-    final dataContent = message.data['translateWord'];
-    appRouter.push('/phrase_maker/$dataContent');
+    final typeContent = message.data['type_content'];
+    final idHomework = message.data['id_homework'];
+    appRouter.push('/homework_detail/$idHomework');
   }
 
   @override

@@ -99,13 +99,12 @@ class _CommentCardState extends State<CommentCard>
                     leading: const Icon(Icons.edit),
                     title: const Text('Editar comentario'),
                     onTap: () {
-                      Navigator.pop(context);
+                      context.pop();
                       showBottomMenuSheetAddOrEditComment(
                         context,
+                        widget.idHomework,
                         auth,
-                        widget.comment.id,
-                        idHomework: widget.idHomework,
-                        editable: true,
+                        idComment: widget.comment.id,
                         currentEditing: widget.comment.content,
                       );
                     },
@@ -114,7 +113,7 @@ class _CommentCardState extends State<CommentCard>
                     leading: const Icon(Icons.delete),
                     title: const Text('Eliminar'),
                     onTap: () async {
-                      Navigator.pop(context);
+                      context.pop();
                       showConfirmDialog(
                         context,
                         'Eliminar comentario',

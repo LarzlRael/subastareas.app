@@ -20,6 +20,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   int _currentViewers = 0;
   @override
   void initState() {
+    super.initState();
     auth = Provider.of<AuthServices>(context, listen: false);
     socketService = Provider.of<SocketService>(context, listen: false);
     loadOffers();
@@ -29,8 +30,6 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('deleteOffer', _listenOfferDeleted);
     socketService.socket.on('editOffer', _listenerOfferEdited);
-
-    super.initState();
   }
 
   @override

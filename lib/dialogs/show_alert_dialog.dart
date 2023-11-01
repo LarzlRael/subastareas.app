@@ -4,16 +4,14 @@ showAlertDialog(BuildContext context, String title, Widget content,
     VoidCallback confirmOnTap) {
   // set up the buttons
   Widget cancelButton = TextButton(
+    onPressed: context.pop,
     child: const Text("Cancelar"),
-    onPressed: () {
-      Navigator.of(context).pop();
-    },
   );
   Widget continueButton = TextButton(
     child: const Text("Continuar"),
     onPressed: () {
       confirmOnTap();
-      Navigator.of(context).pop();
+      context.pop();
     },
   );
   // set up the AlertDialog

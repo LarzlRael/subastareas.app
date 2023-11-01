@@ -9,7 +9,9 @@ void showSimpleAlert(BuildContext context, String message) {
         content: Text(message),
         actions: <Widget>[
           TextButton(
-              child: const Text('Ok'), onPressed: () => Navigator.pop(context)),
+            onPressed: context.pop,
+            child: const Text('Ok'),
+          ),
         ],
       );
     },
@@ -34,7 +36,7 @@ void showConfirmDialog(
         ),
         TextButton(
           onPressed: () async {
-            Navigator.pop(context, 'OK');
+            context.pop();
             await onAccept!();
             /* GlobalSnackBar.show(context, 'Comentario eliminado'); */
           },
@@ -47,19 +49,19 @@ void showConfirmDialog(
 
 showBottomMenuSheetAddOrEditComment(
   BuildContext context,
-  AuthServices auth,
-  int idComment, {
-  int? idHomework,
-  bool editable = false,
+  int idHomework,
+  AuthServices auth, {
+  int? idComment,
   String currentEditing = '',
 }) {
   TextEditingController controller = TextEditingController();
-  if (editable) {
+
+  if (idComment != null) {
     controller.text = currentEditing;
   }
 
-  bool _showSendIcon = false;
-  bool _loading = false;
+  bool showSendIcon = false;
+  bool loading = false;
 
   showModalBottomSheet(
     context: context,
@@ -94,61 +96,46 @@ showBottomMenuSheetAddOrEditComment(
                   onChanged: (value) {
                     if (value.isNotEmpty) {
                       setState(() {
-                        _showSendIcon = true;
+                        showSendIcon = true;
                       });
                     } else {
                       setState(() {
-                        _showSendIcon = false;
+                        showSendIcon = false;
                       });
                     }
                   },
                 )),
-                _showSendIcon
+                showSendIcon
                     ? IconButton(
-                        onPressed: () async {
+                        onPressed: () {
                           setState(() {
-                            _loading = true;
+                            loading = true;
                           });
-                          if (!editable) {
-                            await homeworkBloc
-                                .newComment(
-                                  idComment,
-                                  controller.text,
-                                )
-                                .t;
-                            Navigator.pop(context);
-                            setState(() {
-                              _loading = false;
-                            });
-                            GlobalSnackBar.show(
-                              context,
-                              'Comentario enviado',
-                              backgroundColor: Colors.green,
-                            );
-                            controller.clear();
-                          } else {
-                            setState(() {
-                              _loading = true;
-                            });
-                            await homeworkBloc.editComment(
-                              idComment,
-                              idHomework!,
-                              controller.text,
-                            );
-                            setState(() {
-                              _loading = false;
-                            });
-                            Navigator.pop(context);
-                            GlobalSnackBar.show(
-                              context,
-                              'Comentario editado',
-                              backgroundColor: Colors.green,
-                            );
 
-                            controller.clear();
-                          }
+                          homeworkBloc
+                              .edirOrNewComment(
+                            idHomework,
+                            controller.text,
+                            idComment: idComment,
+                          )
+                              .then((value) {
+                            setState(() {
+                              loading = false;
+                            });
+                            if (value) {
+                              context.pop();
+                              controller.clear();
+                              GlobalSnackBar.show(
+                                context,
+                                idComment == null
+                                    ? 'Comentario editado'
+                                    : 'Comentario enviado',
+                                backgroundColor: Colors.green,
+                              );
+                            }
+                          });
                         },
-                        icon: _loading
+                        icon: loading
                             ? const CircularProgressIndicator()
                             : const Icon(Icons.send),
                       )

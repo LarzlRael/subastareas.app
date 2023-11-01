@@ -39,23 +39,23 @@ class MenuProfileOption extends StatelessWidget {
         child: ListTile(
             onTap: () async {
               if (closeSession) {
-                await auth.logout();
-                filterProvider.setCurrentBottomTab = 0;
-                socketProvider.disconnect();
-                Navigator.pushNamed(context, 'loading');
-              } else {
-                if (!showTrailing) {
-                  Navigator.push(
-                    context,
-                    PageTransition(type: PageTransitionType.fade, child: page),
-                  );
-                  if (callback != null) {
-                    await callback!();
-                  }
-                } else {
-                  GlobalSnackBar.show(context, 'Proximamente!');
-                }
+                auth.logout().then((value) {
+                  filterProvider.setCurrentBottomTab = 0;
+                  socketProvider.disconnect();
+                  context.go('/welcome_page');
+                });
               }
+              if (!showTrailing) {
+                Navigator.push(
+                  context,
+                  PageTransition(type: PageTransitionType.fade, child: page),
+                );
+                if (callback != null) {
+                  await callback!();
+                }
+                return;
+              }
+              GlobalSnackBar.show(context, 'Proximamente!');
             },
             trailing: showTrailingIcon
                 ? Icon(

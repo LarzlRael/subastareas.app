@@ -29,7 +29,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
   @override
   Widget build(BuildContext context) {
     final reverseComments = widget.comments.reversed.toList();
-    return Container(
+    return SizedBox(
       child: Column(
         children: [
           widget.isLogged
@@ -37,11 +37,11 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                   onTap: () {
                     showBottomMenuSheetAddOrEditComment(
                       context,
-                      widget.auth,
                       widget.idHomework,
+                      widget.auth,
                     );
                   },
-                  child: Container(
+                  child: SizedBox(
                     /* color: Colors.brown, */
                     child: Row(
                       children: [
@@ -53,7 +53,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                         const SizedBox(width: 15),
                         const SimpleText(
                           text: 'Agregar un comentario...',
-                          fontSize: 13,
+                          fontSize: 12,
                           lightThemeColor: Colors.blueGrey,
                         ),
                       ],

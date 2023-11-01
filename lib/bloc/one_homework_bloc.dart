@@ -39,20 +39,16 @@ class OneHomeworkBloc {
     await getOneHomework(idHomework);
   }
 
-  newComment(int idHomework, String content) async {
-    await commentService.newComment(
-      idHomework,
-      content,
-    );
+  Future<bool> edirOrNewComment(
+    int idHomework,
+    String content, {
+    int? idComment,
+  }) async {
+    final commnentRes = idComment == null
+        ? await commentService.newComment(idHomework, content)
+        : await commentService.editComment(idComment, content);
     await getOneHomework(idHomework);
-  }
-
-  editComment(int idComment, int idHomework, String content) async {
-    await commentService.editComment(
-      idComment,
-      content,
-    );
-    await getOneHomework(idHomework);
+    return commnentRes;
   }
 
   Future<OfferSimpleModel> makeOrEditOffer(
