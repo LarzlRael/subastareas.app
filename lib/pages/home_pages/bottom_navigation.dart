@@ -14,8 +14,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthServices>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
-    final notificationService =
-        Provider.of<NotificationService>(context, listen: true);
+    final notificationProvider =
+        Provider.of<NotificationProvider>(context, listen: true);
     return Scaffold(
       body: Center(
         child: auth.isLogged
@@ -39,7 +39,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
           : null, */
       bottomNavigationBar: BottomNavigationBar(
         items: auth.isLogged
-            ? bottonItemsWithLogin(notificationService.notifications.isNotEmpty)
+            ? bottonItemsWithLogin(
+                notificationProvider.state.notifications.isNotEmpty)
             : bottonItemsWithoutLogin,
         currentIndex: filter.getCurrentBottomTab,
         /* selectedItemColor: Colors.amber[800], */

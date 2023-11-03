@@ -305,22 +305,24 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
               ? Container()
               : MaterialButton(
                   onPressed: !loading
-                      ? () async {
+                      ? () {
                           setState(() {
                             loading = true;
                           });
-                          await offersServices
-                              .enterPendingTrade(widget.offer.id);
-                          setState(() {
-                            loading = false;
+                          offersServices
+                              .enterPendingTrade(widget.offer.id)
+                              .then((value) {
+                            setState(() {
+                              loading = false;
+                            });
+                            /* Navigator.of(context).pop(); */
+                            GlobalSnackBar.show(
+                              context,
+                              'Acabas de aceptar la oferta, espere a que el otro usuario termine tu tarea',
+                              backgroundColor: Colors.green,
+                              /* icon: Icons.check, */
+                            );
                           });
-                          /* Navigator.of(context).pop(); */
-                          GlobalSnackBar.show(
-                            context,
-                            'Acabas de aceptar la oferta, espere a que el otro usuario termine tu tarea',
-                            backgroundColor: Colors.green,
-                            /* icon: Icons.check, */
-                          );
                         }
                       : null,
                   height: 45,

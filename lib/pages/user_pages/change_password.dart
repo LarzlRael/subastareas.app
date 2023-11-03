@@ -70,36 +70,38 @@ class _ChangePasswordState extends State<ChangePassword> {
                       passwordField: true,
                     ),
                     FillButton(
-                      label: "Cambiar contraseña",
-                      textColor: Colors.white,
-                      borderRadius: 50,
-                      onPressed: () async {
-                        final validationSuccess =
-                            _formKey.currentState!.validate();
+                        label: "Cambiar contraseña",
+                        textColor: Colors.white,
+                        borderRadius: 50,
+                        onPressed: () async {
+                          final validationSuccess =
+                              _formKey.currentState!.validate();
 
-                        if (validationSuccess) {
+                          if (!validationSuccess) return;
+
                           _formKey.currentState!.save();
-                          final isLoginOk = await authService.changePassword(
-                              _formKey.currentState!.value['password'],
-                              _formKey.currentState!.value['confirmPassword']);
-
-                          if (isLoginOk) {
-                            Navigator.pop(context);
-                            GlobalSnackBar.show(
-                              context,
-                              'Contraseña cambiada correctamente',
-                              backgroundColor: Colors.green,
-                            );
-                          } else {
-                            GlobalSnackBar.show(
-                              context,
-                              'Error al cambiar contraseña',
-                              backgroundColor: Colors.red,
-                            );
-                          }
-                        }
-                      },
-                    ),
+                          authService
+                              .changePassword(
+                                  _formKey.currentState!.value['password'],
+                                  _formKey
+                                      .currentState!.value['confirmPassword'])
+                              .then((value) {
+                            if (value) {
+                              context.pop();
+                              GlobalSnackBar.show(
+                                context,
+                                'Contraseña cambiada correctamente',
+                                backgroundColor: Colors.green,
+                              );
+                            } else {
+                              GlobalSnackBar.show(
+                                context,
+                                'Error al cambiar contraseña',
+                                backgroundColor: Colors.red,
+                              );
+                            }
+                          });
+                        }),
                   ],
                 ),
               ),

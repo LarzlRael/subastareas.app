@@ -99,20 +99,22 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  void _submit() async {
+  void _submit() {
     if (!formKey.currentState!.validate()) return;
 
     formKey.currentState!.save();
-    /* print(this.emailField); */
-    final resp = await mailServices.requestPasswordChange(emailField);
-    if (resp) {
-      GlobalSnackBar.show(
-          context, 'Correo enviado, revise su bandeja de entrada',
-          backgroundColor: Colors.green);
-      Navigator.pop(context);
-    } else {
-      GlobalSnackBar.show(context, 'Hubo un error al comprobar su email',
-          backgroundColor: Colors.red);
-    }
+
+    mailServices.requestPasswordChange(emailField).then((value) {
+      if (value) {
+        GlobalSnackBar.show(
+            context, 'Correo enviado, revise su bandeja de entrada',
+            backgroundColor: Colors.green);
+
+        context.pop();
+      } else {
+        GlobalSnackBar.show(context, 'Hubo un error al comprobar su email',
+            backgroundColor: Colors.red);
+      }
+    });
   }
 }

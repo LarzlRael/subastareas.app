@@ -12,7 +12,9 @@ class ShowHomeworkParams {
 }
 
 class VerifyHomeworkResolved extends StatefulWidget {
-  const VerifyHomeworkResolved({Key? key}) : super(key: key);
+  final TradeUserModel tradeUserModel;
+  const VerifyHomeworkResolved({Key? key, required this.tradeUserModel})
+      : super(key: key);
 
   @override
   State<VerifyHomeworkResolved> createState() => _VerifyHomeworkResolvedState();
@@ -22,8 +24,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-    final tradeUserModel =
-        ModalRoute.of(context)!.settings.arguments as TradeUserModel;
+    final tradeUserModel = widget.tradeUserModel;
     final _formKey = GlobalKey<FormBuilderState>();
     final tradeServices = TradeServices();
     return Scaffold(
@@ -56,11 +57,10 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                         backgroundColor: Colors.blue,
                         borderRadius: 30,
                         textColor: Colors.white,
-                        onPressed: () async {
-                          Navigator.pushNamed(
-                            context,
-                            'show_homework_uploaded',
-                            arguments: tradeUserModel.solvedHomeworkUrl,
+                        onPressed: () {
+                          context.push(
+                            '/show_homework_uploaded',
+                            extra: tradeUserModel.solvedHomeworkUrl,
                           );
                         },
                       )
@@ -90,10 +90,9 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               /* borderRadius: 30, */
                               /* textColor: Colors.white, */
                               onPressed: () async {
-                                Navigator.pushNamed(
-                                  context,
+                                context.push(
                                   'show_homework_uploaded',
-                                  arguments: ShowHomeworkParams(
+                                  extra: ShowHomeworkParams(
                                     title: tradeUserModel.title,
                                     fileType: tradeUserModel.solvedFileType,
                                     fileUrl: tradeUserModel.solvedHomeworkUrl,
@@ -149,37 +148,34 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                   borderRadius: 5,
                                   label: "Rechazar",
                                   ghostButton: true,
-                                  onPressed: () async {
-                                    final result = await tradeServices
+                                  onPressed: () {
+                                    tradeServices
                                         .acceptOrDeclineTrade(
                                             tradeUserModel.offerId, false,
                                             reasonRejected: _formKey
                                                 .currentState!
                                                 .fields['commentTaskRejected']!
-                                                .value);
-                                    if (result) {
-                                      Navigator.pushNamed(
-                                        context,
-                                        'my_homeworks_page',
-                                        arguments: 1,
-                                      );
-                                      GlobalSnackBar.show(
-                                        context,
-                                        'Tarea rechazada',
-                                        backgroundColor: Colors.red,
-                                      );
-                                    } else {
-                                      Navigator.pushNamed(
-                                        context,
-                                        'my_homeworks_page',
-                                        arguments: 1,
-                                      );
+                                                .value)
+                                        .then((value) {
+                                      if (value) {
+                                        context.push(
+                                          'my_homeworks_page',
+                                          extra: 1,
+                                        );
+                                        GlobalSnackBar.show(
+                                          context,
+                                          'Tarea rechazada',
+                                          backgroundColor: Colors.red,
+                                        );
+                                        return;
+                                      }
+
                                       GlobalSnackBar.show(
                                         context,
                                         'Hubo un error',
                                         backgroundColor: Colors.red,
                                       );
-                                    }
+                                    });
                                   },
                                 ),
                               ),
@@ -188,27 +184,29 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                 child: FillButton(
                                   borderRadius: 5,
                                   label: "Aceptar",
-                                  onPressed: () async {
+                                  onPressed: () {
                                     setState(() {
                                       loading = true;
                                     });
-                                    final accepted = await tradeServices
+                                    tradeServices
                                         .acceptOrDeclineTrade(
-                                            tradeUserModel.offerId, true);
-                                    setState(() {
-                                      loading = false;
+                                            tradeUserModel.offerId, true)
+                                        .then((value) {
+                                      setState(() {
+                                        loading = false;
+                                      });
+                                      if (value) {
+                                        context.pop();
+                                        GlobalSnackBar.show(context,
+                                            "Tarea aceptada y confirmada",
+                                            backgroundColor: Colors.green);
+                                        /* Use bloc for this */
+                                      } else {
+                                        GlobalSnackBar.show(
+                                            context, "Hubo un error",
+                                            backgroundColor: Colors.red);
+                                      }
                                     });
-                                    if (accepted) {
-                                      Navigator.pop(context);
-                                      GlobalSnackBar.show(context,
-                                          "Tarea aceptada y confirmada",
-                                          backgroundColor: Colors.green);
-                                      /* Use bloc for this */
-                                    } else {
-                                      GlobalSnackBar.show(
-                                          context, "Hubo un error",
-                                          backgroundColor: Colors.red);
-                                    }
                                   },
                                 ),
                               )
@@ -226,12 +224,8 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              /* The id is from the id resolver user */
-                              Navigator.pushNamed(
-                                context,
-                                'public_profile_page',
-                                arguments: tradeUserModel.id,
-                              );
+                              context.push(
+                                  '/public_profile_page/${tradeUserModel.id}');
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),

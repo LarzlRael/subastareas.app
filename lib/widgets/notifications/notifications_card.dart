@@ -2,7 +2,7 @@ part of '../widgets.dart';
 
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
-  final NotificationBloc notificationBloc;
+  final NotificationProvider notificationBloc;
   const NotificationsCard({
     Key? key,
     required this.notification,

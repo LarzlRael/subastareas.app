@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     final filter = Provider.of<FilterProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final notificationService =
-        Provider.of<NotificationService>(context, listen: false);
+        Provider.of<NotificationProvider>(context, listen: false);
     final preferences = UserPreferences();
 
     void loginOk() {

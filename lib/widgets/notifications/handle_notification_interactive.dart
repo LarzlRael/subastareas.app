@@ -24,7 +24,7 @@ class _HandleNotificationInteractionState
   }
 
   void _handleMessage(RemoteMessage message) {
-    context.read<NotificationService>().handleRemoteMessage(message);
+    context.read<NotificationProvider>().handleRemoteMessage(message);
     /* final messageId = clearMessageId(message.messageId); */
     /* print('Message ID: $messageId'); */
     final typeContent = message.data['type_content'];

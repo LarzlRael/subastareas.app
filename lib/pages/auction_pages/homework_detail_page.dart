@@ -65,7 +65,8 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                                           selectedHomework.offers.isEmpty
                                               ? context.push(
                                                   '/upload_homework_with_file',
-                                                  extra: selectedHomework,
+                                                  extra:
+                                                      selectedHomework.homework,
                                                   /* PageTransition(
                                         type: PageTransitionType
                                             .leftToRightWithFade,
@@ -95,8 +96,24 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                                               context,
                                               'Retirar tarea',
                                               '¿Estás seguro de eliminar esta tarea?',
-                                              () => deleteAndRefresh(
-                                                  selectedHomework.homework.id),
+                                              () => oneHomeworkProvider
+                                                  .deleteHomework(
+                                                      selectedHomework
+                                                          .homework.id)
+                                                  .then((value) {
+                                                if (value) {
+                                                  context.pop();
+                                                  GlobalSnackBar.show(context,
+                                                      "Tarea eliminada Exitosamente",
+                                                      backgroundColor:
+                                                          Colors.blue);
+                                                } else {
+                                                  GlobalSnackBar.show(context,
+                                                      "En este momento no puedes eliminar esta tarea",
+                                                      backgroundColor:
+                                                          Colors.red);
+                                                }
+                                              }),
                                             );
                                           } else {
                                             GlobalSnackBar.show(context,
@@ -494,7 +511,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
     return Container();
   }
 
-  Future<void> deleteAndRefresh(int idHomework) async {
+  /* Future<void> deleteAndRefresh(int idHomework) async {
     oneHomeworkProvider.deleteHomework(
       idHomework,
     );
@@ -505,7 +522,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
     await auth.refreshUser();
     GlobalSnackBar.show(context, "Tarea eliminada Exitosamente",
         backgroundColor: Colors.blue);
-  }
+  } */
 }
 
 Widget statusMessage(String message, IconData icon,

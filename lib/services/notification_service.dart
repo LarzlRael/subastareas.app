@@ -1,13 +1,12 @@
 part of 'services.dart';
 
-class NotificationService with ChangeNotifier {
-  NotificationService() {
+class NotificationProvider with ChangeNotifier {
+  NotificationProvider() {
     _onForegroundMessage();
   }
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  List<NotificationModel> _notifications = [];
-  List<NotificationModel> get notifications => _notifications;
+  NotificationState state = NotificationState.initial();
 
   void _onForegroundMessage() {
     FirebaseMessaging.onMessage.listen(handleRemoteMessage);
@@ -35,16 +34,20 @@ class NotificationService with ChangeNotifier {
     add(NotificationsReceived(notification)); */
   }
 
-  Future<List<NotificationModel>> getUserNotifications() async {
-    final homeworkRequest = await Request.sendRequestWithToken(
+  Future<void> getUserNotifications() async {
+    state = state.copyWith(isLoading: true);
+    final notificationRequest = await Request.sendRequestWithToken(
       RequestType.get,
       'devices/getUserNotifications',
     );
 
-    final finalData = notificationModelFromJson(homeworkRequest!.body);
-    _notifications = finalData;
+    final finalData = notificationModelFromJson(notificationRequest!.body);
+
+    state = state.copyWith(
+      notifications: finalData,
+      isLoading: false,
+    );
     notifyListeners();
-    return finalData;
   }
 
   Future<void> seeNotification(int idNotification) async {
@@ -72,4 +75,28 @@ class NotificationService with ChangeNotifier {
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
   }
+}
+
+class NotificationState {
+  final List<NotificationModel> notifications;
+  final bool isLoading;
+
+  factory NotificationState.initial() => NotificationState(
+        notifications: [],
+        isLoading: false,
+      );
+
+  NotificationState({
+    required this.notifications,
+    required this.isLoading,
+  });
+
+  NotificationState copyWith({
+    List<NotificationModel>? notifications,
+    bool? isLoading,
+  }) =>
+      NotificationState(
+        notifications: notifications ?? this.notifications,
+        isLoading: isLoading ?? this.isLoading,
+      );
 }

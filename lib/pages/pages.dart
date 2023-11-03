@@ -13,7 +13,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf_viewer_plugin/pdf_viewer_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:subastareaspp/bloc/notificacion_bloc.dart';
 import 'package:subastareaspp/bloc/homeworks_provider.dart';
 import 'package:subastareaspp/dialogs/dialogs.dart';
 import 'package:subastareaspp/models/models.dart';

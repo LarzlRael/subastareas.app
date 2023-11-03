@@ -100,50 +100,43 @@ class _WithdrawMethodSelectedPageState
                               label: "Retirar",
                               borderRadius: 50,
                               textColor: Colors.white,
-                              onPressed: () async {
+                              onPressed: () {
                                 setState(() {
                                   _loading = true;
                                 });
-                                final validationSuccess =
-                                    _formKey.currentState!.validate();
 
-                                if (validationSuccess) {
-                                  _formKey.currentState!.save();
+                                if (_formKey.currentState!.validate()) {}
+                                _formKey.currentState!.save();
+                                final amount = int.parse(_formKey.currentState!
+                                    .value['balanceToWithDrawable']);
+                                final phoneNumber =
+                                    _formKey.currentState!.value['phoneNumber'];
 
+                                transactionServices
+                                    .withdrawMoneyTransaction(
+                                  amount,
+                                  phoneNumber,
+                                )
+                                    .then((resOk) {
                                   setState(() {
-                                    _loading = true;
+                                    _loading = false;
                                   });
-                                  final withdrawMoneyTransaction =
-                                      await transactionServices
-                                          .withdrawMoneyTransaction(
-                                    int.parse(_formKey.currentState!
-                                        .value['balanceToWithDrawable']),
-                                    _formKey.currentState!.value['phoneNumber'],
-                                  );
-                                  if (withdrawMoneyTransaction) {
-                                    Navigator.pushNamed(
-                                        context, 'my_homeworks_page',
-                                        arguments: 1);
+                                  if (resOk) {
+                                    context.push(
+                                      '/my_homeworks_page',
+                                      extra: 1,
+                                    );
                                     _formKey.currentState!.reset();
-                                    setState(() {
-                                      _loading = false;
-                                    });
+
                                     GlobalSnackBar.show(
                                         context, 'Tarea subida correctamente',
                                         backgroundColor: Colors.green);
                                   } else {
-                                    setState(() {
-                                      _loading = false;
-                                    });
                                     GlobalSnackBar.show(
                                         context, 'Error al retirar puntos',
                                         backgroundColor: Colors.red);
                                   }
-                                } else {
-                                  GlobalSnackBar.show(
-                                      context, 'Error al retirar puntos',
-                                      backgroundColor: Colors.red);
-                                }
+                                });
                               },
                             )
                           : const Center(child: CircularProgressIndicator())

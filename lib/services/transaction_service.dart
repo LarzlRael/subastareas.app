@@ -45,18 +45,18 @@ class TransactionServices {
   } */
   Future<void> confirmWithDraw(
       BuildContext context, WithDrawRequestBody withDrawRequestBody) async {
-    final homeworkRequest = await Request.sendRequestWithToken(
+    Request.sendRequestWithToken(
       RequestType.get,
       'transaction/confirmWithDraw',
       body: withDrawRequestBody.bodyToJson(),
-    );
-    /* validateStatus(homeworkRequest!.statusCode); */
-    if (validateStatus(homeworkRequest!.statusCode)) {
-      GlobalSnackBar.show(context, "Operacion realizada con exito");
-      Navigator.pushNamed(context, 'select_option');
-    } else {
-      GlobalSnackBar.show(context, "Hubo un error",
-          backgroundColor: Colors.red);
-    }
+    ).then((res) {
+      if (validateStatus(res!.statusCode)) {
+        GlobalSnackBar.show(context, "Operacion realizada con exito");
+        context.push('/select_option');
+      } else {
+        GlobalSnackBar.show(context, "Hubo un error",
+            backgroundColor: Colors.red);
+      }
+    });
   }
 }

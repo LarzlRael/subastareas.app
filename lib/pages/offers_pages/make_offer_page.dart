@@ -1,7 +1,8 @@
 part of '../pages.dart';
 
 class MakeOfferPage extends StatefulWidget {
-  const MakeOfferPage({Key? key}) : super(key: key);
+  final OneHomeworkModel oneHomework;
+  const MakeOfferPage({Key? key, required this.oneHomework}) : super(key: key);
 
   @override
   State<MakeOfferPage> createState() => _MakeOfferPageState();
@@ -14,10 +15,12 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   late SocketService socketService;
   late Offer? getUserOffer;
   late bool getFindUserOffer = false;
+  late AuthServices auth;
   @override
   void initState() {
     super.initState();
     socketService = Provider.of<SocketService>(context, listen: false);
+    auth = Provider.of<AuthServices>(context, listen: false);
     blocHomework = Provider.of<HomeworksProvider>(context, listen: false);
   }
 
@@ -29,9 +32,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
 
   @override
   Widget build(BuildContext context) {
-    final oneHomework =
-        ModalRoute.of(context)!.settings.arguments as OneHomeworkModel;
-    final auth = Provider.of<AuthServices>(context, listen: false);
+    final oneHomework = widget.oneHomework;
+
     final verifyUserOffered =
         oneHomework.offers.map((item) => item.user.id).contains(auth.user.id);
 
@@ -188,21 +190,18 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                 verifyUserOffered
                     ? FillButton(
                         marginVertical: 15,
-                        onPressed: () async {
-                          final deletedOffer = await blocHomework.deleteOffer(
-                              oneHomework.homework.id, getUserOffer!.id);
-                          socketService.emit('deleteOffer', {
-                            'room': oneHomework.homework.id,
-                            'offer': deletedOffer,
-                          });
-
-                          GlobalSnackBar.show(
-                            context,
-                            'Tu oferta ha sido retirada',
-                            backgroundColor: Colors.red[700]!.withOpacity(0.8),
+                        onPressed: () {
+                          blocHomework
+                              .deleteOffer(
+                                  oneHomework.homework.id, getUserOffer!.id)
+                              .then(
+                            (value) {
+                              socketService.emit('deleteOffer', {
+                                'room': oneHomework.homework.id,
+                                'offer': value,
+                              });
+                            },
                           );
-                          Navigator.pop(context);
-                          Navigator.pop(context);
                         },
                         label: 'Retirar oferta',
                         ghostButton: true,
@@ -315,39 +314,41 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: FilledButton(
                           onPressed: !isLoading
-                              ? () async {
+                              ? () {
                                   if (!formKey.currentState!.validate()) return;
                                   formKey.currentState!.save();
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  final newOffer =
-                                      await blocHomework.makeOrEditOffer(
+                                  blocHomework
+                                      .makeOrEditOffer(
                                     verify,
                                     homework.id,
                                     emailField,
                                     idOffer,
-                                  );
-                                  socketService.emit(
-                                      idOffer == 0
-                                          ? 'makeOfferToServer'
-                                          : 'editOffer',
-                                      {
-                                        'room': homework.id,
-                                        'offer': newOffer,
-                                      });
-                                  setState(() {
-                                    isLoading = false;
+                                  )
+                                      .then((newOffer) {
+                                    socketService.emit(
+                                        idOffer == 0
+                                            ? 'makeOfferToServer'
+                                            : 'editOffer',
+                                        {
+                                          'room': homework.id,
+                                          'offer': newOffer,
+                                        });
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    GlobalSnackBar.show(
+                                        context,
+                                        idOffer == 0
+                                            ? 'Oferta realizada correctamente'
+                                            : 'Oferta editada correctamente',
+                                        backgroundColor: idOffer == 0
+                                            ? Colors.green
+                                            : Colors.yellow);
+                                    context.pop();
                                   });
-                                  GlobalSnackBar.show(
-                                      context,
-                                      idOffer == 0
-                                          ? 'Oferta realizada correctamente'
-                                          : 'Oferta editada correctamente',
-                                      backgroundColor: idOffer == 0
-                                          ? Colors.green
-                                          : Colors.yellow);
-                                  Navigator.of(context).pop();
                                 }
                               : null,
                           child: isLoading

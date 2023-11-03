@@ -25,7 +25,9 @@ class WithDrawRequestBody {
 }
 
 class WithdrawRequestDetail extends StatefulWidget {
-  const WithdrawRequestDetail({Key? key}) : super(key: key);
+  final WithdrawalRequestsModel withdrawRequest;
+  const WithdrawRequestDetail({Key? key, required this.withdrawRequest})
+      : super(key: key);
 
   @override
   State<WithdrawRequestDetail> createState() => _WithdrawRequestDetailState();
@@ -36,8 +38,7 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final WithdrawalRequestsModel withdrawRequest =
-        ModalRoute.of(context)!.settings.arguments as WithdrawalRequestsModel;
+    final withdrawRequest = widget.withdrawRequest;
     final transactionServices = TransactionServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(

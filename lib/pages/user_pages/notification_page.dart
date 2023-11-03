@@ -1,45 +1,56 @@
 part of '../pages.dart';
 
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
+
+  @override
+  State<NotificationPage> createState() => _NotificationPageState();
+}
+
+class _NotificationPageState extends State<NotificationPage> {
+  late NotificationProvider notificationProvider;
+  @override
+  initState() {
+    super.initState();
+    notificationProvider = context.read<NotificationProvider>();
+    notificationProvider.getUserNotifications();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final notificationBloc = NotificationBloc();
-    notificationBloc.getNotificationByUser();
-
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
         title: 'Notificaciones',
       ),
-      body: StreamBuilder(
-        stream: notificationBloc.notificationStream,
-        builder: (_, AsyncSnapshot<List<NotificationModel>> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (snapshot.data!.isEmpty) {
-            return const Center(
-              child: NoInformation(
-                icon: Icons.notifications_off,
-                message: "No tienes notificaciones",
-                showButton: false,
-                iconButton: Icons.add,
-              ),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: snapshot.data!.length,
-            itemBuilder: (BuildContext context, int index) {
-              return NotificationsCard(
-                notification: snapshot.data![index],
-                notificationBloc: notificationBloc,
-              );
-            },
-          );
+      body: Consumer<NotificationProvider>(
+        builder: (context, value, child) {
+          final notificationState = value.state;
+          return notificationState.isLoading
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : notificationState.notifications.isEmpty
+                  ? const Center(
+                      child: NoInformation(
+                        icon: Icons.notifications_off,
+                        message: "No tienes notificaciones",
+                        showButton: false,
+                        iconButton: Icons.add,
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount:
+                          notificationProvider.state.notifications.length,
+                      itemBuilder: (_, int index) {
+                        final notificationIndex =
+                            notificationProvider.state.notifications[index];
+                        return NotificationsCard(
+                          notification: notificationIndex,
+                          notificationBloc: notificationProvider,
+                        );
+                      },
+                    );
         },
       ),
     );

@@ -115,22 +115,24 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     );
   }
 
-  sendEmailVerification(BuildContext context) async {
-    final isSended =
-        await mailServices.requestEmailVerification(preferences.loginEmail);
-    if (isSended) {
-      GlobalSnackBar.show(
-        context,
-        'Correo electronico enviado, verifique su email',
-        backgroundColor: Colors.green,
-      );
-    } else {
-      GlobalSnackBar.show(
-        context,
-        'Hubo un error al enviar el correo electronico',
-        backgroundColor: Colors.red,
-      );
-    }
-    Navigator.pop(context);
+  sendEmailVerification(BuildContext context) {
+    mailServices
+        .requestEmailVerification(preferences.loginEmail)
+        .then((isSended) {
+      if (isSended) {
+        GlobalSnackBar.show(
+          context,
+          'Correo electronico enviado, verifique su email',
+          backgroundColor: Colors.green,
+        );
+      } else {
+        GlobalSnackBar.show(
+          context,
+          'Hubo un error al enviar el correo electronico',
+          backgroundColor: Colors.red,
+        );
+      }
+      context.pop();
+    });
   }
 }

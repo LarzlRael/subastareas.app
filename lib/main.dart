@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => HomeworksProvider()),
         ChangeNotifierProvider(
-          create: (_) => NotificationService(),
+          create: (_) => NotificationProvider(),
           lazy: false,
         ),
       ],

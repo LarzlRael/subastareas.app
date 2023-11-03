@@ -11,10 +11,9 @@ class HomeworkPendingToResolve extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          'verify_homework_resolved',
-          arguments: tradeUserModel,
+        context.go(
+          '/verify_homework_resolved',
+          extra: tradeUserModel,
         );
       },
       child: SizedBox(
@@ -75,11 +74,7 @@ class HomeworkPendingToResolve extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      'public_profile_page',
-                      arguments: tradeUserModel.id,
-                    );
+                    context.push('/public_profile_page/${tradeUserModel.id}');
                   },
                   child: Column(
                     children: [

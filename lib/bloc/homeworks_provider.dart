@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/services/services.dart';
+import 'package:subastareaspp/utils/utils.dart';
 
 class HomeworksProvider with ChangeNotifier {
   CommentServices commentService = CommentServices();
@@ -36,8 +37,8 @@ class HomeworksProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  deleteHomework(int idHomework) async {
-    Request.sendRequestWithToken(
+  Future<bool> deleteHomework(int idHomework) async {
+    final res = await Request.sendRequestWithToken(
       RequestType.delete,
       'homework/deleteHomework/$idHomework',
     );
@@ -45,6 +46,8 @@ class HomeworksProvider with ChangeNotifier {
     state = state.copyWith(
       selectedHomework: null,
     );
+    notifyListeners();
+    return validateStatus(res!.statusCode);
   }
 
   deleteComment(int idComment, int idHomework) async {

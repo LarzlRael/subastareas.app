@@ -48,16 +48,14 @@ class PersonOfferHorizontal extends StatelessWidget {
         }
       },
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          'public_profile_page',
-          arguments: homework.offers
-              .firstWhere(
-                (element) => element.id == offer.id,
-              )
-              .user
-              .id,
-        );
+        final idUser = homework.offers
+            .firstWhere(
+              (element) => element.id == offer.id,
+            )
+            .user
+            .id
+            .toString();
+        context.push('/public_profile_page/$idUser');
       },
       child: Ink(
         child: HorizontalOfferRow(offer: offer),

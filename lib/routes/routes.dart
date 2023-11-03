@@ -21,7 +21,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'auctionWithOfferPage': (_) => AuctionWithOfferPage(
         oneHomework: ModalRoute.of(_)?.settings.arguments as OneHomeworkModel,
       ),
-  'makeOffer': (_) => const MakeOfferPage(),
+  /* 'makeOffer': (_) => const MakeOfferPage(), */
   'listOpenHomeworks': (_) => const ListOpenHomeworksPage(),
   'showHomework': (_) => ShowHomework(
         homework: ModalRoute.of(_)?.settings.arguments as Homework,
@@ -52,12 +52,12 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
       const PendingHomeworksOffersAccepts(),
   'change_password': (_) => const ChangePassword(),
   /* 'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(), */
-  'verify_homework_resolved': (_) => const VerifyHomeworkResolved(),
+  /* 'verify_homework_resolved': (_) => const VerifyHomeworkResolved(), */
   'withdraw_page': (_) => const WithdrawPage(),
   /* 'withdraw_method_selected_page': (_) => const WithdrawMethodSelectedPage(), */
   /* Admin pages */
   'supervisor_list_homeworks': (_) => const SupervisorListHomeworks(),
   'list_withdraw_request': (_) => const ListWithdrawRequest(),
-  'withdraw_request_detail': (_) => const WithdrawRequestDetail(),
+  /* 'withdraw_request_detail': (_) => const WithdrawRequestDetail(), */
   'select_option': (_) => const SelectOption(),
 };

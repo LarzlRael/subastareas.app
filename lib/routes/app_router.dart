@@ -11,36 +11,36 @@ final appRouter = GoRouter(
 
     GoRoute(
       path: '/',
-      builder: (context, state) => const LoadingPage(),
+      builder: (_, __) => const LoadingPage(),
     ),
     GoRoute(
       path: '/loading',
-      builder: (context, state) => const LoadingPage(),
+      builder: (_, __) => const LoadingPage(),
     ),
     GoRoute(
       path: '/welcome_page',
-      builder: (context, state) => const WelcomePage(),
+      builder: (_, __) => const WelcomePage(),
     ),
     GoRoute(
       path: '/login_page',
-      builder: (context, state) => const LoginPage(),
+      builder: (_, __) => const LoginPage(),
     ),
 
     GoRoute(
       path: '/verify_email_page',
-      builder: (context, state) => const VerifyEmailPage(),
+      builder: (_, __) => const VerifyEmailPage(),
     ),
     GoRoute(
       path: '/register_page',
-      builder: (context, state) => const RegisterPage(),
+      builder: (_, __) => const RegisterPage(),
     ),
     GoRoute(
       path: '/home_page',
-      builder: (context, state) => const BottomNavigation(),
+      builder: (_, __) => const BottomNavigation(),
     ),
     GoRoute(
       path: '/homework_detail/:id',
-      builder: (context, state) {
+      builder: (_, state) {
         return HomeworkdDetailPage(
           idHomework: int.parse(state.pathParameters['id']!),
         );
@@ -49,19 +49,17 @@ final appRouter = GoRouter(
 
     GoRoute(
       path: '/upload_homework_with_file',
-      builder: (context, state) {
-        Homework? sample = state.extra as Homework?;
+      builder: (_, state) {
+        Homework? homework = state.extra as Homework?;
         return UploadHomeworkWithFile(
-          homework: sample,
+          homework: homework,
         );
       },
     ),
-    /* 'my_homeworks_page': (BuildContext context) => MyHomeworksPage(
-        goToPage: ModalRoute.of(context)?.settings.arguments as int,
-      ), */
+
     GoRoute(
       path: '/my_homeworks_page',
-      builder: (context, state) {
+      builder: (_, state) {
         int? sample = state.extra as int?;
         return MyHomeworksPage(
           goToPage: sample!,
@@ -79,7 +77,32 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/makeOffer',
-      builder: (context, state) => const MakeOfferPage(),
+      builder: (context, state) {
+        final OneHomeworkModel oneHomeworkModel =
+            state.extra as OneHomeworkModel;
+        return MakeOfferPage(
+          oneHomework: oneHomeworkModel,
+        );
+      },
+    ),
+    /* 'verify_homework_resolved': (_) => const VerifyHomeworkResolved(), */
+    GoRoute(
+      path: '/verify_homework_resolved',
+      builder: (context, state) {
+        TradeUserModel tradeUserModel = state.extra as TradeUserModel;
+        return VerifyHomeworkResolved(
+          tradeUserModel: tradeUserModel,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/public_profile_page/:idUser',
+      builder: (context, state) {
+        final idUser = int.parse(state.pathParameters['idUser']!);
+        return PublicProfilePage(
+          userId: idUser,
+        );
+      },
     ),
 
     GoRoute(
@@ -108,12 +131,23 @@ final appRouter = GoRouter(
     ),
 
     GoRoute(
+      path: '/show_homework_uploaded',
+      builder: (_, state) {
+        final ShowHomeworkParams args = state.extra as ShowHomeworkParams;
+        return ShowHomeworkUploaded(
+          showHomeworkParams: args,
+        );
+      },
+    ),
+
+    GoRoute(
         path: '/show_homework',
-        builder: (context, state) {
+        builder: (_, state) {
           final Homework homework = state.extra as Homework;
           return ShowHomework(
             homework: homework,
           );
         }),
+    GoRoute(path: '/select_option', builder: (_, __) => const SelectOption()),
   ],
 );

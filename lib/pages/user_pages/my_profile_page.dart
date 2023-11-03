@@ -66,16 +66,17 @@ class _MyProfilePageState extends State<MyProfilePage> {
     _refreshController.refreshCompleted();
   }
 
-  Future closeSession() async {
-    await auth.logout();
+  void closeSession() {
     auth.googleSignOut();
-    Navigator.pushReplacement(
-      context,
-      PageTransition(
-        type: PageTransitionType.leftToRightWithFade,
-        child: const WelcomePage(),
-      ),
-    );
+    auth.logout().then((value) {
+      Navigator.pushReplacement(
+        context,
+        PageTransition(
+          type: PageTransitionType.leftToRightWithFade,
+          child: const WelcomePage(),
+        ),
+      );
+    });
   }
 }
 
