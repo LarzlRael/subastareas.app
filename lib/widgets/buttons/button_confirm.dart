@@ -42,18 +42,19 @@ class _ButtonConfirmState extends State<ButtonConfirm> {
               setState(() {
                 _loading = true;
               });
-              final success = await widget.onAccept!();
-              setState(() {
-                _loading = false;
+              widget.onAccept!().then((success) {
+                setState(() {
+                  _loading = false;
+                });
+                if (success) {
+                  context.pop();
+                  GlobalSnackBar.show(context, "Tarea aceptada y confirmada",
+                      backgroundColor: Colors.green);
+                } else {
+                  GlobalSnackBar.show(context, "Hubo un error",
+                      backgroundColor: Colors.red);
+                }
               });
-              if (success) {
-                /* Navigator.pop(context);
-                GlobalSnackBar.show(context, "Tarea aceptada y confirmada",
-                    backgroundColor: Colors.green); */
-              } else {
-                /* GlobalSnackBar.show(context, "Hubo un error",
-                    backgroundColor: Colors.red); */
-              }
             },
           ),
         )

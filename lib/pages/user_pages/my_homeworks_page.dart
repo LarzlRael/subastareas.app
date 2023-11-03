@@ -8,7 +8,7 @@ class MyHomeworksPage extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
+    final homeworkServices = context.read<HomeworksProvider>();
     final tradeServices = TradeServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -46,7 +46,7 @@ class MyHomeworksPage extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              UploadedHomeworkUser(homeworkServices: homeworkServices),
+              UploadedHomeworkUser(howeworkServices: homeworkServices),
               PendingOfferedPendingHomework(tradeServices: tradeServices),
               ResolvedHomeworkUser(tradeServices: tradeServices),
               ResolvedHomeworkUser(tradeServices: tradeServices),

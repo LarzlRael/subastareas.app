@@ -47,9 +47,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: context.pop,
           icon: const Icon(
             Icons.chevron_left,
             size: 30,
@@ -148,7 +146,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   amount: getUserOffer!.priceOffer,
                                   idOffer: getUserOffer!.id,
                                 );
-                                /* Navigator.pop(context); */
                               },
                               label: verifyUserOffered
                                   ? 'Editar oferta'
@@ -167,7 +164,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                               amount: oneHomework.homework.offeredAmount,
                               idOffer: 0,
                             );
-                            /* Navigator.pop(context); */
                           },
                           label: verifyUserOffered
                               ? 'Editar oferta'

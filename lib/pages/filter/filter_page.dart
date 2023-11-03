@@ -5,9 +5,9 @@ class FilterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = Provider.of<FilterProvider>(context, listen: false);
-    final oneHomeworkProvider = Provider.of<HomeworksProvider>(context);
-    final homeworkServices = HomeworkServices();
+    final filterProvider = context.read<FilterProvider>();
+    final oneHomeworkProvider = context.read<HomeworksProvider>();
+
     final preferences = UserPreferences();
     return Scaffold(
       body: SafeArea(
@@ -16,13 +16,13 @@ class FilterPage extends StatelessWidget {
               const EdgeInsets.only(top: 40, left: 20, right: 20, bottom: 5),
           child: preferences.getSubjectsList.isEmpty
               ? FutureGetSubjectList(
-                  homeworkServices: homeworkServices,
+                  homeworkServices: oneHomeworkProvider,
                   oneHomeworkBloc: oneHomeworkProvider,
-                  state: state,
+                  state: filterProvider,
                   sharedPreferences: preferences,
                 )
               : LocalGetSubjectList(
-                  state: state,
+                  state: filterProvider,
                   oneHomeworkBloc: oneHomeworkProvider,
                   userPreferences: preferences,
                 ),
@@ -33,7 +33,7 @@ class FilterPage extends StatelessWidget {
 }
 
 class FutureGetSubjectList extends StatelessWidget {
-  final HomeworkServices homeworkServices;
+  final HomeworksProvider homeworkServices;
   final HomeworksProvider oneHomeworkBloc;
   final FilterProvider state;
   final UserPreferences sharedPreferences;
@@ -87,7 +87,7 @@ class FutureGetSubjectList extends StatelessWidget {
                 oneHomeworkBloc.getHomeworksByCategory(
                   state.getListLevelSelected,
                 );
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
           ],
@@ -140,7 +140,7 @@ class LocalGetSubjectList extends StatelessWidget {
             oneHomeworkBloc.getHomeworksByCategory(
               state.getListLevelSelected,
             );
-            Navigator.of(context).pop();
+            context.pop();
           },
         ),
       ],

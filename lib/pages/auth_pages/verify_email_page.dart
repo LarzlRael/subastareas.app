@@ -97,7 +97,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
               GestureDetector(
                 onTap: () async {
                   if (authService.isLogged) {
-                    Navigator.pushReplacementNamed(context, 'loading');
+                    context.go('/loading');
                   } else {
                     GlobalSnackBar.show(
                       context,

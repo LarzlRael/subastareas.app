@@ -17,10 +17,7 @@ class LabelLoginRegister extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.pushNamed(
-              context,
-              'forgot_password',
-            );
+            context.push('/forgot_password');
           },
           child: const SimpleText(
             top: 5,
@@ -34,7 +31,7 @@ class LabelLoginRegister extends StatelessWidget {
         const SizedBox(height: 5),
         GestureDetector(
           onTap: () {
-            Navigator.pushReplacementNamed(context, route);
+            context.go(route);
           },
           child: Column(
             children: [

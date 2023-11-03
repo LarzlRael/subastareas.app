@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:subastareaspp/models/models.dart';
+import 'package:subastareaspp/widgets/widgets.dart';
 
 import '../pages/pages.dart';
 
@@ -24,6 +25,11 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/login_page',
       builder: (_, __) => const LoginPage(),
+    ),
+
+    GoRoute(
+      path: '/forgot_password',
+      builder: (_, __) => const ForgotPassword(),
     ),
 
     GoRoute(
@@ -56,6 +62,16 @@ final appRouter = GoRouter(
         );
       },
     ),
+    /* 'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(), */
+    GoRoute(
+      path: '/upload_homework_offered_page',
+      builder: (_, state) {
+        HomeworkArguments sample = state.extra as HomeworkArguments;
+        return UploadHomeworkOfferedPage(
+          homeworkArguments: sample,
+        );
+      },
+    ),
 
     GoRoute(
       path: '/my_homeworks_page',
@@ -67,11 +83,12 @@ final appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: '/auction_with_offerPage',
+      path: '/auction_with_offerPage/:idHomework',
       builder: (context, state) {
-        OneHomeworkModel params = state.extra as OneHomeworkModel;
+        /* OneHomeworkModel params = state.extra as OneHomeworkModel; */
+        final idHomework = int.parse(state.pathParameters['idHomework']!);
         return AuctionWithOfferPage(
-          oneHomework: params,
+          idHomework: idHomework,
         );
       },
     ),
@@ -148,6 +165,15 @@ final appRouter = GoRouter(
             homework: homework,
           );
         }),
+    GoRoute(
+        path: '/withdraw_request_detail',
+        builder: (_, state) {
+          final WithdrawalRequestsModel args =
+              state.extra as WithdrawalRequestsModel;
+          return WithdrawRequestDetail(
+            withdrawRequest: args,
+          );
+        }),
     GoRoute(path: '/select_option', builder: (_, __) => const SelectOption()),
   ],
-);
+); /* 'withdraw_request_detail': (_) => const WithdrawRequestDetail(), */

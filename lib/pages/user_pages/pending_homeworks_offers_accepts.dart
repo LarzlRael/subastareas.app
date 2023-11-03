@@ -36,10 +36,9 @@ class PendingHomeworksOffersAccepts extends StatelessWidget {
                 isLogged: true,
                 homework: snapshot.data![index],
                 onSelected: (homework) {
-                  Navigator.pushNamed(
-                    context,
-                    'upload_homework_offered_page',
-                    arguments: HomeworkArguments(
+                  context.push(
+                    '/upload_homework_offered_page',
+                    extra: HomeworkArguments(
                       homework.id,
                       homework.user.id,
                     ),

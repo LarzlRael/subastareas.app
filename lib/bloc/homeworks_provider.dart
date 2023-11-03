@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:subastareaspp/models/models.dart';
@@ -27,9 +28,7 @@ class HomeworksProvider with ChangeNotifier {
   getOneHomework(int id) async {
     state = state.copyWith(isLoadingSelected: true);
     final homeworkRequest = await Request.sendRequest(
-      RequestType.get,
-      'homework/getOneHomework/$id',
-    );
+        RequestType.get, 'homework/getOneHomework/$id');
     state = state.copyWith(
       isLoadingSelected: false,
       selectedHomework: oneHomeworkModelFromJson(homeworkRequest!.body),
@@ -75,6 +74,15 @@ class HomeworksProvider with ChangeNotifier {
     return makeOrEditOffer;
   }
 
+  Future<List<HomeworksModel>> getHomeworksByUser() async {
+    final homeworkRequest = await Request.sendRequestWithToken(
+      RequestType.get,
+      'homework/homeworksByUser',
+    );
+
+    return homeworksModelFromJson(homeworkRequest!.body);
+  }
+
   getSearchedHomeworks(String query) async {
     if (query.isEmpty) {
       return await getHomeworks();
@@ -107,6 +115,54 @@ class HomeworksProvider with ChangeNotifier {
     final offerDeleted = await offersServices.deleteOffer(idOffer);
     await getOneHomework(idHomework);
     return offerDeleted;
+  }
+
+  Future<bool> uploadOrUpdateHomework(
+    int idHomework,
+    Map<String, String> body, {
+    String? pathFile,
+  }) async {
+    final file = pathFile != null ? File(pathFile) : null;
+    if (file != null) {
+      final homeworkUploadWithFile = await Request.sendRequestWithFile(
+        RequestType.post,
+        'homework/create',
+        body,
+        file,
+      );
+      return validateStatus(homeworkUploadWithFile.statusCode);
+    }
+
+    final homeworkRequest = await Request.sendRequestWithToken(
+      idHomework == 0 ? RequestType.post : RequestType.put,
+      idHomework == 0
+          ? 'homework/create'
+          : 'homework/updateHomework/$idHomework',
+      body: body,
+    );
+
+    return validateStatus(homeworkRequest!.statusCode);
+  }
+
+  Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
+      List<String> category) async {
+    /* category/programacion,algebra/level/Universitario */
+    final categoryFilter = category.isNotEmpty ? category.join(',') : 'empty';
+    /* final levelFilter = level.isNotEmpty ? level.join(',') : 'empty'; */
+    final homeworkRequest = await Request.sendRequest(
+      RequestType.get,
+      'homework/category/$categoryFilter',
+    );
+    return homeworksModelFromJson(homeworkRequest!.body);
+  }
+
+  Future<List<String>> getSubjectAndLevels() async {
+    final homeworkRequest = await Request.sendRequest(
+      RequestType.get,
+      'homework/getSubjectsList',
+    );
+    final finalData = subjectsFromJson(homeworkRequest!.body);
+    return finalData;
   }
 }
 

@@ -1,10 +1,11 @@
 part of '../pages.dart';
 
 class AuctionWithOfferPage extends StatefulWidget {
-  final OneHomeworkModel oneHomework;
+  /* final OneHomeworkModel oneHomework; */
+  final int idHomework;
 
   const AuctionWithOfferPage({
-    required this.oneHomework,
+    required this.idHomework,
     Key? key,
   }) : super(key: key);
 
@@ -14,27 +15,36 @@ class AuctionWithOfferPage extends StatefulWidget {
 
 class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     with TickerProviderStateMixin {
+  OneHomeworkModel? oneHomework;
   late final List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
   late AuthServices auth;
   late HomeworksProvider oneHomeworkProvider;
 
   int _currentViewers = 0;
-  @override
-  void initState() {
-    super.initState();
-    auth = Provider.of<AuthServices>(context, listen: false);
-    socketService = Provider.of<SocketService>(context, listen: false);
-    oneHomeworkProvider =
-        Provider.of<HomeworksProvider>(context, listen: false);
-    oneHomeworkProvider.getOneHomework(widget.oneHomework.homework.id);
+
+  void loadHomework() async {
+    setState(() {
+      oneHomework = oneHomeworkProvider.state.selectedHomework;
+    });
+
     loadOffers();
-    socketService.socket.emit('joinOfferRoom', widget.oneHomework.homework.id);
+    socketService.socket.emit('joinOfferRoom', oneHomework!.homework.id);
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
     socketService.socket.on('joinOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('leaveOfferRoom', (_listenerUserRoomCount));
     socketService.socket.on('deleteOffer', _listenOfferDeleted);
     socketService.socket.on('editOffer', _listenerOfferEdited);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    auth = context.read<AuthServices>();
+    socketService = context.read<SocketService>();
+    oneHomeworkProvider = context.read<HomeworksProvider>()
+      ..getOneHomework(widget.idHomework);
+    loadHomework();
   }
 
   @override
@@ -48,7 +58,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
     socketService.socket.off('makeOfferToClient');
     socketService.socket.off('deleteOffer');
     socketService.socket.off('editOffer'); */
-    disconnectEvents(socketService, widget.oneHomework.homework.id);
+    disconnectEvents(socketService, oneHomework!.homework.id);
     super.dispose();
   }
 
@@ -68,11 +78,11 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
         ),
       ),
       id: offer.id,
-      auth: AuthServices(),
-      homework: widget.oneHomework,
+      auth: auth,
+      homework: oneHomework!,
       //fix this
 
-      isOwner: auth.user.id == widget.oneHomework.homework.user.id,
+      isOwner: auth.user.id == oneHomework!.homework.user.id,
       animationController: AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 200),
@@ -119,10 +129,10 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
       ),
       id: offer.id,
       auth: AuthServices(),
-      homework: widget.oneHomework,
+      homework: oneHomework!,
       //fix this
 
-      isOwner: auth.user.id == widget.oneHomework.homework.user.id,
+      isOwner: auth.user.id == oneHomework!.homework.user.id,
       animationController: AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 200),
@@ -138,13 +148,13 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   }
 
   void loadOffers() {
-    final offers = widget.oneHomework.offers.map((x) => PersonOfferHorizontal(
+    final offers = oneHomework!.offers.map((x) => PersonOfferHorizontal(
           offer: x,
           auth: AuthServices(),
-          homework: widget.oneHomework,
+          homework: oneHomework!,
           id: x.id,
           //fix this
-          isOwner: auth.user.id == widget.oneHomework.homework.user.id,
+          isOwner: auth.user.id == oneHomework!.homework.user.id,
           animationController: AnimationController(
             vsync: this,
             duration: const Duration(milliseconds: 0),
@@ -160,11 +170,12 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   Widget build(BuildContext context) {
     /* final auth = Provider.of<AuthServices>(context, listen: false); */
 
-    final isOwner = auth.user.id == widget.oneHomework.homework.user.id;
+    final isOwner =
+        oneHomework != null && auth.user.id == oneHomework!.homework.user.id;
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
-        title: widget.oneHomework.homework.title.toCapitalized(),
+        title: oneHomework!.homework.title.toCapitalized(),
       ),
       body: SafeArea(
         child: Stack(
@@ -175,11 +186,9 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _ImageBackgroundAndTimer(
-                      auth: auth,
-                      homework: widget.oneHomework,
-                      isOwner: isOwner),
+                      auth: auth, homework: oneHomework!, isOwner: isOwner),
                   auth.isLogged ? currentHomeworkViewers() : Container(),
-                  widget.oneHomework.homework.status == 'pending_to_resolve'
+                  oneHomework!.homework.status == 'pending_to_resolve'
                       ? const SimpleText(
                           text:
                               'Ya aceptaste una oferta, espera a que el profesor te responda',
@@ -315,7 +324,7 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                             setState(() {
                               loading = false;
                             });
-                            /* Navigator.of(context).pop(); */
+
                             GlobalSnackBar.show(
                               context,
                               'Acabas de aceptar la oferta, espere a que el otro usuario termine tu tarea',

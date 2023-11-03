@@ -18,9 +18,9 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
   @override
   void initState() {
     super.initState();
-    auth = Provider.of<AuthServices>(context, listen: false);
-    oneHomeworkProvider = context.read<HomeworksProvider>();
-    oneHomeworkProvider.getOneHomework(widget.idHomework);
+    auth = context.read<AuthServices>();
+    oneHomeworkProvider = context.read<HomeworksProvider>()
+      ..getOneHomework(widget.idHomework);
   }
 
   @override
@@ -427,11 +427,10 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
               /* Navigator.pushNamed(context, 'makeOffer'); */
               if (isBearer) {
                 navigatorProtected(
-                  context,
-                  isLogged,
-                  '/auction_with_offerPage',
-                  oneHomeworkModel,
-                );
+                    context,
+                    isLogged,
+                    '/auction_with_offerPage/${oneHomeworkModel.homework.id}',
+                    {});
               } else {
                 navigatorProtected(
                   context,

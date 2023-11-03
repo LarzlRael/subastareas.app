@@ -11,10 +11,9 @@ class WithdrawRequestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          'withdraw_request_detail',
-          arguments: withdrawRequest,
+        context.push(
+          '/withdraw_request_detail',
+          extra: withdrawRequest,
         );
       },
       child: Ink(

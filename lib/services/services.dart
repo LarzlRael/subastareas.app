@@ -25,7 +25,7 @@ import 'package:subastareaspp/widgets/widgets.dart';
 part 'request.dart';
 part 'request_dio.dart';
 part 'offers_services.dart';
-part 'homework_services.dart';
+
 part 'auth_services.dart';
 part 'user_services.dart';
 part 'comment_services.dart';

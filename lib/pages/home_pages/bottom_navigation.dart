@@ -39,8 +39,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           : null, */
       bottomNavigationBar: BottomNavigationBar(
         items: auth.isLogged
-            ? bottonItemsWithLogin(
-                notificationProvider.state.notifications.isNotEmpty)
+            ? bottonItemsWithLogin(notificationProvider.notReadNotifications())
             : bottonItemsWithoutLogin,
         currentIndex: filter.getCurrentBottomTab,
         /* selectedItemColor: Colors.amber[800], */

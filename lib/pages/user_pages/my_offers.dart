@@ -66,7 +66,7 @@ class OffersSent extends StatelessWidget {
             showButton: true,
             iconButton: Icons.note_add,
             onPressed: () {
-              Navigator.pushNamed(context, 'upload_homework_with_file');
+              context.push('/upload_homework_with_file');
             },
             buttonTitle: 'Subir tarea',
           );
@@ -115,7 +115,7 @@ class OffersReceived extends StatelessWidget {
             showButton: true,
             iconButton: Icons.note_add,
             onPressed: () {
-              Navigator.pushNamed(context, 'upload_homework_with_file');
+              context.push('/upload_homework_with_file');
             },
             buttonTitle: 'Subir tarea',
           );

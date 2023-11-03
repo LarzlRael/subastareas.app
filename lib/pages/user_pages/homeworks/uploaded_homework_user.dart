@@ -1,16 +1,16 @@
 part of '../../pages.dart';
 
 class UploadedHomeworkUser extends StatelessWidget {
-  final HomeworkServices homeworkServices;
+  final HomeworksProvider howeworkServices;
 
   const UploadedHomeworkUser({
     Key? key,
-    required this.homeworkServices,
+    required this.howeworkServices,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: homeworkServices.getHomeworksByUser(),
+      future: howeworkServices.getHomeworksByUser(),
       /* initialData: InitialData, */
       builder:
           (BuildContext context, AsyncSnapshot<List<HomeworksModel>> snapshot) {

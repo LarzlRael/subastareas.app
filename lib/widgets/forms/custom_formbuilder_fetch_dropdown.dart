@@ -13,7 +13,7 @@ class CustomFormBuilderFetchDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeworkServices = HomeworkServices();
+    final homeworkServices = context.read<HomeworksProvider>();
     final sharedPreferences = UserPreferences();
     return sharedPreferences.getSubjectsList.isEmpty
         ? FutureSubjectCategory(
@@ -40,7 +40,7 @@ class FutureSubjectCategory extends StatelessWidget {
     required this.placeholder,
   }) : super(key: key);
 
-  final HomeworkServices homeworkServices;
+  final HomeworksProvider homeworkServices;
   final UserPreferences sharedPreferences;
   final String title;
   final String formFieldName;

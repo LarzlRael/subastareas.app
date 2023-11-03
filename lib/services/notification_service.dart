@@ -58,13 +58,17 @@ class NotificationProvider with ChangeNotifier {
   }
 
   Future deleteNotification(int idNotification) async {
-    final homeworkRequest = await Request.sendRequestWithToken(
+    await Request.sendRequestWithToken(
       RequestType.get,
       'devices/deleteNotification/$idNotification',
     );
 
-    return (homeworkRequest!.statusCode);
-    /* homeworkRequest!.body; */
+    state = state.copyWith(
+      notifications: state.notifications
+          .where((element) => element.id != idNotification)
+          .toList(),
+    );
+    notifyListeners();
   }
 
   Future clearNotifications() async {
@@ -74,6 +78,12 @@ class NotificationProvider with ChangeNotifier {
     );
     return (homeworkRequest!.statusCode);
     /* homeworkRequest!.body; */
+  }
+
+  bool notReadNotifications() {
+    final notRead =
+        state.notifications.where((element) => !element.seen).toList();
+    return notRead.isNotEmpty;
   }
 }
 

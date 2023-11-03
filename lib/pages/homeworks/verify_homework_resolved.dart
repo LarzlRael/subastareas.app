@@ -91,7 +91,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                               /* textColor: Colors.white, */
                               onPressed: () async {
                                 context.push(
-                                  'show_homework_uploaded',
+                                  '/show_homework_uploaded',
                                   extra: ShowHomeworkParams(
                                     title: tradeUserModel.title,
                                     fileType: tradeUserModel.solvedFileType,

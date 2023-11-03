@@ -10,14 +10,7 @@ class HomeworkToSuperviseCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          'auctionPage',
-          arguments: HomeworkArguments(
-            homeworkToSupervise.id,
-            homeworkToSupervise.user.id,
-          ),
-        );
+        context.push('/homework_detail/${homeworkToSupervise.id}');
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

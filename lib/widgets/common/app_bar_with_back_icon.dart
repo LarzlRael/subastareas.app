@@ -32,7 +32,7 @@ class AppBarWithBackIcon extends StatelessWidget
           Icons.chevron_left,
           size: 35,
         ),
-        onPressed: () => Navigator.pop(context),
+        onPressed: context.pop,
       ),
     );
   }

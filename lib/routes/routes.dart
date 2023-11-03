@@ -18,9 +18,9 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'auctionPage': (context) => HomeworkdDetailPage(
         idHomework: ModalRoute.of(context)?.settings.arguments as int,
       ),
-  'auctionWithOfferPage': (_) => AuctionWithOfferPage(
+  /* 'auctionWithOfferPage': (_) => AuctionWithOfferPage(
         oneHomework: ModalRoute.of(_)?.settings.arguments as OneHomeworkModel,
-      ),
+      ), */
   /* 'makeOffer': (_) => const MakeOfferPage(), */
   'listOpenHomeworks': (_) => const ListOpenHomeworksPage(),
   'showHomework': (_) => ShowHomework(

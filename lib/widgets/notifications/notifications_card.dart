@@ -33,7 +33,7 @@ class NotificationsCard extends StatelessWidget {
       leading: ShowProfileImage(
         profileImage: notification.user.profileImageUrl,
         userName: notification.user.username,
-        radius: 20,
+        radius: 15,
       ),
       title: contentNotification(notification),
       subtitle: SimpleText(
@@ -128,7 +128,7 @@ class NotificationsCard extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: ' ' + typeNotification(notification.type).type,
+                text: typeNotification(notification.type).type,
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.grey),
               ),
@@ -199,17 +199,16 @@ TypeNotification typeNotification(String type) {
 void goToPage(BuildContext context, NotificationModel notification) {
   switch (notification.type) {
     case 'new_comment':
-    case 'new_offer':
       context.push('/homework_detail/${notification.idHomework}');
+      break;
+    case 'new_offer':
+      context.push('/auction_with_offerPage/${notification.idHomework}');
       break;
     case 'homework_finished':
       context.push('my_homeworks_page', extra: 1);
       break;
     case 'offer_accepted':
-      Navigator.pushNamed(
-        context,
-        'pending_homeworks_offers_accepts',
-      );
+      context.push('/pending_homeworks_offers_accepts');
       break;
     default:
   }

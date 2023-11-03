@@ -60,7 +60,7 @@ class UploadHomeworkWithFile extends StatefulWidget {
 }
 
 class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
-  final homeworksService = HomeworkServices();
+  late HomeworksProvider homeworksProvider;
   late AuthServices authService;
   late bool isNewHomework;
 
@@ -70,7 +70,8 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     if (widget.homework != null) {
       homework = widget.homework!;
     }
-    authService = Provider.of<AuthServices>(context, listen: false);
+    authService = context.read<AuthServices>();
+    homeworksProvider = context.read<HomeworksProvider>();
   }
 
   final _formKey = GlobalKey<FormBuilderState>();
@@ -107,16 +108,12 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
               appBar: AppBar(),
             ),
       body: SafeArea(
-        child: uploadHomework(context, authService, homeworksService),
+        child: uploadHomework(),
       ),
     );
   }
 
-  Widget uploadHomework(
-    BuildContext context,
-    AuthServices authService,
-    HomeworkServices homeworksService,
-  ) {
+  Widget uploadHomework() {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
@@ -223,9 +220,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                           label: isNewHomework ? "Subir tarea" : "Editar tarea",
                           borderRadius: 20,
                           textColor: Colors.white,
-                          onPressed: () async {
-                            uploadOrEditHomework();
-                          },
+                          onPressed: uploadOrEditHomework,
                         )
                       : const Center(child: CircularProgressIndicator()),
                 ],
@@ -256,7 +251,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     setState(() {
       _isLoading = true;
     });
-    homeworksService
+    homeworksProvider
         .uploadOrUpdateHomework(
       homework.id,
       data,
@@ -273,7 +268,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
 
   void _successUploaded(
     bool result,
-  ) async {
+  ) {
     setState(() {
       _isLoading = false;
     });

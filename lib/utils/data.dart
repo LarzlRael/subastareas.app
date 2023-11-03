@@ -7,7 +7,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: Icons.home_work,
       text: 'Supervisar tarea',
       onPressed: () {
-        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+        context.push('supervisor_list_homeworks');
       },
     ),
     CircleButton(
@@ -15,7 +15,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: FontAwesomeIcons.moneyBillTransfer,
       text: 'Solicitudes de retiro',
       onPressed: () {
-        Navigator.pushNamed(context, 'list_withdraw_request');
+        context.push('list_withdraw_request');
       },
     ),
     CircleButton(
@@ -23,7 +23,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: Icons.person_search,
       text: 'Usuarios',
       onPressed: () {
-        Navigator.pushNamed(context, 'supervisor_list_homeworks');
+        context.push('supervisor_list_homeworks');
       },
     ),
   ];
@@ -64,8 +64,8 @@ List<BottomNavigationBarItem> bottonItemsWithLogin(bool isThereNotifications) {
     ), */
       icon: isThereNotifications
           ? const badges.Badge(
-              child: Icon(FontAwesomeIcons.user, size: iconSize),
               badgeContent: null,
+              child: Icon(FontAwesomeIcons.user, size: iconSize),
             )
           : const Icon(
               FontAwesomeIcons.user,
@@ -87,7 +87,6 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
   ),
 ];
 
-final homeworkServices = HomeworkServices();
 /* final notificationServices = NotificationService(); */
 List<StatelessWidget> menuProfileOptions(AuthServices authService) {
   final menuProfileOptions = [
@@ -102,7 +101,7 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       icon: const BellIconNotification(),
       title: "Notificaciones",
       page: const NotificationPage(),
-      callback: () => homeworkServices.clearNotifications(),
+      /* callback: homeworkServices.clearNotifications, */
     ),
     MenuProfileOption(
       icon: const Icon(Icons.message_rounded),

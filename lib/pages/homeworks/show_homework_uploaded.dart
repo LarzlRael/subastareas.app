@@ -52,7 +52,8 @@ class _ShowHomeworkUploadedState extends State<ShowHomeworkUploaded> {
           ? FloatingActionButton(
               onPressed: () {
                 //TODO dowloader function here
-                Navigator.pushNamed(context, '/homeworks');
+
+                context.push('/homeworks');
               },
               child: const Icon(Icons.download),
             )

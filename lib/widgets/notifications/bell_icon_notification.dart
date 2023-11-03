@@ -5,40 +5,33 @@ class BellIconNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notificationService = context.read<NotificationProvider>();
-    notificationService.getUserNotifications();
+    final notificationService = context.read<NotificationProvider>()
+      ..getUserNotifications();
+
     final notificationsNotRead = notificationService.state.notifications
-        .where((element) => element.notified == true)
+        .where((element) => element.seen == true)
         .toList()
         .length;
+    final notRead = notificationsNotRead > 9 ? '9+' : '$notificationsNotRead';
     return Container(
       padding: const EdgeInsets.all(0.0),
       child: notificationsNotRead > 0
           ? badges.Badge(
               badgeContent: Text(
-                notificationsNotRead > 9 ? '9+' : '$notificationsNotRead',
+                notRead,
                 style: const TextStyle(color: Colors.white, fontSize: 10),
               ),
-              child: iconNotification(context),
+              child: iconNotification(true),
             )
-          : iconNotification(context),
+          : iconNotification(false),
     );
   }
 
-  Widget iconNotification(BuildContext context) {
-    return IconButton(
-      padding: EdgeInsets.zero,
-      constraints: const BoxConstraints(),
-      icon: const Icon(Icons.notifications),
-      onPressed: () {
-        /* Navigator.pushNamed(context, 'notifications'); */
-        /* Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.rightToLeft,
-              child: const NotificationPage()),
-        ); */
-      },
+  Widget iconNotification(bool isThereNotifications) {
+    return Icon(
+      isThereNotifications ? Icons.notifications : FontAwesomeIcons.bell,
+      /* size: 20, */
+      /* color: Theme.of(context).primaryColor, */
     );
   }
 }

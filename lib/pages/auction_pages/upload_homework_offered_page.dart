@@ -18,9 +18,8 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
   @override
   void initState() {
     super.initState();
-    oneHomeworkProvider =
-        Provider.of<HomeworksProvider>(context, listen: false);
-    oneHomeworkProvider.getOneHomework(widget.homeworkArguments.idHomework);
+    oneHomeworkProvider = Provider.of<HomeworksProvider>(context, listen: false)
+      ..getOneHomework(widget.homeworkArguments.idHomework);
   }
 
   @override
