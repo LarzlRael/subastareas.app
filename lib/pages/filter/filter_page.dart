@@ -6,7 +6,7 @@ class FilterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = Provider.of<FilterProvider>(context, listen: false);
-    final oneHomeworkBloc = OneHomeworkBloc();
+    final oneHomeworkProvider = Provider.of<HomeworksProvider>(context);
     final homeworkServices = HomeworkServices();
     final preferences = UserPreferences();
     return Scaffold(
@@ -17,13 +17,13 @@ class FilterPage extends StatelessWidget {
           child: preferences.getSubjectsList.isEmpty
               ? FutureGetSubjectList(
                   homeworkServices: homeworkServices,
-                  oneHomeworkBloc: oneHomeworkBloc,
+                  oneHomeworkBloc: oneHomeworkProvider,
                   state: state,
                   sharedPreferences: preferences,
                 )
               : LocalGetSubjectList(
                   state: state,
-                  oneHomeworkBloc: oneHomeworkBloc,
+                  oneHomeworkBloc: oneHomeworkProvider,
                   userPreferences: preferences,
                 ),
         ),
@@ -33,6 +33,11 @@ class FilterPage extends StatelessWidget {
 }
 
 class FutureGetSubjectList extends StatelessWidget {
+  final HomeworkServices homeworkServices;
+  final HomeworksProvider oneHomeworkBloc;
+  final FilterProvider state;
+  final UserPreferences sharedPreferences;
+
   const FutureGetSubjectList({
     Key? key,
     required this.homeworkServices,
@@ -40,11 +45,6 @@ class FutureGetSubjectList extends StatelessWidget {
     required this.state,
     required this.sharedPreferences,
   }) : super(key: key);
-
-  final HomeworkServices homeworkServices;
-  final OneHomeworkBloc oneHomeworkBloc;
-  final FilterProvider state;
-  final UserPreferences sharedPreferences;
 
   @override
   Widget build(BuildContext context) {
@@ -98,16 +98,15 @@ class FutureGetSubjectList extends StatelessWidget {
 }
 
 class LocalGetSubjectList extends StatelessWidget {
+  final HomeworksProvider oneHomeworkBloc;
+  final FilterProvider state;
+  final UserPreferences userPreferences;
   const LocalGetSubjectList({
     Key? key,
     required this.oneHomeworkBloc,
     required this.state,
     required this.userPreferences,
   }) : super(key: key);
-
-  final OneHomeworkBloc oneHomeworkBloc;
-  final FilterProvider state;
-  final UserPreferences userPreferences;
 
   @override
   Widget build(BuildContext context) {

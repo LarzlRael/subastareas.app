@@ -1,7 +1,9 @@
 part of '../pages.dart';
 
 class UploadHomeworkOfferedPage extends StatefulWidget {
-  const UploadHomeworkOfferedPage({Key? key}) : super(key: key);
+  final HomeworkArguments homeworkArguments;
+  const UploadHomeworkOfferedPage({Key? key, required this.homeworkArguments})
+      : super(key: key);
 
   @override
   State<UploadHomeworkOfferedPage> createState() =>
@@ -9,15 +11,32 @@ class UploadHomeworkOfferedPage extends StatefulWidget {
 }
 
 class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
-  final _oneHomeworkBloc = OneHomeworkBloc();
+  late HomeworksProvider oneHomeworkProvider;
+
   bool _loading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    oneHomeworkProvider =
+        Provider.of<HomeworksProvider>(context, listen: false);
+    oneHomeworkProvider.getOneHomework(widget.homeworkArguments.idHomework);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormBuilderState>();
     final offersServices = OffersServices();
-    final homeworkArguments =
-        ModalRoute.of(context)!.settings.arguments as HomeworkArguments;
-    _oneHomeworkBloc.getOneHomework(homeworkArguments.idHomework);
+    final homework = oneHomeworkProvider.state.selectedHomework!.homework;
+
+    final getIdOfferAccepted = oneHomeworkProvider
+        .state!.selectedHomework!.offers
+        .where((element) =>
+            element.status == "pending_to_resolve" ||
+            element.status == "pending_to_accept")
+        .first
+        .id;
+
     return Scaffold(
       appBar: AppBarWithBackIcon(appBar: AppBar()),
       body: SingleChildScrollView(
@@ -27,22 +46,11 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              child: StreamBuilder(
-                stream: _oneHomeworkBloc.oneHomeworkStream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<OneHomeworkModel> snapshot) {
-                  if (snapshot.hasData) {
-                    final homework = snapshot.data!.homework;
-
-                    //TODO cambiar esto en la base de datos
-                    final getIdOfferAccepted = snapshot.data!.offers
-                        .where((element) =>
-                            element.status == "pending_to_resolve" ||
-                            element.status == "pending_to_accept")
-                        .first
-                        .id;
-
-                    return Column(
+              child: oneHomeworkProvider.state.isLoadingSelected
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : Column(
                       /* mainAxisAlignment: MainAxisAlignment.center, */
                       children: [
                         ShowProfileImage(
@@ -115,14 +123,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                               ),
                         tradeStatus(homework.status, null),
                       ],
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
+                    ),
             ),
           ),
         ),
@@ -141,54 +142,50 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
     });
     final validationSuccess = formKey.currentState!.validate();
 
-    if (validationSuccess) {
-      formKey.currentState!.save();
+    if (!validationSuccess) return;
+    formKey.currentState!.save();
 
-      final response = await offersServices.uploadHomeworkResolvedFile(
-          File(
-            formKey.currentState!.value['file'][0].path,
-          ),
-          getIdOfferAccepted);
+    await offersServices
+        .uploadHomeworkResolvedFile(
+            File(
+              formKey.currentState!.value['file'][0].path,
+            ),
+            getIdOfferAccepted)
+        .then((value) {
       setState(() {
         _loading = false;
       });
-      if (response) {
-        Navigator.pop(context);
+
+      if (value) {
+        context.pop();
         GlobalSnackBar.show(
           context,
           "Tarea resuelta subida correctamente",
           backgroundColor: Colors.green,
         );
         /* Refresh list */
-        _oneHomeworkBloc.getOneHomework(idHomework);
+        oneHomeworkProvider.getOneHomework(idHomework);
       } else {
-        setState(() {
-          _loading = false;
-        });
         GlobalSnackBar.show(
           context,
           "Error al subir la tarea resuelta",
           backgroundColor: Colors.red,
         );
       }
-    } else {
-      setState(() {
-        _loading = false;
-      });
-    }
+    });
   }
+}
 
-  Widget tradeStatus(String status, String? rejectedReason) {
-    switch (status) {
-      case "reject":
-        return statusMessage(
-            'Tarea enviada y en espera de la revision', Icons.check_circle);
-      case "rejected_offer_homework":
-        return statusMessage('La tarea fue rechazada', Icons.warning,
-            color: Colors.red);
-      case "pending_to_accept":
-        return const SizedBox();
-    }
-    return Container();
+Widget tradeStatus(String status, String? rejectedReason) {
+  switch (status) {
+    case "reject":
+      return statusMessage(
+          'Tarea enviada y en espera de la revision', Icons.check_circle);
+    case "rejected_offer_homework":
+      return statusMessage('La tarea fue rechazada', Icons.warning,
+          color: Colors.red);
+    case "pending_to_accept":
+      return const SizedBox();
   }
+  return const SizedBox();
 }

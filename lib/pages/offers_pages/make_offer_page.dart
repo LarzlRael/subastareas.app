@@ -10,14 +10,15 @@ class MakeOfferPage extends StatefulWidget {
 class _MakeOfferPageState extends State<MakeOfferPage> {
   TextEditingController textController = TextEditingController();
   bool editing = false;
-
+  late HomeworksProvider blocHomework;
   late SocketService socketService;
   late Offer? getUserOffer;
   late bool getFindUserOffer = false;
   @override
   void initState() {
-    socketService = Provider.of<SocketService>(context, listen: false);
     super.initState();
+    socketService = Provider.of<SocketService>(context, listen: false);
+    blocHomework = Provider.of<HomeworksProvider>(context, listen: false);
   }
 
   @override
@@ -39,7 +40,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
           oneHomework.offers.firstWhere((item) => item.user.id == auth.user.id);
       getFindUserOffer = true;
     }
-    final blocHomework = OneHomeworkBloc();
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -139,7 +140,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                               verticalPadding: 15,
                               onPressed: () {
                                 showOfferDialog(
-                                  blocHomework,
                                   oneHomework.homework,
                                   auth.user,
                                   verifyUserOffered,
@@ -159,7 +159,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                           verticalPadding: 15,
                           onPressed: () {
                             showOfferDialog(
-                              blocHomework,
                               oneHomework.homework,
                               auth.user,
                               verifyUserOffered,
@@ -225,7 +224,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   }
 
   showOfferDialog(
-    OneHomeworkBloc blocHomework,
     Homework homework,
     UserModel userModel,
     bool verify, {

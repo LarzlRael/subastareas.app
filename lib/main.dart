@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:subastareaspp/bloc/homeworks_provider.dart';
 import 'package:subastareaspp/provider/providers.dart';
 import 'package:subastareaspp/routes/app_router.dart';
 import 'package:subastareaspp/services/services.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => AuthServices()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
+        ChangeNotifierProvider(create: (_) => HomeworksProvider()),
         ChangeNotifierProvider(
           create: (_) => NotificationService(),
           lazy: false,

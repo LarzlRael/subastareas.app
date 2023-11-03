@@ -67,7 +67,7 @@ showBottomMenuSheetAddOrEditComment(
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      final homeworkBloc = OneHomeworkBloc();
+      final homeworkBloc = context.read<HomeworksProvider>();
       return StatefulBuilder(builder: (_, StateSetter setState) {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,

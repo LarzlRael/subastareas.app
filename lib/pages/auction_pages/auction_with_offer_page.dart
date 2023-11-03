@@ -17,12 +17,17 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   late final List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
   late AuthServices auth;
+  late HomeworksProvider oneHomeworkProvider;
+
   int _currentViewers = 0;
   @override
   void initState() {
     super.initState();
     auth = Provider.of<AuthServices>(context, listen: false);
     socketService = Provider.of<SocketService>(context, listen: false);
+    oneHomeworkProvider =
+        Provider.of<HomeworksProvider>(context, listen: false);
+    oneHomeworkProvider.getOneHomework(widget.oneHomework.homework.id);
     loadOffers();
     socketService.socket.emit('joinOfferRoom', widget.oneHomework.homework.id);
     socketService.socket.on('makeOfferToClient', _escucharMensaje);
@@ -154,8 +159,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   @override
   Widget build(BuildContext context) {
     /* final auth = Provider.of<AuthServices>(context, listen: false); */
-    OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
-    homeworksBloc.getOneHomework(widget.oneHomework.homework.id);
+
     final isOwner = auth.user.id == widget.oneHomework.homework.user.id;
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -184,30 +188,22 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
                           bottom: 5,
                         )
                       : const SizedBox(),
-                  StreamBuilder(
-                    stream: homeworksBloc.oneHomeworkStream,
-                    builder: (BuildContext context,
-                        AsyncSnapshot<OneHomeworkModel> snapshot) {
-                      if (!snapshot.hasData) {
-                        return const CircularCenter();
-                      }
-                      if (_offer.isEmpty) {
-                        return const NoInformation(
-                          message: 'Aún no hay ofertas ',
-                          icon: Icons.search_off,
-                          showButton: false,
-                          iconButton: Icons.add,
-                        );
-                      }
-                      return Expanded(
-                        child: ListView.builder(
-                          /* scrollDirection: Axis.horizontal, */
-                          itemCount: _offer.length,
-                          itemBuilder: (_, int index) => _offer[index],
-                        ),
-                      );
-                    },
-                  ),
+                  oneHomeworkProvider.state.isLoadingSelected
+                      ? const CircularCenter()
+                      : _offer.isEmpty
+                          ? const NoInformation(
+                              message: 'Aún no hay ofertas ',
+                              icon: Icons.search_off,
+                              showButton: false,
+                              iconButton: Icons.add,
+                            )
+                          : Expanded(
+                              child: ListView.builder(
+                                /* scrollDirection: Axis.horizontal, */
+                                itemCount: _offer.length,
+                                itemBuilder: (_, int index) => _offer[index],
+                              ),
+                            )
                 ],
               ),
             ),
@@ -270,12 +266,12 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
         widget.offer.status == 'traded';
     final offersServices = OffersServices();
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       width: MediaQuery.of(context).size.width,
       height: 100,
       decoration: BoxDecoration(
         color: colors.primary,
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),

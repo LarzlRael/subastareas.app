@@ -13,166 +13,165 @@ class HomeworkdDetailPage extends StatefulWidget {
 
 class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
   late AuthServices auth;
-  final OneHomeworkBloc homeworksBloc = OneHomeworkBloc();
+  late HomeworksProvider oneHomeworkProvider;
 
   @override
   void initState() {
-    homeworksBloc.getOneHomework(widget.idHomework);
     super.initState();
+    auth = Provider.of<AuthServices>(context, listen: false);
+    oneHomeworkProvider = context.read<HomeworksProvider>();
+    oneHomeworkProvider.getOneHomework(widget.idHomework);
   }
 
   @override
   Widget build(BuildContext context) {
-    auth = context.read<AuthServices>();
-
     return Scaffold(
       /* appBar: AppBarWithBackIcon(
         appBar: AppBar(),
       ), */
-      body: StreamBuilder(
-        stream: homeworksBloc.oneHomeworkStream,
-        builder: (_, AsyncSnapshot<OneHomeworkModel> snapshot) {
-          if (!snapshot.hasData) {
-            return const Center(
-              child: SquareLoading(),
-            );
-          }
-          final homework = snapshot.data!.homework;
-          if (!homework.visible) {
-            return const Center(
-              child: NoInformation(
-                icon: Icons.visibility_off,
-                message: "Esta tarea no está disponible",
-                showButton: false,
-                iconButton: Icons.add,
-              ),
-            );
-          }
-          final isBearer = snapshot.data?.homework.user.id == auth.user.id;
-
-          return CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                  elevation: 5,
-                  leading: IconButton(
-                    onPressed: context.pop,
-                    icon: const Icon(
-                      Icons.chevron_left,
-                      size: 25,
+      body: Consumer<HomeworksProvider>(
+          builder: (_, oneHomeworkProviderC, child) {
+        final selectedHomework = oneHomeworkProvider.state.selectedHomework;
+        final isBearer = selectedHomework?.homework != null &&
+            selectedHomework!.homework.user.id == auth.user.id;
+        return oneHomeworkProviderC.state.isLoadingSelected
+            ? const Center(child: CircularProgressIndicator())
+            : !selectedHomework!.homework.visible
+                ? const Center(
+                    child: NoInformation(
+                      icon: Icons.visibility_off,
+                      message: "Esta tarea no está disponible",
+                      showButton: false,
+                      iconButton: Icons.add,
                     ),
-                  ),
-                  actions: <Widget>[
-                    isBearer
-                        ? Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  snapshot.data!.offers.isEmpty
-                                      ? context.push(
-                                          '/upload_homework_with_file',
-                                          extra: snapshot.data!.homework,
-                                          /* PageTransition(
+                  )
+                : CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                          elevation: 5,
+                          leading: IconButton(
+                            onPressed: context.pop,
+                            icon: const Icon(
+                              Icons.chevron_left,
+                              size: 25,
+                            ),
+                          ),
+                          actions: <Widget>[
+                            isBearer
+                                ? Row(
+                                    children: [
+                                      IconButton(
+                                        onPressed: () {
+                                          selectedHomework.offers.isEmpty
+                                              ? context.push(
+                                                  '/upload_homework_with_file',
+                                                  extra: selectedHomework,
+                                                  /* PageTransition(
                                         type: PageTransitionType
                                             .leftToRightWithFade,
                                         child: UploadHomeworkOnlyText(),
                                         settings: snapshot.data!.homework,
                                       ), */
+                                                )
+                                              : GlobalSnackBar.show(
+                                                  context,
+                                                  "No puedes editar tu tarea porque ya tiene ofertas",
+                                                  backgroundColor: Colors.red,
+                                                );
+                                        },
+                                        icon: const Icon(
+                                          Icons.edit,
+                                          size: 25,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        onPressed: () {
+                                          final status =
+                                              selectedHomework.homework.status;
+                                          if (status != 'traded' ||
+                                              status != 'pending_to_resolve' ||
+                                              status != 'pending_to_resolve') {
+                                            showConfirmDialog(
+                                              context,
+                                              'Retirar tarea',
+                                              '¿Estás seguro de eliminar esta tarea?',
+                                              () => deleteAndRefresh(
+                                                  selectedHomework.homework.id),
+                                            );
+                                          } else {
+                                            GlobalSnackBar.show(context,
+                                                "En este momento no puedes eliminar esta tarea",
+                                                backgroundColor: Colors.red);
+                                          }
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          size: 25,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
+                          ],
+                          floating: true,
+                          pinned: true,
+                          snap: false,
+                          expandedHeight: 200,
+                          flexibleSpace: FlexibleSpaceBar(
+                            background: Image.asset(
+                              'assets/category/${removeDiacritics(
+                                selectedHomework.homework.category,
+                              )}.jpg',
+                              fit: BoxFit.cover,
+                              /* width: 280.0, */
+                            ),
+                            centerTitle: true,
+                            title: SimpleText(
+                              text:
+                                  'Tarea de ${selectedHomework.homework.category} ',
+                              lightThemeColor: Colors.white,
+                              fontSize: 16,
+                            ),
+                          )),
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Column(
+                                /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
+                                children: [
+                                  _cardAuction(
+                                    selectedHomework,
+                                    auth.isLogged,
+                                    false,
+                                    isBearer,
+                                  ),
+                                  selectedHomework.homework.status ==
+                                          'accepted_to_offer'
+                                      ? _buttonMakeOffer(
+                                          selectedHomework, auth.isLogged)
+                                      : const SizedBox(),
+                                  selectedHomework.homework.status ==
+                                          'accepted_to_offer'
+                                      ? CommentsByHomework(
+                                          comments: selectedHomework.comments,
+                                          isLogged: auth.isLogged,
+                                          idHomework:
+                                              selectedHomework.homework.id,
+                                          auth: auth,
                                         )
-                                      : GlobalSnackBar.show(
-                                          context,
-                                          "No puedes editar tu tarea porque ya tiene ofertas",
-                                          backgroundColor: Colors.red,
-                                        );
-                                },
-                                icon: const Icon(
-                                  Icons.edit,
-                                  size: 25,
-                                ),
+                                      : Container(),
+                                ],
                               ),
-                              IconButton(
-                                onPressed: () {
-                                  if (snapshot.data!.homework.status !=
-                                          'traded' ||
-                                      snapshot.data!.homework.status !=
-                                          'pending_to_resolve' ||
-                                      snapshot.data!.homework.status !=
-                                          'pending_to_resolve') {
-                                    showConfirmDialog(
-                                      context,
-                                      'Retirar tarea',
-                                      '¿Estás seguro de eliminar esta tarea?',
-                                      () => deleteAndRefresh(
-                                          snapshot.data!.homework.id),
-                                    );
-                                  } else {
-                                    GlobalSnackBar.show(context,
-                                        "En este momento no puedes eliminar esta tarea",
-                                        backgroundColor: Colors.red);
-                                  }
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  size: 25,
-                                ),
-                              ),
-                            ],
-                          )
-                        : Container(),
-                  ],
-                  floating: true,
-                  pinned: true,
-                  snap: false,
-                  expandedHeight: 200,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset(
-                      'assets/category/${removeDiacritics(
-                        homework.category,
-                      )}.jpg',
-                      fit: BoxFit.cover,
-                      /* width: 280.0, */
-                    ),
-                    centerTitle: true,
-                    title: SimpleText(
-                      text: 'Tarea de ${homework.category} ',
-                      lightThemeColor: Colors.white,
-                      fontSize: 16,
-                    ),
-                  )),
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Column(
-                        /* mainAxisAlignment: MainAxisAlignment.spaceBetween, */
-                        children: [
-                          _cardAuction(
-                            snapshot.data!,
-                            auth.isLogged,
-                            false,
-                            isBearer,
-                          ),
-                          homework.status == 'accepted_to_offer'
-                              ? _buttonMakeOffer(snapshot.data!, auth.isLogged)
-                              : const SizedBox(),
-                          homework.status == 'accepted_to_offer'
-                              ? CommentsByHomework(
-                                  comments: snapshot.data!.comments,
-                                  isLogged: auth.isLogged,
-                                  idHomework: snapshot.data!.homework.id,
-                                  auth: auth,
-                                )
-                              : Container(),
-                        ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+                    ],
+                  );
+      }),
     );
   }
 
@@ -496,10 +495,10 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
   }
 
   Future<void> deleteAndRefresh(int idHomework) async {
-    homeworksBloc.homeworkServices.deleteHomework(
+    oneHomeworkProvider.deleteHomework(
       idHomework,
     );
-    await homeworksBloc.getHomeworksByCategory([]);
+
     /* Navigator.pushNamed(context, 'bottomNavigation'); */
     context.pop();
 

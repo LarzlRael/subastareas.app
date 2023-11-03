@@ -1,11 +1,11 @@
 part of '../widgets.dart';
 
 class OpenHomeworkSearch extends SearchDelegate {
-  OneHomeworkBloc historyBloc = OneHomeworkBloc();
   @override
   final String searchFieldLabel;
-
-  OpenHomeworkSearch() : searchFieldLabel = 'Buscar tarea por nombre';
+  final HomeworksProvider homeworksProvider;
+  OpenHomeworkSearch({required this.homeworksProvider})
+      : searchFieldLabel = 'Buscar tarea por nombre';
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -22,48 +22,44 @@ class OpenHomeworkSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    historyBloc.getSearchedHomeworks(query);
-    return StreamBuilder(
-      stream: historyBloc.homeworksStream,
-      builder:
-          (BuildContext context, AsyncSnapshot<List<HomeworksModel>> snapshot) {
-        if (!snapshot.hasData) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.75,
-            child: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-        if (snapshot.data!.isEmpty) {
-          return NoInformation(
-            message: 'No se encontraron tareas con $query',
-            icon: Icons.search_off,
-            showButton: false,
-            iconButton: Icons.task,
-          );
-        }
+    homeworksProvider.getSearchedHomeworks(query);
 
-        return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: snapshot.data!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Builder(
-                builder: (BuildContext context) => HomeworkCard(
-                      isLogged: context.select((AuthServices auth) =>
-                          auth.isLogged ? auth.isLogged : false),
-                      homework: snapshot.data![index],
-                      isOwner: context.select((AuthServices auth) =>
-                          snapshot.data![index].user.id == auth.user.id),
-                      onSelected: (homework) {
-                        context.push('/homework_detail/${homework.id}');
-                      },
-                    ));
-          },
-        );
+    if (homeworksProvider.state.isLoadingSelected) {
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height * 0.75,
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    if (homeworksProvider.state.homeworks.isEmpty) {
+      return NoInformation(
+        message: 'No se encontraron tareas con $query',
+        icon: Icons.search_off,
+        showButton: false,
+        iconButton: Icons.task,
+      );
+    }
+
+    return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: homeworksProvider.state.homeworks.length,
+      itemBuilder: (BuildContext context, int index) {
+        final homework = homeworksProvider.state.homeworks[index];
+        return Builder(
+            builder: (BuildContext context) => HomeworkCard(
+                  isLogged: context.select((AuthServices auth) =>
+                      auth.isLogged ? auth.isLogged : false),
+                  homework: homework,
+                  isOwner: context.select(
+                      (AuthServices auth) => homework.user.id == auth.user.id),
+                  onSelected: (homework) {
+                    context.push('/homework_detail/${homework.id}');
+                  },
+                ));
       },
     );
   }
@@ -101,7 +97,7 @@ class OpenHomeworkSearch extends SearchDelegate {
     return const Text('build Suggestions');
   }
 
-  /* ListView listViewItems(List<ShopModel> suggestionList) {
+/* ListView listViewItems(List<ShopModel> suggestionList) {
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: (context, i) {

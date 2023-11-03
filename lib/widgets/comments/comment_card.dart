@@ -87,7 +87,7 @@ class _CommentCardState extends State<CommentCard>
   }
 
   showBottomMenuSheet(AuthServices auth, Comment comment, int idHomework) {
-    final homeworkBloc = OneHomeworkBloc();
+    final commentsService = CommentServices();
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -118,8 +118,7 @@ class _CommentCardState extends State<CommentCard>
                         context,
                         'Eliminar comentario',
                         '¿Estás seguro de eliminar este comentario?',
-                        () =>
-                            homeworkBloc.deleteComment(comment.id, idHomework),
+                        () => commentsService.deleteComment(comment.id),
                       );
                     },
                   ),
@@ -131,9 +130,7 @@ class _CommentCardState extends State<CommentCard>
                   ListTile(
                     leading: const Icon(Icons.flag),
                     title: const Text('Denunciar comentario'),
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
+                    onTap: context.pop,
                   ),
                 ],
               );
