@@ -8,11 +8,9 @@ class BellIconNotification extends StatelessWidget {
     final notificationService = context.read<NotificationProvider>()
       ..getUserNotifications();
 
-    final notificationsNotRead = notificationService.state.notifications
-        .where((element) => element.seen == true)
-        .toList()
-        .length;
-    final notRead = notificationsNotRead > 9 ? '9+' : '$notificationsNotRead';
+    final notificationsNotRead =
+        notificationService.notReadNotificationsCount();
+    final notRead = notificationService.countNotifications();
     return Container(
       padding: const EdgeInsets.all(0.0),
       child: notificationsNotRead > 0

@@ -12,8 +12,8 @@ class _NotificationPageState extends State<NotificationPage> {
   @override
   initState() {
     super.initState();
-    notificationProvider = context.read<NotificationProvider>();
-    notificationProvider.getUserNotifications();
+    notificationProvider = context.read<NotificationProvider>()
+      ..getUserNotifications();
   }
 
   @override

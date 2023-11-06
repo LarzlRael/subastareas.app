@@ -182,7 +182,7 @@ class AuthServices with ChangeNotifier {
 
     final signInWithGoogleEndPoint = Uri(
       scheme: 'https',
-      host: environment.googleHttpsDomain,
+      host: Environment.googleHttpsDomain,
       path: '/auth/googleAuth',
     );
     final resp = await http.post(

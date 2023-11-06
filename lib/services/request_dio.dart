@@ -8,15 +8,14 @@ enum RequestTypeDIO {
 }
 
 class RequestDio {
-  String uri = '${environment.serverHttpUrl}/';
+  String uri = '${Environment.serverApi}/';
   static Future<http.Response?> sendRequest(
       RequestType method, String url, Map<String, String>? body) async {
     final headers = {
       'Content-Type': 'application/json',
     };
-    Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
+    Uri uri = Uri.parse('${Environment.serverApi}/$url');
     late http.Response res;
-    final dio = Dio();
     switch (method) {
       case RequestType.get:
         res = await http.get(uri);
@@ -40,7 +39,7 @@ class RequestDio {
       'Authorization': 'Bearer $token',
     };
 
-    final String urlBase = '${environment.serverHttpUrl}/$url';
+    final String urlBase = '${Environment.serverApi}/$url';
     late Response res;
 
     final dio = Dio();

@@ -7,7 +7,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: Icons.home_work,
       text: 'Supervisar tarea',
       onPressed: () {
-        context.push('supervisor_list_homeworks');
+        context.push('/supervisor_list_homeworks');
       },
     ),
     CircleButton(
@@ -15,7 +15,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: FontAwesomeIcons.moneyBillTransfer,
       text: 'Solicitudes de retiro',
       onPressed: () {
-        context.push('list_withdraw_request');
+        context.push('/list_withdraw_request');
       },
     ),
     CircleButton(
@@ -23,7 +23,7 @@ List<Widget> adminOptions(BuildContext context) {
       icon: Icons.person_search,
       text: 'Usuarios',
       onPressed: () {
-        context.push('supervisor_list_homeworks');
+        context.push('/supervisor_list_homeworks');
       },
     ),
   ];
@@ -97,10 +97,10 @@ List<StatelessWidget> menuProfileOptions(AuthServices authService) {
       title: "Billetera",
       page: WalletPage(),
     ),
-    MenuProfileOption(
-      icon: const BellIconNotification(),
+    const MenuProfileOption(
+      icon: BellIconNotification(),
       title: "Notificaciones",
-      page: const NotificationPage(),
+      page: NotificationPage(),
       /* callback: homeworkServices.clearNotifications, */
     ),
     MenuProfileOption(

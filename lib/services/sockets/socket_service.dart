@@ -25,7 +25,7 @@ class SocketService with ChangeNotifier {
     /* final token = await AuthService.getToken(); */
     // Dart client
     _socket = IO.io(
-        environment.serverHttpUrl,
+        Environment.serverApi,
         IO.OptionBuilder()
             .setTransports(['websocket']) // for Flutter or Dart VM
             .enableAutoConnect() // disable auto-connection

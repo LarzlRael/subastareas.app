@@ -30,12 +30,17 @@ class NotificationsCard extends StatelessWidget {
         );
       },
       /* TODO fix view */
-      leading: ShowProfileImage(
-        profileImage: notification.user.profileImageUrl,
-        userName: notification.user.username,
-        radius: 15,
+      leading: InkWell(
+        onTap: () {
+          context.push('/public_profile_page/${notification.user.id}');
+        },
+        child: ShowProfileImage(
+          profileImage: notification.user.profileImageUrl,
+          userName: notification.user.username,
+          radius: 16,
+        ),
       ),
-      title: contentNotification(notification),
+      title: contentNotification(context, notification),
       subtitle: SimpleText(
         text: timeago.format(notification.createdAt, locale: 'es'),
         fontSize: 12,
@@ -44,75 +49,11 @@ class NotificationsCard extends StatelessWidget {
       trailing: Icon(
         typeNotification(notification.type).icon,
       ),
-      /* child: Ink(
-        child: Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 10,
-          ),
-          padding: const EdgeInsets.only(
-            right: 20,
-            /* vertical: 10, */
-          ),
-          /* color: Colors.yellow, */
-          width: MediaQuery.of(context).size.width * 0.2,
-          /* height: 75, */
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                /* crossAxisAlignment: CrossAxisAlignment.center, */
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                          left: 5,
-                          right: 5,
-                        ),
-                        height: 10,
-                        width: 10,
-                        decoration: BoxDecoration(
-                          color: notification.seen
-                              ? Colors.transparent
-                              : Colors.red,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                      ),
-                      /* const SizedBox(width: 5), */
-
-                      ShowProfileImage(
-                        profileImage: notification.user.profileImageUrl,
-                        userName: notification.user.username,
-                        radius: 20,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                    ],
-                  ),
-                  contentNotification(notification),
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      /* color: Colors.red, */
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ],
-              ),
-              Icon(
-                typeNotification(notification.type).icon,
-              ),
-            ],
-          ),
-        ),
-      ), */
     );
   }
 
-  Widget contentNotification(NotificationModel notification) {
+  Widget contentNotification(
+      BuildContext context, NotificationModel notification) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +62,12 @@ class NotificationsCard extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: notification.user.username,
+                text: "${notification.user.username} ",
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    context
+                        .push('/public_profile_page/${notification.user.id}');
+                  },
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
@@ -144,9 +90,9 @@ class NotificationsCard extends StatelessWidget {
                 ? SimpleText(
                     top: 5,
                     bottom: 5,
-                    text: notification.content.length < 20
-                        ? notification.content
-                        : notification.content.substring(0, 20),
+                    text: notification.body.length < 20
+                        ? notification.body
+                        : notification.body.substring(0, 20),
                     fontSize: 14,
                     lightThemeColor: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -156,7 +102,7 @@ class NotificationsCard extends StatelessWidget {
                 ? SimpleText(
                     top: 5,
                     bottom: 5,
-                    text: 'Oferta: ' + notification.offerAmount.toString(),
+                    text: notification.body,
                     fontSize: 14,
                     lightThemeColor: Colors.black,
                     fontWeight: FontWeight.w400,
@@ -177,12 +123,12 @@ class TypeNotification {
 
 TypeNotification typeNotification(String type) {
   const map = {
-    'new_comment': 'Hizo un comentario',
-    'new_offer': 'Hizo una oferta',
-    'offer_accepted': 'Acepto tu oferta',
-    'homework_finished': 'Termino tu tarea',
-    'rejected': 'Rechazaste una oferta',
-    'homework_reject': 'Ha rechazado tu tarea',
+    'new_comment': 'hizo un comentario',
+    'new_offer': 'hizo una oferta',
+    'offer_accepted': 'acepto tu oferta',
+    'homework_finished': 'termino tu tarea',
+    'rejected': 'rechazaste una oferta',
+    'homework_reject': 'ha rechazado tu tarea',
   };
   const iconMap = {
     'new_comment': FontAwesomeIcons.commentDots,

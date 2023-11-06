@@ -2,14 +2,16 @@ part of '../widgets.dart';
 
 class CommentCard extends StatefulWidget {
   final Comment comment;
-  final int idHomework;
+  final Homework homework;
   final bool isExpanded;
   final AuthServices auth;
+  final CommentProvider commentProvider;
   const CommentCard({
     Key? key,
     this.isExpanded = false,
     required this.comment,
-    required this.idHomework,
+    required this.commentProvider,
+    required this.homework,
     required this.auth,
   }) : super(key: key);
 
@@ -41,7 +43,9 @@ class _CommentCardState extends State<CommentCard>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 NameAndTimeAgo(
-                  isOwner: widget.auth.user.id == widget.comment.user.id,
+                  isOwner: widget.comment.user.id == widget.homework.user.id,
+                  isCommentWritter:
+                      widget.comment.user.id == widget.auth.user.id,
                   userName: widget.comment.user.username,
                   createdAt: widget.comment.createdAt,
                 ),
@@ -72,7 +76,7 @@ class _CommentCardState extends State<CommentCard>
                     showBottomMenuSheet(
                       widget.auth,
                       widget.comment,
-                      widget.idHomework,
+                      widget.homework.id,
                     );
                   },
                   icon: const Icon(
@@ -87,7 +91,6 @@ class _CommentCardState extends State<CommentCard>
   }
 
   showBottomMenuSheet(AuthServices auth, Comment comment, int idHomework) {
-    final commentsService = CommentServices();
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -102,7 +105,8 @@ class _CommentCardState extends State<CommentCard>
                       context.pop();
                       showBottomMenuSheetAddOrEditComment(
                         context,
-                        widget.idHomework,
+                        widget.homework.id,
+                        widget.commentProvider,
                         auth,
                         idComment: widget.comment.id,
                         currentEditing: widget.comment.content,
@@ -118,7 +122,17 @@ class _CommentCardState extends State<CommentCard>
                         context,
                         'Eliminar comentario',
                         '¿Estás seguro de eliminar este comentario?',
-                        () => commentsService.deleteComment(comment.id),
+                        () => widget.commentProvider
+                            .deleteComment(comment.id)
+                            .then((value) {
+                          if (value) {
+                            GlobalSnackBar.show(
+                                context, 'Comentario eliminado');
+                          } else {
+                            GlobalSnackBar.show(
+                                context, 'No se pudo eliminar el comentario');
+                          }
+                        }),
                       );
                     },
                   ),

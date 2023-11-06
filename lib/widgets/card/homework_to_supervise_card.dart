@@ -32,6 +32,7 @@ class HomeworkToSuperviseCard extends StatelessWidget {
                       children: [
                         NameAndTimeAgo(
                           isOwner: true,
+                          isCommentWritter: false,
                           userName: homeworkToSupervise.user.username,
                           createdAt: homeworkToSupervise.createdAt,
                           isRow: false,

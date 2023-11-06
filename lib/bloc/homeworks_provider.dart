@@ -7,7 +7,6 @@ import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/utils/utils.dart';
 
 class HomeworksProvider with ChangeNotifier {
-  CommentServices commentService = CommentServices();
   OffersServices offersServices = OffersServices();
 
   HomeworksState state = HomeworksState.initial();
@@ -47,23 +46,6 @@ class HomeworksProvider with ChangeNotifier {
     );
     notifyListeners();
     return validateStatus(res!.statusCode);
-  }
-
-  deleteComment(int idComment, int idHomework) async {
-    await commentService.deleteComment(idComment);
-  }
-
-  Future<bool> edirOrNewComment(
-    int idHomework,
-    String content, {
-    int? idComment,
-  }) async {
-    final commnentRes = idComment == null
-        ? await commentService.newComment(idHomework, content)
-        : await commentService.editComment(idComment, content);
-    await getOneHomework(idHomework);
-
-    return commnentRes;
   }
 
   Future<OfferSimpleModel> makeOrEditOffer(

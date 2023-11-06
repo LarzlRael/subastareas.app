@@ -9,6 +9,7 @@ import 'package:mime_type/mime_type.dart';
 
 import 'package:http_parser/http_parser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:subastareaspp/enviroments/enviroments_variables.dart';
 import 'package:subastareaspp/models/models.dart';
 import 'package:subastareaspp/enviroments/enviroments_variables.dart'
     as environment;
@@ -28,7 +29,6 @@ part 'offers_services.dart';
 
 part 'auth_services.dart';
 part 'user_services.dart';
-part 'comment_services.dart';
 part 'push_notification_service.dart';
 part 'sockets/socket_service.dart';
 part 'sockets/socket_utils.dart';

@@ -6,6 +6,11 @@ OneHomeworkModel oneHomeworkModelFromJson(String str) =>
 String oneHomeworkModelToJson(OneHomeworkModel data) =>
     json.encode(data.toJson());
 
+// commentFromJson
+List<Comment> commentsFromJson(String str) =>
+    List<Comment>.from(json.decode(str).map((x) => Comment.fromJson(x)));
+Comment commentModelFromJson(String str) => Comment.fromJson(json.decode(str));
+
 class OneHomeworkModel {
   OneHomeworkModel({
     required this.homework,

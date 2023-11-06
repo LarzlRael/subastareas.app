@@ -9,7 +9,7 @@ class MenuProfileOption extends StatelessWidget {
   final bool closeSession;
   final bool showBadge;
   final Widget? badgeChild;
-  final Future<dynamic> Function()? callback;
+
   const MenuProfileOption({
     Key? key,
     required this.title,
@@ -19,7 +19,6 @@ class MenuProfileOption extends StatelessWidget {
     this.showTrailing = false,
     this.showTrailingIcon = true,
     this.closeSession = false,
-    this.callback,
     this.badgeChild,
   }) : super(key: key);
 
@@ -44,18 +43,16 @@ class MenuProfileOption extends StatelessWidget {
                   socketProvider.disconnect();
                   context.go('/welcome_page');
                 });
+                return;
               }
               if (!showTrailing) {
                 Navigator.push(
                   context,
                   PageTransition(type: PageTransitionType.fade, child: page),
                 );
-                if (callback != null) {
-                  await callback!();
-                }
-                return;
+              } else {
+                GlobalSnackBar.show(context, 'Proximamente!');
               }
-              GlobalSnackBar.show(context, 'Proximamente!');
             },
             trailing: showTrailingIcon
                 ? Icon(

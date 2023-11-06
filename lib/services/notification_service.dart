@@ -7,6 +7,14 @@ class NotificationProvider with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   NotificationState state = NotificationState.initial();
+  /* Add feature to see dot if is thre notications */
+  bool isSeenNotificationOption = false;
+
+  get getIsSeenNotificationOption => isSeenNotificationOption;
+  setIsSeenNotificationOption() {
+    isSeenNotificationOption = true;
+    notifyListeners();
+  }
 
   void _onForegroundMessage() {
     FirebaseMessaging.onMessage.listen(handleRemoteMessage);
@@ -15,6 +23,10 @@ class NotificationProvider with ChangeNotifier {
   void handleRemoteMessage(RemoteMessage message) {
     if (message.notification == null) return;
     print('onMessage: ${message.notification}');
+    final notification = notificationModelFromMap(message.data);
+    state = state.copyWith(
+      notifications: [notification, ...state.notifications],
+    );
     /* final notification = PushMessage(
       messageId: clearMessageId(message.messageId),
       title: message.notification!.title ?? '',
@@ -41,7 +53,7 @@ class NotificationProvider with ChangeNotifier {
       'devices/getUserNotifications',
     );
 
-    final finalData = notificationModelFromJson(notificationRequest!.body);
+    final finalData = notificationsModelFromJson(notificationRequest!.body);
 
     state = state.copyWith(
       notifications: finalData,
@@ -82,8 +94,20 @@ class NotificationProvider with ChangeNotifier {
 
   bool notReadNotifications() {
     final notRead =
-        state.notifications.where((element) => !element.seen).toList();
+        state.notifications.where((element) => element.seen == false);
     return notRead.isNotEmpty;
+  }
+
+  int notReadNotificationsCount() {
+    return state.notifications
+        .where((element) => element.seen == false)
+        .toList()
+        .length;
+  }
+
+  String countNotifications() {
+    final notRead = notReadNotificationsCount();
+    return notRead > 9 ? '9+' : '$notRead';
   }
 }
 

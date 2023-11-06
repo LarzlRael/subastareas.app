@@ -173,10 +173,8 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                                   selectedHomework.homework.status ==
                                           'accepted_to_offer'
                                       ? CommentsByHomework(
-                                          comments: selectedHomework.comments,
                                           isLogged: auth.isLogged,
-                                          idHomework:
-                                              selectedHomework.homework.id,
+                                          homework: selectedHomework.homework,
                                           auth: auth,
                                         )
                                       : Container(),

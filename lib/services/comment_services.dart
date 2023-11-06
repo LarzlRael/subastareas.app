@@ -1,4 +1,4 @@
-part of 'services.dart';
+/* part of 'services.dart';
 
 class CommentServices {
   Future<bool> newComment(int idHomework, String commentContent) async {
@@ -29,3 +29,4 @@ class CommentServices {
     return validateStatus(comment!.statusCode);
   }
 }
+ */

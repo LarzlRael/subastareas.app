@@ -8,7 +8,7 @@ enum RequestType {
 }
 
 class Request {
-  String uri = '${environment.serverHttpUrl}/';
+  String uri = '${Environment.serverApi}/';
   static Future<http.Response?> sendRequest(
     RequestType method,
     String url, {
@@ -17,7 +17,7 @@ class Request {
     final headers = {
       'Content-Type': 'application/json',
     };
-    Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
+    Uri uri = Uri.parse('${Environment.serverApi}/$url');
     late http.Response res;
     switch (method) {
       case RequestType.get:
@@ -46,7 +46,7 @@ class Request {
       'Authorization': 'Bearer $token',
     };
 
-    final Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${Environment.serverApi}/$url');
     late http.Response res;
     switch (method) {
       case RequestType.get:
@@ -72,7 +72,7 @@ class Request {
   ) async {
     late http.Response res;
     final token = await KeyValueStorageServiceImpl().getValue<String>('token');
-    final Uri uri = Uri.parse('${environment.serverHttpUrl}/$url');
+    final Uri uri = Uri.parse('${Environment.serverApi}/$url');
     final mimeType = mime(file.path)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',

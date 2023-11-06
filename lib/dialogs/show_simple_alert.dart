@@ -22,7 +22,7 @@ void showConfirmDialog(
   BuildContext context,
   String title,
   String description,
-  Future<dynamic> Function()? onAccept,
+  Function()? onAccept,
 ) {
   showDialog(
     context: context,
@@ -37,7 +37,7 @@ void showConfirmDialog(
         TextButton(
           onPressed: () async {
             context.pop();
-            await onAccept!();
+            if (onAccept != null) onAccept();
             /* GlobalSnackBar.show(context, 'Comentario eliminado'); */
           },
           child: const Text('OK'),
@@ -50,6 +50,7 @@ void showConfirmDialog(
 showBottomMenuSheetAddOrEditComment(
   BuildContext context,
   int idHomework,
+  CommentProvider commentProvider,
   AuthServices auth, {
   int? idComment,
   String currentEditing = '',
@@ -67,7 +68,6 @@ showBottomMenuSheetAddOrEditComment(
     context: context,
     isScrollControlled: true,
     builder: (context) {
-      final homeworkBloc = context.read<HomeworksProvider>();
       return StatefulBuilder(builder: (_, StateSetter setState) {
         return Padding(
           padding: MediaQuery.of(context).viewInsets,
@@ -112,7 +112,7 @@ showBottomMenuSheetAddOrEditComment(
                             loading = true;
                           });
 
-                          homeworkBloc
+                          commentProvider
                               .edirOrNewComment(
                             idHomework,
                             controller.text,

@@ -24,7 +24,7 @@ void navigatorProtected(
   if (isLogged) {
     context.push(route, extra: arguments);
   } else {
-    context.go('welcome');
+    context.go('/welcome');
   }
 }
 

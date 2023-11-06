@@ -4,12 +4,21 @@
 
 part of 'models.dart';
 
-List<NotificationModel> notificationModelFromJson(String str) =>
+List<NotificationModel> notificationsModelFromJson(String str) =>
     List<NotificationModel>.from(
         json.decode(str).map((x) => NotificationModel.fromJson(x)));
 
-String notificationModelToJson(List<NotificationModel> data) =>
+String notificationsModelToJson(List<NotificationModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
+NotificationModel notificationModelFromJson(String str) =>
+    NotificationModel.fromJson(json.decode(str));
+
+String notificationModelToJson(NotificationModel data) =>
+    json.encode(data.toJson());
+
+NotificationModel notificationModelFromMap(Map<String, dynamic> map) =>
+    NotificationModel.fromJson(map);
 
 class NotificationModel {
   NotificationModel({
@@ -19,7 +28,7 @@ class NotificationModel {
     required this.seen,
     required this.idHomework,
     required this.idOffer,
-    required this.content,
+    required this.body,
     required this.createdAt,
     required this.updatedAt,
     required this.user,
@@ -37,7 +46,7 @@ class NotificationModel {
   int idOffer;
   int offerAmount;
   dynamic category;
-  String content;
+  String body;
   DateTime createdAt;
   DateTime updatedAt;
   User user;
@@ -52,7 +61,7 @@ class NotificationModel {
         idOffer: json["idOffer"],
         idHomework: json["idHomework"],
         offerAmount: json["offerAmount"],
-        content: json["content"],
+        body: json["body"],
         category: json["category"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -67,7 +76,7 @@ class NotificationModel {
         "idHomework": idHomework,
         "idOffer": idOffer,
         "category": category,
-        "content": content,
+        "content": body,
         "offerAmount": offerAmount,
         "notified": notified,
         "created_at": createdAt.toIso8601String(),
