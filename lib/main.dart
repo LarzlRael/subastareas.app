@@ -10,7 +10,7 @@ import 'package:subastareaspp/widgets/widgets.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await PushNotificationService.initializeApp();
+  await PushNotificationInit.initializeApp();
   await UserPreferences.init();
   await Environment.initEnviroment();
   runApp(

@@ -1,34 +1,45 @@
 part of 'pages.dart';
 
-class LoadingPage extends StatelessWidget {
+class LoadingPage extends StatefulWidget {
   const LoadingPage({Key? key}) : super(key: key);
 
   @override
+  State<LoadingPage> createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> {
+  late AuthServices authServices;
+  late SocketService socketService;
+  late ThemeProviderNotifier theme;
+  late NotificationProvider notificationProvider;
+  @override
+  initState() {
+    super.initState();
+    authServices = context.read<AuthServices>();
+    socketService = context.read<SocketService>()..connect();
+    theme = context.read<ThemeProviderNotifier>();
+    notificationProvider = context.read<NotificationProvider>()
+      ..getUserNotifications();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final authServices = context.read<AuthServices>();
-    final socketService = context.read<SocketService>();
-    final theme = context.read<ThemeProviderNotifier>();
     return Scaffold(
       body: FutureBuilder(
-        future: checkLoginState(context, authServices, socketService, theme),
+        future: checkLoginState(),
         builder: (_, __) => const SquareLoading(),
       ),
     );
   }
 
-  Future checkLoginState(
-    BuildContext context,
-    AuthServices authServices,
-    SocketService socketService,
-    ThemeProviderNotifier theme,
-  ) async {
+  Future checkLoginState() async {
     authServices.renewToken().then((value) {
       if (value) {
-        socketService.connect();
         /* theme.setDarkTheme = authServices.user.userProfile.isDarkTheme; */
         authServices.user.userProfile.isDarkTheme
             ? theme.changeToDarkTheme()
             : theme.changeToLightTheme();
+
         context.go('/home_page');
       } else {
         context.go('/welcome_page');

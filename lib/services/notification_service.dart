@@ -1,5 +1,27 @@
 part of 'services.dart';
 
+class PushNotificationInit {
+  static Future initializeApp() async {
+    // Push Notifications
+    await Firebase.initializeApp();
+    /* await requestPermission(); */
+  }
+
+  // Apple / Web
+  /* static requestPermission() async {
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+
+    print('User push notification status ${settings.authorizationStatus}');
+} */
+}
+
 class NotificationProvider with ChangeNotifier {
   NotificationProvider() {
     _onForegroundMessage();

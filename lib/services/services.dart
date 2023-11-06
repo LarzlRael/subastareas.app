@@ -29,7 +29,6 @@ part 'offers_services.dart';
 
 part 'auth_services.dart';
 part 'user_services.dart';
-part 'push_notification_service.dart';
 part 'sockets/socket_service.dart';
 part 'sockets/socket_utils.dart';
 part 'trade_services.dart';

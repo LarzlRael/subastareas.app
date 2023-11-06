@@ -1,4 +1,4 @@
-part of 'services.dart';
+/* part of 'services.dart';
 
 // SHA1: 1D:4F:38:94:62:06:9F:C6:75:A7:73:BD:E4:B0:DA:27:80:B1:9D:F0
 // P8 - KeyID: VYZH37GGZ9
@@ -62,3 +62,4 @@ class PushNotificationService {
     _messageStream.close();
   }
 }
+ */
