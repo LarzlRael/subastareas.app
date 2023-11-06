@@ -85,10 +85,17 @@ class NotificationProvider with ChangeNotifier {
   }
 
   Future<void> seeNotification(int idNotification) async {
-    await Request.sendRequestWithToken(
+    final seeNotification = await Request.sendRequestWithToken(
       RequestType.put,
       'devices/seeNotification/$idNotification',
     );
+    final convertData = notificationModelFromJson(seeNotification!.body);
+    state = state.copyWith(
+      notifications: state.notifications
+          .map((e) => e.id == convertData.id ? convertData : e)
+          .toList(),
+    );
+    notifyListeners();
   }
 
   Future deleteNotification(int idNotification) async {

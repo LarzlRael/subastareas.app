@@ -76,7 +76,6 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
 
   final _formKey = GlobalKey<FormBuilderState>();
   bool _isLoading = false;
-  bool _isWithFile = false;
   Homework homework = Homework(
     visible: true,
     id: 0,
@@ -149,24 +148,9 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                       /* color: Colors.grey[600], */
                     ),
                   ),
-                  GenericListTile(
-                    icon: Icons.file_open,
-                    title: 'Subir tarea con archivo',
-                    initialValue: _isWithFile,
-                    onChanged: (value) {
-                      setState(() {
-                        _isWithFile = value;
-                      });
-                    },
+                  const CustomFileField(
+                    name: 'file',
                   ),
-                  _isWithFile
-                      ? const CustomFileField(
-                          name: 'file',
-                        )
-                      : const SizedBox(),
-                  /* const CustomFileField(
-                      name: 'file',
-                    ), */
                   const CustomFormBuilderTextArea(
                     name: 'title',
                     title: 'Escribe tu pregunta',

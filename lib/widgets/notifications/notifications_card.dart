@@ -11,14 +11,19 @@ class NotificationsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () async {
-        goToPage(
-          context,
-          notification,
-        );
+      onTap: () {
         if (!notification.seen) {
-          await notificationBloc.seeNotification(notification.id);
-          /* notificationBloc.getNotificationByUser(); */
+          notificationBloc.seeNotification(notification.id).then((value) {
+            goToPage(
+              context,
+              notification,
+            );
+          });
+        } else {
+          goToPage(
+            context,
+            notification,
+          );
         }
       },
       onLongPress: () {

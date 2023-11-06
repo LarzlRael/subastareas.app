@@ -29,7 +29,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
     final homework = oneHomeworkProvider.state.selectedHomework!.homework;
 
     final getIdOfferAccepted = oneHomeworkProvider
-        .state!.selectedHomework!.offers
+        .state.selectedHomework!.offers
         .where((element) =>
             element.status == "pending_to_resolve" ||
             element.status == "pending_to_accept")

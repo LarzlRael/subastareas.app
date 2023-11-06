@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:subastareaspp/bloc/comment_provider.dart';
-import 'package:subastareaspp/bloc/homeworks_provider.dart';
 import 'package:subastareaspp/services/services.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 
