@@ -21,11 +21,11 @@ void navigatorProtected(
   String route,
   dynamic arguments,
 ) {
-  if (isLogged) {
-    context.push(route, extra: arguments);
-  } else {
+  if (!isLogged) {
     context.go('/welcome');
+    return;
   }
+  context.push(route, extra: arguments);
 }
 
 bool isAdmin(List<String> roles) {

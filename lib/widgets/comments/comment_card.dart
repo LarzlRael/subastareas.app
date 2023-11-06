@@ -117,7 +117,6 @@ class _CommentCardState extends State<CommentCard>
                     leading: const Icon(Icons.delete),
                     title: const Text('Eliminar'),
                     onTap: () async {
-                      context.pop();
                       showConfirmDialog(
                         context,
                         'Eliminar comentario',
@@ -126,6 +125,7 @@ class _CommentCardState extends State<CommentCard>
                             .deleteComment(comment.id)
                             .then((value) {
                           if (value) {
+                            context.pop();
                             GlobalSnackBar.show(
                                 context, 'Comentario eliminado');
                           } else {

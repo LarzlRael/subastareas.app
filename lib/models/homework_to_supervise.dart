@@ -13,7 +13,7 @@ class HomeworkToSupervise {
     required this.title,
     required this.description,
     required this.offeredAmount,
-    required this.fileUrl,
+    this.fileUrl,
     required this.fileType,
     required this.resolutionTime,
     required this.category,
@@ -29,7 +29,7 @@ class HomeworkToSupervise {
   String title;
   dynamic description;
   int offeredAmount;
-  String fileUrl;
+  String? fileUrl;
   String fileType;
   DateTime resolutionTime;
   String category;

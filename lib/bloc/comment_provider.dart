@@ -32,8 +32,8 @@ class CommentProvider with ChangeNotifier {
     final commentConvert = commentModelFromJson(comment!.body);
     state = state.copyWith(
       comments: [
-        ...state.comments,
         commentConvert,
+        ...state.comments,
       ],
       isLoading: false,
     );
@@ -56,19 +56,21 @@ class CommentProvider with ChangeNotifier {
     }
   }
 
-  Future<Comment> editComment(int idCommnent, String commentContent) async {
+  Future<Comment> editComment(int idComment, String commentContent) async {
     final comment = await Request.sendRequestWithToken(
       RequestType.put,
-      'comments/editComment/$idCommnent',
+      'comments/editComment/$idComment',
       body: {'content': commentContent},
     );
     final commentConvert = commentModelFromJson(comment!.body);
     state = state.copyWith(
-      comments: [
-        ...state.comments.where((element) => element.id != idCommnent),
-        commentConvert,
-      ],
+      comments: state.comments
+          .map((existingComment) => existingComment.id == idComment
+              ? commentConvert
+              : existingComment)
+          .toList(),
     );
+
     return commentConvert;
   }
 
@@ -81,7 +83,9 @@ class CommentProvider with ChangeNotifier {
     if (validateStatus(comment?.statusCode)) {
       state = state.copyWith(
         comments: [
-          ...state.comments.where((element) => element.id != idCommnent),
+          ...state.comments
+              .where((element) => element.id != idCommnent)
+              .toList(),
         ],
       );
       notifyListeners();

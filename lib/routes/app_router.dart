@@ -156,7 +156,13 @@ final appRouter = GoRouter(
         );
       },
     ),
+    GoRoute(
+        path: '/supervisor_list_homeworks',
+        builder: (_, __) => const SupervisorListHomeworks()),
 
+    GoRoute(
+        path: '/list_withdraw_request',
+        builder: (_, __) => const ListWithdrawRequest()),
     GoRoute(
         path: '/show_homework',
         builder: (_, state) {

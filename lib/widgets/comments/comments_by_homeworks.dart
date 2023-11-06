@@ -36,7 +36,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
         return Consumer<CommentProvider>(
           builder: (_, commentState, child) {
             final comments = commentState.state;
-            final reverseComments = comments.comments.reversed.toList();
+            final commentsByHomework = comments.comments;
             return SizedBox(
               child: Column(
                 children: [
@@ -45,7 +45,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                           onTap: () {
                             showBottomMenuSheetAddOrEditComment(
                               context,
-                              widget.homework.user.id,
+                              widget.homework.id,
                               commentProvider,
                               widget.auth,
                             );
@@ -74,15 +74,15 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
                   comments.isLoading
                       ? const Center(child: CircularProgressIndicator())
                       : const SizedBox(),
-                  reverseComments.isNotEmpty
+                  commentsByHomework.isNotEmpty
                       ? SizedBox(
                           child: ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: reverseComments.length,
+                            itemCount: commentsByHomework.length,
                             itemBuilder: (_, index) {
                               return CommentCard(
-                                comment: reverseComments[index],
+                                comment: commentsByHomework[index],
                                 homework: widget.homework,
                                 auth: widget.auth,
                                 commentProvider: commentProvider,
