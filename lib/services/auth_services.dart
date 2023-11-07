@@ -39,7 +39,8 @@ class AuthServices with ChangeNotifier {
     final data = {
       'username': email,
       'password': password,
-      'idDevice': await messaging.getToken() ?? ''
+      'idDevice': await messaging.getToken() ?? '',
+      'deviceName': await getDeviceInfo(),
     };
 
     final resp =

@@ -39,3 +39,10 @@ String convertTime(DateTime date, {String format = 'dd/MM/yyyy HH:mm'}) {
 String getUrlResource(String url) {
   return url.replaceAll('http://', '').replaceAll('https://', '');
 }
+
+Future<String> getDeviceInfo() async {
+  DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+  return Platform.isAndroid ? androidInfo.model : iosInfo.model;
+}
