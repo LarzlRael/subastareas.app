@@ -8,20 +8,23 @@ class BellIconNotification extends StatelessWidget {
     final notificationService = context.read<NotificationProvider>()
       ..getUserNotifications();
 
-    final notificationsNotRead =
-        notificationService.notReadNotificationsCount();
-    final notRead = notificationService.countNotifications();
-    return Container(
-      padding: const EdgeInsets.all(0.0),
-      child: notificationsNotRead > 0
-          ? badges.Badge(
-              badgeContent: Text(
-                notRead,
-                style: const TextStyle(color: Colors.white, fontSize: 10),
-              ),
-              child: iconNotification(true),
-            )
-          : iconNotification(false),
+    return Consumer<NotificationProvider>(
+      builder: (_, state, child) {
+        final state = notificationService.state;
+        final notRead = state.noReadNotificationCountToDisplay;
+        return Container(
+          padding: const EdgeInsets.all(0.0),
+          child: state.noReadNotificationCount > 0
+              ? badges.Badge(
+                  badgeContent: Text(
+                    notRead,
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                  child: iconNotification(true),
+                )
+              : iconNotification(false),
+        );
+      },
     );
   }
 

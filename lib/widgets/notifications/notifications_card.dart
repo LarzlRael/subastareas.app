@@ -13,36 +13,47 @@ class NotificationsCard extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        if (onSelected != null) {
-          onSelected!(notification);
-        }
-      },
-      onLongPress: () {
-        if (onLongPressSelected != null) {
-          onLongPressSelected!(notification);
-        }
-      },
-      /* TODO fix view */
-      leading: InkWell(
-        onTap: () {
-          context.push('/public_profile_page/${notification.user.id}');
-        },
-        child: ShowProfileImage(
-          profileImage: notification.user.profileImageUrl,
-          userName: notification.user.username,
-          radius: 16,
+    return Container(
+      decoration: BoxDecoration(
+        color: notification.seen ? Colors.white : Colors.grey[200],
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey[300]!,
+            width: 1,
+          ),
         ),
       ),
-      title: contentNotification(context, notification),
-      subtitle: SimpleText(
-        text: timeago.format(notification.createdAt, locale: 'es'),
-        fontSize: 12,
-        lightThemeColor: Colors.black,
-      ),
-      trailing: Icon(
-        typeNotification(notification.type).icon,
+      child: ListTile(
+        onTap: () {
+          if (onSelected != null) {
+            onSelected!(notification);
+          }
+        },
+        onLongPress: () {
+          if (onLongPressSelected != null) {
+            onLongPressSelected!(notification);
+          }
+        },
+        /* TODO fix view */
+        leading: InkWell(
+          onTap: () {
+            context.push('/public_profile_page/${notification.user.id}');
+          },
+          child: ShowProfileImage(
+            profileImage: notification.user.profileImageUrl,
+            userName: notification.user.username,
+            radius: 16,
+          ),
+        ),
+        title: contentNotification(context, notification),
+        subtitle: SimpleText(
+          text: timeago.format(notification.createdAt, locale: 'es'),
+          fontSize: 12,
+          lightThemeColor: Colors.black,
+        ),
+        trailing: Icon(
+          typeNotification(notification.type).icon,
+        ),
       ),
     );
   }

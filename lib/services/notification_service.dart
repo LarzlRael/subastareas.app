@@ -81,6 +81,8 @@ class NotificationProvider with ChangeNotifier {
       notifications: finalData,
       isLoading: false,
     );
+    countNotifications();
+
     notifyListeners();
   }
 
@@ -95,6 +97,8 @@ class NotificationProvider with ChangeNotifier {
           .map((e) => e.id == convertData.id ? convertData : e)
           .toList(),
     );
+    countNotifications();
+    notifyListeners();
   }
 
   Future deleteNotification(int idNotification) async {
@@ -126,39 +130,59 @@ class NotificationProvider with ChangeNotifier {
     return notRead.isNotEmpty;
   }
 
-  int notReadNotificationsCount() {
-    return state.notifications
+  countNotifications() {
+    final countNotRead = state.notifications
         .where((element) => element.seen == false)
         .toList()
         .length;
-  }
+    state = state.copyWith(
+      noReadNotificationCount: countNotRead,
+    );
+    notifyListeners();
 
-  String countNotifications() {
-    final notRead = notReadNotificationsCount();
-    return notRead > 9 ? '9+' : '$notRead';
+    final noReadDisplay = state.noReadNotificationCount > 9
+        ? '9+'
+        : '${state.noReadNotificationCount}';
+
+    state = state.copyWith(
+      noReadNotificationCountToDisplay: noReadDisplay,
+    );
+    notifyListeners();
   }
 }
 
 class NotificationState {
   final List<NotificationModel> notifications;
   final bool isLoading;
+  final String noReadNotificationCountToDisplay;
+  final int noReadNotificationCount;
 
   factory NotificationState.initial() => NotificationState(
         notifications: [],
         isLoading: false,
+        noReadNotificationCountToDisplay: '0',
+        noReadNotificationCount: 0,
       );
 
   NotificationState({
     required this.notifications,
     required this.isLoading,
+    required this.noReadNotificationCountToDisplay,
+    required this.noReadNotificationCount,
   });
 
   NotificationState copyWith({
     List<NotificationModel>? notifications,
     bool? isLoading,
+    String? noReadNotificationCountToDisplay,
+    int? noReadNotificationCount,
   }) =>
       NotificationState(
         notifications: notifications ?? this.notifications,
         isLoading: isLoading ?? this.isLoading,
+        noReadNotificationCountToDisplay: noReadNotificationCountToDisplay ??
+            this.noReadNotificationCountToDisplay,
+        noReadNotificationCount:
+            noReadNotificationCount ?? this.noReadNotificationCount,
       );
 }
