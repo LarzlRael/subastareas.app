@@ -102,7 +102,6 @@ class _CommentCardState extends State<CommentCard>
                     leading: const Icon(Icons.edit),
                     title: const Text('Editar comentario'),
                     onTap: () {
-                      context.pop();
                       showBottomMenuSheetAddOrEditComment(
                         context,
                         widget.homework.id,

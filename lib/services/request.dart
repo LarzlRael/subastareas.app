@@ -18,16 +18,17 @@ class Request {
       'Content-Type': 'application/json',
     };
     Uri uri = Uri.parse('${Environment.serverApi}/$url');
+    String requestBody = body != null ? jsonEncode(body) : '{}';
     late http.Response res;
     switch (method) {
       case RequestType.get:
         res = await http.get(uri);
         break;
       case RequestType.post:
-        res = await http.post(uri, body: jsonEncode(body), headers: headers);
+        res = await http.post(uri, body: requestBody, headers: headers);
         break;
       case RequestType.put:
-        res = await http.put(uri, body: jsonEncode(body), headers: headers);
+        res = await http.put(uri, body: requestBody, headers: headers);
         break;
       case RequestType.delete:
         res = await http.delete(uri);
@@ -47,16 +48,18 @@ class Request {
     };
 
     final Uri uri = Uri.parse('${Environment.serverApi}/$url');
+
+    String requestBody = body != null ? jsonEncode(body) : '{}';
     late http.Response res;
     switch (method) {
       case RequestType.get:
         res = await http.get(uri, headers: headers);
         break;
       case RequestType.post:
-        res = await http.post(uri, body: jsonEncode(body), headers: headers);
+        res = await http.post(uri, body: requestBody, headers: headers);
         break;
       case RequestType.put:
-        res = await http.put(uri, body: jsonEncode(body), headers: headers);
+        res = await http.put(uri, body: requestBody, headers: headers);
         break;
       case RequestType.delete:
         res = await http.delete(uri, headers: headers);

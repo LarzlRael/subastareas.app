@@ -95,7 +95,6 @@ class NotificationProvider with ChangeNotifier {
           .map((e) => e.id == convertData.id ? convertData : e)
           .toList(),
     );
-    notifyListeners();
   }
 
   Future deleteNotification(int idNotification) async {

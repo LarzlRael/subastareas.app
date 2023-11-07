@@ -124,7 +124,8 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                                   isOwner: homework.user.id == auth.user.id,
                                   onSelected: (HomeworksModel homework) {
                                     context.push(
-                                        '/homework_detail/${homework.id}');
+                                      '/homework_detail/${homework.id}',
+                                    );
                                   },
                                 );
                               },

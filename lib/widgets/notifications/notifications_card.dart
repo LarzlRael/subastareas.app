@@ -2,37 +2,27 @@ part of '../widgets.dart';
 
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
-  final NotificationProvider notificationBloc;
+
+  final void Function(NotificationModel homework)? onSelected;
+  final void Function(NotificationModel homework)? onLongPressSelected;
   const NotificationsCard({
     Key? key,
     required this.notification,
-    required this.notificationBloc,
+    this.onSelected,
+    this.onLongPressSelected,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        if (!notification.seen) {
-          notificationBloc.seeNotification(notification.id).then((value) {
-            goToPage(
-              context,
-              notification,
-            );
-          });
-        } else {
-          goToPage(
-            context,
-            notification,
-          );
+        if (onSelected != null) {
+          onSelected!(notification);
         }
       },
       onLongPress: () {
-        showConfirmDialog(
-          context,
-          'Eliminar notificacion',
-          '¿Estás seguro de quiere eliminar esta notification?',
-          () => notificationBloc.deleteNotification(notification.id),
-        );
+        if (onLongPressSelected != null) {
+          onLongPressSelected!(notification);
+        }
       },
       /* TODO fix view */
       leading: InkWell(

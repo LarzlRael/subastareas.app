@@ -1,13 +1,11 @@
 part of '../widgets.dart';
 
 class CommentsByHomework extends StatefulWidget {
-  final bool isLogged;
   /* final List<Comment> comments; */
   final Homework homework;
   final AuthServices auth;
   const CommentsByHomework({
     Key? key,
-    required this.isLogged,
     required this.homework,
     required this.auth,
   }) : super(key: key);
@@ -40,7 +38,7 @@ class _CommentsByHomeworkState extends State<CommentsByHomework> {
             return SizedBox(
               child: Column(
                 children: [
-                  widget.isLogged
+                  widget.auth.isLogged
                       ? GestureDetector(
                           onTap: () {
                             showBottomMenuSheetAddOrEditComment(
