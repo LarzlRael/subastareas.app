@@ -1,10 +1,4 @@
-import 'dart:async';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/models/models.dart';
-import 'package:subastareaspp/services/services.dart';
-import 'package:subastareaspp/utils/utils.dart';
+part of 'providers.dart';
 
 class HomeworksProvider with ChangeNotifier {
   OffersServices offersServices = OffersServices();

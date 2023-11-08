@@ -68,7 +68,6 @@ class OffersServices {
       RequestType.delete,
       'offer/$idOffer',
     );
-    print(deletedOffer!.body);
-    return offerSimpleModelFromJson(deletedOffer.body);
+    return offerSimpleModelFromJson(deletedOffer!.body);
   }
 }

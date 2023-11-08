@@ -25,7 +25,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
   @override
   Widget build(BuildContext context) {
     final tradeUserModel = widget.tradeUserModel;
-    final _formKey = GlobalKey<FormBuilderState>();
+    final formKey = GlobalKey<FormBuilderState>();
     final tradeServices = TradeServices();
     return Scaffold(
       appBar: AppBarWithBackIcon(
@@ -69,8 +69,8 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                     ? Column(
                         children: [
                           tradeUserModel.status == 'accepted'
-                              ? Column(
-                                  children: const [
+                              ? const Column(
+                                  children: [
                                     SimpleText(
                                       text:
                                           'Esta tarea ya fue resuelta y aceptada, puedes ver ahora',
@@ -85,7 +85,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                           SizedBox(
                             width: double.infinity,
                             child: FilledButton(
-                              child: Text('Ver tarea resuelta'),
+                              child: const Text('Ver tarea resuelta'),
                               /* backgroundColor: Colors.green, */
                               /* borderRadius: 30, */
                               /* textColor: Colors.white, */
@@ -95,7 +95,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                   extra: ShowHomeworkParams(
                                     title: tradeUserModel.title,
                                     fileType: tradeUserModel.solvedFileType,
-                                    fileUrl: tradeUserModel.solvedHomeworkUrl,
+                                    fileUrl: tradeUserModel.solvedHomeworkUrl!,
                                   ),
                                 );
                               },
@@ -103,9 +103,9 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                           ),
                           tradeUserModel.status != 'accepted'
                               ? FormBuilder(
-                                  key: _formKey,
-                                  child: Column(
-                                    children: const [
+                                  key: formKey,
+                                  child: const Column(
+                                    children: [
                                       CustomFormBuilderTextField(
                                         name: 'commentTaskRejected',
                                         icon: FontAwesomeIcons.ban,
@@ -152,7 +152,7 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                     tradeServices
                                         .acceptOrDeclineTrade(
                                             tradeUserModel.offerId, false,
-                                            reasonRejected: _formKey
+                                            reasonRejected: formKey
                                                 .currentState!
                                                 .fields['commentTaskRejected']!
                                                 .value)

@@ -8,7 +8,7 @@ class ShowHomework extends StatefulWidget {
   final Homework homework;
 
   @override
-  _ShowHomeworkState createState() => _ShowHomeworkState();
+  State<ShowHomework> createState() => _ShowHomeworkState();
 }
 
 class _ShowHomeworkState extends State<ShowHomework> {

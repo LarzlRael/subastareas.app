@@ -15,6 +15,9 @@ class ShowProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
+      backgroundImage:
+          profileImage == null ? null : NetworkImage(profileImage!),
+      backgroundColor: Colors.grey,
       child: profileImage != null
           ? null
           : SimpleText(
@@ -22,9 +25,6 @@ class ShowProfileImage extends StatelessWidget {
               fontSize: radius * 0.65,
               lightThemeColor: Colors.white,
             ),
-      backgroundImage:
-          profileImage == null ? null : NetworkImage(profileImage!),
-      backgroundColor: Colors.grey,
     );
   }
 }

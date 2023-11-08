@@ -2,12 +2,12 @@ part of '../widgets.dart';
 
 class DropdownComment extends StatefulWidget {
   final String commentContent;
-  bool isExpanded;
+  final bool? isExpanded;
   final int limit;
-  DropdownComment({
+  const DropdownComment({
     Key? key,
     required this.commentContent,
-    this.isExpanded = false,
+    this.isExpanded,
     this.limit = 75,
   }) : super(key: key);
   @override
@@ -15,6 +15,13 @@ class DropdownComment extends StatefulWidget {
 }
 
 class _DropdownCommentState extends State<DropdownComment> {
+  late bool isExpanded;
+  @override
+  void initState() {
+    super.initState();
+    isExpanded = widget.isExpanded ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +30,7 @@ class _DropdownCommentState extends State<DropdownComment> {
         AnimatedSize(
           duration: const Duration(milliseconds: 250),
           child: ConstrainedBox(
-            constraints: widget.isExpanded
+            constraints: isExpanded
                 ? const BoxConstraints()
                 : const BoxConstraints(maxHeight: 45.0),
             /*child: Text(
@@ -48,7 +55,7 @@ class _DropdownCommentState extends State<DropdownComment> {
           ),
         ),
         widget.commentContent.length > widget.limit
-            ? widget.isExpanded
+            ? isExpanded
                 ? /*  Column(
                             children: [
                               ConstrainedBox(constraints: const BoxConstraints()),
@@ -61,7 +68,7 @@ class _DropdownCommentState extends State<DropdownComment> {
                 ConstrainedBox(constraints: const BoxConstraints())
                 : TextButton(
                     child: const Text('Mostrar más'),
-                    onPressed: () => setState(() => widget.isExpanded = true),
+                    onPressed: () => setState(() => isExpanded = true),
                   )
             : Container(),
       ],

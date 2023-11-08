@@ -1,4 +1,4 @@
-part of 'services.dart';
+part of 'providers.dart';
 
 class LoginResponse {
   String message;
@@ -186,6 +186,7 @@ class AuthProvider with ChangeNotifier {
       host: Environment.googleHttpsDomain,
       path: '/auth/googleAuth',
     );
+    /* TODO: improve this */
     final resp = await http.post(
       signInWithGoogleEndPoint,
       body: {

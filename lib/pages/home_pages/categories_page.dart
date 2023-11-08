@@ -80,12 +80,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 SimpleText(
                   text: "Buscar categoria",
                   fontSize: 30.0,
@@ -93,10 +93,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const SimpleText(
+            SizedBox(height: 10.0),
+            SimpleText(
               text: "Buscar por las distintas categorias",
               fontSize: 18.0,
             ),

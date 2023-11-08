@@ -27,7 +27,7 @@ class HomeworkPendingToResolve extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Column(
+                    const Column(
                       children: [
                         /* NameAndTimeAgo(
                               isOwner: true,

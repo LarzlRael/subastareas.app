@@ -191,9 +191,9 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
 
   Widget _cardAuction(OneHomeworkModel oneHomeworkModel, bool isLogged,
       bool loading, bool isBearer) {
-    final _formKey = GlobalKey<FormBuilderState>();
+    final formKey = GlobalKey<FormBuilderState>();
     final supervisorServices = SuperviseServices();
-    return Container(
+    return SizedBox(
       /* padding: const EdgeInsets.all(10), */
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,7 +211,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                   oneHomeworkModel.homework.observation,
                 )
               : const SizedBox(),
-          Container(
+          SizedBox(
             /* color: Colors.yellow, */
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -281,7 +281,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                           )
                         : Container(),
                     FormBuilder(
-                      key: _formKey,
+                      key: formKey,
                       child: const Column(
                         children: [
                           CustomFormBuilderTextArea(
@@ -306,11 +306,11 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                             label: "Rechazar",
                             ghostButton: true,
                             onPressed: () {
-                              _formKey.currentState!.save();
+                              formKey.currentState!.save();
 
                               supervisorServices
                                   .superviseHomework(
-                                _formKey.currentState!.value['observation'],
+                                formKey.currentState!.value['observation'],
                                 'rejected',
                                 oneHomeworkModel.homework.id,
                               )
@@ -334,14 +334,14 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                             borderRadius: 5,
                             label: "Aceptar",
                             onPressed: () async {
-                              _formKey.currentState!.save();
+                              formKey.currentState!.save();
                               setState(() {
                                 loading = true;
                               });
 
                               supervisorServices
                                   .superviseHomework(
-                                _formKey.currentState!.value['observation'],
+                                formKey.currentState!.value['observation'],
                                 'accepted_to_offer',
                                 oneHomeworkModel.homework.id,
                               )

@@ -48,11 +48,11 @@ class ButtonWithIcon extends StatelessWidget {
               onPressed: onPressed,
             )
           : ElevatedButton(
+              onPressed: onPressed,
               child: Text(
                 label,
                 style: styleLabelButton,
               ),
-              onPressed: onPressed,
             ),
     );
   }

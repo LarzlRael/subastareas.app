@@ -18,7 +18,7 @@ class ButtonConfirm extends StatefulWidget {
 }
 
 class _ButtonConfirmState extends State<ButtonConfirm> {
-  bool _loading = false;
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,11 +40,11 @@ class _ButtonConfirmState extends State<ButtonConfirm> {
             label: "Aceptar",
             onPressed: () async {
               setState(() {
-                _loading = true;
+                loading = true;
               });
               widget.onAccept!().then((success) {
                 setState(() {
-                  _loading = false;
+                  loading = false;
                 });
                 if (success) {
                   context.pop();

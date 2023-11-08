@@ -50,7 +50,7 @@ class HomeworksModel {
         title: json["title"],
         description: json["description"],
         offeredAmount: json["offered_amount"],
-        fileUrl: json["fileUrl"] == null ? null : json["fileUrl"],
+        fileUrl: json["fileUrl"],
         fileType: json["fileType"],
         resolutionTime: DateTime.parse(json["resolutionTime"]),
         category: json["category"],

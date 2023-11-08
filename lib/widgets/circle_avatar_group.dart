@@ -128,7 +128,7 @@ class _CircleAvatarGroupState extends State<CircleAvatarGroup> {
       backgroundColor: Colors.grey,
       radius: 18,
       child: SimpleText(
-        text: showNumber.toString() + "+",
+        text: '${showNumber.toString()} + ',
         lightThemeColor: Colors.white,
       ),
     );

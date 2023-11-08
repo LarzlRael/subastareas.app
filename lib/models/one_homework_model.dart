@@ -205,7 +205,7 @@ class OfferUser {
   factory OfferUser.fromJson(Map<String, dynamic> json) => OfferUser(
         id: json["id"],
         username: json["username"],
-        profileImageUrl: json["profileImageUrl"] ?? null,
+        profileImageUrl: json["profileImageUrl"],
       );
 
   Map<String, dynamic> toJson() => {

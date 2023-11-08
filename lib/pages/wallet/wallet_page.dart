@@ -2,12 +2,12 @@ part of '../pages.dart';
 
 class WalletPage extends StatelessWidget {
   WalletPage({Key? key}) : super(key: key);
-  late AuthProvider auth;
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<AuthProvider>(context);
     final displayMedium = Theme.of(context).textTheme.displaySmall;
     final transactionServices = TransactionServices();
     return Scaffold(
@@ -20,7 +20,7 @@ class WalletPage extends StatelessWidget {
           ? Theme.of(context).scaffoldBackgroundColor
           : Colors.grey[300], */
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           /* color: theme.isDarkTheme
               ? Theme.of(context).scaffoldBackgroundColor
               : Colors.grey[300], */
@@ -134,7 +134,9 @@ class WalletPage extends StatelessWidget {
                       );
                     }
                     return SmartRefresher(
-                      onRefresh: _refreshUser,
+                      onRefresh: () {
+                        _refreshUser(auth);
+                      },
                       controller: _refreshController,
                       child: ListView.builder(
                         itemCount: snapshot.data!.length,
@@ -175,7 +177,7 @@ class WalletPage extends StatelessWidget {
     );
   }
 
-  void _refreshUser() async {
+  void _refreshUser(AuthProvider auth) async {
     await auth.refreshUser();
     _refreshController.refreshCompleted();
   }

@@ -6,14 +6,14 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:provider/provider.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 /* import 'package:simple_moment/simple_moment.dart'; */
 import 'package:moment_dart/moment_dart.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:subastareaspp/pages/pages.dart';
 import 'package:subastareaspp/provider/providers.dart';
-import 'package:subastareaspp/services/services.dart';
+
 import 'package:subastareaspp/widgets/buttons/buttons.dart';
 import 'package:subastareaspp/widgets/widgets.dart';
 import 'dart:typed_data';

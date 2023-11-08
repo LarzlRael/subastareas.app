@@ -8,8 +8,8 @@ class CustomFileField extends StatelessWidget {
   Widget build(BuildContext context) {
     return FormBuilderFilePicker(
       /* type: FileType.custom, */
-      typeSelectors: [
-        const TypeSelector(
+      typeSelectors: const [
+        TypeSelector(
           type: FileType.custom,
           selector: Row(
             children: [

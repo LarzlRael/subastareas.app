@@ -17,8 +17,8 @@ class _WithdrawMethodSelectedPageState
     final user = Provider.of<AuthProvider>(context, listen: false).user;
     final transactionServices = TransactionServices();
 
-    final _formKey = GlobalKey<FormBuilderState>();
-    bool _loading = false;
+    final formKey = GlobalKey<FormBuilderState>();
+    bool loading = false;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Saldo total'),
@@ -64,7 +64,7 @@ class _WithdrawMethodSelectedPageState
                     'balanceToWithDrawable': "0",
                     'phoneNumber': user.phone ?? "",
                   },
-                  key: _formKey,
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -95,22 +95,22 @@ class _WithdrawMethodSelectedPageState
                           ),
                         ],
                       ),
-                      !_loading
+                      !loading
                           ? FillButton(
                               label: "Retirar",
                               borderRadius: 50,
                               textColor: Colors.white,
                               onPressed: () {
                                 setState(() {
-                                  _loading = true;
+                                  loading = true;
                                 });
 
-                                if (_formKey.currentState!.validate()) {}
-                                _formKey.currentState!.save();
-                                final amount = int.parse(_formKey.currentState!
+                                if (formKey.currentState!.validate()) {}
+                                formKey.currentState!.save();
+                                final amount = int.parse(formKey.currentState!
                                     .value['balanceToWithDrawable']);
                                 final phoneNumber =
-                                    _formKey.currentState!.value['phoneNumber'];
+                                    formKey.currentState!.value['phoneNumber'];
 
                                 transactionServices
                                     .withdrawMoneyTransaction(
@@ -119,14 +119,14 @@ class _WithdrawMethodSelectedPageState
                                 )
                                     .then((resOk) {
                                   setState(() {
-                                    _loading = false;
+                                    loading = false;
                                   });
                                   if (resOk) {
                                     context.push(
                                       '/my_homeworks_page',
                                       extra: 1,
                                     );
-                                    _formKey.currentState!.reset();
+                                    formKey.currentState!.reset();
 
                                     GlobalSnackBar.show(
                                         context, 'Tarea subida correctamente',

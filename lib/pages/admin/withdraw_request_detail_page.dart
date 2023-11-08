@@ -57,7 +57,7 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
                 icon: FontAwesomeIcons.whatsapp,
                 backgroundColorButton: Colors.green,
                 onPressed: () {
-                  startWhatsapp(context, '+591' + withdrawRequest.phone,
+                  startWhatsapp(context, '+591  ${withdrawRequest.phone}',
                       'Hola, Solicitud de retiro de puntos en Subastareas');
                 },
                 verticalPadding: 10,
@@ -67,8 +67,8 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
             const SizedBox(height: 10),
             FormBuilder(
               key: _formKey,
-              child: Column(
-                children: const [
+              child: const Column(
+                children: [
                   CustomDropdown(
                     title: 'Estado',
                     formFieldName: 'status',
@@ -139,23 +139,15 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
 
   startWhatsapp(BuildContext context, String whatsapp, String text) async {
     const noWhatsapp = "Whatsapp no instalado";
-    final whatsappURlAndroid = "whatsapp://send?phone=" + whatsapp + "&text=";
+    final whatsappURlAndroid = "whatsapp://send?phone=$whatsapp&text=";
     var whatsappUrlIOS = "https://wa.me/$whatsapp?text=${Uri.parse("hello")}";
-    if (Platform.isIOS) {
-      // for iOS phone only
-      if (await canLaunch(whatsappUrlIOS)) {
-        await launch(whatsappUrlIOS, forceSafariVC: false);
-      } else {
-        GlobalSnackBar.show(context, noWhatsapp);
+    final Uri url =
+        Uri.parse(Platform.isIOS ? whatsappUrlIOS : whatsappURlAndroid);
+    launchUrl(url).then((value) {
+      if (!value) {
+        GlobalSnackBar.show(context, noWhatsapp, backgroundColor: Colors.red);
       }
-    } else {
-      // android , web
-      if (await canLaunch(whatsappURlAndroid)) {
-        await launch(whatsappURlAndroid);
-      } else {
-        GlobalSnackBar.show(context, noWhatsapp);
-      }
-    }
+    });
   }
 
   Widget userInformation(WithdrawalRequestsModel withdrawRequest) {
@@ -185,8 +177,8 @@ class _WithdrawRequestDetailState extends State<WithdrawRequestDetail> {
           bottom: 5,
         ),
         SimpleText(
-          text: 'Monto solicitado: ' +
-              withdrawRequest.withdrawalRequestAmount.toString(),
+          text:
+              'Monto solicitado: ${withdrawRequest.withdrawalRequestAmount.toString()}',
           fontSize: 16,
           fontWeight: FontWeight.bold,
           bottom: 5,

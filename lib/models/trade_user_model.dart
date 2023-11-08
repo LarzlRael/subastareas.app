@@ -30,7 +30,7 @@ class TradeUserModel {
     required this.commentTaskRejected,
   });
 
-  String solvedHomeworkUrl;
+  String? solvedHomeworkUrl;
   int tradeId;
   int homeworkId;
   String status;

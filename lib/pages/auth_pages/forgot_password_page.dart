@@ -6,7 +6,7 @@ class ForgotPassword extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
+  State<ForgotPassword> createState() => _ForgotPasswordState();
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
@@ -71,10 +71,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   //TODO send email verification, create service
                   _submit();
                 },
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   /* crossAxisAlignment: CrossAxisAlignment.center, */
-                  children: const [
+                  children: [
                     Icon(
                       Ionicons.chevron_forward_circle,
                       size: 30,

@@ -87,8 +87,8 @@ class PublicProfilePage extends StatelessWidget {
                             child: Container(
                               width: double.infinity,
                               padding: const EdgeInsets.all(25),
-                              child: Column(
-                                children: const [
+                              child: const Column(
+                                children: [
                                   SimpleText(
                                     text: 'Biografia',
                                     style: textStyle,
@@ -140,9 +140,9 @@ class PublicProfilePage extends StatelessWidget {
 Widget information() {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-    child: Row(
+    child: const Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Icon(
           Ionicons.checkmark_circle,
           color: Colors.lightGreen,

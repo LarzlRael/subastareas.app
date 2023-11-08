@@ -77,7 +77,7 @@ class FutureSubjectCategory extends StatelessWidget {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: placeholder,
-                    labelStyle: TextStyle(
+                    labelStyle: const TextStyle(
                       color: Colors.grey,
                       fontSize: 18,
                     ),

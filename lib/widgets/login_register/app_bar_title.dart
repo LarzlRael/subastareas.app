@@ -72,7 +72,7 @@ class OnlyImageAndTitle extends StatelessWidget {
           'assets/icon.png',
           height: 35,
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text(
           title,
           style: Theme.of(context).textTheme.headlineSmall,

@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:subastareaspp/services/services.dart';
-import 'package:subastareaspp/utils/utils.dart';
-
-import '../models/models.dart';
+part of 'providers.dart';
 
 class CommentProvider with ChangeNotifier {
   CommentState state = CommentState.initial();
@@ -47,7 +43,7 @@ class CommentProvider with ChangeNotifier {
     int? idComment,
   }) async {
     try {
-      final commnentRes = idComment == null
+      idComment == null
           ? await newComment(idHomework, content)
           : await editComment(idComment, content);
       return true;

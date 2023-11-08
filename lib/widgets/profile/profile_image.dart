@@ -23,6 +23,9 @@ class ProfileImage extends StatelessWidget {
         margin: const EdgeInsets.only(right: 3),
         child: CircleAvatar(
           radius: radius,
+          backgroundImage:
+              profileImage == null ? null : NetworkImage(profileImage!),
+          backgroundColor: Colors.green,
           child: profileImage != null
               ? null
               : SimpleText(
@@ -30,9 +33,6 @@ class ProfileImage extends StatelessWidget {
                   fontSize: radius * 0.65,
                   lightThemeColor: Colors.white,
                 ),
-          backgroundImage:
-              profileImage == null ? null : NetworkImage(profileImage!),
-          backgroundColor: Colors.green,
         ),
       ),
     );

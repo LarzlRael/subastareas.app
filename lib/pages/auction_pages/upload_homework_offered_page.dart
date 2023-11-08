@@ -24,7 +24,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormBuilderState>();
+    final formKey = GlobalKey<FormBuilderState>();
     final offersServices = OffersServices();
     final homework = oneHomeworkProvider.state.selectedHomework!.homework;
 
@@ -84,7 +84,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                             'resolutionTime': homework.resolutionTime,
                           }, */
                                 // TOOD notification after upload the file with the homework resolved
-                                key: _formKey,
+                                key: formKey,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
@@ -103,7 +103,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
                                             borderRadius: 30,
                                             onPressed: () async {
                                               await uploadHomework(
-                                                _formKey,
+                                                formKey,
                                                 offersServices,
                                                 getIdOfferAccepted,
                                                 homework.id,

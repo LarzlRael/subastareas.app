@@ -6,9 +6,9 @@ class WithdrawPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<AuthProvider>(context, listen: false).user;
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 20) / 3;
-    final double itemWidth = size.width / 2;
+    /* var size = MediaQuery.of(context).size; */
+    /* final double itemHeight = (size.height - kToolbarHeight - 20) / 3;
+    final double itemWidth = size.width / 2; */
     return Scaffold(
       appBar: AppBar(
         title: const Text('Saldo'),

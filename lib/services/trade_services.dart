@@ -1,8 +1,6 @@
 part of 'services.dart';
 
 class TradeServices {
-  final _storage = const FlutterSecureStorage();
-
   Future<List<TradeUserModel>> getHomeworksPendingToResolve() async {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.get,

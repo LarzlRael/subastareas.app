@@ -14,8 +14,8 @@ class SquareLoading extends StatelessWidget {
             border: Border.all(),
             borderRadius: const BorderRadius.all(Radius.circular(15)),
           ),
-          child: Column(
-            children: const [
+          child: const Column(
+            children: [
               CircularProgressIndicator(),
               SizedBox(height: 10),
               SimpleText(

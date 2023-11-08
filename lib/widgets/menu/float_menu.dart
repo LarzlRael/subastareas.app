@@ -41,7 +41,6 @@ class _MenuBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: child,
       width: 250,
       height: 50,
       decoration: BoxDecoration(
@@ -50,7 +49,7 @@ class _MenuBackground extends StatelessWidget {
           boxShadow: const [
             BoxShadow(color: Colors.black38, blurRadius: 10, spreadRadius: -5),
           ]),
-      /* child: Text('Hola mundo desde el menu'), */
+      child: child,
     );
   }
 }

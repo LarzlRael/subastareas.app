@@ -1,4 +1,4 @@
-part of 'services.dart';
+part of './providers.dart';
 
 class PushNotificationInit {
   static Future initializeApp() async {
@@ -44,7 +44,7 @@ class NotificationProvider with ChangeNotifier {
 
   void handleRemoteMessage(RemoteMessage message) {
     if (message.notification == null) return;
-    print('onMessage: ${message.notification}');
+
     final notification =
         notificationModelFromJson(message.data['data_from_server']);
 

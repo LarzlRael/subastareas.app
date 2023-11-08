@@ -8,7 +8,7 @@ class ShowHomeworkUploaded extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ShowHomeworkUploadedState createState() => _ShowHomeworkUploadedState();
+  State<ShowHomeworkUploaded> createState() => _ShowHomeworkUploadedState();
 }
 
 class _ShowHomeworkUploadedState extends State<ShowHomeworkUploaded> {

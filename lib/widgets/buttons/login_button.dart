@@ -50,6 +50,7 @@ class LoginButton extends StatelessWidget {
             ),
           ),
         ),
+        onPressed: onPressed,
         child: showIcon
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +65,6 @@ class LoginButton extends StatelessWidget {
                 width: double.infinity,
                 child: buttonChild,
               ),
-        onPressed: onPressed,
       ),
     );
   }

@@ -11,7 +11,7 @@ class ChipChoice extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ChipChoiceState createState() => _ChipChoiceState();
+  State<ChipChoice> createState() => _ChipChoiceState();
 }
 
 class _ChipChoiceState extends State<ChipChoice> {
@@ -54,7 +54,7 @@ class MultiSelectChip extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _MultiSelectChipState createState() => _MultiSelectChipState();
+  State<MultiSelectChip> createState() => _MultiSelectChipState();
 }
 
 class _MultiSelectChipState extends State<MultiSelectChip> {

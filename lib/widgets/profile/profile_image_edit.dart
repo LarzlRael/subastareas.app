@@ -40,6 +40,15 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
                   backgroundColor: Colors.transparent,
                   radius: 40.0,
                   child: CircleAvatar(
+                    radius: 38.0,
+                    backgroundImage: widget.auth.user.profileImageUrl == null &&
+                            _image == null
+                        ? const NetworkImage(
+                            'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
+                          )
+                        : _image == null
+                            ? NetworkImage(widget.auth.user.profileImageUrl!)
+                            : Image.file(_image!).image,
                     child: Align(
                       alignment: Alignment.bottomRight,
                       child: widget.editable
@@ -54,15 +63,6 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
                             )
                           : null,
                     ),
-                    radius: 38.0,
-                    backgroundImage: widget.auth.user.profileImageUrl == null &&
-                            _image == null
-                        ? const NetworkImage(
-                            'https://icon-library.com/images/no-profile-picture-icon-female/no-profile-picture-icon-female-24.jpg',
-                          )
-                        : _image == null
-                            ? NetworkImage(widget.auth.user.profileImageUrl!)
-                            : Image.file(_image!).image,
                   ),
                 ),
               ),

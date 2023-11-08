@@ -40,19 +40,19 @@ class ProfileCardWithStars extends StatelessWidget {
               ProfileCircleInformation(
                 publicProfile: publicProfile,
               ),
-              Column(
+              const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 /* crossAxisAlignment: CrossAxisAlignment.center, */
-                children: const [
+                children: [
                   ProfileCard(amount: 20, title: 'Seguidores'),
                   ProfileCard(amount: 44, title: 'Seguidores'),
                 ],
               ),
             ],
           ),
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               Icon(
                 Icons.star,
                 color: Colors.yellow,
