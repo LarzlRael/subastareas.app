@@ -26,7 +26,7 @@ class CustomFileField extends StatelessWidget {
       allowMultiple: false,
       allowedExtensions: const ['jpg', 'png', 'pdf'],
       name: name,
-      validator: FormBuilderValidators.required(),
+      /* validator: FormBuilderValidators.required(), */
       decoration: const InputDecoration(
         labelText: "Subir archivo",
         hintText: "Subir archivo",

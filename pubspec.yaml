@@ -42,7 +42,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_downloader: ^1.7.4
   flutter_form_builder: ^9.1.0
-  flutter_local_notifications: ^14.0.0
+  flutter_local_notifications: ^16.1.0
   flutter_localization: ^0.1.14
   flutter_native_splash: ^2.1.6
   flutter_secure_storage: ^8.0.0

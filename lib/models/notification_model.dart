@@ -33,6 +33,7 @@ class NotificationModel {
     required this.user,
     required this.notified,
     required this.offerAmount,
+    required this.title,
     this.category,
   });
 
@@ -45,7 +46,9 @@ class NotificationModel {
   int idOffer;
   int offerAmount;
   dynamic category;
+  String title;
   String body;
+
   DateTime createdAt;
   User user;
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
@@ -56,6 +59,7 @@ class NotificationModel {
         visible: parseField<bool>(json, "visible") ?? false,
         seen: parseField<bool>(json, "seen") ?? false,
         idOffer: parseField<int>(json, "idOffer") ?? 0,
+        title: parseField<String>(json, "title") ?? "",
         idHomework: parseField<int>(json, "idHomework") ?? 0,
         offerAmount: parseField<int>(json, "offerAmount") ?? 0,
         body: parseField<String>(json, "body") ?? "",

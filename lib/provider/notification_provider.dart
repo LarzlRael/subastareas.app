@@ -48,28 +48,12 @@ class NotificationProvider with ChangeNotifier {
     final notification =
         notificationModelFromJson(message.data['data_from_server']);
 
+    LocalNotification.showLocalNotification(notification);
     state = state.copyWith(
       notifications: [notification, ...state.notifications],
     );
     notifyListeners();
     countNotifications();
-    /* final notification = PushMessage(
-      messageId: clearMessageId(message.messageId),
-      title: message.notification!.title ?? '',
-      body: message.notification!.body ?? '',
-      sentDate: message.sentTime ?? DateTime.now(),
-      data: message.data,
-      imageUrl: Platform.isAndroid
-          ? message.notification!.android?.imageUrl
-          : message.notification!.apple?.imageUrl,
-    );
-    LocalNotification.showLocalNotification(
-      id: notification.messageId.hashCode,
-      body: notification.body,
-      data: notification.messageId,
-      title: notification.title,
-    );
-    add(NotificationsReceived(notification)); */
   }
 
   Future<void> getUserNotifications() async {

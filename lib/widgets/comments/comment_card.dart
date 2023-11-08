@@ -97,7 +97,7 @@ class _CommentCardState extends State<CommentCard>
         return auth.user.id == comment.user.id
             ? Column(
                 mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
+                children: [
                   ListTile(
                     leading: const Icon(Icons.edit),
                     title: const Text('Editar comentario'),

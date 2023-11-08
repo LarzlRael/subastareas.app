@@ -12,6 +12,7 @@ void main() async {
   await PushNotificationInit.initializeApp();
   await UserPreferences.init();
   await Environment.initEnviroment();
+  await LocalNotification.initializeLocalNotification();
   runApp(
     ChangeNotifierProvider(
       create: (_) => ThemeProviderNotifier(),

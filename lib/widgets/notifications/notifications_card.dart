@@ -16,35 +16,29 @@ class NotificationsCard extends StatelessWidget {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          height: 60,
-          /* color: Colors.amber, */
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ListTile(
-                  leading: const Icon(Icons.visibility_off_rounded),
-                  title: const Text('Ocultar esta notificación',
-                      style: TextStyle(fontSize: 14)),
-                  onTap: () {
-                    if (onHideNotification != null) {
-                      onHideNotification!(notification);
-                      context.pop();
-                    }
-                  },
-                ),
-                /* ListTile(
-                  leading: const Icon(Icons.delete),
-                  title: const Text('Eliminar'),
-                  onTap: () {
-                    context.pop();
-                  },
-                ), */
-              ],
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.visibility_off_rounded),
+              title: const Text('Ocultar esta notificación',
+                  style: TextStyle(fontSize: 14)),
+              onTap: () {
+                if (onHideNotification != null) {
+                  onHideNotification!(notification);
+                  context.pop();
+                }
+              },
             ),
-          ),
+            /* ListTile(
+              leading: const Icon(Icons.delete),
+              title: const Text('Eliminar'),
+              onTap: () {
+                context.pop();
+              },
+            ), */
+          ],
         );
       },
     );
@@ -213,6 +207,25 @@ void goNotificationDestinyPage(
       break;
     case 'offer_accepted':
       context.push('/pending_homeworks_offers_accepts');
+      break;
+    default:
+  }
+}
+
+void goNotificationDestinyPageWithAppRouter(
+    int notificaionId, String notificaionType) {
+  switch (notificaionType) {
+    case 'new_comment':
+      appRouter.push('/homework_detail/$notificaionId');
+      break;
+    case 'new_offer':
+      appRouter.push('/auction_with_offerPage/$notificaionId');
+      break;
+    case 'homework_finished':
+      appRouter.push('/my_homeworks_page', extra: 1);
+      break;
+    case 'offer_accepted':
+      appRouter.push('/pending_homeworks_offers_accepts');
       break;
     default:
   }
