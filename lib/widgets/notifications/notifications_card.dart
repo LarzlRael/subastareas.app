@@ -58,8 +58,6 @@ class NotificationsCard extends StatelessWidget {
           onSelected!(notification);
         }
       },
-
-      /* TODO fix view */
       leading: Wrap(
         crossAxisAlignment: WrapCrossAlignment.center,
         spacing: 3,
@@ -100,16 +98,15 @@ class NotificationsCard extends StatelessWidget {
           Icon(
             typeNotification(notification.type).icon,
           ),
-          IconButton(
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(),
-              onPressed: () {
-                showBottomSheetOption(context);
-              },
-              icon: const Icon(
-                Icons.more_vert,
-                size: 20,
-              )),
+          InkWell(
+            onTap: () {
+              showBottomSheetOption(context);
+            },
+            child: const Icon(
+              Icons.more_vert,
+              size: 20,
+            ),
+          ),
         ],
       ),
     );
