@@ -3,57 +3,114 @@ part of '../widgets.dart';
 class NotificationsCard extends StatelessWidget {
   final NotificationModel notification;
 
-  final void Function(NotificationModel homework)? onSelected;
-  final void Function(NotificationModel homework)? onLongPressSelected;
+  final void Function(NotificationModel notification)? onSelected;
+  final void Function(NotificationModel notification)? onHideNotification;
   const NotificationsCard({
     Key? key,
     required this.notification,
     this.onSelected,
-    this.onLongPressSelected,
+    this.onHideNotification,
   }) : super(key: key);
+
+  void showBottomSheetOption(BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 60,
+          /* color: Colors.amber, */
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.visibility_off_rounded),
+                  title: const Text('Ocultar esta notificación',
+                      style: TextStyle(fontSize: 14)),
+                  onTap: () {
+                    if (onHideNotification != null) {
+                      onHideNotification!(notification);
+                      context.pop();
+                    }
+                  },
+                ),
+                /* ListTile(
+                  leading: const Icon(Icons.delete),
+                  title: const Text('Eliminar'),
+                  onTap: () {
+                    context.pop();
+                  },
+                ), */
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: notification.seen ? Colors.white : Colors.grey[200],
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[300]!,
-            width: 1,
+    return ListTile(
+      onTap: () {
+        if (onSelected != null) {
+          onSelected!(notification);
+        }
+      },
+
+      /* TODO fix view */
+      leading: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 3,
+        children: [
+          notification.seen
+              ? const SizedBox()
+              : Container(
+                  width: 6,
+                  height: 6,
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                    shape: BoxShape.circle,
+                  ),
+                ),
+          InkWell(
+            onTap: () {
+              context.push('/public_profile_page/${notification.user.id}');
+            },
+            child: ShowProfileImage(
+              profileImage: notification.user.profileImageUrl,
+              userName: notification.user.username,
+              radius: 15,
+            ),
           ),
-        ),
+        ],
       ),
-      child: ListTile(
-        onTap: () {
-          if (onSelected != null) {
-            onSelected!(notification);
-          }
-        },
-        onLongPress: () {
-          if (onLongPressSelected != null) {
-            onLongPressSelected!(notification);
-          }
-        },
-        /* TODO fix view */
-        leading: InkWell(
-          onTap: () {
-            context.push('/public_profile_page/${notification.user.id}');
-          },
-          child: ShowProfileImage(
-            profileImage: notification.user.profileImageUrl,
-            userName: notification.user.username,
-            radius: 16,
+      title: contentNotification(context, notification),
+      subtitle: SimpleText(
+        text: timeago.format(notification.createdAt, locale: 'es'),
+        fontSize: 12,
+        lightThemeColor: Colors.black,
+      ),
+      trailing: Wrap(
+        /* spacing: 1, */
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          Icon(
+            typeNotification(notification.type).icon,
           ),
-        ),
-        title: contentNotification(context, notification),
-        subtitle: SimpleText(
-          text: timeago.format(notification.createdAt, locale: 'es'),
-          fontSize: 12,
-          lightThemeColor: Colors.black,
-        ),
-        trailing: Icon(
-          typeNotification(notification.type).icon,
-        ),
+          IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              onPressed: () {
+                showBottomSheetOption(context);
+              },
+              icon: const Icon(
+                Icons.more_vert,
+                size: 20,
+              )),
+        ],
       ),
     );
   }
@@ -69,11 +126,6 @@ class NotificationsCard extends StatelessWidget {
             children: [
               TextSpan(
                 text: "${notification.user.username} ",
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    context
-                        .push('/public_profile_page/${notification.user.id}');
-                  },
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.blue,
@@ -160,7 +212,7 @@ void goNotificationDestinyPage(
       context.push('/auction_with_offerPage/${notification.idHomework}');
       break;
     case 'homework_finished':
-      context.push('my_homeworks_page', extra: 1);
+      context.push('/my_homeworks_page', extra: 1);
       break;
     case 'offer_accepted':
       context.push('/pending_homeworks_offers_accepts');

@@ -158,14 +158,14 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                                 .value)
                                         .then((value) {
                                       if (value) {
-                                        context.push(
-                                          'my_homeworks_page',
-                                          extra: 1,
-                                        );
                                         GlobalSnackBar.show(
                                           context,
                                           'Tarea rechazada',
                                           backgroundColor: Colors.red,
+                                        );
+                                        context.push(
+                                          '/my_homeworks_page',
+                                          extra: 1,
                                         );
                                         return;
                                       }

@@ -240,6 +240,7 @@ class _SlideShowModel with ChangeNotifier {
   }
 
   double get secondaryBulletValue => _secondaryBullet;
+
   set secondaryBulletValue(double value) {
     _secondaryBullet = value;
   }

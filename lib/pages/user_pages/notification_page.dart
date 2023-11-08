@@ -46,14 +46,9 @@ class _NotificationPageState extends State<NotificationPage> {
                             notificationProvider.state.notifications[index];
                         return NotificationsCard(
                           notification: notificationIndex,
-                          onLongPressSelected: (selected) {
-                            showConfirmDialog(
-                              context,
-                              'Eliminar notificacion',
-                              '¿Estás seguro de quiere eliminar esta notification?',
-                              () => notificationProvider
-                                  .deleteNotification(selected.id),
-                            );
+                          onHideNotification: (selected) {
+                            notificationProvider
+                                .deleteNotification(selected.id);
                           },
                           onSelected: (selected) {
                             if (!selected.seen) {

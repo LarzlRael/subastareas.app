@@ -29,7 +29,7 @@ class _TimerCounterState extends State<TimerCounter> {
   }
 
   void onEnd() {
-    print('onEnd');
+    //print('onEnd');
   }
 
   @override

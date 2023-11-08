@@ -181,5 +181,9 @@ final appRouter = GoRouter(
           );
         }),
     GoRoute(path: '/select_option', builder: (_, __) => const SelectOption()),
+
+    GoRoute(
+        path: '/pending_homeworks_offers_accepts',
+        builder: (_, __) => const PendingHomeworksOffersAccepts()),
   ],
 ); /* 'withdraw_request_detail': (_) => const WithdrawRequestDetail(), */
