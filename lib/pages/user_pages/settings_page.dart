@@ -4,7 +4,7 @@ class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: false);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
 
     final themeProvider = context.watch<ThemeProviderNotifier>();
 

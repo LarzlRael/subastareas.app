@@ -11,7 +11,7 @@ class LoginResponse {
   });
 }
 
-class AuthServices with ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   bool isLogged = false;
 

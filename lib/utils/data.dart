@@ -88,7 +88,7 @@ final List<BottomNavigationBarItem> bottonItemsWithoutLogin = [
 ];
 
 /* final notificationServices = NotificationService(); */
-List<StatelessWidget> menuProfileOptions(AuthServices authService) {
+List<StatelessWidget> menuProfileOptions(AuthProvider authService) {
   final menuProfileOptions = [
     MenuProfileOption(
       icon: const Icon(

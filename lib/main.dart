@@ -39,7 +39,7 @@ class _MyAppState extends State<MyApp> {
     final appTheme = context.watch<ThemeProviderNotifier>().appTheme;
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthServices()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => SocketService()),
         ChangeNotifierProvider(create: (_) => FilterProvider()),
         ChangeNotifierProvider(create: (_) => HomeworksProvider()),

@@ -61,7 +61,7 @@ class UploadHomeworkWithFile extends StatefulWidget {
 
 class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
   late HomeworksProvider homeworksProvider;
-  late AuthServices authService;
+  late AuthProvider authService;
   late bool isNewHomework;
 
   @override
@@ -70,7 +70,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
     if (widget.homework != null) {
       homework = widget.homework!;
     }
-    authService = context.read<AuthServices>();
+    authService = context.read<AuthProvider>();
     homeworksProvider = context.read<HomeworksProvider>();
   }
 

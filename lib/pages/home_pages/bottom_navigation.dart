@@ -12,7 +12,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: true);
+    final auth = Provider.of<AuthProvider>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
     final notificationProvider =
         Provider.of<NotificationProvider>(context, listen: true);

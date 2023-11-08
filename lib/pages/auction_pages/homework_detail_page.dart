@@ -12,13 +12,13 @@ class HomeworkdDetailPage extends StatefulWidget {
 }
 
 class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
-  late AuthServices auth;
+  late AuthProvider auth;
   late HomeworksProvider oneHomeworkProvider;
 
   @override
   void initState() {
     super.initState();
-    auth = context.read<AuthServices>();
+    auth = context.read<AuthProvider>();
     oneHomeworkProvider = context.read<HomeworksProvider>()
       ..getOneHomework(widget.idHomework);
   }

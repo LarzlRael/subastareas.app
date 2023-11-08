@@ -52,6 +52,7 @@ class NotificationProvider with ChangeNotifier {
       notifications: [notification, ...state.notifications],
     );
     notifyListeners();
+    countNotifications();
     /* final notification = PushMessage(
       messageId: clearMessageId(message.messageId),
       title: message.notification!.title ?? '',

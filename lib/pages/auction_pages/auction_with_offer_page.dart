@@ -18,7 +18,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   OneHomeworkModel? oneHomework;
   late final List<PersonOfferHorizontal> _offer = [];
   late SocketService socketService;
-  late AuthServices auth;
+  late AuthProvider auth;
   late HomeworksProvider oneHomeworkProvider;
 
   int _currentViewers = 0;
@@ -40,7 +40,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   @override
   void initState() {
     super.initState();
-    auth = context.read<AuthServices>();
+    auth = context.read<AuthProvider>();
     socketService = context.read<SocketService>();
     oneHomeworkProvider = context.read<HomeworksProvider>()
       ..getOneHomework(widget.idHomework);
@@ -436,7 +436,7 @@ class _ButtonOffer extends StatelessWidget {
   } */
 
 class _ImageBackgroundAndTimer extends StatelessWidget {
-  final AuthServices auth;
+  final AuthProvider auth;
   final OneHomeworkModel homework;
   final bool isOwner;
   const _ImageBackgroundAndTimer(

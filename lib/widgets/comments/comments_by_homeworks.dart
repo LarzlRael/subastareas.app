@@ -3,7 +3,7 @@ part of '../widgets.dart';
 class CommentsByHomework extends StatefulWidget {
   /* final List<Comment> comments; */
   final Homework homework;
-  final AuthServices auth;
+  final AuthProvider auth;
   const CommentsByHomework({
     Key? key,
     required this.homework,

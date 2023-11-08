@@ -51,11 +51,11 @@ class OpenHomeworkSearch extends SearchDelegate {
         final homework = homeworksProvider.state.homeworks[index];
         return Builder(
             builder: (BuildContext context) => HomeworkCard(
-                  isLogged: context.select((AuthServices auth) =>
+                  isLogged: context.select((AuthProvider auth) =>
                       auth.isLogged ? auth.isLogged : false),
                   homework: homework,
                   isOwner: context.select(
-                      (AuthServices auth) => homework.user.id == auth.user.id),
+                      (AuthProvider auth) => homework.user.id == auth.user.id),
                   onSelected: (homework) {
                     context.push('/homework_detail/${homework.id}');
                   },

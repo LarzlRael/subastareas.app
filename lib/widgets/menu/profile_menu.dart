@@ -24,7 +24,7 @@ class MenuProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context);
+    final auth = Provider.of<AuthProvider>(context);
     final filterProvider = Provider.of<FilterProvider>(context);
     final socketProvider = Provider.of<SocketService>(context);
     return Container(

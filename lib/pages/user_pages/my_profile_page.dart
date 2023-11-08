@@ -8,13 +8,13 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-  late AuthServices auth;
+  late AuthProvider auth;
 
   final _refreshController = RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthServices>(context, listen: true);
+    auth = Provider.of<AuthProvider>(context, listen: true);
     return Scaffold(
       appBar: AppBarTitle(
         title: 'PERFIL',
@@ -86,7 +86,7 @@ class CardProfile extends StatelessWidget {
     required this.auth,
   }) : super(key: key);
 
-  final AuthServices auth;
+  final AuthProvider auth;
 
   @override
   Widget build(BuildContext context) {

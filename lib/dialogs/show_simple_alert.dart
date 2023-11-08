@@ -51,7 +51,7 @@ showBottomMenuSheetAddOrEditComment(
   BuildContext context,
   int idHomework,
   CommentProvider commentProvider,
-  AuthServices auth, {
+  AuthProvider auth, {
   int? idComment,
   String currentEditing = '',
 }) {

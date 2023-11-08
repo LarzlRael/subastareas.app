@@ -1,7 +1,6 @@
 part of 'services.dart';
 
 class OffersServices {
-  final _storage = const FlutterSecureStorage();
   Future<OfferSimpleModel> makeOrEditOffer(
     bool edit,
     int idHomework,

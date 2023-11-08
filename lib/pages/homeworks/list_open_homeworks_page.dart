@@ -25,7 +25,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: true);
+    final auth = Provider.of<AuthProvider>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
 
     homeworksProvider.getHomeworksByCategory(

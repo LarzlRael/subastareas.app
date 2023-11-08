@@ -4,7 +4,7 @@ class CommentCard extends StatefulWidget {
   final Comment comment;
   final Homework homework;
   final bool isExpanded;
-  final AuthServices auth;
+  final AuthProvider auth;
   final CommentProvider commentProvider;
   const CommentCard({
     Key? key,
@@ -90,7 +90,7 @@ class _CommentCardState extends State<CommentCard>
     );
   }
 
-  showBottomMenuSheet(AuthServices auth, Comment comment, int idHomework) {
+  showBottomMenuSheet(AuthProvider auth, Comment comment, int idHomework) {
     showModalBottomSheet(
       context: context,
       builder: (context) {

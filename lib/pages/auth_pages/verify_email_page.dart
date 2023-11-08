@@ -8,13 +8,13 @@ class VerifyEmailPage extends StatefulWidget {
 }
 
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
-  late AuthServices authService;
+  late AuthProvider authService;
   late SocketService socketService;
   late UserPreferences preferences;
   late MailServices mailServices;
   @override
   void initState() {
-    authService = Provider.of<AuthServices>(context, listen: false);
+    authService = Provider.of<AuthProvider>(context, listen: false);
     socketService = Provider.of<SocketService>(context, listen: false);
     mailServices = MailServices();
     preferences = UserPreferences();

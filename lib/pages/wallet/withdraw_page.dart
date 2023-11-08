@@ -5,7 +5,7 @@ class WithdrawPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthServices>(context, listen: false).user;
+    final user = Provider.of<AuthProvider>(context, listen: false).user;
     var size = MediaQuery.of(context).size;
     final double itemHeight = (size.height - kToolbarHeight - 20) / 3;
     final double itemWidth = size.width / 2;

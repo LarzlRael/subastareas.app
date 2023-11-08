@@ -8,13 +8,13 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  late final AuthServices authService;
+  late final AuthProvider authService;
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
   void initState() {
     super.initState();
-    authService = Provider.of<AuthServices>(context, listen: false);
+    authService = Provider.of<AuthProvider>(context, listen: false);
   }
 
   void register() async {

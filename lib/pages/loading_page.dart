@@ -8,14 +8,14 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  late AuthServices authServices;
+  late AuthProvider authServices;
   late SocketService socketService;
   late ThemeProviderNotifier theme;
   late NotificationProvider notificationProvider;
   @override
   initState() {
     super.initState();
-    authServices = context.read<AuthServices>();
+    authServices = context.read<AuthProvider>();
     socketService = context.read<SocketService>()..connect();
     theme = context.read<ThemeProviderNotifier>();
     notificationProvider = context.read<NotificationProvider>();

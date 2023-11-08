@@ -12,7 +12,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<AuthServices>(context);
+    final authService = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(

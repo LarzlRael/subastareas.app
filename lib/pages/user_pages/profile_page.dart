@@ -5,7 +5,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthServices>(context, listen: true);
+    final auth = Provider.of<AuthProvider>(context, listen: true);
     return auth.isLogged
         ? const MyProfilePage()
         : const WelcomePage(

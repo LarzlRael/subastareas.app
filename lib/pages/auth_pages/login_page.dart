@@ -8,10 +8,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late final AuthServices authService;
+  late final AuthProvider authService;
   @override
   void initState() {
-    authService = Provider.of<AuthServices>(context, listen: false);
+    authService = Provider.of<AuthProvider>(context, listen: false);
     super.initState();
   }
 

@@ -2,12 +2,12 @@ part of '../pages.dart';
 
 class WalletPage extends StatelessWidget {
   WalletPage({Key? key}) : super(key: key);
-  late AuthServices auth;
+  late AuthProvider auth;
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthServices>(context);
+    auth = Provider.of<AuthProvider>(context);
     final displayMedium = Theme.of(context).textTheme.displaySmall;
     final transactionServices = TransactionServices();
     return Scaffold(

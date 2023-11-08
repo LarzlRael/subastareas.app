@@ -15,12 +15,12 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   late SocketService socketService;
   late Offer? getUserOffer;
   late bool getFindUserOffer = false;
-  late AuthServices auth;
+  late AuthProvider auth;
   @override
   void initState() {
     super.initState();
     socketService = Provider.of<SocketService>(context, listen: false);
-    auth = Provider.of<AuthServices>(context, listen: false);
+    auth = Provider.of<AuthProvider>(context, listen: false);
     blocHomework = Provider.of<HomeworksProvider>(context, listen: false);
   }
 

@@ -2,7 +2,7 @@ part of '../widgets.dart';
 
 class ProfileImageEdit extends StatefulWidget {
   final bool editable;
-  final AuthServices auth;
+  final AuthProvider auth;
   const ProfileImageEdit({
     Key? key,
     required this.auth,

@@ -4,7 +4,7 @@ class PersonOfferHorizontal extends StatelessWidget {
   final bool active;
   final Offer offer;
   final OneHomeworkModel homework;
-  final AuthServices auth;
+  final AuthProvider auth;
   final bool isOwner;
   final AnimationController animationController;
   final int id;

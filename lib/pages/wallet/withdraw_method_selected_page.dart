@@ -14,7 +14,7 @@ class _WithdrawMethodSelectedPageState
     extends State<WithdrawMethodSelectedPage> {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<AuthServices>(context, listen: false).user;
+    final user = Provider.of<AuthProvider>(context, listen: false).user;
     final transactionServices = TransactionServices();
 
     final _formKey = GlobalKey<FormBuilderState>();
