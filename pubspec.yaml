@@ -53,6 +53,7 @@ dependencies:
   google_sign_in: ^6.1.0
   http: ^1.1.0
   image_picker: ^0.8.5+3
+  intl: ^0.18.0
   ionicons: ^0.2.2
   mime_type: ^1.0.0
   moment_dart: ^0.17.4

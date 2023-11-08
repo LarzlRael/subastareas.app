@@ -1,7 +1,11 @@
 part of 'dialogs.dart';
 
-showAlertDialog(BuildContext context, String title, Widget content,
-    VoidCallback confirmOnTap) {
+showAlertDialog(
+  BuildContext context,
+  String title,
+  VoidCallback confirmOnTap, {
+  Widget? content,
+}) {
   // set up the buttons
   Widget cancelButton = TextButton(
     onPressed: context.pop,
@@ -15,8 +19,12 @@ showAlertDialog(BuildContext context, String title, Widget content,
     },
   );
   // set up the AlertDialog
-  AlertDialog alert = AlertDialog(
-    title: Text(title),
+  final alert = AlertDialog(
+    title: Text(
+      title,
+      style: const TextStyle(fontSize: 20),
+      textAlign: TextAlign.center,
+    ),
     content: content,
     actions: [
       cancelButton,

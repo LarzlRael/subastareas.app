@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'package:subastareaspp/utils/utils.dart';
 
 part 'error_model.dart';

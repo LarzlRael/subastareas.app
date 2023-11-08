@@ -148,7 +148,10 @@ TypeNotification typeNotification(String type) {
 
 /* Change this for another types */
 
-void goToPage(BuildContext context, NotificationModel notification) {
+void goNotificationDestinyPage(
+  BuildContext context,
+  NotificationModel notification,
+) {
   switch (notification.type) {
     case 'new_comment':
       context.push('/homework_detail/${notification.idHomework}');

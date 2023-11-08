@@ -7,8 +7,6 @@ enum ServerStatus {
 }
 
 class SocketService with ChangeNotifier {
-  final _storage = const FlutterSecureStorage();
-
   ServerStatus _serverStatus = ServerStatus.connecting;
 
   late IO.Socket _socket;
@@ -24,6 +22,7 @@ class SocketService with ChangeNotifier {
   void connect() async {
     /* final token = await AuthService.getToken(); */
     // Dart client
+    final token = await KeyValueStorageServiceImpl().getValue<String>('token');
     _socket = IO.io(
         Environment.serverApi,
         IO.OptionBuilder()
@@ -32,7 +31,7 @@ class SocketService with ChangeNotifier {
             .enableForceNew()
             .setExtraHeaders({
               'foo': 'bar',
-              'Authorization': 'Bearer ${await _storage.read(key: 'token')}',
+              'Authorization': 'Bearer $token',
               /* 'x-token': token, */
             }) // optional
             .build());

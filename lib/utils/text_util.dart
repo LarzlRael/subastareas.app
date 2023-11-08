@@ -43,6 +43,5 @@ String getUrlResource(String url) {
 Future<String> getDeviceInfo() async {
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-  IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-  return Platform.isAndroid ? androidInfo.model : iosInfo.model;
+  return androidInfo.model;
 }

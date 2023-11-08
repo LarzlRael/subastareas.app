@@ -128,7 +128,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
         ),
       ),
       id: offer.id,
-      auth: AuthServices(),
+      auth: auth,
       homework: oneHomework!,
       //fix this
 
@@ -150,7 +150,7 @@ class _AuctionWithOfferPageState extends State<AuctionWithOfferPage>
   void loadOffers() {
     final offers = oneHomework!.offers.map((x) => PersonOfferHorizontal(
           offer: x,
-          auth: AuthServices(),
+          auth: auth,
           homework: oneHomework!,
           id: x.id,
           //fix this

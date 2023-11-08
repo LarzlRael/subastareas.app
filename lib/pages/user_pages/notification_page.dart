@@ -60,13 +60,13 @@ class _NotificationPageState extends State<NotificationPage> {
                               notificationProvider
                                   .seeNotification(selected.id)
                                   .then((value) {
-                                goToPage(
+                                goNotificationDestinyPage(
                                   context,
                                   selected,
                                 );
                               });
                             } else {
-                              goToPage(
+                              goNotificationDestinyPage(
                                 context,
                                 selected,
                               );

@@ -45,10 +45,13 @@ class NotificationProvider with ChangeNotifier {
   void handleRemoteMessage(RemoteMessage message) {
     if (message.notification == null) return;
     print('onMessage: ${message.notification}');
-    final notification = notificationModelFromMap(message.data);
+    final notification =
+        notificationModelFromJson(message.data['data_from_server']);
+
     state = state.copyWith(
       notifications: [notification, ...state.notifications],
     );
+    notifyListeners();
     /* final notification = PushMessage(
       messageId: clearMessageId(message.messageId),
       title: message.notification!.title ?? '',

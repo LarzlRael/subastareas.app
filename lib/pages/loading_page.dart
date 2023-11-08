@@ -18,8 +18,7 @@ class _LoadingPageState extends State<LoadingPage> {
     authServices = context.read<AuthServices>();
     socketService = context.read<SocketService>()..connect();
     theme = context.read<ThemeProviderNotifier>();
-    notificationProvider = context.read<NotificationProvider>()
-      ..getUserNotifications();
+    notificationProvider = context.read<NotificationProvider>();
   }
 
   @override
@@ -36,6 +35,7 @@ class _LoadingPageState extends State<LoadingPage> {
     authServices.renewToken().then((value) {
       if (value) {
         /* theme.setDarkTheme = authServices.user.userProfile.isDarkTheme; */
+        notificationProvider.setIsSeenNotificationOption();
         authServices.user.userProfile.isDarkTheme
             ? theme.changeToDarkTheme()
             : theme.changeToLightTheme();

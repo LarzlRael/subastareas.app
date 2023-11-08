@@ -16,8 +16,3 @@ const Iterable<Locale> supportedLocales = [
   Locale('ja', ''),
   Locale('pt', ''),
 ];
-final List<ChangeNotifierProvider<ChangeNotifier>> providers = [
-  ChangeNotifierProvider(create: (_) => AuthServices()),
-  ChangeNotifierProvider(create: (_) => SocketService()),
-  ChangeNotifierProvider(create: (_) => FilterProvider()),
-];
