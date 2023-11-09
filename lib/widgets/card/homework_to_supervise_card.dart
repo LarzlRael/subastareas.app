@@ -2,15 +2,19 @@ part of '../widgets.dart';
 
 class HomeworkToSuperviseCard extends StatelessWidget {
   final HomeworkToSupervise homeworkToSupervise;
+  final Function(HomeworkToSupervise homeworkToSupervise)? onSelected;
   const HomeworkToSuperviseCard({
     Key? key,
     required this.homeworkToSupervise,
+    this.onSelected,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('/homework_detail/${homeworkToSupervise.id}');
+        if (onSelected != null) {
+          onSelected!(homeworkToSupervise);
+        }
       },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -36,6 +40,7 @@ class HomeworkToSuperviseCard extends StatelessWidget {
                           userName: homeworkToSupervise.user.username,
                           createdAt: homeworkToSupervise.createdAt,
                           isRow: false,
+                          isEdited: false,
                         ),
                       ],
                     ),

@@ -28,12 +28,13 @@ class OffersServices {
   }
 
   Future<bool> uploadHomeworkResolvedFile(
-      File file, int idOfferAccepted) async {
+    int idOfferAccepted,
+    String filePath,
+  ) async {
     final homeworkRequest = await Request.sendRequestWithFile(
       RequestType.put,
       'trade/uploadResolvedHomework/$idOfferAccepted',
-      {},
-      file,
+      filePath,
     );
 
     return validateStatus(homeworkRequest.statusCode);

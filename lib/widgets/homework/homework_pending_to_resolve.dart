@@ -2,19 +2,19 @@ part of '../widgets.dart';
 
 class HomeworkPendingToResolve extends StatelessWidget {
   final TradeUserModel tradeUserModel;
-
+  final Function(TradeUserModel selected)? onSelected;
   const HomeworkPendingToResolve({
     Key? key,
     required this.tradeUserModel,
+    this.onSelected,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go(
-          '/verify_homework_resolved',
-          extra: tradeUserModel,
-        );
+        if (onSelected != null) {
+          onSelected!(tradeUserModel);
+        }
       },
       child: SizedBox(
         /* margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5), */

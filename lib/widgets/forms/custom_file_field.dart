@@ -2,8 +2,13 @@ part of '../widgets.dart';
 
 class CustomFileField extends StatelessWidget {
   final String name;
+  final bool isRequired;
 
-  const CustomFileField({Key? key, required this.name}) : super(key: key);
+  const CustomFileField({
+    Key? key,
+    required this.name,
+    required this.isRequired,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FormBuilderFilePicker(
@@ -26,7 +31,7 @@ class CustomFileField extends StatelessWidget {
       allowMultiple: false,
       allowedExtensions: const ['jpg', 'png', 'pdf'],
       name: name,
-      /* validator: FormBuilderValidators.required(), */
+      validator: isRequired ? FormBuilderValidators.required() : null,
       decoration: const InputDecoration(
         labelText: "Subir archivo",
         hintText: "Subir archivo",

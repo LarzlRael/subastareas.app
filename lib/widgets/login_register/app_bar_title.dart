@@ -31,18 +31,21 @@ part of '../widgets.dart';
 
 class AppBarTitle extends StatelessWidget implements PreferredSizeWidget {
   const AppBarTitle({
+    required this.appBar,
     Key? key,
     this.fontSize = 25,
     this.title = 'Subastareas',
-    required this.appBar,
+    this.actions,
   }) : super(key: key);
   final double fontSize;
   final String title;
   final AppBar appBar;
+  final List<Widget>? actions;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
+      actions: actions,
       elevation: 5,
       automaticallyImplyLeading: false,
       title: OnlyImageAndTitle(title: title, fontSize: fontSize),

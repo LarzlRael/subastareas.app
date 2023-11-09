@@ -158,12 +158,11 @@ class AuthProvider with ChangeNotifier {
     await KeyValueStorageServiceImpl().removeKey('id');
   }
 
-  Future updateProfileImage(File file, int idUser) async {
+  Future updateProfileImage(String filePath, int idUser) async {
     final resp = await Request.sendRequestWithFile(
       RequestType.put,
       'auth/updateProfileImage/$idUser',
-      {},
-      file,
+      filePath,
     );
 
     await renewToken();

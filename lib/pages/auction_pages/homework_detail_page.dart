@@ -34,6 +34,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
         final selectedHomework = oneHomeworkProvider.state.selectedHomework;
         final isBearer = selectedHomework?.homework != null &&
             selectedHomework!.homework.user.id == auth.user.id;
+
         return oneHomeworkProviderC.state.isLoadingSelected
             ? const Center(child: CircularProgressIndicator())
             : !selectedHomework!.homework.visible
@@ -46,7 +47,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                     ),
                   )
                 : CustomScrollView(
-                    slivers: <Widget>[
+                    slivers: [
                       SliverAppBar(
                           elevation: 5,
                           leading: IconButton(
@@ -67,12 +68,6 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                                                   '/upload_homework_with_file',
                                                   extra:
                                                       selectedHomework.homework,
-                                                  /* PageTransition(
-                                        type: PageTransitionType
-                                            .leftToRightWithFade,
-                                        child: UploadHomeworkOnlyText(),
-                                        settings: snapshot.data!.homework,
-                                      ), */
                                                 )
                                               : GlobalSnackBar.show(
                                                   context,
@@ -167,8 +162,7 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                                   ),
                                   selectedHomework.homework.status ==
                                           'accepted_to_offer'
-                                      ? _buttonMakeOffer(
-                                          selectedHomework, auth.isLogged)
+                                      ? _buttonMakeOffer(selectedHomework, auth)
                                       : const SizedBox(),
                                   selectedHomework.homework.status ==
                                           'accepted_to_offer'
@@ -387,11 +381,17 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
     );
   }
 
-  Widget _buttonMakeOffer(OneHomeworkModel oneHomeworkModel, bool isLogged) {
+  Widget _buttonMakeOffer(
+    OneHomeworkModel oneHomeworkModel,
+    AuthProvider auth,
+  ) {
     bool isBearer = false;
-    if (isLogged) {
+    if (auth.isLogged) {
       isBearer = oneHomeworkModel.homework.user.id == auth.user.id;
     }
+    final isUserOfferThisHomework = oneHomeworkModel.offers != null &&
+        oneHomeworkModel.offers
+            .any((element) => element.user.id == auth.user.id);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.all(15),
@@ -425,19 +425,23 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
               if (isBearer) {
                 navigatorProtected(
                     context,
-                    isLogged,
+                    auth.isLogged,
                     '/auction_with_offerPage/${oneHomeworkModel.homework.id}',
                     {});
               } else {
                 navigatorProtected(
                   context,
-                  isLogged,
+                  auth.isLogged,
                   '/makeOffer',
                   oneHomeworkModel,
                 );
               }
             },
-            child: isBearer ? const Text('Ver ofertas') : const Text('Ofertar'),
+            child: isBearer
+                ? const Text('Ver ofertas')
+                : isUserOfferThisHomework
+                    ? const Text('Ver mi oferta')
+                    : const Text('Ofertar'),
           ),
         ],
       ),

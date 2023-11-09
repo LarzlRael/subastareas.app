@@ -1,7 +1,7 @@
 part of '../pages.dart';
 
-class MyOffers extends StatelessWidget {
-  const MyOffers({Key? key}) : super(key: key);
+class MyOffersPage extends StatelessWidget {
+  const MyOffersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

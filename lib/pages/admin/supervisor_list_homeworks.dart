@@ -34,6 +34,8 @@ class SupervisorListHomeworks extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return HomeworkToSuperviseCard(
                         homeworkToSupervise: snapshot.data[index],
+                        onSelected: (selected) =>
+                            context.push('/homework_detail/${selected.id}'),
                       );
                     },
                   );

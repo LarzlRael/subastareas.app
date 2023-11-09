@@ -22,11 +22,79 @@ class VerifyHomeworkResolved extends StatefulWidget {
 
 class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
   bool loading = false;
+  late TradeServices tradeServices;
+  @override
+  void initState() {
+    super.initState();
+    tradeServices = TradeServices();
+  }
+
+  void acceptHomework() {
+    setState(() {
+      loading = true;
+    });
+    tradeServices
+        .acceptOrDeclineTrade(widget.tradeUserModel.offerId, true)
+        .then((value) {
+      setState(() {
+        loading = false;
+      });
+      if (value) {
+        GlobalSnackBar.show(context, "Tarea aceptada y confirmada",
+            backgroundColor: Colors.green);
+        context.pop();
+        /* Use bloc for this */
+      } else {
+        GlobalSnackBar.show(context, "Hubo un error",
+            backgroundColor: Colors.red);
+      }
+    });
+  }
+
+  void rejectHomework(GlobalKey<FormBuilderState> formKey) {
+    final validationSuccess = formKey.currentState!.validate();
+    if (!validationSuccess) {
+      return;
+    }
+
+    setState(() {
+      loading = true;
+    });
+
+    tradeServices
+        .acceptOrDeclineTrade(widget.tradeUserModel.offerId, false,
+            reasonRejected:
+                formKey.currentState!.fields['commentTaskRejected']!.value)
+        .then((value) {
+      if (value) {
+        setState(() {
+          loading = true;
+        });
+        GlobalSnackBar.show(
+          context,
+          'Tarea rechazada',
+          backgroundColor: Colors.red,
+        );
+        context.push(
+          '/my_homeworks_page',
+          extra: 1,
+        );
+        return;
+      }
+
+      GlobalSnackBar.show(
+        context,
+        'Hubo un error',
+        backgroundColor: Colors.red,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final tradeUserModel = widget.tradeUserModel;
     final formKey = GlobalKey<FormBuilderState>();
-    final tradeServices = TradeServices();
+
     return Scaffold(
       appBar: AppBarWithBackIcon(
         appBar: AppBar(),
@@ -142,72 +210,44 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                     ? Container()
                     : !loading
                         ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Expanded(
+                              /*   Expanded(
                                 child: FillButton(
                                   borderRadius: 5,
                                   label: "Rechazar",
                                   ghostButton: true,
                                   onPressed: () {
-                                    tradeServices
-                                        .acceptOrDeclineTrade(
-                                            tradeUserModel.offerId, false,
-                                            reasonRejected: formKey
-                                                .currentState!
-                                                .fields['commentTaskRejected']!
-                                                .value)
-                                        .then((value) {
-                                      if (value) {
-                                        GlobalSnackBar.show(
-                                          context,
-                                          'Tarea rechazada',
-                                          backgroundColor: Colors.red,
-                                        );
-                                        context.push(
-                                          '/my_homeworks_page',
-                                          extra: 1,
-                                        );
-                                        return;
-                                      }
-
-                                      GlobalSnackBar.show(
-                                        context,
-                                        'Hubo un error',
-                                        backgroundColor: Colors.red,
-                                      );
-                                    });
+                                    rejectHomework(formKey.currentState!
+                                        .fields['commentTaskRejected']!.value
+                                        .toString());
                                   },
+                                ),
+                              ), */
+                              IconButton(
+                                onPressed: () {
+                                  rejectHomework(formKey);
+                                },
+                                icon: const Icon(
+                                  Icons.cancel,
+                                  color: Colors.red,
+                                  size: 70,
                                 ),
                               ),
                               const SizedBox(width: 16),
-                              Expanded(
+                              /* Expanded(
                                 child: FillButton(
                                   borderRadius: 5,
                                   label: "Aceptar",
-                                  onPressed: () {
-                                    setState(() {
-                                      loading = true;
-                                    });
-                                    tradeServices
-                                        .acceptOrDeclineTrade(
-                                            tradeUserModel.offerId, true)
-                                        .then((value) {
-                                      setState(() {
-                                        loading = false;
-                                      });
-                                      if (value) {
-                                        context.pop();
-                                        GlobalSnackBar.show(context,
-                                            "Tarea aceptada y confirmada",
-                                            backgroundColor: Colors.green);
-                                        /* Use bloc for this */
-                                      } else {
-                                        GlobalSnackBar.show(
-                                            context, "Hubo un error",
-                                            backgroundColor: Colors.red);
-                                      }
-                                    });
-                                  },
+                                  onPressed: acceptHomework,
+                                ),
+                              ) */
+                              IconButton(
+                                onPressed: acceptHomework,
+                                icon: const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                  size: 70,
                                 ),
                               )
                             ],
@@ -244,6 +284,10 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                         ],
                       )
                     : Container(),
+                tradeUserModel.status != 'accepted'
+                    ? const Text(
+                        "En caso de que la tarea no sea aceptada, enviale un mensaje al usuario para que la corrija*")
+                    : const SizedBox()
               ],
             ),
           ),

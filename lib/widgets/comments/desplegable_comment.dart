@@ -46,7 +46,7 @@ class _DropdownCommentState extends State<DropdownComment> {
                 softWrap: true,
                 overflow: TextOverflow.fade,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 13,
                   /* color: Colors.black54, */
                   height: 1.3,
                 ),

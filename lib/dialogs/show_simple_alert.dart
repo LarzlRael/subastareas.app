@@ -81,9 +81,7 @@ showBottomMenuSheetAddOrEditComment(
                   userName: auth.user.username,
                   radius: 20,
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 Expanded(
                     child: TextField(
                   textCapitalization: TextCapitalization.sentences,
@@ -93,6 +91,7 @@ showBottomMenuSheetAddOrEditComment(
                   ),
                   autofocus: true,
                   controller: controller,
+                  readOnly: loading,
                   onChanged: (value) {
                     if (value.isNotEmpty) {
                       setState(() {

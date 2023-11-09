@@ -48,25 +48,13 @@ class _CommentCardState extends State<CommentCard>
                       widget.comment.user.id == widget.auth.user.id,
                   userName: widget.comment.user.username,
                   createdAt: widget.comment.createdAt,
+                  isEdited: widget.comment.edited,
                 ),
                 DropdownComment(
                   commentContent: widget.comment.content.toCapitalized(),
                   isExpanded: widget.isExpanded,
                   limit: 75,
                 ),
-                widget.comment.edited
-                    ? Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {},
-                            child: const SimpleText(
-                              text: 'Editado',
-                              lightThemeColor: Colors.grey,
-                            ),
-                          )
-                        ],
-                      )
-                    : Container()
               ],
             ),
           ),

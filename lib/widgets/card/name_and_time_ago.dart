@@ -7,6 +7,7 @@ class NameAndTimeAgo extends StatelessWidget {
     required this.userName,
     required this.createdAt,
     required this.isCommentWritter,
+    required this.isEdited,
     this.isRow = true,
   }) : super(key: key);
   final bool isOwner;
@@ -14,6 +15,7 @@ class NameAndTimeAgo extends StatelessWidget {
   final DateTime createdAt;
   final bool isCommentWritter;
   final bool isRow;
+  final bool isEdited;
   @override
   Widget build(BuildContext context) {
     if (isRow) {
@@ -40,12 +42,12 @@ class NameAndTimeAgo extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 3,
+                  horizontal: 4,
+                  vertical: 2,
                 ),
                 child: SimpleText(
                   text: userName,
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                   lightThemeColor: Colors.white,
                   setUniqueColor: true,
@@ -57,11 +59,21 @@ class NameAndTimeAgo extends StatelessWidget {
               fontSize: 13,
               fontWeight: FontWeight.bold,
             ),
-      const SizedBox(width: 15),
-      SimpleText(
-        text: timeago.format(createdAt, locale: 'es'),
-        lightThemeColor: Colors.grey,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: SimpleText(
+          text: timeago.format(createdAt, locale: 'es'),
+          lightThemeColor: Colors.grey,
+          fontSize: 12,
+        ),
       ),
+      isEdited
+          ? const SimpleText(
+              text: '(Editado)',
+              lightThemeColor: Colors.grey,
+              fontSize: 12,
+            )
+          : const SizedBox()
     ];
   }
 }

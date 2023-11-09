@@ -70,19 +70,20 @@ class Request {
   static Future<http.Response> sendRequestWithFile(
     RequestType requestType,
     String url,
-    Map<String, String> otherFields,
-    File file,
-  ) async {
+    String filePath, {
+    Map<String, String>? body,
+  }) async {
     late http.Response res;
     final token = await KeyValueStorageServiceImpl().getValue<String>('token');
     final Uri uri = Uri.parse('${Environment.serverApi}/$url');
-    final mimeType = mime(file.path)!.split('/');
+
+    final mimeType = mime(filePath)!.split('/');
     final headers = {
       'Authorization': 'Bearer $token',
     };
     final uploadFile = await http.MultipartFile.fromPath(
       'file',
-      file.path,
+      filePath,
       contentType: MediaType(mimeType[0], mimeType[1]),
     );
 
@@ -92,7 +93,7 @@ class Request {
     );
     uploadPostRequest.headers.addAll(headers);
     uploadPostRequest.files.add(uploadFile);
-    uploadPostRequest.fields.addAll(otherFields);
+    uploadPostRequest.fields.addAll(body!);
     final streamResponse = await uploadPostRequest.send();
     res = await http.Response.fromStream(streamResponse);
 

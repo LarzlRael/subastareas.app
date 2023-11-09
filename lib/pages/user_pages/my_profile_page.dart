@@ -19,6 +19,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
       appBar: AppBarTitle(
         title: 'PERFIL',
         fontSize: 20,
+        actions: [
+          InkWell(
+            onTap: () => context.push('/notificatins_page'),
+            child: const BellIconNotification(),
+          ),
+          const SizedBox(width: 15),
+        ],
         appBar: AppBar(),
       ),
       body: SafeArea(
@@ -37,9 +44,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     ProfileCard(),
                   ],
                 ), */
-                const SizedBox(
-                  height: 30,
-                ),
+                const SizedBox(height: 30),
                 /* BellIconNotification(), */
                 Expanded(
                   child: ListView.builder(

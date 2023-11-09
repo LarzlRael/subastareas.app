@@ -187,17 +187,27 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                     ? FillButton(
                         marginVertical: 15,
                         onPressed: () {
-                          blocHomework
-                              .deleteOffer(
-                                  oneHomework.homework.id, getUserOffer!.id)
-                              .then(
-                            (value) {
-                              socketService.emit('deleteOffer', {
-                                'room': oneHomework.homework.id,
-                                'offer': value,
-                              });
-                            },
-                          );
+                          showAlertDialog(
+                              context, '¿Estás seguro de retirar tu oferta?',
+                              () {
+                            blocHomework
+                                .deleteOffer(
+                                    oneHomework.homework.id, getUserOffer!.id)
+                                .then(
+                              (value) {
+                                socketService.emit('deleteOffer', {
+                                  'room': oneHomework.homework.id,
+                                  'offer': value,
+                                });
+                                context.pop();
+                                GlobalSnackBar.show(
+                                  context,
+                                  'Oferta retirada correctamente',
+                                  backgroundColor: Colors.blue,
+                                );
+                              },
+                            );
+                          });
                         },
                         label: 'Retirar oferta',
                         ghostButton: true,
@@ -230,15 +240,13 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
       builder: (context) {
         bool isLoading = false;
         final formKey = GlobalKey<FormState>();
-        int emailField = 0;
+        int ammountOffered = 0;
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    20.0,
-                  ),
+                  Radius.circular(20.0),
                 ),
               ),
               contentPadding: const EdgeInsets.only(
@@ -294,13 +302,15 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                             decoration: const InputDecoration(
                               labelText: 'Ingrese su oferta',
                             ),
+                            readOnly: isLoading,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'La oferta es requerida';
                               }
                               return null;
                             },
-                            onSaved: (value) => emailField = int.parse(value!),
+                            onSaved: (value) =>
+                                ammountOffered = int.parse(value!),
                           ),
                         ),
                       ),
@@ -320,10 +330,13 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                       .makeOrEditOffer(
                                     verify,
                                     homework.id,
-                                    emailField,
+                                    ammountOffered,
                                     idOffer,
                                   )
                                       .then((newOffer) {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
                                     socketService.emit(
                                         idOffer == 0
                                             ? 'makeOfferToServer'
@@ -332,9 +345,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                           'room': homework.id,
                                           'offer': newOffer,
                                         });
-                                    setState(() {
-                                      isLoading = false;
-                                    });
+
                                     GlobalSnackBar.show(
                                         context,
                                         idOffer == 0
@@ -342,8 +353,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                             : 'Oferta editada correctamente',
                                         backgroundColor: idOffer == 0
                                             ? Colors.green
-                                            : Colors.yellow);
-                                    context.pop();
+                                            : Colors.blue);
+                                    context.push('/my_offers_page');
                                   });
                                 }
                               : null,

@@ -32,6 +32,8 @@ class PendingOfferedPendingHomework extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return HomeworkPendingToResolve(
                   tradeUserModel: snapshot.data![index],
+                  onSelected: (selected) => context
+                      .push('/verify_homework_resolved', extra: selected),
                 );
               },
             );

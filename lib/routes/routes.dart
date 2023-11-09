@@ -51,7 +51,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'pending_homeworks_offers_accepts': (_) =>
       const PendingHomeworksOffersAccepts(),
   'change_password': (_) => const ChangePassword(),
-  /* 'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(), */
+  
   /* 'verify_homework_resolved': (_) => const VerifyHomeworkResolved(), */
   'withdraw_page': (_) => const WithdrawPage(),
   /* 'withdraw_method_selected_page': (_) => const WithdrawMethodSelectedPage(), */

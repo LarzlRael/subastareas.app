@@ -51,7 +51,7 @@ part 'offers_pages/make_offer_page.dart';
 part 'home_pages/bottom_navigation.dart';
 part 'home_pages/categories_page.dart';
 
-part 'user_pages/my_offers.dart';
+part 'user_pages/my_offers_page.dart';
 part 'user_pages/my_homeworks_page.dart';
 
 part 'user_pages/notification_page.dart';

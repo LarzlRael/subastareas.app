@@ -98,13 +98,12 @@ class HomeworksProvider with ChangeNotifier {
     Map<String, String> body, {
     String? pathFile,
   }) async {
-    final file = pathFile != null ? File(pathFile) : null;
-    if (file != null) {
+    if (pathFile != null) {
       final homeworkUploadWithFile = await Request.sendRequestWithFile(
         RequestType.post,
         'homework/create',
-        body,
-        file,
+        pathFile,
+        body: body,
       );
       return validateStatus(homeworkUploadWithFile.statusCode);
     }

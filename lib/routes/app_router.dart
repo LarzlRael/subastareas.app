@@ -45,6 +45,10 @@ final appRouter = GoRouter(
       builder: (_, __) => const BottomNavigation(),
     ),
     GoRoute(
+      path: '/notificatins_page',
+      builder: (_, __) => const NotificationPage(),
+    ),
+    GoRoute(
       path: '/homework_detail/:id',
       builder: (_, state) {
         return HomeworkdDetailPage(
@@ -62,7 +66,6 @@ final appRouter = GoRouter(
         );
       },
     ),
-    /* 'upload_homework_offered_page': (_) => const UploadHomeworkOfferedPage(), */
     GoRoute(
       path: '/upload_homework_offered_page',
       builder: (_, state) {
@@ -181,6 +184,7 @@ final appRouter = GoRouter(
           );
         }),
     GoRoute(path: '/select_option', builder: (_, __) => const SelectOption()),
+    GoRoute(path: '/my_offers_page', builder: (_, __) => const MyOffersPage()),
 
     GoRoute(
         path: '/pending_homeworks_offers_accepts',

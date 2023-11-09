@@ -150,6 +150,7 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
                   ),
                   const CustomFileField(
                     name: 'file',
+                    isRequired: false,
                   ),
                   const CustomFormBuilderTextArea(
                     name: 'title',

@@ -101,8 +101,7 @@ class _ProfileImageEditState extends State<ProfileImageEdit> {
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
-        widget.auth.updateProfileImage(_image!, widget.auth.user.id);
+        widget.auth.updateProfileImage(pickedFile.path, widget.auth.user.id);
       } else {
         print('No image selected.');
       }

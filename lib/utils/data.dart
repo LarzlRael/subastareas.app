@@ -97,12 +97,12 @@ List<StatelessWidget> menuProfileOptions(AuthProvider authService) {
       title: "Billetera",
       page: WalletPage(),
     ),
-    const MenuProfileOption(
+    /* const MenuProfileOption(
       icon: BellIconNotification(),
       title: "Notificaciones",
       page: NotificationPage(),
       /* callback: homeworkServices.clearNotifications, */
-    ),
+    ), */
     MenuProfileOption(
       icon: const Icon(Icons.message_rounded),
       title: "Mensajes",
@@ -117,7 +117,7 @@ List<StatelessWidget> menuProfileOptions(AuthProvider authService) {
     const MenuProfileOption(
       icon: Icon(Icons.currency_exchange_sharp),
       title: "Mis ofertas",
-      page: MyOffers(),
+      page: MyOffersPage(),
     ),
     const MenuProfileOption(
       icon: Icon(Icons.task),
