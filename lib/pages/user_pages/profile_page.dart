@@ -7,7 +7,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context, listen: true);
     return auth.isLogged
-        ? const MyProfilePage()
+        ? MyProfilePage()
         : const WelcomePage(
             showNotNow: false,
           );

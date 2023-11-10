@@ -73,9 +73,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                         padding: const EdgeInsets.all(0),
                         child: SizedBox(
                           child: GestureDetector(
-                            onTap: () {
-                              showFilterBottomMenuSheet(context);
-                            },
+                            onTap: showFilterBottomMenuSheet,
                             child: const Row(
                               children: [
                                 Icon(
@@ -156,7 +154,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     );
   }
 
-  showFilterBottomMenuSheet(BuildContext context) {
+  showFilterBottomMenuSheet() {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,

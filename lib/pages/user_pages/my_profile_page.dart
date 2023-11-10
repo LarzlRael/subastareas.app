@@ -1,20 +1,14 @@
 part of '../pages.dart';
 
-class MyProfilePage extends StatefulWidget {
-  const MyProfilePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyProfilePage> createState() => _MyProfilePageState();
-}
-
-class _MyProfilePageState extends State<MyProfilePage> {
-  late AuthProvider auth;
+class MyProfilePage extends HookWidget {
+  MyProfilePage({Key? key}) : super(key: key);
 
   final _refreshController = RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
-    auth = Provider.of<AuthProvider>(context, listen: true);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+
     return Scaffold(
       appBar: AppBarTitle(
         title: 'PERFIL',
@@ -30,7 +24,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       ),
       body: SafeArea(
         child: SmartRefresher(
-          onRefresh: _refreshUser,
+          onRefresh: () => _refreshUser(auth),
           controller: _refreshController,
           child: Container(
             padding: const EdgeInsets.all(10),
@@ -50,12 +44,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   child: ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     itemCount: menuProfileOptions(auth).length,
-                    itemBuilder: (
-                      BuildContext context,
-                      int index,
-                    ) {
-                      return menuProfileOptions(auth)[index];
-                    },
+                    itemBuilder: (_, int index) =>
+                        menuProfileOptions(auth)[index],
                   ),
                 ),
               ],
@@ -66,22 +56,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
     );
   }
 
-  void _refreshUser() async {
+  void _refreshUser(AuthProvider auth) async {
     await auth.refreshUser();
     _refreshController.refreshCompleted();
-  }
-
-  void closeSession() {
-    auth.googleSignOut();
-    auth.logout().then((value) {
-      Navigator.pushReplacement(
-        context,
-        PageTransition(
-          type: PageTransitionType.leftToRightWithFade,
-          child: const WelcomePage(),
-        ),
-      );
-    });
   }
 }
 

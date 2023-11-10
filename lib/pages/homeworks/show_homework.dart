@@ -15,8 +15,8 @@ class _ShowHomeworkState extends State<ShowHomework> {
   late String sampleUrl;
   @override
   void initState() {
-    loadPdf();
     super.initState();
+    loadPdf();
     sampleUrl = widget.homework.fileUrl!;
   }
 

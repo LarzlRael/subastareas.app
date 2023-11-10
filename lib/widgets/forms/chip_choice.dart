@@ -1,20 +1,14 @@
 part of '../widgets.dart';
 
-class ChipChoice extends StatefulWidget {
+class ChipChoice extends HookWidget {
   final List<String> elementsList;
   final Function onClickAction;
-  /* final List<String> elementsList; */
   const ChipChoice({
     Key? key,
     required this.elementsList,
     required this.onClickAction,
   }) : super(key: key);
 
-  @override
-  State<ChipChoice> createState() => _ChipChoiceState();
-}
-
-class _ChipChoiceState extends State<ChipChoice> {
   /* List<String> elementsList = [
     'Matematica',
     'Programación',
@@ -24,18 +18,14 @@ class _ChipChoiceState extends State<ChipChoice> {
     'Trigonometria',
     'Geometria',
   ]; */
-
-  List<String> selectedElementList = [];
-
   @override
   Widget build(BuildContext context) {
+    final selectedElementList = useState(<String>[]);
     return MultiSelectChip(
-      onClickAction: widget.onClickAction,
-      reportList: widget.elementsList,
+      onClickAction: onClickAction,
+      reportList: elementsList,
       onSelectionChanged: (selectedList) {
-        setState(() {
-          selectedElementList = selectedList;
-        });
+        selectedElementList.value = selectedList;
       },
     );
   }

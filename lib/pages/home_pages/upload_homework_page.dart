@@ -37,7 +37,7 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
           ),
           body: const TabBarView(
             children: [
-              UploadHomeworkWithFile(homework: null),
+              UploadHomeworkWithFile(homeworkArg: null),
               Icon(Icons.directions_transit),
               Icon(Icons.directions_transit),
             ],
@@ -49,10 +49,10 @@ class _UploadHomeworkPageState extends State<UploadHomeworkPage> {
 }
 
 class UploadHomeworkWithFile extends StatefulWidget {
-  final Homework? homework;
+  final Homework? homeworkArg;
   const UploadHomeworkWithFile({
     Key? key,
-    this.homework,
+    this.homeworkArg,
   }) : super(key: key);
 
   @override
@@ -67,8 +67,8 @@ class _UploadHomeworkWithFileState extends State<UploadHomeworkWithFile> {
   @override
   void initState() {
     super.initState();
-    if (widget.homework != null) {
-      homework = widget.homework!;
+    if (widget.homeworkArg != null) {
+      homework = widget.homeworkArg!;
     }
     authService = context.read<AuthProvider>();
     homeworksProvider = context.read<HomeworksProvider>();

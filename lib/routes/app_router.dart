@@ -24,7 +24,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/login_page',
-      builder: (_, __) => const LoginPage(),
+      builder: (_, __) => LoginPage(),
     ),
 
     GoRoute(
@@ -62,7 +62,7 @@ final appRouter = GoRouter(
       builder: (_, state) {
         Homework? homework = state.extra as Homework?;
         return UploadHomeworkWithFile(
-          homework: homework,
+          homeworkArg: homework,
         );
       },
     ),

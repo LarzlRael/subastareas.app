@@ -1,6 +1,6 @@
 part of '../widgets.dart';
 
-class CustomFormBuilderTextField extends StatefulWidget {
+class CustomFormBuilderTextField extends HookWidget {
   final String name;
   final IconData icon;
   final String placeholder;
@@ -16,16 +16,9 @@ class CustomFormBuilderTextField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CustomFormBuilderTextField> createState() =>
-      _CustomFormBuilderTextFieldState();
-}
-
-class _CustomFormBuilderTextFieldState
-    extends State<CustomFormBuilderTextField> {
-  bool _obscureText = true;
-  /* bool showPassword = false; */
-  @override
   Widget build(BuildContext context) {
+    final obscureText = useState(true);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0),
       child: Card(
@@ -33,30 +26,26 @@ class _CustomFormBuilderTextFieldState
           borderRadius: BorderRadius.circular(15),
         ),
         child: FormBuilderTextField(
-          keyboardType: widget.keyboardType,
-          obscureText: widget.passwordField && _obscureText,
-          name: widget.name,
+          keyboardType: keyboardType,
+          obscureText: passwordField && obscureText.value,
+          name: name,
           validator: FormBuilderValidators.required(),
           decoration: InputDecoration(
             border: InputBorder.none,
-            labelText: widget.placeholder,
+            labelText: placeholder,
             labelStyle: const TextStyle(
               color: Colors.grey,
               fontSize: 16,
             ),
-            suffixIcon: widget.passwordField
+            suffixIcon: passwordField
                 ? IconButton(
-                    icon: _obscureText
+                    icon: obscureText.value
                         ? const Icon(Icons.password, size: 20)
                         : const Icon(Ionicons.eye, size: 20),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
+                    onPressed: () => obscureText.value = !obscureText.value,
                   )
                 : null,
-            prefixIcon: Icon(widget.icon, size: 20),
+            prefixIcon: Icon(icon, size: 20),
           ),
         ),
       ),
