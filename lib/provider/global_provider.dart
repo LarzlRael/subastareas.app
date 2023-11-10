@@ -1,8 +1,8 @@
 part of 'providers.dart';
 
-class FilterProvider with ChangeNotifier {
+class GlobalProvider with ChangeNotifier {
   final List<String> _listLevelSelected = [];
-  final sharedPreferences = UserPreferences();
+
   bool _showButtonAccept = false;
   int _currentBottomTab = 0;
 

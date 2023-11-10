@@ -15,7 +15,7 @@ import 'package:subastareaspp/theme/app_theme.dart';
 import 'package:subastareaspp/utils/utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:subastareaspp/widgets/widgets.dart';
-part 'filter_provider.dart'; // Filtros
+part 'global_provider.dart'; // Filtros
 part 'countdown_provider.dart'; // Countdown
 part 'theme_provider.dart'; // Tema
 part 'auth_provider.dart'; // Autenticación

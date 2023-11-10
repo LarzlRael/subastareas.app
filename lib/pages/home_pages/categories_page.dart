@@ -1,13 +1,8 @@
 part of '../pages.dart';
 
-class CategoriesPage extends StatefulWidget {
+class CategoriesPage extends StatelessWidget {
   const CategoriesPage({Key? key}) : super(key: key);
 
-  @override
-  State<CategoriesPage> createState() => _CategoriesPageState();
-}
-
-class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +70,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
       ],
     );
   } */
-
   Widget _titulos() {
     return SafeArea(
       child: Container(
@@ -103,14 +97,4 @@ class _CategoriesPageState extends State<CategoriesPage> {
       ),
     );
   }
-
-  /* Widget _roundedButtons() {
-    return Expanded(
-      child: GridView.count(
-          /* shrinkWrap: true, */
-          /* physics: NeverScrollableScrollPhysics(), */
-          crossAxisCount: 2,
-          children: []),
-    );
-  } */
 }

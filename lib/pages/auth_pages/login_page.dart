@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
-    final filter = Provider.of<FilterProvider>(context);
+    final globalState = Provider.of<GlobalProvider>(context);
     final socketService = Provider.of<SocketService>(context);
     final notificationService =
         Provider.of<NotificationProvider>(context, listen: false);
@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     void loginOk() {
       context.go('/home_page');
       /* theme.setDarkTheme = authService.user.userProfile.isDarkTheme; */
-      filter.setCurrentBottomTab = 0;
+      globalState.setCurrentBottomTab = 0;
       notificationService.getUserNotifications();
       socketService.connect();
     }

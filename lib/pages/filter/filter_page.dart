@@ -5,7 +5,7 @@ class FilterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filterProvider = context.read<FilterProvider>();
+    final filterProvider = context.read<GlobalProvider>();
     final oneHomeworkProvider = context.read<HomeworksProvider>();
 
     final preferences = UserPreferences();
@@ -35,7 +35,7 @@ class FilterPage extends StatelessWidget {
 class FutureGetSubjectList extends StatelessWidget {
   final HomeworksProvider homeworkServices;
   final HomeworksProvider oneHomeworkBloc;
-  final FilterProvider state;
+  final GlobalProvider state;
   final UserPreferences sharedPreferences;
 
   const FutureGetSubjectList({
@@ -99,7 +99,7 @@ class FutureGetSubjectList extends StatelessWidget {
 
 class LocalGetSubjectList extends StatelessWidget {
   final HomeworksProvider oneHomeworkBloc;
-  final FilterProvider state;
+  final GlobalProvider state;
   final UserPreferences userPreferences;
   const LocalGetSubjectList({
     Key? key,
@@ -165,7 +165,7 @@ class _FilterItemState extends State<FilterItem> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<FilterProvider>(context, listen: false);
+    final provider = Provider.of<GlobalProvider>(context, listen: false);
     isSelected = provider.getListLevelSelected.contains(widget.title);
     return CheckboxListTile(
       contentPadding: const EdgeInsets.all(5),

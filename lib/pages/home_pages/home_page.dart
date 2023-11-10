@@ -1,19 +1,12 @@
 part of '../pages.dart';
 
-class BottomNavigation extends StatefulWidget {
-  const BottomNavigation({Key? key}) : super(key: key);
-
-  @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
-}
-
-class _BottomNavigationState extends State<BottomNavigation> {
-  int counter = 0;
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context, listen: true);
-    final filter = Provider.of<FilterProvider>(context, listen: true);
+    final auth = context.read<AuthProvider>();
+    final filter = context.read<GlobalProvider>();
     final notificationProvider =
         Provider.of<NotificationProvider>(context, listen: true);
     return Scaffold(

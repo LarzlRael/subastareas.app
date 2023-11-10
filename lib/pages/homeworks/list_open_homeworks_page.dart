@@ -27,7 +27,7 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
 
   @override
   Widget build(BuildContext context) {
-    final filter = Provider.of<FilterProvider>(context, listen: true);
+    final filter = Provider.of<GlobalProvider>(context, listen: true);
 
     homeworksProvider.getHomeworksByCategory(
       filter.getListLevelSelected,

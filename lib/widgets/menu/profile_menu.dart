@@ -25,7 +25,7 @@ class MenuProfileOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<AuthProvider>(context);
-    final filterProvider = Provider.of<FilterProvider>(context);
+    final filterProvider = Provider.of<GlobalProvider>(context);
     final socketProvider = Provider.of<SocketService>(context);
     return Container(
       margin: const EdgeInsets.only(bottom: 5),

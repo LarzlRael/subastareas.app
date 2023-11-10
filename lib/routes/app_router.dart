@@ -42,7 +42,7 @@ final appRouter = GoRouter(
     ),
     GoRoute(
       path: '/home_page',
-      builder: (_, __) => const BottomNavigation(),
+      builder: (_, __) => const HomePage(),
     ),
     GoRoute(
       path: '/notificatins_page',

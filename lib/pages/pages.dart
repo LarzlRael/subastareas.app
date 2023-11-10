@@ -49,7 +49,7 @@ part 'homeworks/verify_homework_resolved.dart';
 
 part 'offers_pages/make_offer_page.dart';
 
-part 'home_pages/bottom_navigation.dart';
+part 'home_pages/home_page.dart';
 part 'home_pages/categories_page.dart';
 
 part 'user_pages/my_offers_page.dart';
