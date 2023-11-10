@@ -19,9 +19,9 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
   @override
   void initState() {
     super.initState();
-    socketService = Provider.of<SocketService>(context, listen: false);
-    auth = Provider.of<AuthProvider>(context, listen: false);
-    blocHomework = Provider.of<HomeworksProvider>(context, listen: false);
+    socketService = context.read<SocketService>();
+    auth = context.read<AuthProvider>();
+    blocHomework = context.read<HomeworksProvider>();
   }
 
   @override
@@ -72,7 +72,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   fontWeight: FontWeight.bold,
                   lightThemeColor: Colors.black87,
                   text: oneHomework.homework.user.username,
-                  /* color: Colors.grey, */
                 ),
                 SimpleText(
                   top: 5,
@@ -96,9 +95,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                   fontWeight: FontWeight.w500,
                   bottom: 5,
                 ),
-                Timer(
-                  endTime: oneHomework.homework.resolutionTime,
-                ),
+                Timer(endTime: oneHomework.homework.resolutionTime),
                 verifyUserOffered
                     ? SimpleText(
                         text:
@@ -147,11 +144,8 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   idOffer: getUserOffer!.id,
                                 );
                               },
-                              label: verifyUserOffered
-                                  ? 'Editar oferta'
-                                  : 'Hacer oferta',
-                              icon:
-                                  !verifyUserOffered ? Icons.send : Icons.edit,
+                              label: 'Editar oferta',
+                              icon: Icons.edit,
                               /* marginVertical: 10, */
                             )
                       : ButtonWithIcon(
@@ -162,7 +156,6 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                               auth.user,
                               verifyUserOffered,
                               amount: oneHomework.homework.offeredAmount,
-                              idOffer: 0,
                             );
                           },
                           label: verifyUserOffered
@@ -233,7 +226,7 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
     UserModel userModel,
     bool verify, {
     int amount = 0,
-    int idOffer = 0,
+    int? idOffer,
   }) {
     showDialog(
       context: context,
@@ -328,17 +321,16 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
                                   });
                                   blocHomework
                                       .makeOrEditOffer(
-                                    verify,
                                     homework.id,
                                     ammountOffered,
-                                    idOffer,
+                                    idOffer: idOffer,
                                   )
                                       .then((newOffer) {
                                     setState(() {
                                       isLoading = false;
                                     });
                                     socketService.emit(
-                                        idOffer == 0
+                                        idOffer == null
                                             ? 'makeOfferToServer'
                                             : 'editOffer',
                                         {
@@ -348,10 +340,10 @@ class _MakeOfferPageState extends State<MakeOfferPage> {
 
                                     GlobalSnackBar.show(
                                         context,
-                                        idOffer == 0
+                                        idOffer == null
                                             ? 'Oferta realizada correctamente'
                                             : 'Oferta editada correctamente',
-                                        backgroundColor: idOffer == 0
+                                        backgroundColor: idOffer == null
                                             ? Colors.green
                                             : Colors.blue);
                                     context.push('/my_offers_page');

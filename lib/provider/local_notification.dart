@@ -27,16 +27,38 @@ class LocalNotification {
     );
   }
 
-  static void showLocalNotification(NotificationModel notification) {
-    const androidDetails = AndroidNotificationDetails(
+  static void showLocalNotification(NotificationModel notification) async {
+    final String iconPath = notification.user.profileImageUrl ??
+        'https://res.cloudinary.com/negocioexitoso-online/image/upload/v1699626771/subastareas/icon_my26qq.png';
+
+    final String largeIconPath =
+        await downloadAndSaveFile(iconPath, 'largeIcon');
+    final String bigPicturePath =
+        await downloadAndSaveFile(iconPath, 'bigPicture');
+    final BigPictureStyleInformation bigPictureStyleInformation =
+        BigPictureStyleInformation(
+      FilePathAndroidBitmap(bigPicturePath),
+      largeIcon: FilePathAndroidBitmap(largeIconPath),
+      hideExpandedLargeIcon: false,
+
+      /* contentTitle: 'overridden <b>big</b> content title',
+            htmlFormatContentTitle: true,
+            summaryText: 'summary <i>text</i>',
+            htmlFormatSummaryText: true */
+    );
+
+    final androidDetails = AndroidNotificationDetails(
       'channelId',
       'channelName',
       playSound: true,
       importance: Importance.max,
       priority: Priority.high,
+      styleInformation: bigPictureStyleInformation,
     );
-    const notificationDetails = NotificationDetails(
+
+    final notificationDetails = NotificationDetails(
       android: androidDetails,
+
       /* TODO IOS */
     );
 

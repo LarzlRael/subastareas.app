@@ -16,6 +16,7 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
   bool _loading = false;
   late OffersServices offersServices;
   late GlobalKey<FormBuilderState> formKey;
+  int getIdOfferAccepted = 0;
   @override
   void initState() {
     super.initState();
@@ -28,12 +29,20 @@ class _UploadHomeworkOfferedPageState extends State<UploadHomeworkOfferedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWithBackIcon(appBar: AppBar()),
+      appBar: AppBarWithBackIcon(
+        actions: [
+          TextButton(
+              onPressed: () => context.push(
+                  '/homework_detail/${widget.homeworkArguments.idHomework}'),
+              child: const Text('Ver tarea')),
+        ],
+        appBar: AppBar(),
+      ),
       body: Consumer<HomeworksProvider>(
         builder: (_, oneHomeworkProviderC, child) {
           final homework = oneHomeworkProviderC.state.selectedHomework;
 
-          final getIdOfferAccepted = oneHomeworkProviderC
+          getIdOfferAccepted = oneHomeworkProviderC
               .state.selectedHomework!.offers
               .where((element) =>
                   element.status == "pending_to_resolve" ||

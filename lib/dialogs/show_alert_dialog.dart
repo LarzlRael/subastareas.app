@@ -5,10 +5,17 @@ showAlertDialog(
   String title,
   VoidCallback confirmOnTap, {
   Widget? content,
+  TextStyle? titleStyle,
+  VoidCallback? cancelOnTap,
 }) {
   // set up the buttons
   Widget cancelButton = TextButton(
-    onPressed: context.pop,
+    onPressed: () {
+      if (cancelOnTap != null) {
+        cancelOnTap();
+      }
+      context.pop();
+    },
     child: const Text("Cancelar"),
   );
   Widget continueButton = TextButton(
@@ -22,7 +29,7 @@ showAlertDialog(
   final alert = AlertDialog(
     title: Text(
       title,
-      style: const TextStyle(fontSize: 20),
+      style: titleStyle ?? const TextStyle(fontSize: 20),
       textAlign: TextAlign.center,
     ),
     content: content,

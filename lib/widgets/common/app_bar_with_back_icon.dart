@@ -5,11 +5,13 @@ class AppBarWithBackIcon extends StatelessWidget
   final AppBar appBar;
   final String? title;
   final bool centerTitle;
+  final List<Widget>? actions;
   const AppBarWithBackIcon({
     Key? key,
     required this.appBar,
     this.centerTitle = false,
     this.title,
+    this.actions,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,7 @@ class AppBarWithBackIcon extends StatelessWidget
     return AppBar(
       elevation: 0,
       centerTitle: centerTitle,
+      actions: actions,
       title: title != null
           ? /* SimpleText(
               text: title!,

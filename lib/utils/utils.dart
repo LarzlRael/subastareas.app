@@ -32,3 +32,4 @@ part 'redirection.dart';
 part 'main_utils.dart';
 part 'launcher.dart';
 part 'enums.dart';
+part 'notification_utils.dart';

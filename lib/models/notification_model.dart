@@ -131,7 +131,7 @@ class User {
 
   int id;
   String username;
-  dynamic profileImageUrl;
+  String? profileImageUrl;
 
   static T? parseField<T>(Map<String, dynamic> json, String field) {
     if (json.containsKey(field)) {

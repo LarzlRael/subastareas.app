@@ -2,16 +2,17 @@ part of 'services.dart';
 
 class OffersServices {
   Future<OfferSimpleModel> makeOrEditOffer(
-    bool edit,
     int idHomework,
-    int priceOffer,
-    int idOffer,
-  ) async {
+    int amountOffered, {
+    int? idOffer,
+  }) async {
     final homeworkRequest = await Request.sendRequestWithToken(
-      !edit ? RequestType.post : RequestType.put,
-      !edit ? 'offer/makeOffer/$idHomework' : 'offer/editOffer/$idOffer',
+      idOffer == null ? RequestType.post : RequestType.put,
+      idOffer == null
+          ? 'offer/makeOffer/$idHomework'
+          : 'offer/editOffer/$idOffer',
       body: {
-        'priceOffer': priceOffer,
+        'priceOffer': amountOffered,
       },
     );
 

@@ -4,6 +4,7 @@ class HomeworksProvider with ChangeNotifier {
   OffersServices offersServices = OffersServices();
 
   HomeworksState state = HomeworksState.initial();
+  PendingsHomeworkState pendingsHomeworkState = PendingsHomeworkState.initial();
 
   getHomeworks() async {
     state = state.copyWith(isLoadingHomeworks: true);
@@ -43,10 +44,13 @@ class HomeworksProvider with ChangeNotifier {
   }
 
   Future<OfferSimpleModel> makeOrEditOffer(
-      bool edit, int idHomework, int offer, int idOffer) async {
-    final makeOrEditOffer =
-        await offersServices.makeOrEditOffer(edit, idHomework, offer, idOffer);
-    await getOneHomework(idHomework);
+    int idHomework,
+    int amountOffered, {
+    int? idOffer,
+  }) async {
+    final makeOrEditOffer = await offersServices
+        .makeOrEditOffer(idHomework, amountOffered, idOffer: idOffer);
+    getOneHomework(idHomework);
     return makeOrEditOffer;
   }
 
@@ -119,6 +123,20 @@ class HomeworksProvider with ChangeNotifier {
     return validateStatus(homeworkRequest!.statusCode);
   }
 
+  Future<void> getUserPendingsHomeworksToResolve() async {
+    pendingsHomeworkState = pendingsHomeworkState.copyWith(isLoading: true);
+    final request = await Request.sendRequestWithToken(
+      RequestType.get,
+      'offer/getUsersHomeworksPending',
+    );
+    final converted = homeworksModelFromJson(request!.body);
+    pendingsHomeworkState = pendingsHomeworkState.copyWith(
+      pendingsHomeworks: converted,
+      isLoading: false,
+    );
+    notifyListeners();
+  }
+
   Future<List<HomeworksModel>> getHomeworksByCategoryAndLevel(
       List<String> category) async {
     /* category/programacion,algebra/level/Universitario */
@@ -173,5 +191,26 @@ class HomeworksState {
         isLoadingHomeworks: isLoadingHomeworks ?? this.isLoadingHomeworks,
         isLoadingSelected: isLoadingSelected ?? this.isLoadingSelected,
         selectedHomework: selectedHomework ?? this.selectedHomework,
+      );
+}
+
+class PendingsHomeworkState {
+  List<HomeworksModel> pendingsHomeworks;
+  bool isLoading;
+  factory PendingsHomeworkState.initial() => PendingsHomeworkState(
+        pendingsHomeworks: [],
+        isLoading: false,
+      );
+  PendingsHomeworkState({
+    required this.pendingsHomeworks,
+    required this.isLoading,
+  });
+  PendingsHomeworkState copyWith({
+    List<HomeworksModel>? pendingsHomeworks,
+    bool? isLoading,
+  }) =>
+      PendingsHomeworkState(
+        pendingsHomeworks: pendingsHomeworks ?? this.pendingsHomeworks,
+        isLoading: isLoading ?? this.isLoading,
       );
 }

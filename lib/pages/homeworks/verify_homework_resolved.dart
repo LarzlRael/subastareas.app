@@ -30,24 +30,27 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
   }
 
   void acceptHomework() {
-    setState(() {
-      loading = true;
-    });
-    tradeServices
-        .acceptOrDeclineTrade(widget.tradeUserModel.offerId, true)
-        .then((value) {
+    showAlertDialog(
+        context, 'Se procedera a aceptar esta tarea, ¿Estas seguro?', () {
       setState(() {
-        loading = false;
+        loading = true;
       });
-      if (value) {
-        GlobalSnackBar.show(context, "Tarea aceptada y confirmada",
-            backgroundColor: Colors.green);
-        context.pop();
-        /* Use bloc for this */
-      } else {
-        GlobalSnackBar.show(context, "Hubo un error",
-            backgroundColor: Colors.red);
-      }
+      tradeServices
+          .acceptOrDeclineTrade(widget.tradeUserModel.offerId, true)
+          .then((value) {
+        setState(() {
+          loading = false;
+        });
+        if (value) {
+          GlobalSnackBar.show(context, "Tarea aceptada y confirmada",
+              backgroundColor: Colors.green);
+          context.pop();
+          /* Use bloc for this */
+        } else {
+          GlobalSnackBar.show(context, "Hubo un error",
+              backgroundColor: Colors.red);
+        }
+      });
     });
   }
 
@@ -56,38 +59,44 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
     if (!validationSuccess) {
       return;
     }
-
-    setState(() {
-      loading = true;
-    });
-
-    tradeServices
-        .acceptOrDeclineTrade(widget.tradeUserModel.offerId, false,
-            reasonRejected:
-                formKey.currentState!.fields['commentTaskRejected']!.value)
-        .then((value) {
-      if (value) {
+    showAlertDialog(
+      context,
+      '¿Estás seguro de rechazar esta tarea?',
+      () {
         setState(() {
           loading = true;
         });
-        GlobalSnackBar.show(
-          context,
-          'Tarea rechazada',
-          backgroundColor: Colors.red,
-        );
-        context.push(
-          '/my_homeworks_page',
-          extra: 1,
-        );
-        return;
-      }
+        tradeServices
+            .acceptOrDeclineTrade(widget.tradeUserModel.offerId, false,
+                reasonRejected:
+                    formKey.currentState!.fields['commentTaskRejected']!.value)
+            .then((value) {
+          if (value) {
+            setState(() {
+              loading = true;
+            });
+            GlobalSnackBar.show(
+              context,
+              'Tarea rechazada',
+              backgroundColor: Colors.red,
+            );
+            context.push(
+              '/my_homeworks_page',
+              extra: 1,
+            );
+            return;
+          }
 
-      GlobalSnackBar.show(
-        context,
-        'Hubo un error',
-        backgroundColor: Colors.red,
-      );
-    });
+          GlobalSnackBar.show(
+            context,
+            'Hubo un error',
+            backgroundColor: Colors.red,
+          );
+        });
+      },
+      content: const Text(
+          "No olvides enviar un mensaje al usuario para que corrija la tarea"),
+    );
   }
 
   @override
@@ -286,7 +295,13 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                     : Container(),
                 tradeUserModel.status != 'accepted'
                     ? const Text(
-                        "En caso de que la tarea no sea aceptada, enviale un mensaje al usuario para que la corrija*")
+                        "En caso de que la tarea no sea aceptada, enviale un mensaje al usuario para que la corrija*",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      )
                     : const SizedBox()
               ],
             ),

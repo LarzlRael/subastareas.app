@@ -326,6 +326,8 @@ class _AcceptOfferButtonState extends State<AcceptOfferButton> {
                               backgroundColor: Colors.green,
                               /* icon: Icons.check, */
                             );
+                            /* TODO PUSH to the route */
+                            /* context.push('') */
                           });
                         }
                       : null,
@@ -410,9 +412,11 @@ class _ButtonOffer extends StatelessWidget {
                           );
                         },
                         child: const SimpleText(
-                          fontSize: 15,
+                          fontSize: 12,
                           text: "Hacer una oferta",
                           fontWeight: FontWeight.w400,
+                          lightThemeColor: Colors.white,
+                          setUniqueColor: true,
                           /* lightThemeColor: Colors.white, */
                         ),
                       ),

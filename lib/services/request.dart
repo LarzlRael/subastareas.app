@@ -93,7 +93,7 @@ class Request {
     );
     uploadPostRequest.headers.addAll(headers);
     uploadPostRequest.files.add(uploadFile);
-    uploadPostRequest.fields.addAll(body!);
+    if (body != null) uploadPostRequest.fields.addAll(body);
     final streamResponse = await uploadPostRequest.send();
     res = await http.Response.fromStream(streamResponse);
 
