@@ -286,12 +286,6 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                         ],
                       ),
                     ),
-                    /* _formKey.currentState!.save();
-                        await supervisorServices.superviseHomework(
-                          _formKey.currentState!.value['observation'],
-                          'rejected',
-                          oneHomeworkModel.homework.id,
-                        ); */
                     Row(
                       children: [
                         Expanded(
@@ -300,13 +294,15 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                             label: "Rechazar",
                             ghostButton: true,
                             onPressed: () {
+                              final valid = formKey.currentState!.validate();
+                              if (!valid) return;
                               formKey.currentState!.save();
 
                               supervisorServices
                                   .superviseHomework(
+                                oneHomeworkModel.homework.id,
                                 formKey.currentState!.value['observation'],
                                 'rejected',
-                                oneHomeworkModel.homework.id,
                               )
                                   .then((value) {
                                 if (value) {
@@ -328,16 +324,17 @@ class _HomeworkdDetailPageState extends State<HomeworkdDetailPage> {
                             borderRadius: 5,
                             label: "Aceptar",
                             onPressed: () async {
+                              final valid = formKey.currentState!.validate();
+                              if (!valid) return;
                               formKey.currentState!.save();
                               setState(() {
                                 loading = true;
                               });
-
                               supervisorServices
                                   .superviseHomework(
+                                oneHomeworkModel.homework.id,
                                 formKey.currentState!.value['observation'],
                                 'accepted_to_offer',
-                                oneHomeworkModel.homework.id,
                               )
                                   .then((value) {
                                 setState(() {

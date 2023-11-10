@@ -244,13 +244,6 @@ class _VerifyHomeworkResolvedState extends State<VerifyHomeworkResolved> {
                                 ),
                               ),
                               const SizedBox(width: 16),
-                              /* Expanded(
-                                child: FillButton(
-                                  borderRadius: 5,
-                                  label: "Aceptar",
-                                  onPressed: acceptHomework,
-                                ),
-                              ) */
                               IconButton(
                                 onPressed: acceptHomework,
                                 icon: const Icon(

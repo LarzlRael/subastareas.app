@@ -66,7 +66,7 @@ class CommentProvider with ChangeNotifier {
               : existingComment)
           .toList(),
     );
-
+    notifyListeners();
     return commentConvert;
   }
 

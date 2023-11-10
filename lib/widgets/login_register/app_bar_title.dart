@@ -36,16 +36,19 @@ class AppBarTitle extends StatelessWidget implements PreferredSizeWidget {
     this.fontSize = 25,
     this.title = 'Subastareas',
     this.actions,
+    this.leading,
   }) : super(key: key);
   final double fontSize;
   final String title;
   final AppBar appBar;
   final List<Widget>? actions;
+  final Widget? leading;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
       actions: actions,
+      leading: leading,
       elevation: 5,
       automaticallyImplyLeading: false,
       title: OnlyImageAndTitle(title: title, fontSize: fontSize),

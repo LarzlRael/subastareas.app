@@ -11,7 +11,7 @@ class SuperviseServices {
   }
 
   Future<bool> superviseHomework(
-      String observation, String status, int idHomework) async {
+      int idHomework, String observation, String status) async {
     final homeworkRequest = await Request.sendRequestWithToken(
       RequestType.post,
       'supervisor/superviseHomework/',

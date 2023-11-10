@@ -10,11 +10,12 @@ class ListOpenHomeworksPage extends StatefulWidget {
 class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
   late int defaultChoiceIndex;
   late HomeworksProvider homeworksProvider;
+  late AuthProvider authProvider;
   @override
   void initState() {
     super.initState();
-    homeworksProvider = context.read<HomeworksProvider>();
-    homeworksProvider.getHomeworks();
+    homeworksProvider = context.read<HomeworksProvider>()..getHomeworks();
+    authProvider = context.read<AuthProvider>();
     defaultChoiceIndex = 0;
   }
 
@@ -25,7 +26,6 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
 
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context, listen: true);
     final filter = Provider.of<FilterProvider>(context, listen: true);
 
     homeworksProvider.getHomeworksByCategory(
@@ -35,6 +35,13 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
     return Scaffold(
       appBar: AppBarTitle(
         appBar: AppBar(),
+        leading: !authProvider.isLogged
+            ? null
+            : ShowProfileImage(
+                profileImage: authProvider.user.profileImageUrl,
+                userName: authProvider.user.username,
+                radius: 10,
+              ),
       ),
       body: Consumer<HomeworksProvider>(
         builder: (_, oneHomeworkProviderC, child) {
@@ -118,10 +125,12 @@ class _ListOpenHomeworksPageState extends State<ListOpenHomeworksPage> {
                               itemBuilder: (_, int index) {
                                 final homework = homeworksConsumer[index];
                                 return HomeworkCard(
-                                  isLogged:
-                                      auth.isLogged ? auth.isLogged : false,
+                                  isLogged: authProvider.isLogged
+                                      ? authProvider.isLogged
+                                      : false,
                                   homework: homework,
-                                  isOwner: homework.user.id == auth.user.id,
+                                  isOwner:
+                                      homework.user.id == authProvider.user.id,
                                   onSelected: (HomeworksModel homework) {
                                     context.push(
                                       '/homework_detail/${homework.id}',
